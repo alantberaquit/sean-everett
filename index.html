@@ -5,128 +5,250 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade 5 Mastery Test</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            padding: 10px; /* Add padding for smaller screens */
-            font-size: 16px; /* Base font size */
+            padding: 10px;
+            font-size: 16px;
         }
-        .correct {
-            background-color: lightgreen;
-        }
-        .incorrect {
-            background-color: lightcoral;
-        }
-        .question-number {
+        .feedback {
+            margin-top: 20px;
             font-weight: bold;
-            font-size: 18px; /* Larger font size for question numbers */
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
         }
-        label {
+        .correct-answer {
+            background-color: #28a745; /* Bootstrap green */
+        }
+        .incorrect-answer {
+            background-color: #dc3545; /* Bootstrap red */
+        }
+        .btn-block {
             display: block;
-            margin: 8px 0; /* Increase space between options for better tapping on mobile */
-            font-size: 16px; /* Larger font size for readability */
+            width: 100%;
+            margin-top: 10px;
+            font-size: 18px; /* Larger font size for better readability */
+            padding: 10px; /* Larger padding for easier interaction */
         }
-        input[type="radio"] {
-            margin-right: 10px; /* Space out radio button from text */
-        }
-        #submitBtn {
-            width: 100%; /* Full-width button on mobile */
-            margin-top: 20px; /* Add more space above the submit button */
-        }
-        @media (min-width: 768px) {
-            body {
-                padding: 20px 40px; /* Increase padding for larger screens */
-                font-size: 18px; /* Adjust font size for desktop */
-            }
-            .question-number {
-                font-size: 20px; /* Larger font size for question numbers on desktop */
-            }
+        #nextBtn, #checkAnswerBtn {
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
 <body class="container">
     <h1 class="text-center">Grade 5 Mastery Test</h1>
-    <form id="quizForm">
-        <div id="questions" class="mt-4"></div>
-        <button type="button" id="submitBtn" class="btn btn-primary btn-lg btn-block" onclick="submitQuiz();">
-            <i class="bi bi-check-circle-fill"></i> Submit
-        </button>
-        <h3 class="mt-4" id="scoreDisplay"></h3>
-    </form>
+    <div id="questionContainer" class="mt-4"></div>
+    <p id="feedback" class="feedback"></p>
+    <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()">
+        <i class="bi bi-check-circle"></i> Check Answer
+    </button>
+    <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()">
+        <i class="bi bi-arrow-right-circle"></i> Next Question
+    </button>
+    <h3 class="mt-4" id="scoreDisplay"></h3>
     <script>
-        function submitQuiz() {
-            if (!confirm("Are you sure about your answers?")) return;
+        document.addEventListener('DOMContentLoaded', function() {
+const questions = [
+    { 
+        question: "What is a stereotype?", 
+        choices: ["A general belief about a group of people that may not always be true", "A personal opinion about a single person", "A scientific fact that applies to everyone", "A law that all people must follow"], 
+        correct: "A general belief about a group of people that may not always be true", 
+        explanation: "Stereotypes are oversimplified generalizations about groups of people." 
+    },
+    { 
+        question: "Which of the following is an example of stereotyping?", 
+        choices: ["Believing that all girls like the color pink", "Asking a person about their favorite food", "Studying different cultures to learn more about them", "Treating all people with kindness"], 
+        correct: "Believing that all girls like the color pink", 
+        explanation: "This is a stereotype because it assigns a trait to all members of a group regardless of individual differences." 
+    },
+    { 
+        question: "Why are stereotypes sometimes unfair?", 
+        choices: ["Because they are always true for all people", "Because they judge individuals without knowing them", "Because they help people understand each other better", "Because they make learning easier"], 
+        correct: "Because they judge individuals without knowing them", 
+        explanation: "Stereotypes can lead to unfair judgments about individuals based on group characteristics." 
+    },
+    { 
+        question: "Which of the following is NOT a stereotype?", 
+        choices: ["All musicians are creative", "Some athletes are tall", "All teenagers are rebellious", "All doctors are intelligent"], 
+        correct: "Some athletes are tall", 
+        explanation: "This statement acknowledges variation rather than assuming a universal trait." 
+    },
+    { 
+        question: "How do stereotypes affect people?", 
+        choices: ["They encourage people to think critically", "They create unfair assumptions", "They always improve relationships", "They help everyone succeed"], 
+        correct: "They create unfair assumptions", 
+        explanation: "Stereotypes can lead to misunderstandings and unfair treatment." 
+    },
+    { 
+        question: "Which of the following is a type of stereotyping?", 
+        choices: ["Cultural", "Gender", "Age", "All of the above"], 
+        correct: "All of the above", 
+        explanation: "Stereotyping can occur in various forms, including cultural, gender, and age-based assumptions." 
+    },
+    { 
+        question: "What is gender stereotyping?", 
+        choices: ["A belief that all people are equal", "A generalization about behaviors based on gender", "A law that treats genders fairly", "A scientific fact"], 
+        correct: "A generalization about behaviors based on gender", 
+        explanation: "Gender stereotypes assign roles and characteristics based on gender rather than individual traits." 
+    },
+    { 
+        question: "Which of the following is an example of gender stereotyping?", 
+        choices: ["Assuming all men enjoy sports", "Asking a woman about her career goals", "Encouraging both boys and girls to play sports", "Supporting equal pay for all genders"], 
+        correct: "Assuming all men enjoy sports", 
+        explanation: "This stereotype assumes all men have the same interests regardless of individual preferences." 
+    },
+    { 
+        question: "What is cultural stereotyping?", 
+        choices: ["A belief that people from a certain culture all behave the same way", "A law about respecting different cultures", "A scientific study on different cultures", "A method of promoting cultural awareness"], 
+        correct: "A belief that people from a certain culture all behave the same way", 
+        explanation: "Cultural stereotyping assumes all individuals within a culture share the same traits." 
+    },
+    { 
+        question: "Which of the following is an example of cultural stereotyping?", 
+        choices: ["Assuming all French people love wine", "Learning a new language", "Traveling to different countries", "Respecting cultural traditions"], 
+        correct: "Assuming all French people love wine", 
+        explanation: "This stereotype applies a generalization to an entire culture, ignoring individual differences." 
+    },
+    { 
+        question: "What is age stereotyping?", 
+        choices: ["Assuming people have different abilities based on age", "Respecting people of all ages", "Promoting opportunities for all ages", "Encouraging young and old people to work together"], 
+        correct: "Assuming people have different abilities based on age", 
+        explanation: "Age stereotyping involves making assumptions about people based on their age group." 
+    },
+    { 
+        question: "Which statement is an example of age stereotyping?", 
+        choices: ["Teenagers are always irresponsible", "Seniors should be respected", "Young people can be great leaders", "All generations have unique strengths"], 
+        correct: "Teenagers are always irresponsible", 
+        explanation: "This stereotype unfairly assumes that all teenagers behave the same way." 
+    },
+    { 
+        question: "What is occupational stereotyping?", 
+        choices: ["The belief that all people in a profession have the same skills and traits", "A fair hiring process", "Encouraging diversity in the workplace", "Recognizing individual talents in a profession"], 
+        correct: "The belief that all people in a profession have the same skills and traits", 
+        explanation: "This stereotype assumes that all professionals in a field are the same, disregarding individual differences." 
+    },
+    { 
+        question: "Which statement is NOT an example of occupational stereotyping?", 
+        choices: ["All nurses are women", "All artists are creative", "Some engineers are great public speakers", "All teachers are patient"], 
+        correct: "Some engineers are great public speakers", 
+        explanation: "This statement acknowledges individual differences instead of generalizing." 
+    },
+    { 
+        question: "How can we avoid stereotyping?", 
+        choices: ["By getting to know individuals personally", "By making assumptions about people", "By ignoring cultural differences", "By believing in all stereotypes"], 
+        correct: "By getting to know individuals personally", 
+        explanation: "Understanding individuals helps prevent unfair generalizations." 
+    },
+    { 
+        question: "What is one negative impact of stereotyping?", 
+        choices: ["It promotes equality", "It can lead to discrimination", "It encourages diversity", "It helps people understand each other better"], 
+        correct: "It can lead to discrimination", 
+        explanation: "Stereotypes can cause unfair treatment and bias." 
+    },
+    { 
+        question: "How can stereotypes affect self-esteem?", 
+        choices: ["They always make people feel confident", "They can make people feel inadequate", "They encourage individuality", "They promote fairness"], 
+        correct: "They can make people feel inadequate", 
+        explanation: "Negative stereotypes can lead to self-doubt and low confidence." 
+    },
+    { 
+        question: "What is a positive effect of stereotyping?", 
+        choices: ["It helps people think critically", "It can be used in humor appropriately", "It always strengthens relationships", "It has no positive effects"], 
+        correct: "It can be used in humor appropriately", 
+        explanation: "While stereotypes should be challenged, they can sometimes be used humorously in non-harmful ways." 
+    },
+    { 
+        question: "Which of the following is a negative result of stereotyping?", 
+        choices: ["Encourages understanding", "Creates biases", "Promotes diversity", "Supports individuality"], 
+        correct: "Creates biases", 
+        explanation: "Stereotyping leads to unfair prejudices and misconceptions." 
+    },
+    { 
+        question: "How does stereotyping affect relationships?", 
+        choices: ["Strengthens friendships", "Creates misunderstandings", "Encourages trust", "Promotes equality"], 
+        correct: "Creates misunderstandings", 
+        explanation: "Stereotypes can cause people to misjudge each other, leading to conflicts." 
+    }
+];
 
-            let score = 0;
-            const answers = {
-                q1: "A", q2: "A", q3: "B", q4: "C", q5: "C",
-                q6: "C", q7: "B", q8: "A", q9: "B", q10: "A",
-                q11: "A", q12: "A", q13: "B", q14: "B", q15: "B",
-                q16: "B", q17: "B", q18: "B", q19: "B", q20: "B",
-                q21: "B", q22: "C", q23: "A", q24: "A", q25: "A",
-                q26: "B", q27: "A", q28: "A", q29: "A", q30: "A"
-            };
 
-            for (let i = 1; i <= 30; i++) {
-                const selected = document.querySelector(`input[name='q${i}']:checked`);
-                if (selected) {
-                    const allChoices = document.querySelectorAll(`input[name='q${i}']`);
-                    allChoices.forEach(choice => {
-                        if (choice.value === answers[`q${i}`]) {
-                            choice.parentNode.style.backgroundColor = "lightgreen";
-                        } else if (choice.checked) {
-                            choice.parentNode.style.backgroundColor = "lightcoral";
-                        } else {
-                            choice.parentNode.style.backgroundColor = "";
-                        }
-                    });
-                    if (selected.value === answers[`q${i}`]) {
-                        score++;
-                    }
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
                 }
             }
 
-            document.getElementById("scoreDisplay").innerText = `Your score: ${score} out of 30.`;
-            document.getElementById("submitBtn").disabled = true;
-        }
+            shuffle(questions);
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const questions = [
-                "What is a stereotype?", "Which of the following is an example of stereotyping?",
-                "Why are stereotypes sometimes unfair?", "Which of the following is NOT a stereotype?",
-                "How do stereotypes affect people?", "Which of the following is a type of stereotyping?",
-                "What is gender stereotyping?", "Which of the following is an example of gender stereotyping?",
-                "What is cultural stereotyping?", "Which of the following is an example of cultural stereotyping?",
-                "What is age stereotyping?", "Which statement is an example of age stereotyping?",
-                "What is occupational stereotyping?", "Which statement is NOT an example of occupational stereotyping?",
-                "How can we avoid stereotyping?", "What is one negative impact of stereotyping?",
-                "How can stereotypes affect self-esteem?", "What is a positive effect of stereotyping?",
-                "Which of the following is a negative result of stereotyping?", "How does stereotyping affect relationships?",
-                "What can happen if people believe in stereotypes?", "How can stereotyping be harmful in school?",
-                "What is one way to stop stereotyping?", "Why is it important to stop negative stereotyping?",
-                "How can teachers help stop stereotyping in class?", "How can children help stop stereotyping?",
-                "What is one benefit of stopping stereotyping?", "How can stereotyping affect career choices?",
-                "Why should we avoid making stereotypes about others?", "How can we promote fairness and respect in our community?"
-            ];
-            const choices = [
-                ["A. A general belief about a group of people that may not always be true", "B. A personal opinion about a single person", "C. A scientific fact that applies to everyone", "D. A law that all people must follow"],
-                ["A. Believing that all girls like the color pink", "B. Asking a person about their favorite food", "C. Studying different cultures to learn more about them", "D. Treating all people with kindness"],
-                ["A. Because they are always true for all people", "B. Because they judge individuals without knowing them", "C. Because they help people understand each other better", "D. Because they make learning easier"],
-                ["A. All boys like playing basketball", "B. Girls are better at cooking than boys", "C. Everyone has different talents and interests", "D. People from the same country act the same way"]
-            ];
+            let currentQuestionIndex = 0;
+            let score = 0;
 
-            let html = "";
-            for (let i = 0; i < 30; i++) {
-                html += `<div id='question${i + 1}' class='mb-3 p-2'><span class='question-number'>${i + 1}. </span>${questions[i]}<br>`;
-                choices[i % choices.length].forEach((choice, index) => {
-                    let letter = String.fromCharCode(65 + index);
-                    html += `<label class='d-block p-1'><input type='radio' name='q${i + 1}' value='${letter}'> ${choice}</label>`;
-                });
-                html += `</div>`;
+            function displayQuestion() {
+                const question = questions[currentQuestionIndex];
+                const questionHtml = `
+                    <div>
+                        <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr></h4>
+                        ${question.choices.map(choice => `
+                            <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('questionContainer').innerHTML = questionHtml;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
             }
-            document.getElementById('questions').innerHTML = html;
+
+            window.selectAnswer = function(choice, element) {
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                element.classList.add('active');
+                selectedAnswer = choice;
+                document.getElementById('checkAnswerBtn').style.display = 'block';
+            }
+
+            window.checkAnswer = function() {
+                const question = questions[currentQuestionIndex];
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === question.correct) {
+                        button.classList.add('correct-answer');
+                    } else {
+                        button.classList.add('incorrect-answer');
+                    }
+                });
+                if (selectedAnswer === question.correct) {
+                    document.getElementById('feedback').className = 'feedback correct-answer';
+                    document.getElementById('feedback').innerHTML = `Correct! <br><small>${question.explanation}</small>`;
+                    score++;
+                } else {
+                    document.getElementById('feedback').className = 'feedback incorrect-answer';
+                    document.getElementById('feedback').innerHTML = `Incorrect! <br><small>${question.explanation}</small>`;
+                }
+                document.getElementById('feedback').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+
+            window.nextQuestion = function() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    document.getElementById('questionContainer').innerHTML = `<h4>Quiz completed!</h4>`;
+                    document.getElementById('scoreDisplay').textContent = `Final score: ${score} out of ${questions.length}`;
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('feedback').style.display = 'none';
+                }
+            }
+
+            displayQuestion();
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
