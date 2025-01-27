@@ -9,6 +9,7 @@
     <style>
         body {
             padding: 10px; /* Add padding for smaller screens */
+            font-size: 16px; /* Base font size */
         }
         .correct {
             background-color: lightgreen;
@@ -18,10 +19,12 @@
         }
         .question-number {
             font-weight: bold;
+            font-size: 18px; /* Larger font size for question numbers */
         }
         label {
             display: block;
-            margin: 5px 0; /* Increase space between options for better tapping on mobile */
+            margin: 8px 0; /* Increase space between options for better tapping on mobile */
+            font-size: 16px; /* Larger font size for readability */
         }
         input[type="radio"] {
             margin-right: 10px; /* Space out radio button from text */
@@ -33,6 +36,10 @@
         @media (min-width: 768px) {
             body {
                 padding: 20px 40px; /* Increase padding for larger screens */
+                font-size: 18px; /* Adjust font size for desktop */
+            }
+            .question-number {
+                font-size: 20px; /* Larger font size for question numbers on desktop */
             }
         }
     </style>
