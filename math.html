@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Math Mastery Test - Ratios and Proportions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .correct-answer {
+            background-color: #28a745; /* Bootstrap green */
+        }
+        .incorrect-answer {
+            background-color: #dc3545; /* Bootstrap red */
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 18px; /* Larger font size for better readability */
+            padding: 10px; /* Larger padding for easier interaction */
+        }
+        #nextBtn, #checkAnswerBtn {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="container">
+    <h1 class="text-center">Advanced Math Mastery Test - Ratios and Proportions</h1>
+    <div id="questionContainer" class="mt-4"></div>
+    <p id="feedback" class="feedback"></p>
+    <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()">
+        <i class="bi bi-check-circle"></i> Check Answer
+    </button>
+    <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()">
+        <i class="bi bi-arrow-right-circle"></i> Next Question
+    </button>
+    <h3 class="mt-4" id="scoreDisplay"></h3>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+                { question: "If the ratio of red to blue marbles is 3:4 and there are 45 blue marbles, how many red marbles are there?", choices: ["33.75", "34", "35", "36"], correct: "33.75", explanation: "Using the ratio 3:4, calculate 3/4 of 45 = 33.75." },
+                { question: "What is the simplified form of the ratio 15:45?", choices: ["1:3", "1:2", "3:1", "2:1"], correct: "1:3", explanation: "Simplify 15:45 by dividing both terms by 15, resulting in 1:3." },
+                { question: "A map scale is 1:100000. How many kilometers on the ground is represented by 3 cm on the map?", choices: ["3 km", "0.03 km", "30 km", "300 km"], correct: "3 km", explanation: "1 cm represents 1 km, so 3 cm represents 3 km." },
+                { question: "What is the ratio of 30 minutes to 1.5 hours?", choices: ["1:3", "1:2", "2:1", "3:1"], correct: "1:3", explanation: "Convert 1.5 hours to 90 minutes, so the ratio of 30 to 90 is 1:3." },
+                { question: "In a classroom, the ratio of boys to girls is 5:6. If there are 66 students in total, how many are boys?", choices: ["30", "36", "33", "35"], correct: "30", explanation: "The total parts ratio is 11 (5+6). Each part represents 6 students (66/11), so boys are 5 parts = 5*6 = 30." },
+                { question: "Solve the proportion: 8/x = 4/10", choices: ["0.5", "5", "20", "2"], correct: "20", explanation: "Cross-multiply to solve for x, 4x = 80, then divide by 4 to get x = 20." },
+                { question: "If 5 kg of flour cost $15, what is the cost of 1 kg of flour?", choices: ["$3", "$2.50", "$3.50", "$2"], correct: "$3", explanation: "Divide $15 by 5 kg to find the unit price per kg, which is $3." },
+                { question: "A recipe calls for a ratio of sugar to flour of 1:4. How much sugar is needed if you use 20g of flour?", choices: ["4g", "5g", "8g", "25g"], correct: "5g", explanation: "Using the ratio 1:4, calculate 1/4 of 20g = 5g sugar." },
+                { question: "What is the unit rate if you buy 12 apples for $6?", choices: ["$0.50 per apple", "$1 per apple", "$1.50 per apple", "$2 per apple"], correct: "$0.50 per apple", explanation: "Divide $6 by 12 apples to get $0.50 per apple." },
+                { question: "Two variables x and y are directly proportional. If x = 4 when y = 16, find y when x = 10.", choices: ["40", "32", "25", "20"], correct: "40", explanation: "Since x and y are directly proportional, y = 4x, so y = 4*10 = 40." },
+                { question: "The sides of two similar triangles are in the ratio 2:3. If the smaller triangle has a side of 8 cm, what is the corresponding side of the larger triangle?", choices: ["12 cm", "14 cm", "16 cm", "18 cm"], correct: "12 cm", explanation: "Using the ratio 2:3, calculate 3/2 of 8 cm = 12 cm." },
+                { question: "A car travels 300 km in 5 hours. What is its average speed in km/h?", choices: ["60 km/h", "55 km/h", "65 km/h", "70 km/h"], correct: "60 km/h", explanation: "Divide the total distance by the total time, 300 km / 5 h = 60 km/h." },
+                { question: "If 7 kg of potatoes cost $14, how much would 10 kg cost?", choices: ["$18", "$20", "$21", "$22"], correct: "$20", explanation: "The cost per kg is $14/7 = $2, so 10 kg costs 10*2 = $20." },
+                { question: "What is 3/4 of 120?", choices: ["90", "80", "100", "110"], correct: "90", explanation: "Calculate 3/4*120 = 90." },
+                { question: "The ratio of widths of two rectangles is 4:5. If one rectangle is 20 cm wide, how wide is the other rectangle?", choices: ["16 cm", "24 cm", "25 cm", "30 cm"], correct: "25 cm", explanation: "Using the ratio 4:5, if one side is 20, the other is 5/4*20 = 25 cm." },
+                { question: "If 18 workers can complete a job in 24 days, how many days would 12 workers take to complete the same job?", choices: ["32 days", "36 days", "38 days", "40 days"], correct: "36 days", explanation: "Since the number of workers and days are inversely proportional, 18*24 = 12*x, solving for x gives 36 days." },
+                { question: "Convert the ratio 18:54 to its simplest form.", choices: ["1:2", "1:3", "2:3", "3:4"], correct: "1:3", explanation: "Divide both numbers by 18 to simplify the ratio to 1:3." },
+                { question: "Find the value of x in the proportion 6:9 = 10:x", choices: ["13.5", "14.5", "15", "15.5"], correct: "15", explanation: "Cross-multiply to find x, 6x = 90, so x = 90/6 = 15." },
+                { question: "What percentage of 200 is 50?", choices: ["25%", "20%", "15%", "30%"], correct: "25%", explanation: "Divide 50 by 200 and multiply by 100 to get the percentage, 50/200*100 = 25%." },
+                { question: "A store reduces all prices by 25%. If an item originally cost $120, what is the new price?", choices: ["$90", "$100", "$110", "$95"], correct: "$90", explanation: "Calculate 25% of $120 and subtract from the original price, 120 - 30 = $90." }
+            ];
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            shuffle(questions);
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            function displayQuestion() {
+                const question = questions[currentQuestionIndex];
+                const questionHtml = `
+                    <div>
+                        <h4>Question ${currentQuestionIndex + 1}: ${question.question}</h4>
+                        ${question.choices.map(choice => `
+                            <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('questionContainer').innerHTML = questionHtml;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+
+            window.selectAnswer = function(choice, element) {
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                element.classList.add('active');
+                selectedAnswer = choice;
+                document.getElementById('checkAnswerBtn').style.display = 'block';
+            }
+
+            window.checkAnswer = function() {
+                const question = questions[currentQuestionIndex];
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === question.correct) {
+                        button.classList.add('correct-answer');
+                    } else {
+                        button.classList.add('incorrect-answer');
+                    }
+                });
+                if (selectedAnswer === question.correct) {
+                    document.getElementById('feedback').className = 'feedback correct-answer';
+                    document.getElementById('feedback').innerHTML = `Correct! <br><small>${question.explanation}</small>`;
+                    score++;
+                } else {
+                    document.getElementById('feedback').className = 'feedback incorrect-answer';
+                    document.getElementById('feedback').innerHTML = `Incorrect! <br><small>${question.explanation}</small>`;
+                }
+                document.getElementById('feedback').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+
+            window.nextQuestion = function() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    document.getElementById('questionContainer').innerHTML = `<h4>Quiz completed!</h4>`;
+                    document.getElementById('scoreDisplay').textContent = `Final score: ${score} out of ${questions.length}`;
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('feedback').style.display = 'none';
+                }
+            }
+
+            displayQuestion();
+        });
+    </script>
+</body>
+</html>
