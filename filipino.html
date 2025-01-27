@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 5 Mastery Test - Filipino: Uri ng Pang-abay</title>
+    <!-- Bootstrap Flatly Theme from Bootswatch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
+    <!-- Google Fonts: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 100px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            padding-top: 30px;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .correct-answer {
+            background-color: #28a745;
+        }
+        .incorrect-answer {
+            background-color: #dc3545;
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+        }
+        #nextBtn, #checkAnswerBtn {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-door-fill"></i> Home
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="english.html">English Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="filipino.html">Filipino Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="math.html">Math Test</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">Filipino: Uri ng Pang-abay at Kwento ng Magpinsang Daga</h1>
+        <div id="questionContainer" class="mt-4"></div>
+        <p id="feedback" class="feedback"></p>
+        <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()">
+            <i class="bi bi-check-circle"></i> Suriin ang Sagot
+        </button>
+        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()">
+            <i class="bi bi-arrow-right-circle"></i> Susunod na Tanong
+        </button>
+        <h3 class="mt-4" id="scoreDisplay"></h3>
+    </div>
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+                // Insert the specific questions here, focusing on "Uri ng Pang-abay" and the story.
+                // Example of a few questions
+                { 
+                    question: "Anong uri ng pang-abay ang ginamit sa pangungusap na, 'Maingat siyang sumagot sa tanong.'?", 
+                    choices: ["Pamaraan", "Panlunan", "Pamanahon", "Panang-ayon"], 
+                    correct: "Pamaraan", 
+                    explanation: "Ang pang-abay na 'maingat' ay nagsasaad ng paraan kung paano ginawa ang kilos sa pangungusap, kaya ito ay pang-abay na pamaraan." 
+                },
+                { 
+                    question: "Sa kwentong 'Ang Magkaibang Buhay ng Magpinsang Daga', bakit nagalit ang lungsod na daga sa bukid na daga?", 
+                    choices: ["Dahil sa pagkaing kinain", "Dahil sa nasira ang bahay", "Dahil sa ingay sa bukid", "Dahil sa pag-uugali ng bukid na daga"], 
+                    correct: "Dahil sa nasira ang bahay", 
+                    explanation: "Nagalit ang lungsod na daga dahil nasira ang kanyang bahay nang bisitahin siya ng bukid na daga." 
+                },
+                // Add more questions as needed
+                { 
+        question: "Anong uri ng pang-abay ang ginamit sa pangungusap na, 'Maingat siyang sumagot sa tanong.'?", 
+        choices: ["Pamaraan", "Panlunan", "Pamanahon", "Panang-ayon"], 
+        correct: "Pamaraan", 
+        explanation: "Ang pang-abay na 'maingat' ay nagsasaad ng paraan kung paano ginawa ang kilos sa pangungusap, kaya ito ay pang-abay na pamaraan." 
+    },
+    { 
+        question: "Sa kwentong 'Ang Magkaibang Buhay ng Magpinsang Daga', bakit nagalit ang lungsod na daga sa bukid na daga?", 
+        choices: ["Dahil sa pagkaing kinain", "Dahil sa nasira ang bahay", "Dahil sa ingay sa bukid", "Dahil sa pag-uugali ng bukid na daga"], 
+        correct: "Dahil sa nasira ang bahay", 
+        explanation: "Nagalit ang lungsod na daga dahil nasira ang kanyang bahay nang bisitahin siya ng bukid na daga." 
+    },
+    // New questions
+    { 
+        question: "Ano ang pang-abay na Pamanahon?", 
+        choices: ["Tumutukoy sa dami", "Nagsasaad ng lugar", "Nagsasaad ng panahon", "Nagsasaad ng katangian"], 
+        correct: "Nagsasaad ng panahon", 
+        explanation: "Ang pang-abay na Pamanahon ay nagsasaad ng panahon kung kailan ginawa o gagawin ang kilos ng pandiwa." 
+    },
+    { 
+        question: "Alin ang halimbawa ng pang-abay na Panlunan?", 
+        choices: ["Buong ingat", "Sa paaralan", "Tuwing umaga", "Mabilis"], 
+        correct: "Sa paaralan", 
+        explanation: "Ang 'sa paaralan' ay pang-abay na Panlunan dahil nagsasaad ito ng lugar kung saan naganap o magaganap ang kilos." 
+    },
+    { 
+        question: "Piliin ang pang-abay na Pananggi sa mga sumusunod:", 
+        choices: ["Siguro", "Hindi", "Marahil", "Oo"], 
+        correct: "Hindi", 
+        explanation: "Ang 'Hindi' ay pang-abay na Pananggi dahil ito ay ginagamit upang ipahayag ang pagtanggi o di-pagsang-ayon." 
+    },
+    { 
+        question: "Anong uri ng pang-abay ang 'marahil'?", 
+        choices: ["Pananggi", "Pang-agam", "Pamanahon", "Panlunan"], 
+        correct: "Pang-agam", 
+        explanation: "Ang 'marahil' ay isang pang-abay na Pang-agam na nagsasaad ng pag-aalinlangan o hindi katiyakan." 
+    },
+    { 
+        question: "Sa kwentong nabanggit, paano inilarawan ang buhay ng daga sa lungsod?", 
+        choices: ["Mapayapa at tahimik", "Magulo at maingay", "Malungkot at mapanganib", "Masaya at komportable"], 
+        correct: "Magulo at maingay", 
+        explanation: "Inilarawan ang buhay ng daga sa lungsod bilang magulo at maingay, taliwas sa payapang buhay sa bukid." 
+    },
+    { 
+        question: "Ano ang layunin ng bukid na daga sa pagbisita sa lungsod?", 
+        choices: ["Maghanap ng pagkain", "Bisitahin ang kanyang pinsan", "Makita ang lungsod", "Tumakas sa panganib"], 
+        correct: "Bisitahin ang kanyang pinsan", 
+        explanation: "Ang layunin ng bukid na daga sa pagbisita sa lungsod ay upang bisitahin ang kanyang pinsan at makita ang buhay doon." 
+    },
+    { 
+        question: "Paano ipinakita sa kwento ang pagkakaiba ng buhay sa lungsod at bukid?", 
+        choices: ["Sa dami ng pagkain", "Sa uri ng tirahan", "Sa ingay at katahimikan", "Lahat ng nabanggit"], 
+        correct: "Lahat ng nabanggit", 
+        explanation: "Ipinakita sa kwento ang pagkakaiba ng buhay sa lungsod at bukid sa pamamagitan ng dami ng pagkain, uri ng tirahan, at antas ng ingay." 
+    },
+    { 
+        question: "Bakit mahalaga ang pagkakaroon ng tamang kaalaman sa mga uri ng pang-abay?", 
+        choices: ["Para makapasa sa pagsusulit", "Para magamit nang wasto sa pangungusap", "Para makaintindi ng mga babasahin", "Lahat ng nabanggit"], 
+        correct: "Lahat ng nabanggit", 
+        explanation: "Mahalaga ang pagkakaroon ng tamang kaalaman sa mga uri ng pang-abay para magamit ito nang wasto sa pangungusap, makapasa sa mga pagsusulit, at makaintindi ng iba't ibang babasahin." 
+    },
+    { 
+        question: "Anong aral ang maaaring matutunan mula sa kwento ng magpinsang daga?",
+        choices: ["Ang kahalagahan ng pagiging handa", "Ang pagpapahalaga sa simpleng pamumuhay", "Ang kahalagahan ng pagtanggap sa pagkakaiba", "Ang lahat ng nabanggit"],
+        correct: "Ang lahat ng nabanggit",
+        explanation: "Mula sa kwento, maaaring matutunan ang aral tungkol sa kahalagahan ng pagiging handa, pagpapahalaga sa simpleng pamumuhay, at ang pagtanggap sa mga pagkakaiba ng bawat isa."
+    },
+    // Continue to fill in additional questions based on the story and topic until reaching 30 questions.
+
+            ];
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            shuffle(questions);
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            function displayQuestion() {
+                const question = questions[currentQuestionIndex];
+                const questionHtml = `
+                    <div>
+                        <h4>Tanong ${currentQuestionIndex + 1}: ${question.question}<hr></h4>
+                        ${question.choices.map(choice => `
+                            <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+                        `).join('')}
+                    </div>
+                `;
+                document.getElementById('questionContainer').innerHTML = questionHtml;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+
+            window.selectAnswer = function(choice, element) {
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                element.classList.add('active');
+                selectedAnswer = choice;
+                document.getElementById('checkAnswerBtn').style.display = 'block';
+            }
+
+            window.checkAnswer = function() {
+                const question = questions[currentQuestionIndex];
+                const buttons = document.querySelectorAll('.choice-btn');
+                buttons.forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === question.correct) {
+                        button.classList.add('correct-answer');
+                    } else {
+                        button.classList.add('incorrect-answer');
+                    }
+                });
+                if (selectedAnswer === question.correct) {
+                    document.getElementById('feedback').className = 'feedback correct-answer';
+                    document.getElementById('feedback').innerHTML = `Tama! <br><small>${question.explanation}</small>`;
+                    score++;
+                } else {
+                    document.getElementById('feedback').className = 'feedback incorrect-answer';
+                    document.getElementById('feedback').innerHTML = `Mali! <br><small>${question.explanation}</small>`;
+                }
+                document.getElementById('feedback').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'block';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+
+            window.nextQuestion = function() {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    document.getElementById('questionContainer').innerHTML = `<h4>Natapos na ang pagsusulit!</h4>`;
+                    document.getElementById('scoreDisplay').textContent = `Panghuling iskor: ${score} sa ${questions.length}`;
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('feedback').style.display = 'none';
+                }
+            }
+
+            displayQuestion();  // Initial call to display the first question
+        });
+    </script>
+</body>
+</html>
