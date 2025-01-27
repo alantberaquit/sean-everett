@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Mastery Test</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Grade 5 Mastery Test - English: Stereotypes</title>
+    <!-- Bootstrap Flatly Theme from Bootswatch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
+    <!-- Google Fonts: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            padding: 10px;
+            padding-top: 100px; /* Adjust padding to ensure content is not hidden behind the navbar */
             font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            padding-top: 30px; /* Added top padding for spacing below the navbar */
         }
         .feedback {
             margin-top: 20px;
@@ -18,17 +26,17 @@
             color: #fff;
         }
         .correct-answer {
-            background-color: #28a745; /* Bootstrap green */
+            background-color: #28a745;
         }
         .incorrect-answer {
-            background-color: #dc3545; /* Bootstrap red */
+            background-color: #dc3545;
         }
         .btn-block {
             display: block;
             width: 100%;
             margin-top: 10px;
-            font-size: 18px; /* Larger font size for better readability */
-            padding: 10px; /* Larger padding for easier interaction */
+            font-size: 18px;
+            padding: 10px;
         }
         #nextBtn, #checkAnswerBtn {
             margin-top: 20px;
@@ -36,17 +44,43 @@
         }
     </style>
 </head>
-<body class="container">
-    <h1 class="text-center">English: Stereotypes</h1>
-    <div id="questionContainer" class="mt-4"></div>
-    <p id="feedback" class="feedback"></p>
-    <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()">
-        <i class="bi bi-check-circle"></i> Check Answer
-    </button>
-    <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()">
-        <i class="bi bi-arrow-right-circle"></i> Next Question
-    </button>
-    <h3 class="mt-4" id="scoreDisplay"></h3>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-door-fill"></i> Home
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="english.html">English Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="math.html">Math Test</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">English: Stereotypes</h1>
+        <div id="questionContainer" class="mt-4"></div>
+        <p id="feedback" class="feedback"></p>
+        <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()">
+            <i class="bi bi-check-circle"></i> Check Answer
+        </button>
+        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()">
+            <i class="bi bi-arrow-right-circle"></i> Next Question
+        </button>
+        <h3 class="mt-4" id="scoreDisplay"></h3>
+    </div>
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 const questions = [
@@ -169,9 +203,68 @@ const questions = [
         choices: ["Strengthens friendships", "Creates misunderstandings", "Encourages trust", "Promotes equality"], 
         correct: "Creates misunderstandings", 
         explanation: "Stereotypes can cause people to misjudge each other, leading to conflicts." 
-    }
+    },
+    {
+    question: "What can schools do to reduce stereotyping?",
+    choices: ["Promote cultural diversity programs", "Ignore cultural differences", "Encourage uniformity", "Avoid discussing stereotypes"],
+    correct: "Promote cultural diversity programs",
+    explanation: "Encouraging awareness and understanding through diversity programs helps reduce stereotypes."
+},
+{
+    question: "How can media influence stereotypes?",
+    choices: ["By promoting diverse and realistic portrayals", "By avoiding the topic completely", "By focusing only on popular opinions", "By showcasing only certain groups"],
+    correct: "By promoting diverse and realistic portrayals",
+    explanation: "Media has a powerful role in shaping perceptions and can help reduce stereotypes by providing balanced representations."
+},
+{
+    question: "What role does empathy play in combating stereotypes?",
+    choices: ["It has no effect", "It increases stereotypical thinking", "It helps understand and share the feelings of others", "It encourages ignoring others' perspectives"],
+    correct: "It helps understand and share the feelings of others",
+    explanation: "Empathy allows individuals to see beyond surface-level characteristics and appreciate the complexities of others."
+},
+{
+    question: "Which activity can help people challenge their own stereotypes?",
+    choices: ["Avoiding new experiences", "Interacting only within their social group", "Traveling and meeting diverse people", "Sticking to familiar routines"],
+    correct: "Traveling and meeting diverse people",
+    explanation: "Exposure to different cultures and communities can help individuals challenge and revise their preconceived notions."
+},
+{
+    question: "Why is it harmful to stereotype based on nationality?",
+    choices: ["It promotes tourism", "It can lead to national unity", "It fosters misunderstandings and prejudice", "It has no impact on international relations"],
+    correct: "It fosters misunderstandings and prejudice",
+    explanation: "National stereotypes can lead to xenophobia and strained international relations."
+},
+{
+    question: "What effect do stereotypes have on workplace diversity?",
+    choices: ["They enhance team collaboration", "They limit the hiring of diverse talents", "They ensure fair employment practices", "They have no effect on hiring"],
+    correct: "They limit the hiring of diverse talents",
+    explanation: "Stereotypes can lead to biased hiring decisions, limiting diversity and the benefits it brings to a workplace."
+},
+{
+    question: "How can personal experiences influence stereotypical beliefs?",
+    choices: ["They have no influence", "They always reinforce stereotypes", "They can either reinforce or challenge stereotypes", "They eliminate all stereotypes"],
+    correct: "They can either reinforce or challenge stereotypes",
+    explanation: "Personal experiences can be powerful in shaping or reshaping one’s beliefs about others, depending on the nature of those experiences."
+},
+{
+    question: "What is the impact of stereotype threat on individuals?",
+    choices: ["It enhances performance", "It has no effect", "It can cause anxiety and reduce performance", "It increases focus and determination"],
+    correct: "It can cause anxiety and reduce performance",
+    explanation: "Stereotype threat can make people anxious about confirming negative stereotypes, which can hinder their performance."
+},
+{
+    question: "Why should stereotypes be addressed in education?",
+    choices: ["To promote standardized testing", "To enforce strict discipline", "To foster an inclusive learning environment", "To simplify teaching methods"],
+    correct: "To foster an inclusive learning environment",
+    explanation: "Addressing stereotypes in education helps create an environment where all students feel valued and supported."
+},
+{
+    question: "Which strategy is effective in reducing stereotyping in a community?",
+    choices: ["Segregating communities", "Promoting isolation", "Facilitating community dialogues", "Ignoring existing stereotypes"],
+    correct: "Facilitating community dialogues",
+    explanation: "Open dialogues within communities promote understanding and help dismantle harmful stereotypes."
+}
 ];
-
 
             function shuffle(array) {
                 for (let i = array.length - 1; i > 0; i--) {
@@ -189,7 +282,7 @@ const questions = [
                 const question = questions[currentQuestionIndex];
                 const questionHtml = `
                     <div>
-                        <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr></h4>
+                        <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
                         ${question.choices.map(choice => `
                             <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
                         `).join('')}
@@ -247,7 +340,7 @@ const questions = [
                 }
             }
 
-            displayQuestion();
+            displayQuestion(); // Load the first question
         });
     </script>
 </body>
