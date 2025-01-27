@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,11 +19,6 @@
         .question-number {
             font-weight: bold;
         }
-        @media (min-width: 768px) {
-            body {
-                padding: 20px 40px; /* Increase padding for larger screens */
-            }
-        }
         label {
             display: block;
             margin: 5px 0; /* Increase space between options for better tapping on mobile */
@@ -34,13 +30,18 @@
             width: 100%; /* Full-width button on mobile */
             margin-top: 20px; /* Add more space above the submit button */
         }
+        @media (min-width: 768px) {
+            body {
+                padding: 20px 40px; /* Increase padding for larger screens */
+            }
+        }
     </style>
 </head>
 <body class="container">
     <h1 class="text-center">Grade 5 Mastery Test</h1>
     <form id="quizForm">
         <div id="questions" class="mt-4"></div>
-        <button type="button" id="submitBtn" class="btn btn-lg btn-primary btn-block" onclick="submitQuiz();">
+        <button type="button" id="submitBtn" class="btn btn-primary btn-lg btn-block" onclick="submitQuiz();">
             <i class="bi bi-check-circle-fill"></i> Submit
         </button>
         <h3 class="mt-4" id="scoreDisplay"></h3>
@@ -48,14 +49,21 @@
     <script>
         function submitQuiz() {
             if (!confirm("Are you sure about your answers?")) return;
-            
+
             let score = 0;
-            let answers = {/* Your answers object */};
-            
+            const answers = {
+                q1: "A", q2: "A", q3: "B", q4: "C", q5: "C",
+                q6: "C", q7: "B", q8: "A", q9: "B", q10: "A",
+                q11: "A", q12: "A", q13: "B", q14: "B", q15: "B",
+                q16: "B", q17: "B", q18: "B", q19: "B", q20: "B",
+                q21: "B", q22: "C", q23: "A", q24: "A", q25: "A",
+                q26: "B", q27: "A", q28: "A", q29: "A", q30: "A"
+            };
+
             for (let i = 1; i <= 30; i++) {
-                let selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const selected = document.querySelector(`input[name='q${i}']:checked`);
                 if (selected) {
-                    let allChoices = document.querySelectorAll(`input[name="q${i}"]`);
+                    const allChoices = document.querySelectorAll(`input[name='q${i}']`);
                     allChoices.forEach(choice => {
                         if (choice.value === answers[`q${i}`]) {
                             choice.parentNode.style.backgroundColor = "lightgreen";
@@ -70,19 +78,36 @@
                     }
                 }
             }
-            
+
             document.getElementById("scoreDisplay").innerText = `Your score: ${score} out of 30.`;
             document.getElementById("submitBtn").disabled = true;
         }
 
         document.addEventListener('DOMContentLoaded', function () {
             const questions = [
-                /* Your questions array */
+                "What is a stereotype?", "Which of the following is an example of stereotyping?",
+                "Why are stereotypes sometimes unfair?", "Which of the following is NOT a stereotype?",
+                "How do stereotypes affect people?", "Which of the following is a type of stereotyping?",
+                "What is gender stereotyping?", "Which of the following is an example of gender stereotyping?",
+                "What is cultural stereotyping?", "Which of the following is an example of cultural stereotyping?",
+                "What is age stereotyping?", "Which statement is an example of age stereotyping?",
+                "What is occupational stereotyping?", "Which statement is NOT an example of occupational stereotyping?",
+                "How can we avoid stereotyping?", "What is one negative impact of stereotyping?",
+                "How can stereotypes affect self-esteem?", "What is a positive effect of stereotyping?",
+                "Which of the following is a negative result of stereotyping?", "How does stereotyping affect relationships?",
+                "What can happen if people believe in stereotypes?", "How can stereotyping be harmful in school?",
+                "What is one way to stop stereotyping?", "Why is it important to stop negative stereotyping?",
+                "How can teachers help stop stereotyping in class?", "How can children help stop stereotyping?",
+                "What is one benefit of stopping stereotyping?", "How can stereotyping affect career choices?",
+                "Why should we avoid making stereotypes about others?", "How can we promote fairness and respect in our community?"
             ];
             const choices = [
-                /* Your choices array */
+                ["A. A general belief about a group of people that may not always be true", "B. A personal opinion about a single person", "C. A scientific fact that applies to everyone", "D. A law that all people must follow"],
+                ["A. Believing that all girls like the color pink", "B. Asking a person about their favorite food", "C. Studying different cultures to learn more about them", "D. Treating all people with kindness"],
+                ["A. Because they are always true for all people", "B. Because they judge individuals without knowing them", "C. Because they help people understand each other better", "D. Because they make learning easier"],
+                ["A. All boys like playing basketball", "B. Girls are better at cooking than boys", "C. Everyone has different talents and interests", "D. People from the same country act the same way"]
             ];
-            
+
             let html = "";
             for (let i = 0; i < 30; i++) {
                 html += `<div id='question${i + 1}' class='mb-3 p-2'><span class='question-number'>${i + 1}. </span>${questions[i]}<br>`;
