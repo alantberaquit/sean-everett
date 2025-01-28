@@ -11,55 +11,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            padding-top: 100px; /* Adjust padding to ensure content is not hidden behind the navbar */
+            padding-top: 100px;
             font-size: 16px;
             font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
         }
         .container {
-            padding-top: 30px; /* Added top padding for spacing below the navbar */
+            text-align: center;
+            width: 90%;
+            margin: 0 auto;
         }
         .home-button {
-            font-size: 18px; /* Adjusted font size */
-            padding: 12px 0; /* Adjusted padding for better accessibility */
-            width: 80%; /* Large width for easier accessibility */
-            margin: 10px auto 10px; /* Reduced vertical margin for compact layout */
-            transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for hover effects */
-        }
-        .home-button:hover {
-            opacity: 0.85; /* Hover effect for slightly dimming the button */
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        .correct-answer {
-            background-color: #28a745;
-        }
-        .incorrect-answer {
-            background-color: #dc3545;
+            font-size: 18px;
+            padding: 12px 20px;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 2px; /* Reduced rounded corners */
         }
         .btn-primary {
-            background-color: #18bc9c; /* Flatly green color for the English test */
+            background-color: #18bc9c;
             border-color: #18bc9c;
         }
         .btn-info {
-            background-color: #3498db; /* Flatly blue color for the Math test */
+            background-color: #3498db;
             border-color: #3498db;
         }
         .btn-warning {
-            background-color: #f0ad4e; /* Flatly orange color for the Filipino test */
+            background-color: #f0ad4e;
             border-color: #f0ad4e;
+        }
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #5cb85c;
+        }
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d9534f;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="#">
                 <i class="bi bi-house-door-fill"></i> Home
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,31 +62,32 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="english.html">English Test</a>
+                        <a class="nav-link" href="english.html">English</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="math.html">Math Test</a>
+                        <a class="nav-link" href="math.html">Math</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="filipino.html">Filipino Test</a>
+                        <a class="nav-link" href="filipino.html">Filipino</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="science.html">Science</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ap.html">AP (Araling Panlipunan)</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <div class="container text-center">
+    <div class="container">
         <h1>Welcome to the Grade 5 Mastery Tests</h1>
         <p>Select a subject to begin testing your knowledge:</p>
-        <a href="english.html" class="btn btn-primary home-button">
-            <i class="bi bi-pencil-square"></i> English Test
-        </a>
-        <a href="math.html" class="btn btn-info home-button">
-            <i class="bi bi-calculator-fill"></i> Math Test
-        </a>
-        <a href="filipino.html" class="btn btn-warning home-button">
-            <i class="bi bi-journal-bookmark-fill"></i> Filipino Test
-        </a>
+        <a href="english.html" class="btn btn-primary home-button">English Test</a>
+        <a href="math.html" class="btn btn-info home-button">Math Test</a>
+        <a href="filipino.html" class="btn btn-warning home-button">Filipino Test</a>
+        <a href="science.html" class="btn btn-success home-button">Science Test</a>
+        <a href="ap.html" class="btn btn-danger home-button">AP Test</a>
     </div>
     <!-- Bootstrap JS with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
