@@ -107,188 +107,353 @@
  
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-const questions = [
-    { 
-        question: "What is a stereotype?", 
-        choices: ["A general belief about a group of people that may not always be true", "A personal opinion about a single person", "A scientific fact that applies to everyone", "A law that all people must follow"], 
-        correct: "A general belief about a group of people that may not always be true", 
-        explanation: "Stereotypes are oversimplified generalizations about groups of people." 
-    },
-    { 
-        question: "Which of the following is an example of stereotyping?", 
-        choices: ["Believing that all girls like the color pink", "Asking a person about their favorite food", "Studying different cultures to learn more about them", "Treating all people with kindness"], 
-        correct: "Believing that all girls like the color pink", 
-        explanation: "This is a stereotype because it assigns a trait to all members of a group regardless of individual differences." 
-    },
-    { 
-        question: "Why are stereotypes sometimes unfair?", 
-        choices: ["Because they are always true for all people", "Because they judge individuals without knowing them", "Because they help people understand each other better", "Because they make learning easier"], 
-        correct: "Because they judge individuals without knowing them", 
-        explanation: "Stereotypes can lead to unfair judgments about individuals based on group characteristics." 
-    },
-    { 
-        question: "Which of the following is NOT a stereotype?", 
-        choices: ["All musicians are creative", "Some athletes are tall", "All teenagers are rebellious", "All doctors are intelligent"], 
-        correct: "Some athletes are tall", 
-        explanation: "This statement acknowledges variation rather than assuming a universal trait." 
-    },
-    { 
-        question: "How do stereotypes affect people?", 
-        choices: ["They encourage people to think critically", "They create unfair assumptions", "They always improve relationships", "They help everyone succeed"], 
-        correct: "They create unfair assumptions", 
-        explanation: "Stereotypes can lead to misunderstandings and unfair treatment." 
-    },
-    { 
-        question: "Which of the following is a type of stereotyping?", 
-        choices: ["Cultural", "Gender", "Age", "All of the above"], 
-        correct: "All of the above", 
-        explanation: "Stereotyping can occur in various forms, including cultural, gender, and age-based assumptions." 
-    },
-    { 
-        question: "What is gender stereotyping?", 
-        choices: ["A belief that all people are equal", "A generalization about behaviors based on gender", "A law that treats genders fairly", "A scientific fact"], 
-        correct: "A generalization about behaviors based on gender", 
-        explanation: "Gender stereotypes assign roles and characteristics based on gender rather than individual traits." 
-    },
-    { 
-        question: "Which of the following is an example of gender stereotyping?", 
-        choices: ["Assuming all men enjoy sports", "Asking a woman about her career goals", "Encouraging both boys and girls to play sports", "Supporting equal pay for all genders"], 
-        correct: "Assuming all men enjoy sports", 
-        explanation: "This stereotype assumes all men have the same interests regardless of individual preferences." 
-    },
-    { 
-        question: "What is cultural stereotyping?", 
-        choices: ["A belief that people from a certain culture all behave the same way", "A law about respecting different cultures", "A scientific study on different cultures", "A method of promoting cultural awareness"], 
-        correct: "A belief that people from a certain culture all behave the same way", 
-        explanation: "Cultural stereotyping assumes all individuals within a culture share the same traits." 
-    },
-    { 
-        question: "Which of the following is an example of cultural stereotyping?", 
-        choices: ["Assuming all French people love wine", "Learning a new language", "Traveling to different countries", "Respecting cultural traditions"], 
-        correct: "Assuming all French people love wine", 
-        explanation: "This stereotype applies a generalization to an entire culture, ignoring individual differences." 
-    },
-    { 
-        question: "What is age stereotyping?", 
-        choices: ["Assuming people have different abilities based on age", "Respecting people of all ages", "Promoting opportunities for all ages", "Encouraging young and old people to work together"], 
-        correct: "Assuming people have different abilities based on age", 
-        explanation: "Age stereotyping involves making assumptions about people based on their age group." 
-    },
-    { 
-        question: "Which statement is an example of age stereotyping?", 
-        choices: ["Teenagers are always irresponsible", "Seniors should be respected", "Young people can be great leaders", "All generations have unique strengths"], 
-        correct: "Teenagers are always irresponsible", 
-        explanation: "This stereotype unfairly assumes that all teenagers behave the same way." 
-    },
-    { 
-        question: "What is occupational stereotyping?", 
-        choices: ["The belief that all people in a profession have the same skills and traits", "A fair hiring process", "Encouraging diversity in the workplace", "Recognizing individual talents in a profession"], 
-        correct: "The belief that all people in a profession have the same skills and traits", 
-        explanation: "This stereotype assumes that all professionals in a field are the same, disregarding individual differences." 
-    },
-    { 
-        question: "Which statement is NOT an example of occupational stereotyping?", 
-        choices: ["All nurses are women", "All artists are creative", "Some engineers are great public speakers", "All teachers are patient"], 
-        correct: "Some engineers are great public speakers", 
-        explanation: "This statement acknowledges individual differences instead of generalizing." 
-    },
-    { 
-        question: "How can we avoid stereotyping?", 
-        choices: ["By getting to know individuals personally", "By making assumptions about people", "By ignoring cultural differences", "By believing in all stereotypes"], 
-        correct: "By getting to know individuals personally", 
-        explanation: "Understanding individuals helps prevent unfair generalizations." 
-    },
-    { 
-        question: "What is one negative impact of stereotyping?", 
-        choices: ["It promotes equality", "It can lead to discrimination", "It encourages diversity", "It helps people understand each other better"], 
-        correct: "It can lead to discrimination", 
-        explanation: "Stereotypes can cause unfair treatment and bias." 
-    },
-    { 
-        question: "How can stereotypes affect self-esteem?", 
-        choices: ["They always make people feel confident", "They can make people feel inadequate", "They encourage individuality", "They promote fairness"], 
-        correct: "They can make people feel inadequate", 
-        explanation: "Negative stereotypes can lead to self-doubt and low confidence." 
-    },
-    { 
-        question: "What is a positive effect of stereotyping?", 
-        choices: ["It helps people think critically", "It can be used in humor appropriately", "It always strengthens relationships", "It has no positive effects"], 
-        correct: "It can be used in humor appropriately", 
-        explanation: "While stereotypes should be challenged, they can sometimes be used humorously in non-harmful ways." 
-    },
-    { 
-        question: "Which of the following is a negative result of stereotyping?", 
-        choices: ["Encourages understanding", "Creates biases", "Promotes diversity", "Supports individuality"], 
-        correct: "Creates biases", 
-        explanation: "Stereotyping leads to unfair prejudices and misconceptions." 
-    },
-    { 
-        question: "How does stereotyping affect relationships?", 
-        choices: ["Strengthens friendships", "Creates misunderstandings", "Encourages trust", "Promotes equality"], 
-        correct: "Creates misunderstandings", 
-        explanation: "Stereotypes can cause people to misjudge each other, leading to conflicts." 
-    },
-    {
-    question: "What can schools do to reduce stereotyping?",
-    choices: ["Promote cultural diversity programs", "Ignore cultural differences", "Encourage uniformity", "Avoid discussing stereotypes"],
-    correct: "Promote cultural diversity programs",
-    explanation: "Encouraging awareness and understanding through diversity programs helps reduce stereotypes."
-},
-{
-    question: "How can media influence stereotypes?",
-    choices: ["By promoting diverse and realistic portrayals", "By avoiding the topic completely", "By focusing only on popular opinions", "By showcasing only certain groups"],
-    correct: "By promoting diverse and realistic portrayals",
-    explanation: "Media has a powerful role in shaping perceptions and can help reduce stereotypes by providing balanced representations."
-},
-{
-    question: "What role does empathy play in combating stereotypes?",
-    choices: ["It has no effect", "It increases stereotypical thinking", "It helps understand and share the feelings of others", "It encourages ignoring others' perspectives"],
-    correct: "It helps understand and share the feelings of others",
-    explanation: "Empathy allows individuals to see beyond surface-level characteristics and appreciate the complexities of others."
-},
-{
-    question: "Which activity can help people challenge their own stereotypes?",
-    choices: ["Avoiding new experiences", "Interacting only within their social group", "Traveling and meeting diverse people", "Sticking to familiar routines"],
-    correct: "Traveling and meeting diverse people",
-    explanation: "Exposure to different cultures and communities can help individuals challenge and revise their preconceived notions."
-},
-{
-    question: "Why is it harmful to stereotype based on nationality?",
-    choices: ["It promotes tourism", "It can lead to national unity", "It fosters misunderstandings and prejudice", "It has no impact on international relations"],
-    correct: "It fosters misunderstandings and prejudice",
-    explanation: "National stereotypes can lead to xenophobia and strained international relations."
-},
-{
-    question: "What effect do stereotypes have on workplace diversity?",
-    choices: ["They enhance team collaboration", "They limit the hiring of diverse talents", "They ensure fair employment practices", "They have no effect on hiring"],
-    correct: "They limit the hiring of diverse talents",
-    explanation: "Stereotypes can lead to biased hiring decisions, limiting diversity and the benefits it brings to a workplace."
-},
-{
-    question: "How can personal experiences influence stereotypical beliefs?",
-    choices: ["They have no influence", "They always reinforce stereotypes", "They can either reinforce or challenge stereotypes", "They eliminate all stereotypes"],
-    correct: "They can either reinforce or challenge stereotypes",
-    explanation: "Personal experiences can be powerful in shaping or reshaping one’s beliefs about others, depending on the nature of those experiences."
-},
-{
-    question: "What is the impact of stereotype threat on individuals?",
-    choices: ["It enhances performance", "It has no effect", "It can cause anxiety and reduce performance", "It increases focus and determination"],
-    correct: "It can cause anxiety and reduce performance",
-    explanation: "Stereotype threat can make people anxious about confirming negative stereotypes, which can hinder their performance."
-},
-{
-    question: "Why should stereotypes be addressed in education?",
-    choices: ["To promote standardized testing", "To enforce strict discipline", "To foster an inclusive learning environment", "To simplify teaching methods"],
-    correct: "To foster an inclusive learning environment",
-    explanation: "Addressing stereotypes in education helps create an environment where all students feel valued and supported."
-},
-{
-    question: "Which strategy is effective in reducing stereotyping in a community?",
-    choices: ["Segregating communities", "Promoting isolation", "Facilitating community dialogues", "Ignoring existing stereotypes"],
-    correct: "Facilitating community dialogues",
-    explanation: "Open dialogues within communities promote understanding and help dismantle harmful stereotypes."
-}
+
+        const questions = [
+  // Make a Stand
+  {
+    question: "What does it mean to 'make a stand' on an issue?",
+    choices: [
+      "To change opinions frequently",
+      "To firmly express and defend a belief or opinion",
+      "To stay neutral on all issues",
+      "To avoid discussing controversial topics"
+    ],
+    correct: "To firmly express and defend a belief or opinion",
+    explanation: "Making a stand means clearly expressing and defending an opinion or belief on a specific issue."
+  },
+  {
+    question: "Why is it important to make a stand in a debate?",
+    choices: [
+      "To confuse the opposition",
+      "To ensure the debate goes on without conclusion",
+      "To clearly state and support your position",
+      "To make friends with the opposite side"
+    ],
+    correct: "To clearly state and support your position",
+    explanation: "In a debate, making a stand is crucial for clarifying your position and persuading others by backing up your arguments."
+  },
+
+  // Provide Evidence
+  {
+    question: "What does it mean to provide evidence for an opinion?",
+    choices: [
+      "To guess the reasons behind the opinion",
+      "To offer facts or details that prove or support an opinion",
+      "To repeat the opinion several times",
+      "To ask others to agree without reason"
+    ],
+    correct: "To offer facts or details that prove or support an opinion",
+    explanation: "Providing evidence means offering concrete facts or details that substantiate or back up an opinion, making it more credible."
+  },
+  {
+    question: "How can evidence impact a listener's opinion in a discussion?",
+    choices: [
+      "It can confuse them",
+      "It can change or strengthen their views",
+      "It can bore them",
+      "It has no impact"
+    ],
+    correct: "It can change or strengthen their views",
+    explanation: "Effective evidence can significantly sway a listener's perspective by either modifying their existing views or reinforcing them."
+  },
+
+  // Compose Sentences with a Prepositional Phrase
+  {
+    question: "Choose the sentence that correctly uses a prepositional phrase:",
+    choices: [
+      "She runs fastly.",
+      "The cat is sleeping on the sofa.",
+      "He loudly sings.",
+      "They happily played."
+    ],
+    correct: "The cat is sleeping on the sofa.",
+    explanation: "The sentence 'The cat is sleeping on the sofa.' correctly uses the prepositional phrase 'on the sofa' to indicate where the cat is sleeping."
+  },
+  {
+    question: "What role does a prepositional phrase usually play in a sentence?",
+    choices: [
+      "It shows action.",
+      "It describes a verb, adjective, or another adverb.",
+      "It describes relationships between other words in a sentence.",
+      "It modifies a noun only."
+    ],
+    correct: "It describes relationships between other words in a sentence.",
+    explanation: "A prepositional phrase typically provides additional information about time, location, or relationships between things in a sentence."
+  },
+
+  // Additional Questions
+  {
+    question: "In a discussion, how can making a strong stand influence the outcome?",
+    choices: [
+      "It can lead to a quick end to the discussion.",
+      "It might confuse other participants.",
+      "It can establish a clear position and persuade others.",
+      "It has no effect on the discussion."
+    ],
+    correct: "It can establish a clear position and persuade others.",
+    explanation: "Taking a strong stand in a discussion helps to clarify and assert your position, potentially persuading others and impacting the outcome favorably."
+  },
+  {
+    question: "Choose the sentence with a prepositional phrase that indicates location:",
+    choices: [
+      "He quickly ran into the house.",
+      "She sings beautifully.",
+      "They danced all night.",
+      "He works very hard."
+    ],
+    correct: "He quickly ran into the house.",
+    explanation: "The prepositional phrase 'into the house' specifies the location where he ran."
+  },
+  {
+    question: "How should evidence be selected when supporting an argument?",
+    choices: [
+      "Use only opinions that agree with yours",
+      "Choose strong, relevant facts that directly support the argument",
+      "Select information randomly",
+      "Use as many facts as possible, regardless of relevance"
+    ],
+    correct: "Choose strong, relevant facts that directly support the argument",
+    explanation: "When supporting an argument, it's important to select strong, relevant facts that directly substantiate the points being made."
+  },
+  {
+    question: "What is the effect of a prepositional phrase in a sentence?",
+    choices: [
+      "It makes the sentence longer.",
+      "It clarifies or adds detail to the sentence.",
+      "It changes the main verb.",
+      "It introduces a new subject."
+    ],
+    correct: "It clarifies or adds detail to the sentence.",
+    explanation: "Prepositional phrases add clarity or detail, enhancing the reader's understanding of the context or specifics in a sentence."
+  },
+  {
+    question: "Which sentence best demonstrates taking a stand?",
+    choices: [
+      "I think maybe it could be a good idea.",
+      "I strongly believe that this is the best method.",
+      "There are many options to consider.",
+      "It might work, but there are risks."
+    ],
+    correct: "I strongly believe that this is the best method.",
+    explanation: "The sentence 'I strongly believe that this is the best method.' clearly shows taking a stand by firmly stating a belief."
+  },
+  {
+    question: "Identify the prepositional phrase in the following sentence: 'After the movie, we went to a restaurant.'",
+    choices: [
+      "After the movie",
+      "We went",
+      "To a restaurant",
+      "Both 'After the movie' and 'to a restaurant'"
+    ],
+    correct: "Both 'After the movie' and 'to a restaurant'",
+    explanation: "The sentence contains two prepositional phrases indicating time ('After the movie') and location ('to a restaurant')."
+  },
+  {
+    question: "What is a key reason to provide evidence when making a claim?",
+    choices: [
+      "To make the claim longer",
+      "To persuade the audience and support the validity of the claim",
+      "To complicate the argument",
+      "To shift focus from the main topic"
+    ],
+    correct: "To persuade the audience and support the validity of the claim",
+    explanation: "Providing evidence is crucial for persuading the audience of the claim's validity and strengthening the argument."
+  },
+  {
+    question: "Choose the correct sentence that uses a prepositional phrase to indicate time:",
+    choices: [
+      "Before dinner, she completed her homework.",
+      "She sings in the choir.",
+      "He works at the supermarket.",
+      "They are playing soccer."
+    ],
+    correct: "Before dinner, she completed her homework.",
+    explanation: "The prepositional phrase 'Before dinner' specifies when she completed her homework, adding a temporal detail to the sentence."
+  },
+  {
+    question: "In what way does taking a clear stand help in an argument?",
+    choices: [
+      "It confuses the opponent",
+      "It helps in avoiding the topic",
+      "It strengthens your position by showing confidence and clarity",
+      "It makes no difference"
+    ],
+    correct: "It strengthens your position by showing confidence and clarity",
+    explanation: "Taking a clear stand in an argument shows confidence and clarity, which can help in persuading others and solidifying your position."
+  },
+ {
+    question: "How should you react when someone challenges your stand in a debate?",
+    choices: [
+      "Ignore their points and repeat your statements.",
+      "Listen carefully and respond with well-thought-out evidence.",
+      "Change your stand to agree with them.",
+      "Leave the debate."
+    ],
+    correct: "Listen carefully and respond with well-thought-out evidence.",
+    explanation: "When your stand is challenged, it is important to listen and respond thoughtfully with evidence to strengthen your position."
+  },
+  {
+    question: "Which sentence shows someone making a stand about environmental protection?",
+    choices: [
+      "I guess recycling might help the environment.",
+      "Recycling is one way to help, I think.",
+      "We must recycle to save our planet.",
+      "Recycling could be considered by some to be beneficial."
+    ],
+    correct: "We must recycle to save our planet.",
+    explanation: "The sentence 'We must recycle to save our planet.' clearly indicates a firm stand on the importance of recycling for environmental protection."
+  },
+
+  // Provide Evidence
+  {
+    question: "What type of evidence is most effective in supporting factual claims?",
+    choices: [
+      "Personal opinions",
+      "Factual data from credible sources",
+      "Vague references",
+      "Unverified online comments"
+    ],
+    correct: "Factual data from credible sources",
+    explanation: "Factual data from credible sources is the most effective type of evidence for supporting factual claims as it provides verifiable and reliable information."
+  },
+  {
+    question: "Choose the best response that uses evidence to support a stand on reducing homework for students:",
+    choices: [
+      "Many students feel stressed, so homework should be reduced.",
+      "Research shows that excessive homework can lead to high stress and reduced leisure time, negatively impacting student well-being.",
+      "I don't like homework.",
+      "Some people say homework is bad."
+    ],
+    correct: "Research shows that excessive homework can lead to high stress and reduced leisure time, negatively impacting student well-being.",
+    explanation: "This choice uses specific research findings as evidence to support a stand on reducing homework, making the argument more persuasive."
+  },
+
+  // Compose Sentences with a Prepositional Phrase
+  {
+    question: "Identify the sentence that correctly uses a prepositional phrase to describe an action:",
+    choices: [
+      "He quickly ran up the stairs.",
+      "She beautifully sings.",
+      "They danced the whole night.",
+      "He is working hard."
+    ],
+    correct: "He quickly ran up the stairs.",
+    explanation: "The sentence 'He quickly ran up the stairs.' correctly uses the prepositional phrase 'up the stairs' to describe where he ran."
+  },
+  {
+    question: "Select the sentence that uses a prepositional phrase to add detail about location:",
+    choices: [
+      "She placed the book on the table.",
+      "They went quickly.",
+      "He jumped high.",
+      "The bird sang loudly."
+    ],
+    correct: "She placed the book on the table.",
+    explanation: "The prepositional phrase 'on the table' specifies the location where the book was placed, adding detail to the sentence."
+  },
+
+  // Additional Questions
+  {
+    question: "What is the purpose of providing evidence in an academic essay?",
+    choices: [
+      "To fill up space",
+      "To confuse the reader",
+      "To substantiate claims and arguments",
+      "To make the essay colorful"
+    ],
+    correct: "To substantiate claims and arguments",
+    explanation: "In academic writing, the purpose of providing evidence is to substantiate claims and strengthen arguments, enhancing credibility and persuasiveness."
+  },
+  {
+    question: "Choose the sentence that uses a prepositional phrase to express time:",
+    choices: [
+      "He waits at the bus stop.",
+      "She sleeps during the day.",
+      "They play soccer.",
+      "He reads a book."
+    ],
+    correct: "She sleeps during the day.",
+    explanation: "The prepositional phrase 'during the day' specifies when she sleeps, adding a temporal detail to the sentence."
+  },
+  {
+    question: "How does making a firm stand in a discussion influence your credibility?",
+    choices: [
+      "It may make you seem unsure.",
+      "It increases your perceived confidence and authority.",
+      "It makes you less believable.",
+      "It has no impact on how others view your arguments."
+    ],
+    correct: "It increases your perceived confidence and authority.",
+    explanation: "Making a firm stand can enhance your credibility by demonstrating confidence and authority on the topic, which can influence others' perception positively."
+  },
+  {
+    question: "Select the correct use of a prepositional phrase to describe a relationship:",
+    choices: [
+      "The cat under the table is sleeping.",
+      "She quickly runs.",
+      "They were laughing loudly.",
+      "He works on Sundays."
+    ],
+    correct: "The cat under the table is sleeping.",
+    explanation: "The prepositional phrase 'under the table' describes the relationship of the cat's location in relation to the table."
+  },
+  {
+    question: "Why is it important to back up your opinions with evidence in a persuasive speech?",
+    choices: [
+      "To make the speech longer",
+      "To confuse the audience",
+      "To strengthen your arguments and persuade the audience",
+      "To divert from the main topic"
+    ],
+    correct: "To strengthen your arguments and persuade the audience",
+    explanation: "In a persuasive speech, backing up opinions with evidence is critical for strengthening arguments and effectively persuading the audience."
+  },
+  {
+    question: "Which sentence effectively uses a prepositional phrase to convey movement?",
+    choices: [
+      "The dog ran across the park.",
+      "She smiles often.",
+      "They sing loudly at concerts.",
+      "He writes emails."
+    ],
+    correct: "The dog ran across the park.",
+    explanation: "The prepositional phrase 'across the park' describes the movement of the dog, specifying where the dog ran."
+  },
+  {
+    question: "How should evidence be presented in an argument to be most effective?",
+    choices: [
+      "In a confusing manner",
+      "Randomly without clear connection to the claims",
+      "Clearly and logically linked to the argument",
+      "Sporadically to keep the audience guessing"
+    ],
+    correct: "Clearly and logically linked to the argument",
+    explanation: "Evidence should be presented clearly and logically, directly linked to the arguments, to be most effective in persuading the audience."
+  },
+  {
+    question: "Identify the prepositional phrase in this sentence: 'Before school, he likes to read the newspaper.'",
+    choices: [
+      "Before school",
+      "Likes to read",
+      "The newspaper",
+      "He likes"
+    ],
+    correct: "Before school",
+    explanation: "The prepositional phrase 'Before school' provides a temporal context to his habit of reading the newspaper."
+  },
+  {
+    question: "What effect does a prepositional phrase have in storytelling?",
+    choices: [
+      "It can add necessary details about time, place, or reason.",
+      "It makes the story shorter.",
+      "It removes important details from the story.",
+      "It changes the main plot of the story."
+    ],
+    correct: "It can add necessary details about time, place, or reason.",
+    explanation: "In storytelling, prepositional phrases are used to add important contextual details that enrich the narrative."
+  }
 ];
+
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
