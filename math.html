@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Mastery Test - Math: Ratio and Proportion</title>
+    <title>Grade 5 Reviewer Test - Math: Ratio and Proportion</title>
     <!-- Bootstrap Flatly Theme from Bootswatch -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
     <!-- Google Fonts: Roboto -->
@@ -108,169 +108,161 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
 const questions = [
-    { 
-        question: "What is the ratio of 2 to 5 written in simplest form?", 
-        choices: ["2:5", "5:2", "1:2", "10:25"], 
-        correct: "2:5", 
-        explanation: "A ratio compares two numbers. The simplest form of 2 to 5 is 2:5." 
+    {
+        question: "What is the ratio of 30 to 10?",
+        choices: ["1:3", "3:1", "2:1", "1:2"],
+        correct: "3:1",
+        explanation: "The ratio of 30 to 10 simplifies to 3:1 because 30 divided by 10 equals 3."
     },
-    { 
-        question: "Which fraction represents the ratio 3:4?", 
-        choices: ["3/4", "4/3", "3/7", "7/3"], 
-        correct: "3/4", 
-        explanation: "A ratio can be expressed as a fraction, so 3:4 is equivalent to 3/4." 
+    {
+        question: "If you have a fraction 1/2, what is its equivalent decimal?",
+        choices: ["0.5", "0.2", "0.25", "0.1"],
+        correct: "0.5",
+        explanation: "The fraction 1/2 is equivalent to 0.5 in decimal form."
     },
-    { 
-        question: "If a class has 8 boys and 12 girls, what is the ratio of boys to the total students?", 
-        choices: ["8:12", "8:20", "12:8", "20:8"], 
-        correct: "8:20", 
-        explanation: "Total students = 8 + 12 = 20, so the ratio of boys to total students is 8:20." 
+    {
+        question: "What percent of a dollar is 25 cents?",
+        choices: ["25%", "2.5%", "50%", "20%"],
+        correct: "25%",
+        explanation: "25 cents is 25% of a dollar because 25 divided by 100 equals 0.25, which is 25%."
     },
-    { 
-        question: "What is 3/5 as a percentage?", 
-        choices: ["30%", "50%", "60%", "75%"], 
-        correct: "60%", 
-        explanation: "To convert a fraction to a percentage, multiply by 100. (3/5) × 100 = 60%." 
+    {
+        question: "If 4 out of 20 students in a class are boys, what is the ratio of boys to the whole class?",
+        choices: ["1:5", "4:20", "5:1", "20:4"],
+        correct: "1:5",
+        explanation: "The ratio of boys to the whole class is 4 to 20, which simplifies to 1:5."
     },
-    { 
-        question: "Which fraction is equivalent to 2/3?", 
-        choices: ["4/6", "3/5", "6/8", "1/3"], 
-        correct: "4/6", 
-        explanation: "Multiplying both numerator and denominator by the same number gives an equivalent fraction. (2×2)/(3×2) = 4/6." 
+    {
+        question: "What is 0.75 expressed as a fraction?",
+        choices: ["3/4", "7/10", "75/100", "2/3"],
+        correct: "3/4",
+        explanation: "0.75 can be expressed as the fraction 3/4."
     },
-    { 
-        question: "A recipe calls for 2 cups of flour for every 5 cups of water. What is the ratio of flour to water?", 
-        choices: ["2:5", "5:2", "1:3", "3:1"], 
-        correct: "2:5", 
-        explanation: "The ratio given in the problem is already in its simplest form: 2:5." 
+    {
+        question: "If a car travels 60 miles in an hour, what is the direct proportion of miles to hours?",
+        choices: ["60:1", "1:60", "1:1", "2:1"],
+        correct: "60:1",
+        explanation: "The car travels 60 miles in 1 hour, establishing a direct proportion of 60:1."
     },
-    { 
-        question: "What is the decimal form of 7/8?", 
-        choices: ["0.75", "0.875", "0.7", "0.8"], 
-        correct: "0.875", 
-        explanation: "Dividing 7 by 8 gives 0.875." 
+    {
+        question: "What fraction represents 20%?",
+        choices: ["1/5", "1/4", "1/10", "2/5"],
+        correct: "1/5",
+        explanation: "20% as a fraction is 1/5 because 20 divided by 100 is 0.20, which simplifies to 1/5."
     },
-    { 
-        question: "If a box contains 10 red marbles and 15 blue marbles, what is the ratio of red marbles to blue marbles?", 
-        choices: ["10:15", "2:3", "3:2", "15:10"], 
-        correct: "2:3", 
-        explanation: "Simplifying 10:15 by dividing both numbers by 5 gives 2:3." 
+    {
+        question: "Convert 0.2 into a fraction.",
+        choices: ["1/5", "2/10", "20/100", "1/2"],
+        correct: "1/5",
+        explanation: "0.2 as a fraction is 1/5, because 0.2 equals 20/100 which simplifies to 1/5."
     },
-    { 
-        question: "What is 5/8 as a decimal?", 
-        choices: ["0.5", "0.625", "0.75", "0.8"], 
-        correct: "0.625", 
-        explanation: "Dividing 5 by 8 gives 0.625." 
+    {
+        question: "If you have 50 apples and give away 30, what is the ratio of apples given away to apples left?",
+        choices: ["3:2", "5:3", "2:3", "3:5"],
+        correct: "3:2",
+        explanation: "The ratio of apples given away to apples left is 30 to 20, which simplifies to 3:2."
     },
-    { 
-        question: "Which of the following fractions is NOT equivalent to 3/4?", 
-        choices: ["6/8", "9/12", "12/15", "15/20"], 
-        correct: "12/15", 
-        explanation: "To be equivalent to 3/4, the fraction must be reducible to 3/4. 12/15 simplifies to 4/5." 
+    {
+        question: "What is 45% as a decimal?",
+        choices: ["0.45", "4.5", "0.045", "0.0045"],
+        correct: "0.45",
+        explanation: "45% as a decimal is 0.45."
     },
-    { 
-        question: "What is 1/2 + 1/3?", 
-        choices: ["2/5", "5/6", "3/5", "1/5"], 
-        correct: "5/6", 
-        explanation: "Find a common denominator (6), then 3/6 + 2/6 = 5/6." 
+    {
+        question: "What is the equivalent percent of the fraction 3/5?",
+        choices: ["60%", "30%", "75%", "80%"],
+        correct: "60%",
+        explanation: "The fraction 3/5 is equivalent to 60% because 3 divided by 5 equals 0.60, which is 60%."
     },
-    { 
-        question: "A ratio of 5:10 is equivalent to?", 
-        choices: ["1:2", "2:1", "3:5", "5:1"], 
-        correct: "1:2", 
-        explanation: "Divide both terms by 5 to simplify 5:10 to 1:2." 
+    {
+        question: "If the ratio of red to blue marbles is 2:3, how many red marbles are there if there are 15 blue marbles?",
+        choices: ["10", "9", "12", "6"],
+        correct: "10",
+        explanation: "If the ratio of red to blue marbles is 2:3 and there are 15 blue marbles, then there are 10 red marbles because 2/3 of 15 equals 10."
     },
-    { 
-        question: "What is 1/4 of 100?", 
-        choices: ["10", "20", "25", "40"], 
-        correct: "25", 
-        explanation: "(1/4) × 100 = 25." 
+    {
+        question: "Convert 1/4 into a percent.",
+        choices: ["15%", "25%", "35%", "45%"],
+        correct: "25%",
+        explanation: "1/4 as a percent is 25%."
     },
-    { 
-        question: "Which is greater, 5/9 or 1/2?", 
-        choices: ["5/9", "1/2", "They are equal", "Cannot be determined"], 
-        correct: "5/9", 
-        explanation: "Converting both to decimals, 5/9 ≈ 0.555, 1/2 = 0.5. Since 0.555 > 0.5, 5/9 is greater." 
+    {
+        question: "What is the direct proportion of 200 students to 10 classrooms?",
+        choices: ["20:1", "1:20", "10:1", "1:10"],
+        correct: "20:1",
+        explanation: "There is a direct proportion of 20 students per classroom, so 200 to 10 simplifies to 20:1."
     },
-    { 
-        question: "Which ratio is NOT equivalent to 4:5?", 
-        choices: ["8:10", "12:15", "16:20", "10:12"], 
-        correct: "10:12", 
-        explanation: "To be equivalent, a ratio must maintain the same proportion. 10:12 simplifies to 5:6, which is different from 4:5." 
+    {
+        question: "What decimal represents 55%?",
+        choices: ["0.55", "5.5", "0.055", "0.0055"],
+        correct: "0.55",
+        explanation: "55% as a decimal is 0.55."
     },
-
-
-    { 
-        question: "What is the ratio of 12 to 16 in simplest form?", 
-        choices: ["3:4", "4:3", "12:16", "6:8"], 
-        correct: "3:4", 
-        explanation: "Dividing both terms by their GCD (4), 12:16 simplifies to 3:4." 
+    {
+        question: "What is 1/10 expressed as a percent?",
+        choices: ["1%", "10%", "0.1%", "0.01%"],
+        correct: "10%",
+        explanation: "1/10 as a percent is 10%."
     },
-    { 
-        question: "Which fraction represents the ratio 5:6?", 
-        choices: ["6/5", "5/6", "5/11", "11/5"], 
-        correct: "5/6", 
-        explanation: "A ratio 5:6 can be expressed as the fraction 5/6." 
+    {
+        question: "What is the ratio of 60 books to 40 books?",
+        choices: ["3:2", "2:3", "6:4", "4:6"],
+        correct: "3:2",
+        explanation: "The ratio of 60 books to 40 books simplifies to 3:2."
     },
-    { 
-        question: "If a fruit basket has 18 apples and 24 oranges, what is the ratio of apples to oranges in simplest form?", 
-        choices: ["18:24", "3:4", "4:3", "6:8"], 
-        correct: "3:4", 
-        explanation: "Dividing both terms by their GCD (6), 18:24 simplifies to 3:4." 
+    {
+        question: "If 5 pounds of flour cost $2, what is the cost per pound?",
+        choices: ["$0.4", "$2", "$10", "$0.2"],
+        correct: "$0.4",
+        explanation: "The cost per pound is $2 divided by 5, which equals $0.4."
     },
-    { 
-        question: "Convert 7/10 to a percentage.", 
-        choices: ["0.7%", "70%", "7%", "17%"], 
-        correct: "70%", 
-        explanation: "Multiply 7/10 by 100 to get 70%." 
+    {
+        question: "Convert 0.65 to a fraction.",
+        choices: ["13/20", "65/100", "6/9", "2/3"],
+        correct: "13/20",
+        explanation: "0.65 as a fraction is 13/20, which is 65/100 simplified."
     },
-    { 
-        question: "What is the decimal equivalent of 3/4?", 
-        choices: ["0.25", "0.5", "0.75", "1.25"], 
-        correct: "0.75", 
-        explanation: "Dividing 3 by 4 gives 0.75." 
+    {
+        question: "What percent of 100 is 25?",
+        choices: ["25%", "20%", "75%", "15%"],
+        correct: "25%",
+        explanation: "25 is 25% of 100 because 25 divided by 100 equals 0.25, which is 25%."
     },
-    { 
-        question: "What is the ratio of 25 to 100?", 
-        choices: ["1:4", "1:5", "4:1", "5:1"], 
-        correct: "1:4", 
-        explanation: "Dividing both terms by 25, 25:100 simplifies to 1:4." 
+    {
+        question: "If the ratio of cats to dogs is 4:7, how many cats are there if there are 28 dogs?",
+        choices: ["16", "20", "12", "8"],
+        correct: "16",
+        explanation: "If the ratio of cats to dogs is 4:7 and there are 28 dogs, then there are 16 cats because 4/7 of 28 equals 16."
     },
-    { 
-        question: "A class has 15 boys and 20 girls. What is the ratio of boys to girls?", 
-        choices: ["15:20", "3:4", "4:3", "5:2"], 
-        correct: "3:4", 
-        explanation: "Simplifying 15:20 by dividing both by 5 gives 3:4." 
+    {
+        question: "What is 0.125 as a fraction?",
+        choices: ["1/8", "1/4", "1/5", "1/2"],
+        correct: "1/8",
+        explanation: "0.125 as a fraction is 1/8."
     },
-    { 
-        question: "What fraction is equivalent to 7:9?", 
-        choices: ["7/8", "9/7", "7/9", "8/9"], 
-        correct: "7/9", 
-        explanation: "A ratio 7:9 is the same as the fraction 7/9." 
+    {
+        question: "What is 0.9 as a percent?",
+        choices: ["90%", "9%", "0.9%", "0.09%"],
+        correct: "90%",
+        explanation: "0.9 as a percent is 90%."
     },
-    { 
-        question: "What is 2/5 as a percentage?", 
-        choices: ["20%", "25%", "40%", "50%"], 
-        correct: "40%", 
-        explanation: "(2/5) × 100 = 40%." 
+    {
+        question: "If 3 oranges cost $1.20, what is the price of one orange?",
+        choices: ["$0.40", "$0.30", "$0.60", "$0.20"],
+        correct: "$0.40",
+        explanation: "The price of one orange is $1.20 divided by 3, which equals $0.40."
     },
-    { 
-        question: "What is the simplest form of the ratio 30:45?", 
-        choices: ["2:3", "3:2", "5:3", "3:5"], 
-        correct: "2:3", 
-        explanation: "Dividing both numbers by their GCD (15), 30:45 simplifies to 2:3." 
+    {
+        question: "What is the ratio of 5 hours to 3 hours?",
+        choices: ["5:3", "3:5", "2:3", "3:2"],
+        correct: "5:3",
+        explanation: "The ratio of 5 hours to 3 hours is 5:3."
     },
-    { 
-        question: "Which of these fractions is NOT equivalent to 5/8?", 
-        choices: ["10/16", "15/24", "20/32", "12/16"], 
-        correct: "12/16", 
-        explanation: "Simplifying 12/16 gives 3/4, which is different from 5/8." 
-    },
-    { 
-        question: "A team has 12 boys and 18 girls. What is the ratio of girls to total team members?", 
-        choices: ["2:3", "3:5", "3:2", "5:3"], 
-        correct: "3:5", 
-        explanation: "Total team members = 12 + 18 = 30. The ratio of girls to total members is 18:30, which simplifies to 3:5." 
+    {
+        question: "Convert the fraction 5/20 to a percent.",
+        choices: ["25%", "20%", "15%", "10%"],
+        correct: "25%",
+        explanation: "5/20 as a percent is 25% because 5 divided by 20 equals 0.25, which is 25%."
     },
     { 
         question: "What is 5/12 as a percentage?", 
