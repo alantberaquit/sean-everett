@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 5 Reviewer - AP</title>
+    <!-- Bootstrap Flatly Theme from Bootswatch -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
+    <!-- Google Fonts: Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 100px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            padding-top: 30px;
+            width: 90%;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .correct-answer {
+            background-color: #18bc9c; /* Flatly success color */
+        }
+        .incorrect-answer {
+            background-color: #e74c3c; /* Flatly danger color */
+        }
+        .btn-block {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 10px;
+        }
+        #nextBtn, #checkAnswerBtn {
+            margin-top: 20px;
+            display: none;
+        }
+        .progress {
+            height: 20px;
+        }
+        .progress-bar {
+            transition: width 0.6s ease;
+        }
+        .quiz-complete-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .card-icon {
+            font-size: 48px;
+            color: #18bc9c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-door-fill"></i> Home
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="english.html">English Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="math.html">Math Test</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">AP: Reviewer</h1>
+        <div id="questionContainer" class="mt-4"></div>
+        <p id="feedback" class="feedback" style="display:none;"></p>
+        <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
+            <i class="bi bi-check-circle"></i> Check Answer
+        </button>
+        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display:none;">
+            <i class="bi bi-arrow-right-circle"></i> Next Question
+        </button>
+        <div class="progress mt-3">
+            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
+    </div>
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+     const questions = [
+  {
+    question: "Ano ang pangunahing uri ng pamahalaan na itinatag ng mga Espanyol sa Pilipinas?",
+    choices: [
+      "Sistemang Barangay",
+      "Pederalismo",
+      "Sistemang Encomienda",
+      "Absolutong monarkiya"
+    ],
+    correct: "Sistemang Encomienda",
+    explanation: "Itinatag ng mga Espanyol ang sistemang encomienda bilang isang uri ng pamahalaan upang pamahalaan ang mga lokal na usapin at maningil ng tributo."
+  },
+  {
+    question: "Sino ang responsable sa pagpapatupad ng mga batas ng Espanya sa mga kolonya?",
+    choices: [
+      "Ang Cabeza de Barangay",
+      "Ang Gobernador-Heneral",
+      "Ang Hari ng Espanya",
+      "Ang Arsobispo"
+    ],
+    correct: "Ang Gobernador-Heneral",
+    explanation: "Ang Gobernador-Heneral ang pinakamataas na opisyal sa kolonya at siya ang responsable sa pagpapatupad ng mga batas ng Espanya."
+  },
+  {
+    question: "Ano ang layunin ng sistemang 'Polo y Servicio'?",
+    choices: [
+      "Para magbigay ng edukasyon",
+      "Para ipatupad ang mga gawaing pangrelihiyon",
+      "Para sa mga proyektong pambayan at pagtatayo ng simbahan",
+      "Para magtatag ng kalakalan sa mga kalapit na bansa"
+    ],
+    correct: "Para sa mga proyektong pambayan at pagtatayo ng simbahan",
+    explanation: "Ang sistemang 'Polo y Servicio' ay nangangailangan na ang mga katutubong Pilipino ay magtrabaho para sa mga proyektong pambayan at pagtatayo ng mga gusaling simbahan."
+  },
+  {
+    question: "Aling grupo ang kumakatawan sa hari ng Espanya sa mga yunit ng lokal na pamahalaan?",
+    choices: [
+      "Principalia",
+      "Cazadores",
+      "Guardia Civil",
+      "Residencia"
+    ],
+    correct: "Principalia",
+    explanation: "Ang Principalia ang naghaharing uri sa mga kolonya, kadalasang binubuo ng lokal na elit na kumakatawan sa korona ng Espanya."
+  },
+  {
+    question: "Ano ang Kalakalang Galyon?",
+    choices: [
+      "Isang sistemang pangkalakalan sa loob ng mga isla",
+      "Isang sistema kung saan ang mga kalakal ay ipinagpapalit para sa mga serbisyo",
+      "Isang ruta ng kalakalan sa pagitan ng Pilipinas at Mexico",
+      "Isang estratehiyang militar para protektahan ang mga isla"
+    ],
+    correct: "Isang ruta ng kalakalan sa pagitan ng Pilipinas at Mexico",
+    explanation: "Ang Kalakalang Galyon ay isang mahalagang ruta sa dagat na nag-uugnay sa Pilipinas at Mexico, na nagpapalitan ng mga produktong Asyano para sa pilak ng Amerika."
+  },
+  {
+    question: "Ano ang pangunahing produkto na iniluwas ng mga Espanyol mula sa Pilipinas?",
+    choices: [
+      "Mais",
+      "Tabako",
+      "Palay",
+      "Tubo"
+    ],
+    correct: "Tabako",
+    explanation: "Ang tabako ay isa sa mga pangunahing produkto na iniluwas ng mga Espanyol mula sa Pilipinas, at ito ay mahigpit na kinokontrol at binubuwisan."
+  },
+  {
+    question: "Anong patakarang pangkabuhayan ang nag-atas sa mga Pilipino na ibenta ang kanilang mga produkto sa gobyerno sa takdang presyo?",
+    choices: [
+      "Bandala",
+      "Tributo",
+      "Encomienda",
+      "Monopolyo"
+    ],
+    correct: "Bandala",
+    explanation: "Sa ilalim ng sistemang Bandala, ang mga magsasakang Pilipino ay kinakailangang ibenta ang kanilang mga ani sa gobyerno sa isang takdang presyo."
+  },
+  {
+    question: "Ano ang layunin ng Royal Company of the Philippines?",
+    choices: [
+      "Para itaguyod ang edukasyon sa mga isla",
+      "Para regulahin ang mga misyong pangrelihiyon",
+      "Para pasiglahin ang ekonomiya ng kolonya sa pamamagitan ng kalakalan",
+      "Para ayusin ang lokal na hukbong sandatahan"
+    ],
+    correct: "Para pasiglahin ang ekonomiya ng kolonya sa pamamagitan ng kalakalan",
+    explanation: "Itinatag ang Royal Company of the Philippines upang pasiglahin ang ekonomiya ng kolonya sa pamamagitan ng pagpapalakas ng kalakalan."
+  },
+  {
+    question: "Paano naapektuhan ng pamahalaang kolonyal ng Espanya ang mga lokal na manggagawa at industriya?",
+    choices: [
+      "Sinuportahan ng pamahalaan ang lokal na industriya sa pamamagitan ng subsidiya.",
+      "Nilimitahan ng pamahalaan ang lokal na industriya upang paboran ang mga produktong mula sa Espanya.",
+      "Nagbigay ng libreng edukasyon ang pamahalaan para mapabuti ang mga kasanayan.",
+      "Iniluwas ng pamahalaan ang mga lokal na produkto patungo sa Europa."
+    ],
+    correct: "Nilimitahan ng pamahalaan ang lokal na industriya upang paboran ang mga produktong mula sa Espanya.",
+    explanation: "Nilimitahan ng pamahalaang kolonyal ng Espanya ang mga lokal na industriya upang mabawasan ang kompetisyon laban sa mga produktong inaangkat mula sa Espanya."
+  },
+  {
+    question: "Ano ang tungkulin ng 'Alcalde Mayor' sa ekonomiya ng kolonya?",
+    choices: [
+      "Siya ay isang pinunong pangrelihiyon.",
+      "Siya ang namamahala sa edukasyon.",
+      "Siya ang namamahala sa isang lalawigan at may kapangyarihan sa mga usaping pang-ekonomiya.",
+      "Siya ang responsable sa depensa ng militar."
+    ],
+    correct: "Siya ang namamahala sa isang lalawigan at may kapangyarihan sa mga usaping pang-ekonomiya.",
+    explanation: "Ang Alcalde Mayor ay ang namamahala sa isang lalawigan at may mahalagang papel sa pagpapatupad ng mga patakaran pang-ekonomiya sa kolonya."
+  },
+
+
+  {
+    question: "Ano ang 'Reduccion' sa panahon ng mga Espanyol?",
+    choices: [
+      "Isang seremonya pangrelihiyon",
+      "Paglipat ng mga Pilipino sa mga organisadong baryo",
+      "Isang sistema ng edukasyon",
+      "Isang uri ng buwis"
+    ],
+    correct: "Paglipat ng mga Pilipino sa mga organisadong baryo",
+    explanation: "Ang 'Reduccion' ay ang paglipat ng mga katutubo sa mga organisadong baryo upang mas madali silang pamahalaan at Kristiyanisahin."
+  },
+  {
+    question: "Anong institusyon ang itinatag ng mga Espanyol para sa edukasyon?",
+    choices: [
+      "Pamantasan ng Santo Tomas",
+      "Ateneo de Manila",
+      "San Beda College",
+      "La Salle University"
+    ],
+    correct: "Pamantasan ng Santo Tomas",
+    explanation: "Itinatag ang Pamantasan ng Santo Tomas noong 1611, ang pinakamatandang unibersidad sa Asya, para sa edukasyon sa ilalim ng mga Espanyol."
+  },
+  {
+    question: "Anong mahalagang kasunduan ang nilagdaan sa pagtatapos ng pananakop ng mga Espanyol sa Pilipinas?",
+    choices: [
+      "Kasunduan sa Biak-na-Bato",
+      "Kasunduan sa Paris",
+      "Kasunduan sa Tordesillas",
+      "Pacto de Sangre"
+    ],
+    correct: "Kasunduan sa Paris",
+    explanation: "Ang Kasunduan sa Paris noong 1898 ang nagwakas sa pananakop ng mga Espanyol sa Pilipinas, ipinasa ang Pilipinas sa Estados Unidos."
+  },
+  {
+    question: "Anong sistema ang ipinatupad ng mga Espanyol upang mangolekta ng buwis mula sa mga Pilipino?",
+    choices: [
+      "Tributo",
+      "Polo",
+      "Cedula Personal",
+      "Bandala"
+    ],
+    correct: "Tributo",
+    explanation: "Ang Tributo ay isang sistema kung saan ang bawat Pilipino ay kinakailangang magbayad ng buwis sa mga Espanyol."
+  },
+  {
+    question: "Ano ang layunin ng mga Espanyol sa pagpapatupad ng sistemang encomienda?",
+    choices: [
+      "Pagpapalaganap ng Kristiyanismo",
+      "Pagpapalakas ng militar",
+      "Pagtataguyod ng edukasyon",
+      "Pagpapalago ng kalakalan"
+    ],
+    correct: "Pagpapalaganap ng Kristiyanismo",
+    explanation: "Ang pangunahing layunin ng sistemang encomienda ay ang pagpapalaganap ng Kristiyanismo sa mga katutubo."
+  },
+  {
+    question: "Ano ang kinahinatnan ng pag-aalsa ni Diego Silang laban sa mga Espanyol?",
+    choices: [
+      "Nagtagumpay at nakalaya ang Ilocos",
+      "Nabigo at naipatupad ang mas mahigpit na patakaran",
+      "Naging sanhi ito ng pagbabago sa pamahalaan",
+      "Walang nagbago sa pamahalaan"
+    ],
+    correct: "Nabigo at naipatupad ang mas mahigpit na patakaran",
+    explanation: "Nabigo ang pag-aalsa ni Diego Silang at humantong ito sa mas mahigpit na patakaran mula sa mga Espanyol."
+  },
+  {
+    question: "Bakit itinatag ang Guardia Civil sa Pilipinas?",
+    choices: [
+      "Para sa edukasyon ng mga Pilipino",
+      "Para protektahan ang mga misyonero",
+      "Para mapanatili ang kaayusan at seguridad",
+      "Para mangolekta ng buwis"
+    ],
+    correct: "Para mapanatili ang kaayusan at seguridad",
+    explanation: "Itinatag ang Guardia Civil upang mapanatili ang kaayusan at seguridad, at supilin ang mga lokal na pag-aalsa."
+  },
+  {
+    question: "Ano ang pangunahing epekto ng Monopolyo ng Tabako?",
+    choices: [
+      "Nagdulot ito ng kasaganaan sa mga magsasaka",
+      "Nagdulot ito ng malaking kita para sa kolonya",
+      "Naging sanhi ito ng paghihirap ng mga magsasaka",
+      "Nakatulong ito sa pag-unlad ng industriya ng tabako"
+    ],
+    correct: "Naging sanhi ito ng paghihirap ng mga magsasaka",
+    explanation: "Ang Monopolyo ng Tabako ay nagdulot ng malaking pasanin sa mga magsasaka, sapilitang pagtatanim ng tabako at mababang presyo sa kanilang mga ani."
+  },
+  {
+    question: "Paano nakaimpluwensya ang mga Espanyol sa sistema ng edukasyon sa Pilipinas?",
+    choices: [
+      "Itinatag nila ang unang sistema ng pampublikong edukasyon",
+      "Ipinalaganap nila ang paggamit ng wikang Espanyol",
+      "Itinuro nila ang Katolisismo sa mga paaralan",
+      "Lahat ng nabanggit"
+    ],
+    correct: "Lahat ng nabanggit",
+    explanation: "Ang mga Espanyol ay may malaking impluwensya sa sistema ng edukasyon sa Pilipinas sa pamamagitan ng pagtatatag ng pampublikong edukasyon, pagpapalaganap ng wikang Espanyol, at pagtuturo ng Katolisismo."
+  },
+  {
+    question: "Ano ang direktang epekto ng patakaran ng mga Espanyol na 'Tributo' sa mga Pilipino?",
+    choices: [
+      "Nakatulong ito sa pagpapaunlad ng ekonomiya ng mga Pilipino",
+      "Nagdulot ito ng karagdagang pasanin sa mga Pilipino",
+      "Walang epekto sa pamumuhay ng mga Pilipino",
+      "Nagbigay ito ng mas maraming oportunidad sa trabaho"
+    ],
+    correct: "Nagdulot ito ng karagdagang pasanin sa mga Pilipino",
+    explanation: "Ang patakaran ng 'Tributo' ay nagdulot ng karagdagang pasanin sa mga Pilipino dahil ito ay isang uri ng buwis na ipinapataw sa bawat pamilya."
+  },
+
+
+
+  {
+    question: "Paano nakaapekto ang Kalakalang Galyon sa Pilipinas?",
+    choices: [
+      "Nagdulot ito ng pag-unlad ng lokal na industriya",
+      "Nagdulot ito ng kahirapan dahil sa pagkasira ng lokal na ekonomiya",
+      "Walang epekto sa ekonomiya",
+      "Nagdulot ito ng mabilisang pag-unlad ng Maynila"
+    ],
+    correct: "Nagdulot ito ng kahirapan dahil sa pagkasira ng lokal na ekonomiya",
+    explanation: "Ang Kalakalang Galyon ay nagdulot ng malaking kahirapan dahil sa pagkasira ng lokal na ekonomiya at ang pagsalalay sa importasyon ng mga kalakal."
+  },
+  {
+    question: "Paano ipinatupad ng mga Espanyol ang kanilang kapangyarihan sa mga lokal na pamayanan?",
+    choices: [
+      "Sa pamamagitan ng mabuting pakikitungo",
+      "Sa pamamagitan ng sapilitang pagtatrabaho",
+      "Sa pamamagitan ng pagsasagawa ng mga lokal na eleksyon",
+      "Sa pamamagitan ng pagtatatag ng mga paaralan"
+    ],
+    correct: "Sa pamamagitan ng sapilitang pagtatrabaho",
+    explanation: "Ipinatupad ng mga Espanyol ang kanilang kapangyarihan sa mga lokal na pamayanan sa pamamagitan ng sapilitang pagtatrabaho tulad ng 'Polo y Servicio'."
+  },
+  {
+    question: "Ano ang pangunahing naging bunga ng pagpapatupad ng Monopolyo ng Tabako?",
+    choices: [
+      "Nagkaroon ng mas maraming trabaho para sa mga Pilipino",
+      "Naging mas malusog ang mga Pilipino dahil sa pagtatanim ng tabako",
+      "Nagdulot ito ng kahirapan at kagutuman sa mga apektadong rehiyon",
+      "Nagbigay ito ng sapat na pondo para sa mga proyekto ng mga Espanyol"
+    ],
+    correct: "Nagdulot ito ng kahirapan at kagutuman sa mga apektadong rehiyon",
+    explanation: "Ang Monopolyo ng Tabako ay nagdulot ng matinding kahirapan at kagutuman sa mga magsasaka dahil sa sapilitang pagtatanim ng tabako at hindi makatarungang presyo."
+  },
+  {
+    question: "Anong institusyong panlipunan ang pinatibay ng mga Espanyol sa Pilipinas?",
+    choices: [
+      "Ang sistema ng barangay",
+      "Ang Katolisismo",
+      "Ang sistema ng edukasyon",
+      "Ang militar"
+    ],
+    correct: "Ang Katolisismo",
+    explanation: "Pinatibay ng mga Espanyol ang institusyong panlipunan ng Katolisismo sa Pilipinas bilang bahagi ng kanilang kolonisasyon at pagpapalaganap ng kanilang kultura."
+  },
+  {
+    question: "Paano nakaimpluwensya ang mga Espanyol sa kultura ng Pilipinas?",
+    choices: [
+      "Itinaguyod nila ang paggamit ng sariling wika",
+      "Ipinakilala nila ang mga piyesta at iba pang tradisyong Katoliko",
+      "Binawasan nila ang impluwensya ng mga lokal na tradisyon",
+      "Ipinagbawal nila ang anumang anyo ng sining"
+    ],
+    correct: "Ipinakilala nila ang mga piyesta at iba pang tradisyong Katoliko",
+    explanation: "Ang mga Espanyol ay may malaking impluwensya sa kultura ng Pilipinas, partikular sa pagpapakilala ng mga piyesta at iba pang mga tradisyong Katoliko."
+  },
+  {
+    question: "Ano ang papel ng Simbahan sa panahon ng pananakop ng mga Espanyol?",
+    choices: [
+      "Pagpapalaganap ng edukasyon",
+      "Pagpapalaganap ng Kristiyanismo",
+      "Pagkontrol sa lokal na pamahalaan",
+      "Lahat ng nabanggit"
+    ],
+    correct: "Lahat ng nabanggit",
+    explanation: "Ang Simbahan sa panahon ng mga Espanyol ay hindi lamang nagpalaganap ng Kristiyanismo kundi nagkaroon din ng malaking papel sa edukasyon at kontrol sa lokal na pamahalaan."
+  },
+  {
+    question: "Paano nakatulong ang mga repormang ipinatupad ng mga Espanyol sa pag-unlad ng Pilipinas?",
+    choices: [
+      "Pagtatag ng modernong sistema ng edukasyon",
+      "Pagpapabuti ng imprastraktura",
+      "Pagpapaunlad ng agrikultura",
+      "Hindi nakatulong ang mga reporma"
+    ],
+    correct: "Pagpapabuti ng imprastraktura",
+    explanation: "Ang ilang mga repormang ipinatupad ng mga Espanyol, tulad ng pagpapabuti ng imprastraktura, ay may positibong epekto sa pag-unlad ng Pilipinas."
+  },
+  {
+    question: "Anong pagbabago sa lipunan ang dinala ng mga Espanyol sa Pilipinas?",
+    choices: [
+      "Pagpapahina ng mga lokal na lider",
+      "Pagpapatibay ng sistemang patriyarkal",
+      "Pagpapaunlad ng ekonomiya",
+      "Pagtatatag ng demokrasya"
+    ],
+    correct: "Pagpapatibay ng sistemang patriyarkal",
+    explanation: "Ang pananakop ng mga Espanyol ay nagpatibay ng sistemang patriyarkal sa Pilipinas, kung saan naging mas dominante ang papel ng mga lalaki sa lipunan."
+  },
+  {
+    question: "Paano binago ng mga Espanyol ang estruktura ng komunidad sa Pilipinas?",
+    choices: [
+      "Pagbuo ng mga barangay",
+      "Pagtatatag ng mga pueblo at reduccion",
+      "Pagpapalakas ng mga kaharian",
+      "Paglikha ng mga bagong lalawigan"
+    ],
+    correct: "Pagtatatag ng mga pueblo at reduccion",
+    explanation: "Binago ng mga Espanyol ang estruktura ng komunidad sa Pilipinas sa pamamagitan ng pagtatatag ng mga pueblo at reduccion para sa mas epektibong pamamahala."
+  },
+  {
+    question: "Anong sistema ang ipinatupad para sa edukasyon ng mga katutubo sa ilalim ng pananakop ng mga Espanyol?",
+    choices: [
+      "Libreng pampublikong edukasyon para sa lahat",
+      "Edukasyon para lamang sa mga elit",
+      "Katolikong edukasyon sa pamamagitan ng mga misyonero",
+      "Walang sistemang edukasyon na ipinatupad"
+    ],
+    correct: "Katolikong edukasyon sa pamamagitan ng mga misyonero",
+    explanation: "Ipinatupad ng mga Espanyol ang Katolikong edukasyon para sa mga katutubo sa Pilipinas, pangunahin sa pamamagitan ng mga misyonero."
+  }
+];
+
+
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(questions);
+
+        let currentQuestionIndex = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            const questionHtml = `
+                <div>
+                    <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
+                    ${question.choices.map(choice => `
+                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('questionContainer').innerHTML = questionHtml;
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('checkAnswerBtn').style.display = 'none';
+        }
+
+        window.selectAnswer = function(choice, element) {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            element.classList.add('active');
+            document.getElementById('checkAnswerBtn').style.display = 'block';
+        }
+
+        window.checkAnswer = function() {
+            const question = questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.choice-btn');
+            let isCorrect = false;
+            buttons.forEach(button => {
+                if (button.classList.contains('active')) {
+                    if (button.textContent === question.correct) {
+                        button.classList.add('correct-answer');
+                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
+                        isCorrect = true;
+                    } else {
+                        button.classList.add('incorrect-answer');
+                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
+                    }
+                }
+                button.disabled = true;
+            });
+            updateFeedback(isCorrect, question);
+            document.getElementById('checkAnswerBtn').style.display = 'none';
+        }
+
+        function updateFeedback(isCorrect, question) {
+            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
+            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
+            document.getElementById('feedback').style.display = 'block';
+            updateScore(isCorrect);
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        function updateScore(isCorrect) {
+            if (isCorrect) {
+                correctCount++;
+            } else {
+                incorrectCount++;
+            }
+            const totalQuestions = questions.length;
+            const correctProgressPercent = (correctCount / totalQuestions) * 100;
+            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
+            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
+            document.getElementById('correctProgress').setAttribute('aria-valuenow', correctProgressPercent);
+            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
+            document.getElementById('incorrectProgress').setAttribute('aria-valuenow', incorrectProgressPercent);
+        }
+
+        window.nextQuestion = function() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                document.getElementById('questionContainer').innerHTML = '';
+                document.getElementById('completionMessage').innerHTML = `
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
+                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
+                    </div>
+                `;
+                document.getElementById('completionMessage').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+        }
+
+        displayQuestion(); // Load the first question
+    });
+</script>
+</body>
+</html>
