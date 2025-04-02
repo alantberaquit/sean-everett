@@ -109,186 +109,181 @@
     document.addEventListener('DOMContentLoaded', function() {
 const questions = [
     {
-        question: "What does heat transfer by conduction require?",
-        choices: ["Contact between objects", "Movement of waves", "A source of light", "Isolation"],
-        correct: "Contact between objects",
-        explanation: "Heat transfer by conduction occurs when there is direct contact between materials that are at different temperatures."
+        question: "What is weathering?",
+        choices: ["The process of rocks breaking down into smaller pieces", "The movement of sediment from one place to another", "A type of storm", "The study of weather patterns"],
+        correct: "The process of rocks breaking down into smaller pieces",
+        explanation: "Weathering is the process where rocks are broken down into smaller pieces by physical or chemical means."
     },
     {
-        question: "Which material is a good conductor of electricity?",
-        choices: ["Plastic", "Wood", "Copper", "Rubber"],
-        correct: "Copper",
-        explanation: "Copper is a good conductor of electricity, commonly used in wires and electrical equipment."
+        question: "What is erosion?",
+        choices: ["The deposit of soil and minerals in new locations", "The breakdown of rocks", "The movement of sediment from one place to another", "A type of weather disturbance"],
+        correct: "The movement of sediment from one place to another",
+        explanation: "Erosion is the process by which soil and rock particles are worn away and moved elsewhere by wind, water, or ice."
     },
     {
-        question: "What happens when sound waves travel through air?",
-        choices: ["They move faster in warmer air", "They do not move", "They become light waves", "They are absorbed completely"],
-        correct: "They move faster in warmer air",
-        explanation: "Sound waves travel faster through warmer air due to the increased energy and movement of air molecules."
+        question: "What is a tropical cyclone?",
+        choices: ["A calm, clear weather pattern", "A type of rock formation", "A rapidly rotating storm system", "A slow-moving cloud formation"],
+        correct: "A rapidly rotating storm system",
+        explanation: "A tropical cyclone is a rapidly rotating storm system characterized by a low-pressure center, a closed low-level atmospheric circulation, strong winds, and a spiral arrangement of thunderstorms that produce heavy rain."
     },
     {
-        question: "Which color absorbs more heat?",
-        choices: ["White", "Black", "Yellow", "Blue"],
-        correct: "Black",
-        explanation: "Darker colors, like black, absorb more heat compared to lighter colors."
+        question: "What can cause physical weathering?",
+        choices: ["Chemical reactions", "Plant roots breaking rocks", "Pollution", "Evaporation of minerals"],
+        correct: "Plant roots breaking rocks",
+        explanation: "Physical weathering can occur due to mechanical processes such as the growth of plant roots in cracks in rocks which eventually break them apart."
     },
     {
-        question: "What is the main source of heat and light for Earth?",
-        choices: ["The Moon", "Electricity", "The Sun", "Fire"],
-        correct: "The Sun",
-        explanation: "The Sun is the main source of heat and light for the Earth."
+        question: "How does water contribute to erosion?",
+        choices: ["By drying out soil", "By freezing in cracks of rocks", "By carrying sediment downstream in rivers", "By sheltering soil from the wind"],
+        correct: "By carrying sediment downstream in rivers",
+        explanation: "Water contributes to erosion by flowing over soil and rocks and carrying away particles, especially in rivers and streams."
     },
     {
-        question: "What type of materials can sound not travel through?",
-        choices: ["Solids", "Liquids", "Gases", "Vacuum"],
-        correct: "Vacuum",
-        explanation: "Sound cannot travel through a vacuum because there are no molecules to transmit the sound waves."
+        question: "Which layer of the atmosphere do tropical cyclones form in?",
+        choices: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
+        correct: "Troposphere",
+        explanation: "Tropical cyclones form in the troposphere, the lowest layer of the atmosphere where weather phenomena occur."
     },
     {
-        question: "What is a non-conductor of electricity also known as?",
-        choices: ["Conductor", "Insulator", "Resistor", "Capacitor"],
-        correct: "Insulator",
-        explanation: "Non-conductors of electricity are also known as insulators, which resist the flow of electricity."
+        question: "What is the main difference between weathering and erosion?",
+        choices: ["Weathering involves chemical processes, erosion does not", "Weathering breaks rocks down, erosion moves the pieces", "Erosion happens only with water, weathering does not", "There is no difference; they are the same process"],
+        correct: "Weathering breaks rocks down, erosion moves the pieces",
+        explanation: "Weathering is the process of breaking down rocks into smaller pieces, whereas erosion is the movement of those pieces to new locations."
     },
     {
-        question: "Which of the following is a property of sound?",
-        choices: ["It can be reflected", "It is visible", "It has mass", "It can be compressed"],
-        correct: "It can be reflected",
-        explanation: "Sound can be reflected, such as echoes bouncing off a surface."
+        question: "What type of weathering is caused by acid rain?",
+        choices: ["Physical weathering", "Biological weathering", "Chemical weathering", "Erosional weathering"],
+        correct: "Chemical weathering",
+        explanation: "Acid rain causes chemical weathering because it involves chemical reactions between the acids in the rain and the minerals in the rocks, leading to decomposition."
     },
     {
-        question: "What type of heat transfer occurs when the Sun heats the Earth?",
-        choices: ["Conduction", "Convection", "Radiation", "Expansion"],
-        correct: "Radiation",
-        explanation: "Radiation is the transfer of heat through space, such as the heat from the Sun reaching Earth."
+        question: "What are the effects of a tropical cyclone?",
+        choices: ["Drought and heatwaves", "Snow and ice", "High winds, heavy rain, and flooding", "Sunny, calm weather"],
+        correct: "High winds, heavy rain, and flooding",
+        explanation: "Tropical cyclones can cause severe weather conditions including high winds, heavy rain, and flooding."
     },
     {
-        question: "How does wearing a hat on a sunny day help reduce heat absorption?",
-        choices: ["It reflects light", "It conducts heat", "It increases heat", "It reduces radiation"],
-        correct: "It reflects light",
-        explanation: "Wearing a hat helps reflect light away from your head, which reduces heat absorption."
+        question: "Which factor does not contribute to soil erosion?",
+        choices: ["Planting vegetation", "Heavy rainfall", "Wind", "River currents"],
+        correct: "Planting vegetation",
+        explanation: "Planting vegetation actually helps prevent erosion by stabilizing the soil with roots and absorbing water."
     },
     {
-        question: "What determines the pitch of a sound?",
-        choices: ["The volume", "The frequency of waves", "The color of the sound", "The number of waves"],
-        correct: "The frequency of waves",
-        explanation: "The pitch of a sound is determined by the frequency of the sound waves; higher frequencies have higher pitches."
+        question: "How does frost action cause weathering?",
+        choices: ["By cooling the air", "By water freezing and expanding in cracks of rocks", "By forming icicles on cliffs", "By increasing humidity"],
+        correct: "By water freezing and expanding in cracks of rocks",
+        explanation: "Frost action causes weathering when water seeps into cracks in rocks, freezes, and expands, which eventually breaks the rock apart."
     },
     {
-        question: "Which material is not likely to be a good heat insulator?",
-        choices: ["Wood", "Glass", "Metal", "Styrofoam"],
-        correct: "Metal",
-        explanation: "Metals are typically good heat conductors, not insulators."
+        question: "What is the primary energy source for a tropical cyclone?",
+        choices: ["Solar energy", "Geothermal energy", "Energy from oceanic water vapor", "Energy from cold air masses"],
+        correct: "Energy from oceanic water vapor",
+        explanation: "Tropical cyclones derive their energy primarily from the heat released when moist air rises and condenses, a process fueled by warm oceanic waters."
     },
     {
-        question: "Why do metal spoons get hot when placed in a pot of boiling water?",
-        choices: ["They absorb sound", "They conduct heat", "They generate heat", "They reflect heat"],
-        correct: "They conduct heat",
-        explanation: "Metal spoons conduct heat from the boiling water, making them hot to touch."
+        question: "What does the term 'abrasion' refer to in the context of erosion?",
+        choices: ["The smoothing of surfaces by chemical reactions", "The grinding away of rock by other rock particles carried in water, ice, or wind", "The deposit of sediment in new locations", "The formation of soil layers"],
+        correct: "The grinding away of rock by other rock particles carried in water, ice, or wind",
+        explanation: "Abrasion in erosion is the physical scraping of a rock surface by friction between rocks and moving particles during their transport by wind, glacier, waves, gravity, running water."
     },
     {
-        question: "What is refraction related to the interaction of light?",
-        choices: ["The bending of light as it passes through different mediums", "The reflection of light off surfaces", "The production of light from a source", "The absorption of light by dark colors"],
-        correct: "The bending of light as it passes through different mediums",
-        explanation: "Refraction is the bending of light as it passes from one medium to another, changing speed."
+        question: "Which climate condition discourages the formation of tropical cyclones?",
+        choices: ["Warm ocean waters", "Cold ocean waters", "High atmospheric instability", "Low air pressure"],
+        correct: "Cold ocean waters",
+        explanation: "Tropical cyclones typically form over warm ocean waters and are less likely to form when ocean waters are cold."
     },
     {
-        question: "What happens when light hits a smooth and shiny surface like a mirror?",
-        choices: ["It is completely absorbed", "It passes through", "It is reflected", "It disappears"],
-        correct: "It is reflected",
-        explanation: "Light is reflected off smooth and shiny surfaces, which is why mirrors are able to reflect images."
+        question: "What role do trees and plants play in preventing erosion?",
+        choices: ["They break the wind speed", "Their roots stabilize the soil", "They attract animals that dig burrows", "They increase water absorption"],
+        correct: "Their roots stabilize the soil",
+        explanation: "The roots of trees and plants help to stabilize the soil, reducing erosion by anchoring the soil in place and absorbing water."
     },
     {
-        question: "Why does ice melt when exposed to heat?",
-        choices: ["Because it condenses", "Because it freezes", "Because it evaporates", "Because it absorbs heat"],
-        correct: "Because it absorbs heat",
-        explanation: "Ice melts because it absorbs heat from its surroundings, changing its state from solid to liquid."
+        question: "What is an example of chemical weathering?",
+        choices: ["A tree root splitting a rock", "The polishing effect of sand blown against a rock", "Iron rusting in rock formations", "Rocks cracking from freeze-thaw cycles"],
+        correct: "Iron rusting in rock formations",
+        explanation: "Chemical weathering includes the rusting of iron in rock, which involves a chemical change where iron reacts with oxygen and water."
     },
     {
-        question: "What is a common effect of heat on most materials?",
-        choices: ["They shrink", "They freeze", "They expand", "They dissolve"],
-        correct: "They expand",
-        explanation: "Most materials expand when heated due to the increased movement of molecules."
+        question: "What is a common result of erosion along coastlines?",
+        choices: ["Beach formation", "The creation of mountains", "The growth of forests", "Desert formation"],
+        correct: "Beach formation",
+        explanation: "Erosion along coastlines often results in the formation of beaches as materials such as sand are moved from one place to another along the shore."
     },
     {
-        question: "Which of the following is true about shadows formed by light?",
-        choices: ["They form in front of the light source", "They are always colorful", "They form where light cannot reach", "They change color with temperature"],
-        correct: "They form where light cannot reach",
-        explanation: "Shadows are formed in areas where light does not reach, blocked by an object."
+        question: "Why do tropical cyclones weaken over land?",
+        choices: ["Lack of moisture", "Colder temperatures", "Higher air pressure", "All of the above"],
+        correct: "Lack of moisture",
+        explanation: "Tropical cyclones weaken over land primarily because they are cut off from their primary energy source, the warm ocean water vapor."
     },
     {
-        question: "What role does the atmosphere play in heat transfer from the Sun?",
-        choices: ["It blocks all heat", "It reflects all heat back to space", "It absorbs and redistributes heat", "It prevents any heat from reaching Earth"],
-        correct: "It absorbs and redistributes heat",
-        explanation: "The atmosphere absorbs heat from the Sun and helps to redistribute it across the planet."
+        question: "Which process involves the transfer of rock and soil downhill due to gravity?",
+        choices: ["Tectonic movement", "Mass wasting", "Condensation", "Transpiration"],
+        correct: "Mass wasting",
+        explanation: "Mass wasting is the process that involves the movement of soil and rock downhill due to gravity, commonly seen in landslides and rockfalls."
     },
     {
-        question: "What device measures temperature?",
-        choices: ["Barometer", "Thermometer", "Hygrometer", "Anemometer"],
-        correct: "Thermometer",
-        explanation: "A thermometer is used to measure temperature."
+        question: "What type of rock is most susceptible to chemical weathering?",
+        choices: ["Granite", "Sandstone", "Limestone", "Quartzite"],
+        correct: "Limestone",
+        explanation: "Limestone is particularly susceptible to chemical weathering, especially from acid rain, because it is composed largely of calcite which reacts with acidic solutions."
     },
     {
-        question: "Which of the following is not a form of energy?",
-        choices: ["Electricity", "Light", "Heat", "Color"],
-        correct: "Color",
-        explanation: "Color is not a form of energy, but light is, which can be perceived as color."
+        question: "How do human activities increase soil erosion?",
+        choices: ["By planting trees", "By building dams", "By overgrazing and deforestation", "By fishing"],
+        correct: "By overgrazing and deforestation",
+        explanation: "Human activities such as overgrazing and deforestation remove vegetation cover, increasing soil erosion as there are fewer roots to hold the soil in place."
     },
     {
-        question: "What is one way to reduce heat loss in a home?",
-        choices: ["Open all windows", "Increase the use of heaters", "Install insulation", "Remove all curtains"],
-        correct: "Install insulation",
-        explanation: "Installing insulation in a home helps to reduce heat loss, keeping it warmer in winter and cooler in summer."
+        question: "What is the scale used to measure the intensity of tropical cyclones?",
+        choices: ["Fujita Scale", "Richter Scale", "Saffir-Simpson Scale", "Mercalli Scale"],
+        correct: "Saffir-Simpson Scale",
+        explanation: "The Saffir-Simpson Scale is used to measure the intensity of tropical cyclones, categorizing them based on their wind speed."
     },
     {
-        question: "Why is metal a poor insulator?",
-        choices: ["It absorbs too much heat", "It reflects light", "It conducts heat quickly", "It is too heavy"],
-        correct: "It conducts heat quickly",
-        explanation: "Metal is a poor insulator because it conducts heat quickly, transferring temperature changes rapidly."
+        question: "Which area would most likely experience high rates of erosion?",
+        choices: ["A flat, vegetated plain", "A steep, bare mountain slope", "A frozen tundra", "A densely forested area"],
+        correct: "A steep, bare mountain slope",
+        explanation: "Steep, bare mountain slopes are more likely to experience high rates of erosion due to lack of vegetation to protect the soil and gravity pulling materials downhill."
     },
     {
-        question: "Which property of sound is affected by the medium through which it travels?",
-        choices: ["Color", "Speed", "Odor", "Taste"],
-        correct: "Speed",
-        explanation: "The speed of sound is affected by the medium through which it travels; it moves at different speeds through air, water, and solids."
+        question: "What happens during the process of exfoliation in weathering?",
+        choices: ["Soil layers are compressed", "Rocks are polished by wind", "Outer layers of rock peel off", "Water transports soil particles"],
+        correct: "Outer layers of rock peel off",
+        explanation: "Exfoliation is a weathering process where outer rock layers peel off due to pressure release or thermal expansion and contraction."
     },
     {
-        question: "What is the main effect of light on photosynthesis?",
-        choices: ["It decreases oxygen production", "It increases heat absorption", "It drives the chemical process", "It colors the plants"],
-        correct: "It drives the chemical process",
-        explanation: "Light is essential for photosynthesis as it drives the chemical process that converts carbon dioxide and water into glucose and oxygen."
+        question: "What impact does a tropical cyclone have on ocean temperatures?",
+        choices: ["It cools the ocean by mixing surface and deeper waters", "It heats the ocean significantly", "It has no impact on ocean temperatures", "It causes the ocean to freeze"],
+        correct: "It cools the ocean by mixing surface and deeper waters",
+        explanation: "Tropical cyclones can lead to temporary cooling of surface waters, as the intense winds and waves mix warmer surface water with deeper, cooler water."
     },
     {
-        question: "What phenomenon causes a mirage?",
-        choices: ["Reflection of light", "Refraction of light", "Absorption of light", "Diffraction of light"],
-        correct: "Refraction of light",
-        explanation: "A mirage is caused by the refraction of light, which bends light waves passing through air layers of different temperatures."
+        question: "What feature is typically formed by water erosion?",
+        choices: ["Deserts", "Mountains", "River valleys", "Plateaus"],
+        correct: "River valleys",
+        explanation: "River valleys are typically formed by water erosion as rivers cut through the land over time, carrying away soil and rock."
     },
     {
-        question: "Why are electrical wires covered with plastic or rubber?",
-        choices: ["To make them look nice", "To conduct electricity better", "To insulate them", "To make them heavier"],
-        correct: "To insulate them",
-        explanation: "Electrical wires are covered with plastic or rubber to insulate them and prevent electrical shocks."
+        question: "Which factor increases the rate of chemical weathering?",
+        choices: ["Cold, dry climates", "Hot, humid climates", "High altitudes", "Low pressure systems"],
+        correct: "Hot, humid climates",
+        explanation: "Chemical weathering rates increase in hot, humid climates because higher temperatures and moisture levels accelerate chemical reactions."
     },
     {
-        question: "What happens to the speed of light as it enters a denser medium?",
-        choices: ["It increases", "It decreases", "It remains the same", "It reverses"],
-        correct: "It decreases",
-        explanation: "The speed of light decreases as it passes from a less dense to a more dense medium."
+        question: "What is the primary cause of desertification?",
+        choices: ["Heavy rainfall", "Forest growth", "Soil erosion", "Glacial movement"],
+        correct: "Soil erosion",
+        explanation: "Desertification is primarily caused by soil erosion, which removes the topsoil necessary for plants to grow, reducing the land's fertility."
     },
     {
-        question: "Which action involves convection of heat?",
-        choices: ["Boiling water in a pot", "Using a blanket to stay warm", "Cutting wood with a saw", "Writing with a pencil"],
-        correct: "Boiling water in a pot",
-        explanation: "Convection occurs when heat is transferred through fluids (liquids or gases); boiling water involves convection as heat circulates within the pot."
-    },
-    {
-        question: "What does it mean if a material is opaque?",
-        choices: ["It reflects all light", "It passes light through", "It does not let light through", "It changes light into heat"],
-        correct: "It does not let light through",
-        explanation: "An opaque material does not allow light to pass through; instead, it absorbs or reflects light."
+        question: "What natural barrier can help protect coastlines from erosion?",
+        choices: ["Coral reefs", "Sand dunes", "Mountain ranges", "Both coral reefs and sand dunes"],
+        correct: "Both coral reefs and sand dunes",
+        explanation: "Coral reefs and sand dunes both serve as natural barriers that protect coastlines from the erosive forces of waves and storms."
     }
 ];
+
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
