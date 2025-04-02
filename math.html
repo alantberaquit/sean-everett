@@ -109,186 +109,187 @@
     document.addEventListener('DOMContentLoaded', function() {
 const questions = [
     {
-        question: "What percentage of a circle is 90 degrees?",
+        question: "If you have a protractor, what instrument is used to measure angles?",
+        choices: ["Ruler", "Compass", "Protractor", "Stopwatch"],
+        correct: "Protractor",
+        explanation: "A protractor is specifically designed to measure angles."
+    },
+    {
+        question: "Calculate 50% of 200.",
+        choices: ["50", "100", "150", "200"],
+        correct: "100",
+        explanation: "50% of 200 is 100 because 0.5 multiplied by 200 equals 100."
+    },
+    {
+        question: "What is the rate of change if you bought 10 apples for $5?",
+        choices: ["$0.2 per apple", "$0.5 per apple", "$1 per apple", "$2 per apple"],
+        correct: "$0.5 per apple",
+        explanation: "$5 divided by 10 apples equals $0.5 per apple."
+    },
+    {
+        question: "Convert 0.25 to a percentage.",
+        choices: ["2.5%", "25%", "0.25%", "250%"],
+        correct: "25%",
+        explanation: "0.25 as a percentage is 25%."
+    },
+    {
+        question: "What angle is formed by two perpendicular lines?",
+        choices: ["45 degrees", "90 degrees", "180 degrees", "360 degrees"],
+        correct: "90 degrees",
+        explanation: "Two perpendicular lines form a right angle, which is 90 degrees."
+    },
+    {
+        question: "If 15% of a number is 30, find the number.",
+        choices: ["200", "150", "300", "180"],
+        correct: "200",
+        explanation: "15% of 200 is 30 because 0.15 multiplied by 200 equals 30."
+    },
+    {
+        question: "Measure an angle that is less than 90 degrees. What is it called?",
+        choices: ["Obtuse angle", "Right angle", "Acute angle", "Straight angle"],
+        correct: "Acute angle",
+        explanation: "An angle less than 90 degrees is called an acute angle."
+    },
+    {
+        question: "If a shirt costs $20 and is on sale for 25% off, what is the sale price?",
+        choices: ["$5", "$15", "$20", "$25"],
+        correct: "$15",
+        explanation: "25% off $20 is $5, so the sale price is $20 - $5 = $15."
+    },
+    {
+        question: "If there are 3 boys for every 4 girls in a class, what is the ratio of boys to girls?",
+        choices: ["3:4", "4:3", "7:1", "1:1"],
+        correct: "3:4",
+        explanation: "The ratio of 3 boys to 4 girls is 3:4."
+    },
+    {
+        question: "What type of angle measures exactly 180 degrees?",
+        choices: ["Acute angle", "Right angle", "Straight angle", "Reflex angle"],
+        correct: "Straight angle",
+        explanation: "A straight angle measures exactly 180 degrees."
+    },
+    {
+        question: "If a car travels 100 kilometers in 2 hours, what is the rate of speed in kilometers per hour?",
+        choices: ["50 km/h", "100 km/h", "150 km/h", "200 km/h"],
+        correct: "50 km/h",
+        explanation: "100 kilometers in 2 hours means the car travels at 50 km/h."
+    },
+    {
+        question: "Convert the fraction 3/4 to a percentage.",
         choices: ["25%", "50%", "75%", "100%"],
-        correct: "25%",
-        explanation: "90 degrees is 25% of a full circle (360 degrees)."
-    },
-    {
-        question: "If a recipe requires 2 cups of sugar and 3 cups of flour, what is the ratio of sugar to flour?",
-        choices: ["2:3", "3:2", "1:2", "2:1"],
-        correct: "2:3",
-        explanation: "The ratio of sugar to flour is 2:3."
-    },
-    {
-        question: "Convert 20% to a decimal.",
-        choices: ["0.2", "0.02", "2", "20"],
-        correct: "0.2",
-        explanation: "20% as a decimal is 0.2."
-    },
-    {
-        question: "What angle measure is an obtuse angle?",
-        choices: ["30 degrees", "90 degrees", "120 degrees", "180 degrees"],
-        correct: "120 degrees",
-        explanation: "An obtuse angle is more than 90 degrees but less than 180 degrees."
-    },
-    {
-        question: "If 8 out of 10 slices of pizza have been eaten, what percentage of the pizza is left?",
-        choices: ["20%", "25%", "80%", "75%"],
-        correct: "20%",
-        explanation: "2 out of 10 slices are left, which is 20% of the pizza."
-    },
-    {
-        question: "What is the complement of a 40-degree angle?",
-        choices: ["50 degrees", "140 degrees", "90 degrees", "40 degrees"],
-        correct: "50 degrees",
-        explanation: "The complement of an angle adds up to 90 degrees. 90 - 40 = 50 degrees."
-    },
-    {
-        question: "Find the decimal equivalent of 1/4.",
-        choices: ["0.25", "0.4", "0.75", "0.125"],
-        correct: "0.25",
-        explanation: "1 divided by 4 equals 0.25."
-    },
-    {
-        question: "If a toy costs $50 and is on sale for 10% off, what is the sale price?",
-        choices: ["$45", "$40", "$5", "$55"],
-        correct: "$45",
-        explanation: "10% of $50 is $5. $50 - $5 = $45."
-    },
-    {
-        question: "What fraction represents 50%?",
-        choices: ["1/2", "1/4", "3/4", "2/5"],
-        correct: "1/2",
-        explanation: "50% as a fraction is 1/2."
-    },
-    {
-        question: "If a bag contains 2 red marbles and 3 blue marbles, what is the ratio of red to blue marbles?",
-        choices: ["2:3", "3:2", "5:0", "3:5"],
-        correct: "2:3",
-        explanation: "There are 2 red marbles and 3 blue marbles, so the ratio is 2:3."
-    },
-    {
-        question: "Convert 0.75 to a percentage.",
-        choices: ["75%", "7.5%", "0.75%", "75"],
         correct: "75%",
-        explanation: "0.75 as a percentage is 75%."
+        explanation: "3 divided by 4 equals 0.75, which is 75%."
     },
     {
-        question: "What is the direct proportion of 3 days to 72 hours?",
-        choices: ["1:24", "1:1", "24:1", "3:72"],
-        correct: "1:1",
-        explanation: "3 days is equal to 72 hours, so the proportion is 1:1."
+        question: "If you divide a pizza into 8 equal slices and eat 3, what percentage of the pizza is left?",
+        choices: ["37.5%", "62.5%", "75%", "87.5%"],
+        correct: "62.5%",
+        explanation: "5 out of 8 slices are left, which is 62.5% of the pizza."
     },
     {
-        question: "What fraction is equivalent to 25%?",
-        choices: ["1/4", "1/3", "1/2", "1/5"],
-        correct: "1/4",
-        explanation: "25% as a fraction is 1/4."
+        question: "Name an angle measure greater than 90 degrees but less than 180 degrees.",
+        choices: ["Acute angle", "Obtuse angle", "Right angle", "Straight angle"],
+        correct: "Obtuse angle",
+        explanation: "An obtuse angle is greater than 90 degrees but less than 180 degrees."
     },
     {
-        question: "If there are 40 students in a class and 10 are absent, what percentage of the class is absent?",
-        choices: ["25%", "10%", "75%", "50%"],
-        correct: "25%",
-        explanation: "10 out of 40 students are 25% of the class."
+        question: "If a cake recipe calls for 2 cups of flour for every 3 cups of sugar, what is the ratio of flour to sugar?",
+        choices: ["2:3", "3:2", "1:1", "4:5"],
+        correct: "2:3",
+        explanation: "The ratio of 2 cups of flour to 3 cups of sugar is 2:3."
     },
     {
-        question: "What is the ratio of 5 minutes to 2 hours?",
-        choices: ["5:120", "1:24", "2:60", "120:5"],
-        correct: "1:24",
-        explanation: "2 hours is 120 minutes, so the ratio is 5:120, which simplifies to 1:24."
-    },
-    {
-        question: "Convert the fraction 3/20 to a decimal.",
-        choices: ["0.15", "0.2", "0.25", "0.05"],
-        correct: "0.15",
-        explanation: "3 divided by 20 equals 0.15."
-    },
-    {
-        question: "What percentage of 200 is 50?",
-        choices: ["25%", "20%", "50%", "75%"],
+        question: "Calculate the percentage of 50 is to 200.",
+        choices: ["25%", "50%", "75%", "100%"],
         correct: "25%",
         explanation: "50 is 25% of 200."
     },
     {
-        question: "If a triangle has angles of 50 degrees and 60 degrees, what is the measure of the third angle?",
-        choices: ["70 degrees", "60 degrees", "50 degrees", "40 degrees"],
-        correct: "70 degrees",
-        explanation: "The sum of angles in a triangle is 180 degrees. 180 - 50 - 60 = 70 degrees."
+        question: "What type of angle is 360 degrees?",
+        choices: ["Acute angle", "Right angle", "Complete angle", "Reflex angle"],
+        correct: "Complete angle",
+        explanation: "A complete angle measures 360 degrees."
     },
     {
-        question: "What is 0.1 expressed as a percentage?",
-        choices: ["1%", "10%", "0.1%", "0.01%"],
-        correct: "10%",
-        explanation: "0.1 as a percentage is 10%."
+        question: "If you have 7 red apples and 3 green apples, what is the ratio of red apples to green apples?",
+        choices: ["7:3", "3:7", "10:0", "1:1"],
+        correct: "7:3",
+        explanation: "The ratio of 7 red apples to 3 green apples is 7:3."
     },
     {
-        question: "If you have 60 marbles and give away 15, what is the ratio of marbles given away to marbles left?",
-        choices: ["1:3", "3:4", "4:3", "3:1"],
-        correct: "1:3",
-        explanation: "The ratio of marbles given away to marbles left is 15 to 45, which simplifies to 1:3."
+        question: "Convert 0.60 to a percentage.",
+        choices: ["6%", "60%", "600%", "0.6%"],
+        correct: "60%",
+        explanation: "0.60 as a percentage is 60%."
     },
     {
-        question: "Convert 2 hours into minutes.",
-        choices: ["120 minutes", "200 minutes", "100 minutes", "240 minutes"],
-        correct: "120 minutes",
-        explanation: "There are 60 minutes in an hour, so 2 hours is 120 minutes."
-    },
-    {
-        question: "What is the complement of an 80-degree angle?",
-        choices: ["10 degrees", "100 degrees", "90 degrees", "20 degrees"],
-        correct: "10 degrees",
-        explanation: "The complement of an angle adds up to 90 degrees. 90 - 80 = 10 degrees."
-    },
-    {
-        question: "If the ratio of cats to dogs is 1:2 and there are 10 dogs, how many cats are there?",
-        choices: ["5", "20", "10", "15"],
-        correct: "5",
-        explanation: "If there are twice as many dogs as cats, and there are 10 dogs, then there are 5 cats."
-    },
-    {
-        question: "What is 150% as a decimal?",
-        choices: ["1.5", "15", "0.15", "150"],
-        correct: "1.5",
-        explanation: "150% as a decimal is 1.5."
-    },
-    {
-        question: "Convert the fraction 1/5 to a percentage.",
-        choices: ["20%", "25%", "5%", "10%"],
+        question: "Find the percentage if 4 out of 20 questions are answered incorrectly.",
+        choices: ["10%", "20%", "25%", "40%"],
         correct: "20%",
-        explanation: "1/5 as a percentage is 20%."
+        explanation: "4 out of 20 questions is 20%."
     },
     {
-        question: "What type of angle measures more than 180 degrees?",
+        question: "What is the complement of a 30-degree angle?",
+        choices: ["60 degrees", "30 degrees", "150 degrees", "120 degrees"],
+        correct: "60 degrees",
+        explanation: "The complement of a 30-degree angle is 60 degrees, totaling 90 degrees."
+    },
+    {
+        question: "If a pair of shoes costs $40 and you get a 10% discount, how much do you pay?",
+        choices: ["$4", "$36", "$40", "$44"],
+        correct: "$36",
+        explanation: "10% of $40 is $4, so you pay $40 - $4 = $36."
+    },
+    {
+        question: "How many degrees are in three right angles?",
+        choices: ["90 degrees", "180 degrees", "270 degrees", "360 degrees"],
+        correct: "270 degrees",
+        explanation: "Three right angles total 270 degrees (3 x 90)."
+    },
+    {
+        question: "If 10% of a class of 30 students are absent, how many students are absent?",
+        choices: ["3 students", "10 students", "20 students", "30 students"],
+        correct: "3 students",
+        explanation: "10% of 30 students is 3 students."
+    },
+    {
+        question: "What is the sum of angles in a triangle?",
+        choices: ["90 degrees", "180 degrees", "270 degrees", "360 degrees"],
+        correct: "180 degrees",
+        explanation: "The sum of the angles in any triangle is always 180 degrees."
+    },
+    {
+        question: "Convert the decimal 0.20 to a fraction.",
+        choices: ["1/5", "1/4", "1/10", "2/5"],
+        correct: "1/5",
+        explanation: "0.20 as a fraction is 1/5."
+    },
+    {
+        question: "If 5 out of 25 students in a class like chocolate ice cream, what percentage is that?",
+        choices: ["5%", "10%", "20%", "25%"],
+        correct: "20%",
+        explanation: "5 out of 25 students is 20%."
+    },
+    {
+        question: "What is the ratio of 60 minutes to 1 hour?",
+        choices: ["1:1", "60:1", "1:60", "1:100"],
+        correct: "1:1",
+        explanation: "60 minutes is equivalent to 1 hour, so the ratio is 1:1."
+    },
+    {
+        question: "If you find 40% of 150, what is the result?",
+        choices: ["60", "75", "100", "150"],
+        correct: "60",
+        explanation: "40% of 150 is 60."
+    },
+    {
+        question: "If an angle measures 270 degrees, what type of angle is it?",
         choices: ["Acute angle", "Right angle", "Obtuse angle", "Reflex angle"],
         correct: "Reflex angle",
-        explanation: "A reflex angle measures more than 180 degrees."
-    },
-    {
-        question: "What is the ratio of 6 kg to 300 g?",
-        choices: ["20:1", "1:20", "6:3", "3:6"],
-        correct: "20:1",
-        explanation: "300 g is 0.3 kg, so the ratio of 6 kg to 0.3 kg is 20:1."
-    },
-    {
-        question: "If a rectangle has a length of 4 cm and a width of 3 cm, what is the ratio of length to width?",
-        choices: ["4:3", "3:4", "12:7", "7:12"],
-        correct: "4:3",
-        explanation: "The ratio of length to width is 4:3."
-    },
-    {
-        question: "What percentage is equivalent to 0.02?",
-        choices: ["2%", "20%", "0.2%", "0.02%"],
-        correct: "2%",
-        explanation: "0.02 as a percentage is 2%."
-    },
-    {
-        question: "Convert 3/8 to a decimal.",
-        choices: ["0.375", "0.75", "0.0385", "0.325"],
-        correct: "0.375",
-        explanation: "3 divided by 8 equals 0.375."
+        explanation: "An angle measuring 270 degrees is a reflex angle."
     }
 ];
+
 
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
