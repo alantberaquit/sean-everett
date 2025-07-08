@@ -90,61 +90,26 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const questions = [
-            {
-                question: "Ano ang ibig sabihin ng sawikaing 'Itaga mo sa bato'?",
-                choices: [
-                    "Kalilimutan agad",
-                    "Isusulat sa papel",
-                    "Pangakong hindi mababali",
-                    "Gawin sa ibang araw"
-                ],
-                correct: "Pangakong hindi mababali",
-                explanation: "Ang 'Itaga mo sa bato' ay nangangahulugang isang pangakong hindi kailanman mababali."
-            },
-            {
-                question: "Ano ang ibig sabihin ng 'Nagbibilang ng poste'?",
-                choices: [
-                    "Naghahanap ng bahay",
-                    "Walang trabaho",
-                    "Gustong lumipat",
-                    "Naglalakad sa kalsada"
-                ],
-                correct: "Walang trabaho",
-                explanation: "Ang 'Nagbibilang ng poste' ay isang sawikain na tumutukoy sa isang taong walang trabaho."
-            },
-            {
-                question: "Ano ang kahulugan ng sawikaing 'Makapal ang mukha'?",
-                choices: [
-                    "Laging nagme-makeup",
-                    "Walang hiya",
-                    "Madaldal",
-                    "Matapang"
-                ],
-                correct: "Walang hiya",
-                explanation: "Ang 'Makapal ang mukha' ay nangangahulugang hindi marunong mahiya."
-            },
-            {
-                question: "Ano ang ibig sabihin ng 'Magsunog ng kilay'?",
-                choices: [
-                    "Magpabeauty treatment",
-                    "Matulog nang matagal",
-                    "Mag-aral nang mabuti",
-                    "Magluto ng paborito"
-                ],
-                correct: "Mag-aral nang mabuti",
-                explanation: "Ang 'Magsunog ng kilay' ay sawikain para sa matiyaga at masigasig na pag-aaral."
-            },
-            {
-                question: "Ano ang kahulugan ng sawikaing 'May krus sa dibdib'?",
-                choices: [
-                    "Taong relihiyoso",
-                    "May lihim na galit",
-                    "May dalang mabigat na suliranin",
-                    "Nag-aalay ng dasal"
-                ],
-                correct: "May dalang mabigat na suliranin",
-                explanation: "Ang 'May krus sa dibdib' ay tumutukoy sa isang taong may mabigat na pinagdaraanan."
-            }
+            { question: "Ano ang ibig sabihin ng sawikaing 'Itaga mo sa bato'?", choices: ["Kalilimutan agad", "Isusulat sa papel", "Pangakong hindi mababali", "Gawin sa ibang araw"], correct: "Pangakong hindi mababali", explanation: "Ang 'Itaga mo sa bato' ay nangangahulugang isang pangakong hindi kailanman mababali." },
+            { question: "Ano ang ibig sabihin ng 'Nagbibilang ng poste'?", choices: ["Naghahanap ng bahay", "Walang trabaho", "Gustong lumipat", "Naglalakad sa kalsada"], correct: "Walang trabaho", explanation: "Ang 'Nagbibilang ng poste' ay isang sawikain na tumutukoy sa isang taong walang trabaho." },
+            { question: "Ano ang kahulugan ng sawikaing 'Makapal ang mukha'?", choices: ["Laging nagme-makeup", "Walang hiya", "Madaldal", "Matapang"], correct: "Walang hiya", explanation: "Ang 'Makapal ang mukha' ay nangangahulugang hindi marunong mahiya." },
+            { question: "Ano ang ibig sabihin ng 'Magsunog ng kilay'?", choices: ["Magpabeauty treatment", "Matulog nang matagal", "Mag-aral nang mabuti", "Magluto ng paborito"], correct: "Mag-aral nang mabuti", explanation: "Ang 'Magsunog ng kilay' ay sawikain para sa matiyaga at masigasig na pag-aaral." },
+            { question: "Ano ang kahulugan ng sawikaing 'May krus sa dibdib'?", choices: ["Taong relihiyoso", "May lihim na galit", "May dalang mabigat na suliranin", "Nag-aalay ng dasal"], correct: "May dalang mabigat na suliranin", explanation: "Ang 'May krus sa dibdib' ay tumutukoy sa isang taong may mabigat na pinagdaraanan." },
+            { question: "Ano ang ibig sabihin ng 'Tubig ang utak'?", choices: ["Matalino", "Mahina ang pag-iisip", "Malikhain", "Mainit ang ulo"], correct: "Mahina ang pag-iisip", explanation: "Ang ibig sabihin ng 'Tubig ang utak' ay mahina o mabagal ang pag-iisip." },
+            { question: "Ano ang ibig sabihin ng 'Matigas ang ulo'?", choices: ["Mahilig mag-ehersisyo", "Hindi sumusunod", "Laging nagrereklamo", "Laging gutom"], correct: "Hindi sumusunod", explanation: "Ang 'Matigas ang ulo' ay isang taong hindi sumusunod o pasaway." },
+            { question: "Ano ang ibig sabihin ng 'Bulong ng bulong'?", choices: ["May iniisip na masama", "May gustong sabihin", "May sikreto", "May sakit sa lalamunan"], correct: "May sikreto", explanation: "Ang 'Bulong ng bulong' ay nangangahulugang may itinatagong sikreto." },
+            { question: "Ano ang ibig sabihin ng 'Naglalakad na advertisement'?", choices: ["Laging naka-porma", "Nagbebenta sa kalsada", "Masipag magtrabaho", "Naghahanap ng trabaho"], correct: "Laging naka-porma", explanation: "Ang 'Naglalakad na advertisement' ay tumutukoy sa taong laging nagpapasikat ng kanyang gamit o kasuotan." },
+            { question: "Ano ang kahulugan ng 'Magaan ang dugo'?", choices: ["Madaling mapagod", "Madaling pakisamahan", "Laging masaya", "Mababa ang dugo"], correct: "Madaling pakisamahan", explanation: "Ang 'Magaan ang dugo' ay nangangahulugang kaibig-ibig o madaling pakisamahan." },
+            { question: "Ano ang kahulugan ng sawikaing 'Tinik sa lalamunan'?", choices: ["Masarap na pagkain", "May kinaiinisan", "Nangangailangan ng tubig", "May sore throat"], correct: "May kinaiinisan", explanation: "Ang 'Tinik sa lalamunan' ay tumutukoy sa isang bagay o taong sagabal o pabigat." },
+            { question: "Ano ang ibig sabihin ng 'Buhay-alamang'?", choices: ["Malakas ang loob", "Walang sariling paninindigan", "Matapang sa problema", "Masayahing tao"], correct: "Walang sariling paninindigan", explanation: "Ang 'Buhay-alamang' ay isang taong sunud-sunuran lamang sa iba." },
+            { question: "Ano ang ibig sabihin ng sawikaing 'Kumukulo ang tiyan'?", choices: ["Naiinitan", "Galit na galit", "Gutóm na gutom", "Nahahapo sa trabaho"], correct: "Galit na galit", explanation: "Ang 'Kumukulo ang tiyan' ay isang pahiwatig ng matinding galit." },
+            { question: "Ano ang ibig sabihin ng sawikaing 'Parang bula'?", choices: ["Madaldal", "Malinis", "Mabilis na nawala", "Mabilis na lumaki"], correct: "Mabilis na nawala", explanation: "Ang 'Parang bula' ay nangangahulugang bigla na lamang nawala." },
+            { question: "Ano ang kahulugan ng 'Malawak ang isip'?", choices: ["Matalino", "Mapagbigay", "Maunawain", "Malikhain"], correct: "Maunawain", explanation: "Ang 'Malawak ang isip' ay tumutukoy sa taong may pang-unawa at bukas sa mga ideya." },
+            { question: "Ano ang ibig sabihin ng 'Utak-biya'?", choices: ["Marunong", "Walang alam", "Malikot", "Mahiyain"], correct: "Walang alam", explanation: "Ang 'Utak-biya' ay sawikaing nangangahulugang walang gaanong kaalaman." },
+            { question: "Ano ang kahulugan ng 'Nagbuhat ng sariling bangko'?", choices: ["Nagbitbit ng mabigat", "Pinuri ang sarili", "Nagpakita ng tapang", "Tumakas sa responsibilidad"], correct: "Pinuri ang sarili", explanation: "Ang 'Nagbuhat ng sariling bangko' ay tumutukoy sa taong pinupuri o pinapaganda ang sariling imahe." },
+            { question: "Ano ang ibig sabihin ng 'Nagtaingang-kawali'?", choices: ["Mahina ang pandinig", "Nagbibingi-bingihan", "Takot makinig", "Natutulog"], correct: "Nagbibingi-bingihan", explanation: "Ang 'Nagtaingang-kawali' ay sawikain para sa taong nagkukunwaring hindi nakakarinig." },
+            { question: "Ano ang kahulugan ng sawikaing 'Balat-sibuyas'?", choices: ["Matapang", "Maselan o madaling masaktan", "Laging galit", "Mahiyain"], correct: "Maselan o madaling masaktan", explanation: "Ang 'Balat-sibuyas' ay tumutukoy sa taong madaling masaktan sa mga biro o puna." },
+            { question: "Ano ang ibig sabihin ng 'Makalaglag-panga'?", choices: ["Nakakatuwang tanawin", "Nakakagulat sa ganda", "Matigas ang panga", "Pabirong salita"], correct: "Nakakagulat sa ganda", explanation: "Ang 'Makalaglag-panga' ay ginagamit upang ilarawan ang isang bagay na napakaganda o kahanga-hanga." }
         ];
 
         function shuffle(array) {
