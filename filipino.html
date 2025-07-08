@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Mastery Test - Filipino: Uri ng Pang-abay</title>
-    <!-- Bootstrap Flatly Theme from Bootswatch -->
+    <title>Grade 6 Quiz - Filipino Sawikain</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
-    <!-- Google Fonts: Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -27,10 +25,10 @@
             color: #fff;
         }
         .correct-answer {
-            background-color: #18bc9c; /* Flatly success color */
+            background-color: #18bc9c;
         }
         .incorrect-answer {
-            background-color: #e74c3c; /* Flatly danger color */
+            background-color: #e74c3c;
         }
         .btn-block {
             display: block;
@@ -64,30 +62,16 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="#">
                 <i class="bi bi-house-door-fill"></i> Home
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="english.html">English Test</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="math.html">Math Test</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
     <div class="container">
-        <h1 class="text-center">Filipino: Pang-abay at Kwento ng Magpinsang Daga</h1>
+        <h1 class="text-center">Filipino: Sawikain Quiz</h1>
         <div id="questionContainer" class="mt-4"></div>
         <p id="feedback" class="feedback" style="display:none;"></p>
         <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
@@ -97,198 +81,72 @@
             <i class="bi bi-arrow-right-circle"></i> Next Question
         </button>
         <div class="progress mt-3">
-            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;"></div>
+            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;"></div>
         </div>
         <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
     </div>
-    <!-- Bootstrap JS with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-const questions = [
-    { 
-        question: "Anong uri ng pang-abay ang ginamit sa pangungusap na, 'Maingat siyang sumagot sa tanong.'?", 
-        choices: ["Pamaraan", "Panlunan", "Pamanahon", "Panang-ayon"], 
-        correct: "Pamaraan", 
-        explanation: "Ang pang-abay na 'maingat' ay nagsasaad ng paraan kung paano ginawa ang kilos sa pangungusap, kaya ito ay pang-abay na pamaraan." 
-    },
-    { 
-        question: "Sa kwentong 'Ang Magkaibang Buhay ng Magpinsang Daga', bakit nagalit ang lungsod na daga sa bukid na daga?", 
-        choices: ["Dahil sa pagkaing kinain", "Dahil sa nasira ang bahay", "Dahil sa ingay sa bukid", "Dahil sa pag-uugali ng bukid na daga"], 
-        correct: "Dahil sa nasira ang bahay", 
-        explanation: "Nagalit ang lungsod na daga dahil nasira ang kanyang bahay nang bisitahin siya ng bukid na daga." 
-    },
-    { 
-        question: "Ano ang pang-abay na Pamanahon?", 
-        choices: ["Tumutukoy sa dami", "Nagsasaad ng lugar", "Nagsasaad ng panahon", "Nagsasaad ng katangian"], 
-        correct: "Nagsasaad ng panahon", 
-        explanation: "Ang pang-abay na Pamanahon ay nagsasaad ng panahon kung kailan ginawa o gagawin ang kilos ng pandiwa." 
-    },
-    { 
-        question: "Alin ang halimbawa ng pang-abay na Panlunan?", 
-        choices: ["Buong ingat", "Sa paaralan", "Tuwing umaga", "Mabilis"], 
-        correct: "Sa paaralan", 
-        explanation: "Ang 'sa paaralan' ay pang-abay na Panlunan dahil nagsasaad ito ng lugar kung saan naganap o magaganap ang kilos." 
-    },
-    { 
-        question: "Piliin ang pang-abay na Pananggi sa mga sumusunod:", 
-        choices: ["Siguro", "Hindi", "Marahil", "Oo"], 
-        correct: "Hindi", 
-        explanation: "Ang 'Hindi' ay pang-abay na Pananggi dahil ito ay ginagamit upang ipahayag ang pagtanggi o di-pagsang-ayon." 
-    },
-    { 
-        question: "Anong uri ng pang-abay ang 'marahil'?", 
-        choices: ["Pananggi", "Pang-agam", "Pamanahon", "Panlunan"], 
-        correct: "Pang-agam", 
-        explanation: "Ang 'marahil' ay isang pang-abay na Pang-agam na nagsasaad ng pag-aalinlangan o hindi katiyakan." 
-    },
-    { 
-        question: "Sa kwentong nabanggit, paano inilarawan ang buhay ng daga sa lungsod?", 
-        choices: ["Mapayapa at tahimik", "Magulo at maingay", "Malungkot at mapanganib", "Masaya at komportable"], 
-        correct: "Magulo at maingay", 
-        explanation: "Inilarawan ang buhay ng daga sa lungsod bilang magulo at maingay, taliwas sa payapang buhay sa bukid." 
-    },
-    { 
-        question: "Ano ang layunin ng bukid na daga sa pagbisita sa lungsod?", 
-        choices: ["Maghanap ng pagkain", "Bisitahin ang kanyang pinsan", "Makita ang lungsod", "Tumakas sa panganib"], 
-        correct: "Bisitahin ang kanyang pinsan", 
-        explanation: "Ang layunin ng bukid na daga sa pagbisita sa lungsod ay upang bisitahin ang kanyang pinsan at makita ang buhay doon." 
-    },
-    { 
-        question: "Bakit mahalaga ang pagkakaroon ng tamang kaalaman sa mga uri ng pang-abay?", 
-        choices: ["Para makapasa sa pagsusulit", "Para magamit nang wasto sa pangungusap", "Para makaintindi ng mga babasahin", "Lahat ng nabanggit"], 
-        correct: "Lahat ng nabanggit", 
-        explanation: "Mahalaga ang pagkakaroon ng tamang kaalaman sa mga uri ng pang-abay para magamit ito nang wasto sa pangungusap, makapasa sa mga pagsusulit, at makaintindi ng iba't ibang babasahin." 
-    },
-    { 
-        question: "Sa konteksto ng kwento, ano ang reaksyon ng bukid na daga sa pamumuhay sa lungsod?", 
-        choices: ["Nasiyahan siya", "Nabahala siya", "Nalungkot siya", "Na-excite siya"], 
-        correct: "Nabahala siya", 
-        explanation: "Nabahala ang bukid na daga sa pamumuhay sa lungsod dahil sa ingay at pagmamadali ng kapaligiran." 
-    },
-    { 
-        question: "Anong pang-abay ang nagpapahayag ng katiyakan?", 
-        choices: ["Siguro", "Posible", "Tiyak", "Baka"], 
-        correct: "Tiyak", 
-        explanation: "Ang 'tiyak' ay isang pang-abay na nagpapahayag ng katiyakan." 
-    },
-    { 
-        question: "Paano ginamit ang pang-abay na pamanahon sa pangungusap na, 'Bukas ay pupunta kami sa palengke'?", 
-        choices: ["Nagsasaad ng lugar", "Nagsasaad ng panahon", "Nagsasaad ng dami", "Nagsasaad ng paraan"], 
-        correct: "Nagsasaad ng panahon", 
-        explanation: "Ang salitang 'bukas' ay pang-abay na pamanahon dahil nagsasaad ito ng panahon kung kailan magaganap ang kilos." 
-    },
-    { 
-        question: "Ano ang ibig sabihin ng pang-abay na pananggi na 'ayaw' sa konteksto ng pagtanggi?", 
-        choices: ["Pagsang-ayon", "Pag-aalinlangan", "Pagtanggi", "Pagsuporta"], 
-        correct: "Pagtanggi", 
-        explanation: "Ang 'ayaw' ay isang pang-abay na pananggi na ginagamit upang ipahayag ang hindi pagsang-ayon o pagtanggi." 
-    },
-    { 
-        question: "Paano ipinahayag sa kwento ang pang-abay na pang-agam?", 
-        choices: ["Sigurado ang mga daga sa kanilang desisyon", "Walang katiyakan ang buhay sa lungsod", "Laging masaya ang bukid na daga", "Tiyak ang kinalabasan ng kwento"], 
-        correct: "Walang katiyakan ang buhay sa lungsod", 
-        explanation: "Ang pangungusap na 'Walang katiyakan ang buhay sa lungsod' ay nagpapakita ng pang-abay na pang-agam dahil sa hindi tiyak na tono nito." 
-    },
-    { 
-        question: "Anong uri ng pang-abay ang 'siguro'?", 
-        choices: ["Pananggi", "Pang-agam", "Pamanahon", "Pamaraan"], 
-        correct: "Pang-agam", 
-        explanation: "Ang 'siguro' ay pang-abay na pang-agam na nagpapakita ng pag-aalinlangan o hindi katiyakan." 
-    },
-                {
-        question: "Anong uri ng pang-abay ang 'dito' sa pangungusap na 'Dito siya nakatira.'?",
-        choices: ["Pamaraan", "Panlunan", "Pamanahon", "Panang-ayon"],
-        correct: "Panlunan",
-        explanation: "Ang 'dito' ay pang-abay na Panlunan dahil nagsasaad ito ng lugar kung saan naganap ang kilos."
-    },
-    {
-        question: "Paano ginamit ang pang-abay na 'madalas' sa pangungusap na 'Madalas kaming kumain sa labas.'?",
-        choices: ["Panlunan", "Pamanahon", "Pamaraan", "Pananggi"],
-        correct: "Pamanahon",
-        explanation: "Ang 'madalas' ay pang-abay na Pamanahon na nagsasaad ng dalas ng pagganap sa isang kilos."
-    },
-    {
-        question: "Alin sa mga sumusunod ang pang-abay na Panang-ayon?",
-        choices: ["Talaga", "Marahil", "Kahapon", "Dito"],
-        correct: "Talaga",
-        explanation: "Ang 'talaga' ay pang-abay na Panang-ayon na nagpapahayag ng pagsang-ayon o pagpapatibay."
-    },
-    {
-        question: "Sa pangungusap na 'Bihira siyang umuwi ng maaga.', anong uri ng pang-abay ang 'bihira'?",
-        choices: ["Pamaraan", "Panlunan", "Pamanahon", "Pang-agam"],
-        correct: "Pamanahon",
-        explanation: "Ang 'bihira' ay pang-abay na Pamanahon na nagsasaad ng dalas ng pagganap sa kilos."
-    },
-    {
-        question: "Anong pang-abay ang ginamit sa pangungusap na 'Siguradong magaling na siya bukas.'?",
-        choices: ["Pananggi", "Pang-agam", "Panang-ayon", "Pamanahon"],
-        correct: "Panang-ayon",
-        explanation: "Ang 'siguradong' ay pang-abay na Panang-ayon dahil ito ay nagpapahayag ng katiyakan o pagtitiyak."
-    },
-    {
-        question: "Alin sa mga sumusunod ang halimbawa ng pang-abay na Pang-agam?",
-        choices: ["Siguro", "Kahapon", "Dito", "Madalas"],
-        correct: "Siguro",
-        explanation: "Ang 'siguro' ay pang-abay na Pang-agam na nagpapakita ng hindi katiyakan o pag-aalinlangan."
-    },
-    {
-        question: "Ano ang pang-abay na Pamanahon sa pangungusap na 'Maaga pa silang dumating kahapon.'?",
-        choices: ["Maaga", "Pa", "Sila", "Kahapon"],
-        correct: "Kahapon",
-        explanation: "Ang 'kahapon' ay pang-abay na Pamanahon dahil nagsasaad ito ng panahon kung kailan naganap ang kilos."
-    },
-    {
-        question: "Alin ang pang-abay na Panlunan sa mga sumusunod?",
-        choices: ["Tahimik", "Sa gubat", "Talaga", "Kadalasan"],
-        correct: "Sa gubat",
-        explanation: "Ang 'sa gubat' ay pang-abay na Panlunan dahil nagsasaad ito ng lugar kung saan naganap o magaganap ang kilos."
-    },
-    {
-        question: "Anong uri ng pang-abay ang 'halos' sa pangungusap na 'Halos araw-araw siyang nag-eehersisyo.'?",
-        choices: ["Panlunan", "Pamaraan", "Pamanahon", "Pananggi"],
-        correct: "Pamanahon",
-        explanation: "Ang 'halos' sa kontekstong ito ay pang-abay na Pamanahon na nagsasaad ng dalas ng kilos."
-    },
-    {
-        question: "Sa pangungusap na 'Huwag kang lumabas.', anong uri ng pang-abay ang 'huwag'?",
-        choices: ["Pananggi", "Pamaraan", "Panlunan", "Pamanahon"],
-        correct: "Pananggi",
-        explanation: "Ang 'huwag' ay pang-abay na Pananggi na nagpapahayag ng pagtanggi o pagbabawal."
-    },
-    {
-        question: "Anong uri ng pang-abay ang 'sa loob' sa pangungusap na 'Naglaro sila sa loob ng bahay.'?",
-        choices: ["Panlunan", "Pamaraan", "Pamanahon", "Pananggi"],
-        correct: "Panlunan",
-        explanation: "Ang 'sa loob' ay pang-abay na Panlunan dahil nagsasaad ito ng tiyak na lugar kung saan naganap ang kilos."
-    },
-    {
-        question: "Piliin ang pang-abay na Pamaraan sa mga sumusunod:",
-        choices: ["Mabilis", "Kagabi", "Doon", "Sigurado"],
-        correct: "Mabilis",
-        explanation: "Ang 'mabilis' ay pang-abay na Pamaraan dahil nagsasaad ito ng paraan kung paano isinagawa ang kilos."
-    },
-    {
-        question: "Ano ang pang-abay na Pamanahon sa pangungusap na 'Bukas kami aalis.'?",
-        choices: ["Bukas", "Kami", "Aalis", "Ngayon"],
-        correct: "Bukas",
-        explanation: "Ang 'bukas' ay pang-abay na Pamanahon dahil nagsasaad ito ng panahon kung kailan magaganap ang kilos."
-    },
-    {
-        question: "Alin sa mga sumusunod ang pang-abay na Pananggi?",
-        choices: ["Marahil", "Tiyak", "Ayaw", "Kahapon"],
-        correct: "Ayaw",
-        explanation: "Ang 'ayaw' ay pang-abay na Pananggi dahil nagpapahayag ito ng di-pagsang-ayon o pagtanggi."
-    },
-    {
-        question: "Sa pangungusap na 'Bihira siyang umalis ng maaga.', anong uri ng pang-abay ang 'bihira'?",
-        choices: ["Pamanahon", "Panlunan", "Pananggi", "Pamaraan"],
-        correct: "Pamanahon",
-        explanation: "Ang 'bihira' ay pang-abay na Pamanahon na nagsasaad ng dalas ng kilos."
-    }
-];
+        const questions = [
+            {
+                question: "Ano ang ibig sabihin ng sawikaing 'Itaga mo sa bato'?",
+                choices: [
+                    "Kalilimutan agad",
+                    "Isusulat sa papel",
+                    "Pangakong hindi mababali",
+                    "Gawin sa ibang araw"
+                ],
+                correct: "Pangakong hindi mababali",
+                explanation: "Ang 'Itaga mo sa bato' ay nangangahulugang isang pangakong hindi kailanman mababali."
+            },
+            {
+                question: "Ano ang ibig sabihin ng 'Nagbibilang ng poste'?",
+                choices: [
+                    "Naghahanap ng bahay",
+                    "Walang trabaho",
+                    "Gustong lumipat",
+                    "Naglalakad sa kalsada"
+                ],
+                correct: "Walang trabaho",
+                explanation: "Ang 'Nagbibilang ng poste' ay isang sawikain na tumutukoy sa isang taong walang trabaho."
+            },
+            {
+                question: "Ano ang kahulugan ng sawikaing 'Makapal ang mukha'?",
+                choices: [
+                    "Laging nagme-makeup",
+                    "Walang hiya",
+                    "Madaldal",
+                    "Matapang"
+                ],
+                correct: "Walang hiya",
+                explanation: "Ang 'Makapal ang mukha' ay nangangahulugang hindi marunong mahiya."
+            },
+            {
+                question: "Ano ang ibig sabihin ng 'Magsunog ng kilay'?",
+                choices: [
+                    "Magpabeauty treatment",
+                    "Matulog nang matagal",
+                    "Mag-aral nang mabuti",
+                    "Magluto ng paborito"
+                ],
+                correct: "Mag-aral nang mabuti",
+                explanation: "Ang 'Magsunog ng kilay' ay sawikain para sa matiyaga at masigasig na pag-aaral."
+            },
+            {
+                question: "Ano ang kahulugan ng sawikaing 'May krus sa dibdib'?",
+                choices: [
+                    "Taong relihiyoso",
+                    "May lihim na galit",
+                    "May dalang mabigat na suliranin",
+                    "Nag-aalay ng dasal"
+                ],
+                correct: "May dalang mabigat na suliranin",
+                explanation: "Ang 'May krus sa dibdib' ay tumutukoy sa isang taong may mabigat na pinagdaraanan."
+            }
+        ];
+
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -306,7 +164,7 @@ const questions = [
             const question = questions[currentQuestionIndex];
             const questionHtml = `
                 <div>
-                    <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
+                    <h4>Tanong ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
                     ${question.choices.map(choice => `
                         <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
                     `).join('')}
@@ -366,9 +224,7 @@ const questions = [
             const correctProgressPercent = (correctCount / totalQuestions) * 100;
             const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
             document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
-            document.getElementById('correctProgress').setAttribute('aria-valuenow', correctProgressPercent);
             document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
-            document.getElementById('incorrectProgress').setAttribute('aria-valuenow', incorrectProgressPercent);
         }
 
         window.nextQuestion = function() {
@@ -390,8 +246,8 @@ const questions = [
             }
         }
 
-        displayQuestion(); // Load the first question
+        displayQuestion();
     });
-</script>
+    </script>
 </body>
 </html>
