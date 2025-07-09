@@ -342,93 +342,98 @@ const questions = // Add Fractions and find the LCD
     ];
   </script>
   <script>
-    let currentQuestionIndex = 0;
-    let correctCount = 0;
-    let incorrectCount = 0;
+   let currentQuestionIndex = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
 
-    function displayQuestion() {
-      if (!questions[currentQuestionIndex]) return;
-      const question = questions[currentQuestionIndex];
-      const questionHtml = `
-        <div>
-          <h4>Question ${currentQuestionIndex + 1}: ${question.question}</h4>
-          ${question.choices.map(
-            (choice) => `
-              <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
-            `
-          ).join('')}
-        </div>
-      `;
-      document.getElementById('questionContainer').innerHTML = questionHtml;
-      document.getElementById('feedback').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-      document.getElementById('checkAnswerBtn').style.display = 'none';
-    }
-
-    window.selectAnswer = function (choice, element) {
-      const buttons = document.querySelectorAll('.choice-btn');
-      buttons.forEach((button) => button.classList.remove('active'));
-      element.classList.add('active');
-      document.getElementById('checkAnswerBtn').style.display = 'block';
-    };
-
-    window.checkAnswer = function () {
-      const question = questions[currentQuestionIndex];
-      const buttons = document.querySelectorAll('.choice-btn');
-      let isCorrect = false;
-      buttons.forEach((button) => {
-        if (button.classList.contains('active')) {
-          if (button.textContent.trim() === question.correct.trim()) {
-            button.classList.add('correct-answer');
-            button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
-            isCorrect = true;
-          } else {
-            button.classList.add('incorrect-answer');
-            button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
-          }
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            const questionHtml = `
+                <div>
+                    <h4>Tanong ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
+                    ${question.choices.map(choice => `
+                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+                    `).join('')}
+                </div>
+            `;
+            document.getElementById('questionContainer').innerHTML = questionHtml;
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('checkAnswerBtn').style.display = 'none';
         }
-        button.disabled = true;
-      });
-      updateFeedback(isCorrect, question);
-      document.getElementById('checkAnswerBtn').style.display = 'none';
-    };
 
-    function updateFeedback(isCorrect, question) {
-      document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
-      document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
-      document.getElementById('feedback').style.display = 'block';
-      updateScore(isCorrect);
-      document.getElementById('nextBtn').style.display = 'block';
-    }
+        window.selectAnswer = function(choice, element) {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            element.classList.add('active');
+            document.getElementById('checkAnswerBtn').style.display = 'block';
+        }
 
-    function updateScore(isCorrect) {
-      if (isCorrect) correctCount++;
-      else incorrectCount++;
-      const total = questions.length;
-      document.getElementById('correctProgress').style.width = `${(correctCount / total) * 100}%`;
-      document.getElementById('incorrectProgress').style.width = `${(incorrectCount / total) * 100}%`;
-    }
+        window.checkAnswer = function() {
+            const question = questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.choice-btn');
+            let isCorrect = false;
+            buttons.forEach(button => {
+                if (button.classList.contains('active')) {
+                    if (button.textContent === question.correct) {
+                        button.classList.add('correct-answer');
+                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
+                        isCorrect = true;
+                    } else {
+                        button.classList.add('incorrect-answer');
+                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
+                    }
+                }
+                button.disabled = true;
+            });
+            updateFeedback(isCorrect, question);
+            document.getElementById('checkAnswerBtn').style.display = 'none';
+        }
 
-    window.nextQuestion = function () {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
+        function updateFeedback(isCorrect, question) {
+            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
+            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
+            document.getElementById('feedback').style.display = 'block';
+            updateScore(isCorrect);
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        function updateScore(isCorrect) {
+            if (isCorrect) {
+                correctCount++;
+            } else {
+                incorrectCount++;
+            }
+            const totalQuestions = questions.length;
+            const correctProgressPercent = (correctCount / totalQuestions) * 100;
+            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
+            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
+            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
+        }
+
+        window.nextQuestion = function() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                document.getElementById('questionContainer').innerHTML = '';
+                document.getElementById('completionMessage').innerHTML = `
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
+                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
+                    </div>
+                `;
+                document.getElementById('completionMessage').style.display = 'block';
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('checkAnswerBtn').style.display = 'none';
+            }
+        }
+
         displayQuestion();
-      } else {
-        document.getElementById('questionContainer').innerHTML = '';
-        document.getElementById('completionMessage').innerHTML = `
-          <div class="card-body">
-            <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
-            <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
-          </div>
-        `;
-        document.getElementById('completionMessage').style.display = 'block';
-        document.getElementById('nextBtn').style.display = 'none';
-        document.getElementById('feedback').style.display = 'none';
-        document.getElementById('checkAnswerBtn').style.display = 'none';
-      }
-    };
-
-    displayQuestion();
-  </script>
+    });
+    </script>
 </body>
 </html>
