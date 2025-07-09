@@ -10,16 +10,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      renderMathInElement(document.body, {
-        delimiters: [
-          { left: "$", right: "$", display: false },
-          { left: "$$", right: "$$", display: true }
-        ]
-      });
-    });
-  </script>
   <style>
     body {
       padding-top: 100px;
@@ -100,6 +90,17 @@
     <div id="completionMessage" class="quiz-complete-card" style="display: none"></div>
   </div>
   <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$", right: "$", display: false },
+            { left: "$$", right: "$$", display: true }
+          ]
+        });
+      }
+    });
+
     const questions = // Add Fractions and find the LCD
       {
         question: "What is $rac{1}{4} + rac{1}{2}$?",
@@ -374,7 +375,9 @@
       document.getElementById('feedback').style.display = 'none';
       document.getElementById('nextBtn').style.display = 'none';
       document.getElementById('checkAnswerBtn').style.display = 'none';
-      renderMathInElement(document.getElementById('questionContainer'));
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.getElementById('questionContainer'));
+      }
     }
 
     window.selectAnswer = function (choice, element) {
@@ -411,7 +414,9 @@
       document.getElementById('feedback').style.display = 'block';
       updateScore(isCorrect);
       document.getElementById('nextBtn').style.display = 'block';
-      renderMathInElement(document.getElementById('feedback'));
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.getElementById('feedback'));
+      }
     }
 
     function updateScore(isCorrect) {
