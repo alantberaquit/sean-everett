@@ -1,399 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Reviewer Test - Math: Ratio and Proportion</title>
-    <!-- Bootstrap Flatly Theme from Bootswatch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
-    <!-- Google Fonts: Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 100px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-        }
-        .container {
-            padding-top: 30px;
-            width: 90%;
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        .correct-answer {
-            background-color: #18bc9c; /* Flatly success color */
-        }
-        .incorrect-answer {
-            background-color: #e74c3c; /* Flatly danger color */
-        }
-        .btn-block {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 18px;
-            padding: 10px;
-        }
-        #nextBtn, #checkAnswerBtn {
-            margin-top: 20px;
-            display: none;
-        }
-        .progress {
-            height: 20px;
-        }
-        .progress-bar {
-            transition: width 0.6s ease;
-        }
-        .quiz-complete-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-top: 20px;
-        }
-        .card-icon {
-            font-size: 48px;
-            color: #18bc9c;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 6 Quiz - Math: Fractions</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$', right: '$', display: false}]})"></script>
+  <style>
+    body {
+      padding-top: 100px;
+      font-size: 16px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      padding-top: 30px;
+      width: 90%;
+    }
+    .feedback {
+      margin-top: 20px;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 5px;
+      color: #fff;
+    }
+    .correct-answer {
+      background-color: #18bc9c;
+    }
+    .incorrect-answer {
+      background-color: #e74c3c;
+    }
+    .btn-block {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 18px;
+      padding: 10px;
+    }
+    #nextBtn,
+    #checkAnswerBtn {
+      margin-top: 20px;
+      display: none;
+    }
+    .progress {
+      height: 20px;
+    }
+    .progress-bar {
+      transition: width 0.6s ease;
+    }
+    .quiz-complete-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-top: 20px;
+    }
+    .card-icon {
+      font-size: 48px;
+      color: #18bc9c;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-door-fill"></i> Home
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="english.html">English Test</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="math.html">Math Test</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <h1 class="text-center">Math Reviewer 4th Quarter</h1>
-        <div id="questionContainer" class="mt-4"></div>
-        <p id="feedback" class="feedback" style="display:none;"></p>
-        <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
-            <i class="bi bi-check-circle"></i> Check Answer
-        </button>
-        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display:none;">
-            <i class="bi bi-arrow-right-circle"></i> Next Question
-        </button>
-        <div class="progress mt-3">
-            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-house-door-fill"></i> Home
+      </a>
     </div>
-    <!-- Bootstrap JS with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-const questions = [
-    {
-        question: "If you have a protractor, what instrument is used to measure angles?",
-        choices: ["Ruler", "Compass", "Protractor", "Stopwatch"],
-        correct: "Protractor",
-        explanation: "A protractor is specifically designed to measure angles."
-    },
-    {
-        question: "Calculate 50% of 200.",
-        choices: ["50", "100", "150", "200"],
-        correct: "100",
-        explanation: "50% of 200 is 100 because 0.5 multiplied by 200 equals 100."
-    },
-    {
-        question: "What is the rate of change if you bought 10 apples for $5?",
-        choices: ["$0.2 per apple", "$0.5 per apple", "$1 per apple", "$2 per apple"],
-        correct: "$0.5 per apple",
-        explanation: "$5 divided by 10 apples equals $0.5 per apple."
-    },
-    {
-        question: "Convert 0.25 to a percentage.",
-        choices: ["2.5%", "25%", "0.25%", "250%"],
-        correct: "25%",
-        explanation: "0.25 as a percentage is 25%."
-    },
-    {
-        question: "What angle is formed by two perpendicular lines?",
-        choices: ["45 degrees", "90 degrees", "180 degrees", "360 degrees"],
-        correct: "90 degrees",
-        explanation: "Two perpendicular lines form a right angle, which is 90 degrees."
-    },
-    {
-        question: "If 15% of a number is 30, find the number.",
-        choices: ["200", "150", "300", "180"],
-        correct: "200",
-        explanation: "15% of 200 is 30 because 0.15 multiplied by 200 equals 30."
-    },
-    {
-        question: "Measure an angle that is less than 90 degrees. What is it called?",
-        choices: ["Obtuse angle", "Right angle", "Acute angle", "Straight angle"],
-        correct: "Acute angle",
-        explanation: "An angle less than 90 degrees is called an acute angle."
-    },
-    {
-        question: "If a shirt costs $20 and is on sale for 25% off, what is the sale price?",
-        choices: ["$5", "$15", "$20", "$25"],
-        correct: "$15",
-        explanation: "25% off $20 is $5, so the sale price is $20 - $5 = $15."
-    },
-    {
-        question: "If there are 3 boys for every 4 girls in a class, what is the ratio of boys to girls?",
-        choices: ["3:4", "4:3", "7:1", "1:1"],
-        correct: "3:4",
-        explanation: "The ratio of 3 boys to 4 girls is 3:4."
-    },
-    {
-        question: "What type of angle measures exactly 180 degrees?",
-        choices: ["Acute angle", "Right angle", "Straight angle", "Reflex angle"],
-        correct: "Straight angle",
-        explanation: "A straight angle measures exactly 180 degrees."
-    },
-    {
-        question: "If a car travels 100 kilometers in 2 hours, what is the rate of speed in kilometers per hour?",
-        choices: ["50 km/h", "100 km/h", "150 km/h", "200 km/h"],
-        correct: "50 km/h",
-        explanation: "100 kilometers in 2 hours means the car travels at 50 km/h."
-    },
-    {
-        question: "Convert the fraction 3/4 to a percentage.",
-        choices: ["25%", "50%", "75%", "100%"],
-        correct: "75%",
-        explanation: "3 divided by 4 equals 0.75, which is 75%."
-    },
-    {
-        question: "If you divide a pizza into 8 equal slices and eat 3, what percentage of the pizza is left?",
-        choices: ["37.5%", "62.5%", "75%", "87.5%"],
-        correct: "62.5%",
-        explanation: "5 out of 8 slices are left, which is 62.5% of the pizza."
-    },
-    {
-        question: "Name an angle measure greater than 90 degrees but less than 180 degrees.",
-        choices: ["Acute angle", "Obtuse angle", "Right angle", "Straight angle"],
-        correct: "Obtuse angle",
-        explanation: "An obtuse angle is greater than 90 degrees but less than 180 degrees."
-    },
-    {
-        question: "If a cake recipe calls for 2 cups of flour for every 3 cups of sugar, what is the ratio of flour to sugar?",
-        choices: ["2:3", "3:2", "1:1", "4:5"],
-        correct: "2:3",
-        explanation: "The ratio of 2 cups of flour to 3 cups of sugar is 2:3."
-    },
-    {
-        question: "Calculate the percentage of 50 is to 200.",
-        choices: ["25%", "50%", "75%", "100%"],
-        correct: "25%",
-        explanation: "50 is 25% of 200."
-    },
-    {
-        question: "What type of angle is 360 degrees?",
-        choices: ["Acute angle", "Right angle", "Complete angle", "Reflex angle"],
-        correct: "Complete angle",
-        explanation: "A complete angle measures 360 degrees."
-    },
-    {
-        question: "If you have 7 red apples and 3 green apples, what is the ratio of red apples to green apples?",
-        choices: ["7:3", "3:7", "10:0", "1:1"],
-        correct: "7:3",
-        explanation: "The ratio of 7 red apples to 3 green apples is 7:3."
-    },
-    {
-        question: "Convert 0.60 to a percentage.",
-        choices: ["6%", "60%", "600%", "0.6%"],
-        correct: "60%",
-        explanation: "0.60 as a percentage is 60%."
-    },
-    {
-        question: "Find the percentage if 4 out of 20 questions are answered incorrectly.",
-        choices: ["10%", "20%", "25%", "40%"],
-        correct: "20%",
-        explanation: "4 out of 20 questions is 20%."
-    },
-    {
-        question: "What is the complement of a 30-degree angle?",
-        choices: ["60 degrees", "30 degrees", "150 degrees", "120 degrees"],
-        correct: "60 degrees",
-        explanation: "The complement of a 30-degree angle is 60 degrees, totaling 90 degrees."
-    },
-    {
-        question: "If a pair of shoes costs $40 and you get a 10% discount, how much do you pay?",
-        choices: ["$4", "$36", "$40", "$44"],
-        correct: "$36",
-        explanation: "10% of $40 is $4, so you pay $40 - $4 = $36."
-    },
-    {
-        question: "How many degrees are in three right angles?",
-        choices: ["90 degrees", "180 degrees", "270 degrees", "360 degrees"],
-        correct: "270 degrees",
-        explanation: "Three right angles total 270 degrees (3 x 90)."
-    },
-    {
-        question: "If 10% of a class of 30 students are absent, how many students are absent?",
-        choices: ["3 students", "10 students", "20 students", "30 students"],
-        correct: "3 students",
-        explanation: "10% of 30 students is 3 students."
-    },
-    {
-        question: "What is the sum of angles in a triangle?",
-        choices: ["90 degrees", "180 degrees", "270 degrees", "360 degrees"],
-        correct: "180 degrees",
-        explanation: "The sum of the angles in any triangle is always 180 degrees."
-    },
-    {
-        question: "Convert the decimal 0.20 to a fraction.",
-        choices: ["1/5", "1/4", "1/10", "2/5"],
-        correct: "1/5",
-        explanation: "0.20 as a fraction is 1/5."
-    },
-    {
-        question: "If 5 out of 25 students in a class like chocolate ice cream, what percentage is that?",
-        choices: ["5%", "10%", "20%", "25%"],
-        correct: "20%",
-        explanation: "5 out of 25 students is 20%."
-    },
-    {
-        question: "What is the ratio of 60 minutes to 1 hour?",
-        choices: ["1:1", "60:1", "1:60", "1:100"],
-        correct: "1:1",
-        explanation: "60 minutes is equivalent to 1 hour, so the ratio is 1:1."
-    },
-    {
-        question: "If you find 40% of 150, what is the result?",
-        choices: ["60", "75", "100", "150"],
-        correct: "60",
-        explanation: "40% of 150 is 60."
-    },
-    {
-        question: "If an angle measures 270 degrees, what type of angle is it?",
-        choices: ["Acute angle", "Right angle", "Obtuse angle", "Reflex angle"],
-        correct: "Reflex angle",
-        explanation: "An angle measuring 270 degrees is a reflex angle."
+  </nav>
+  <div class="container">
+    <h1 class="text-center">Math Quiz: Fractions</h1>
+    <div id="questionContainer" class="mt-4"></div>
+    <p id="feedback" class="feedback" style="display: none"></p>
+    <button id="checkAnswerBtn" class="btn btn-warning btn-block" onclick="checkAnswer()" style="display: none">
+      <i class="bi bi-check-circle"></i> Check Answer
+    </button>
+    <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display: none">
+      <i class="bi bi-arrow-right-circle"></i> Next Question
+    </button>
+    <div class="progress mt-3">
+      <div id="correctProgress" class="progress-bar bg-success" style="width: 0%"></div>
+      <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%"></div>
+    </div>
+    <div id="completionMessage" class="quiz-complete-card" style="display: none"></div>
+  </div>
+  <script>
+    const questions = // Add Fractions and find the LCD
+      {
+        question: "What is $rac{1}{4} + rac{1}{2}$?",
+        choices: ["$rac{2}{6}$", "$rac{3}{4}$", "$rac{5}{6}$", "$rac{1}{6}$"],
+        correct: "$rac{3}{4}$",
+        explanation: "LCD of 4 and 2 is 4. $rac{1}{4} + rac{2}{4} = rac{3}{4}$"
+      },
+      {
+        question: "What is $rac{2}{5} + rac{1}{10}$?",
+        choices: ["$rac{3}{15}$", "$rac{1}{2}$", "$rac{5}{10}$", "$rac{1}{3}$"],
+        correct: "$rac{1}{2}$",
+        explanation: "LCD of 5 and 10 is 10. $rac{4}{10} + rac{1}{10} = rac{5}{10} = rac{1}{2}$"
+      },
+      {
+        question: "What is $rac{3}{8} + rac{1}{4}$?",
+        choices: ["$rac{4}{12}$", "$rac{5}{8}$", "$rac{3}{4}$", "$rac{6}{8}$"],
+        correct: "$rac{5}{8}$",
+        explanation: "LCD of 8 and 4 is 8. $rac{3}{8} + rac{2}{8} = rac{5}{8}$"
+      },
+      {
+        question: "What is $rac{2}{3} + rac{3}{6}$?",
+        choices: ["$rac{6}{9}$", "$rac{7}{6}$", "$rac{5}{6}$", "$rac{9}{12}$"],
+        correct: "$rac{5}{6}$",
+        explanation: "LCD of 3 and 6 is 6. $rac{4}{6} + rac{3}{6} = rac{7}{6}$ → But $rac{2}{3} = rac{4}{6}$ and $rac{3}{6} = rac{1}{2}$ → Answer: $rac{4}{6} + rac{1}{2} = rac{5}{6}$"
+      },
+      {
+        question: "What is $rac{5}{6} + rac{1}{3}$?",
+        choices: ["$rac{1}{2}$", "$rac{1}{1}$", "$rac{7}{6}$", "$rac{6}{9}$"],
+        correct: "$rac{7}{6}$",
+        explanation: "LCD of 6 and 3 is 6. $rac{5}{6} + rac{2}{6} = rac{7}{6}$"
+      },
+      // Multiply Fractions by Whole Numbers
+      {
+        question: "What is $3 \times \frac{1}{2}$?",
+        choices: ["$\\frac{3}{2}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$", "$\\frac{5}{2}$"],
+        correct: "$\\frac{3}{2}$",
+        explanation: "$3 \times \frac{1}{2} = \frac{3}{2}$"
+      },
+      {
+        question: "What is $4 \times \frac{2}{5}$?",
+        choices: ["$\\frac{8}{5}$", "$\\frac{6}{5}$", "$\\frac{2}{9}$", "$\\frac{4}{5}$"],
+        correct: "$\\frac{8}{5}$",
+        explanation: "$4 \times \frac{2}{5} = \frac{8}{5}$"
+      },
+      {
+        question: "What is $5 \times \frac{3}{4}$?",
+        choices: ["$\\frac{15}{4}$", "$\\frac{8}{5}$", "$\\frac{4}{15}$", "$\\frac{5}{3}$"],
+        correct: "$\\frac{15}{4}$",
+        explanation: "$5 \times \frac{3}{4} = \frac{15}{4}$"
+      },
+      {
+        question: "What is $2 \times \frac{5}{6}$?",
+        choices: ["$\\frac{10}{6}$", "$\\frac{12}{5}$", "$\\frac{7}{6}$", "$\\frac{6}{10}$"],
+        correct: "$\\frac{10}{6}$",
+        explanation: "$2 \times \frac{5}{6} = \frac{10}{6}$"
+      },
+      {
+        question: "What is $6 \times \frac{2}{3}$?",
+        choices: ["$\\frac{12}{3}$", "$\\frac{3}{2}$", "$\\frac{8}{3}$", "$\\frac{6}{3}$"],
+        correct: "$\\frac{12}{3}$",
+        explanation: "$6 \times \frac{2}{3} = \frac{12}{3}$"
+      },
+// Subtract Fractions and also find LCD
+      {
+        question: "What is $rac{3}{4} - rac{1}{2}$?",
+        choices: ["$rac{2}{4}$", "$rac{1}{4}$", "$rac{1}{2}$", "$rac{3}{2}$"],
+        correct: "$rac{1}{4}$",
+        explanation: "LCD of 4 and 2 is 4. $rac{3}{4} - rac{2}{4} = rac{1}{4}$"
+      },
+      {
+        question: "What is $rac{5}{6} - rac{1}{3}$?",
+        choices: ["$rac{2}{6}$", "$rac{1}{2}$", "$rac{3}{6}$", "$rac{1}{3}$"],
+        correct: "$rac{1}{2}$",
+        explanation: "LCD of 6 and 3 is 6. $rac{5}{6} - rac{2}{6} = rac{3}{6} = rac{1}{2}$"
+      },
+      {
+        question: "What is $rac{7}{8} - rac{1}{4}$?",
+        choices: ["$rac{6}{8}$", "$rac{5}{8}$", "$rac{4}{8}$", "$rac{3}{8}$"],
+        correct: "$rac{5}{8}$",
+        explanation: "LCD of 8 and 4 is 8. $rac{7}{8} - rac{2}{8} = rac{5}{8}$"
+      },
+      {
+        question: "What is $rac{4}{5} - rac{2}{10}$?",
+        choices: ["$rac{6}{10}$", "$rac{3}{5}$", "$rac{2}{5}$", "$rac{4}{10}$"],
+        correct: "$rac{3}{5}$",
+        explanation: "LCD of 5 and 10 is 10. $rac{8}{10} - rac{2}{10} = rac{6}{10} = rac{3}{5}$"
+      },
+      {
+        question: "What is $rac{2}{3} - rac{1}{6}$?",
+        choices: ["$rac{1}{3}$", "$rac{2}{6}$", "$rac{3}{6}$", "$rac{4}{6}$"],
+        correct: "$rac{1}{2}$",
+        explanation: "LCD of 3 and 6 is 6. $rac{4}{6} - rac{1}{6} = rac{3}{6} = rac{1}{2}$"
+      },
+
+      // Multiply Fractions by Whole Numbers
+      {
+        question: "What is $3 \times \frac{1}{2}$?",
+        choices: ["$\\frac{3}{2}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$", "$\\frac{5}{2}$"],
+        correct: "$\\frac{3}{2}$",
+        explanation: "$3 \times \frac{1}{2} = \frac{3}{2}$"
+      },
+      {
+        question: "What is $4 \times \frac{2}{5}$?",
+        choices: ["$\\frac{8}{5}$", "$\\frac{6}{5}$", "$\\frac{2}{9}$", "$\\frac{4}{5}$"],
+        correct: "$\\frac{8}{5}$",
+        explanation: "$4 \times \frac{2}{5} = \frac{8}{5}$"
+      },
+      {
+        question: "What is $5 \times \frac{3}{4}$?",
+        choices: ["$\\frac{15}{4}$", "$\\frac{8}{5}$", "$\\frac{4}{15}$", "$\\frac{5}{3}$"],
+        correct: "$\\frac{15}{4}$",
+        explanation: "$5 \times \frac{3}{4} = \frac{15}{4}$"
+      },
+      {
+        question: "What is $2 \times \frac{5}{6}$?",
+        choices: ["$\\frac{10}{6}$", "$\\frac{12}{5}$", "$\\frac{7}{6}$", "$\\frac{6}{10}$"],
+        correct: "$\\frac{10}{6}$",
+        explanation: "$2 \times \frac{5}{6} = \frac{10}{6}$"
+      },
+      {
+        question: "What is $6 \times \frac{2}{3}$?",
+        choices: ["$\\frac{12}{3}$", "$\\frac{3}{2}$", "$\\frac{8}{3}$", "$\\frac{6}{3}$"],
+        correct: "$\\frac{12}{3}$",
+        explanation: "$6 \times \frac{2}{3} = \frac{12}{3}$"
+      },
+    // Multiply Fractions to Another Fractions
+      {
+        question: "What is $rac{2}{3} 	imes rac{3}{4}$?",
+        choices: ["$rac{6}{12}$", "$rac{1}{2}$", "$rac{5}{7}$", "$rac{2}{7}$"],
+        correct: "$rac{1}{2}$",
+        explanation: "$rac{2}{3} 	imes rac{3}{4} = rac{6}{12} = rac{1}{2}$"
+      },
+      {
+        question: "What is $rac{1}{2} 	imes rac{4}{5}$?",
+        choices: ["$rac{4}{10}$", "$rac{1}{3}$", "$rac{2}{5}$", "$rac{4}{5}$"],
+        correct: "$rac{2}{5}$",
+        explanation: "$rac{1}{2} 	imes rac{4}{5} = rac{4}{10} = rac{2}{5}$"
+      },
+      {
+        question: "What is $rac{3}{5} 	imes rac{2}{3}$?",
+        choices: ["$rac{5}{8}$", "$rac{6}{15}$", "$rac{2}{5}$", "$rac{4}{5}$"],
+        correct: "$rac{2}{5}$",
+        explanation: "$rac{3}{5} 	imes rac{2}{3} = rac{6}{15} = rac{2}{5}$"
+      },
+      {
+        question: "What is $rac{4}{7} 	imes rac{3}{5}$?",
+        choices: ["$rac{7}{10}$", "$rac{12}{35}$", "$rac{1}{2}$", "$rac{3}{7}$"],
+        correct: "$rac{12}{35}$",
+        explanation: "$rac{4}{7} 	imes rac{3}{5} = rac{12}{35}$"
+      },
+      {
+        question: "What is $rac{5}{6} 	imes rac{1}{2}$?",
+        choices: ["$rac{6}{12}$", "$rac{5}{12}$", "$rac{1}{3}$", "$rac{2}{5}$"],
+        correct: "$rac{5}{12}$",
+        explanation: "$rac{5}{6} 	imes rac{1}{2} = rac{5}{12}$"
+      },
+
+      // Multiply Fractions by Whole Numbers
+      {
+        question: "What is $3 \times \frac{1}{2}$?",
+        choices: ["$\\frac{3}{2}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$", "$\\frac{5}{2}$"],
+        correct: "$\\frac{3}{2}$",
+        explanation: "$3 \times \frac{1}{2} = \frac{3}{2}$"
+      },
+      {
+        question: "What is $4 \times \frac{2}{5}$?",
+        choices: ["$\\frac{8}{5}$", "$\\frac{6}{5}$", "$\\frac{2}{9}$", "$\\frac{4}{5}$"],
+        correct: "$\\frac{8}{5}$",
+        explanation: "$4 \times \frac{2}{5} = \frac{8}{5}$"
+      },
+      {
+        question: "What is $5 \times \frac{3}{4}$?",
+        choices: ["$\\frac{15}{4}$", "$\\frac{8}{5}$", "$\\frac{4}{15}$", "$\\frac{5}{3}$"],
+        correct: "$\\frac{15}{4}$",
+        explanation: "$5 \times \frac{3}{4} = \frac{15}{4}$"
+      },
+      {
+        question: "What is $2 \times \frac{5}{6}$?",
+        choices: ["$\\frac{10}{6}$", "$\\frac{12}{5}$", "$\\frac{7}{6}$", "$\\frac{6}{10}$"],
+        correct: "$\\frac{10}{6}$",
+        explanation: "$2 \times \frac{5}{6} = \frac{10}{6}$"
+      },
+      {
+        question: "What is $6 \times \frac{2}{3}$?",
+        choices: ["$\\frac{12}{3}$", "$\\frac{3}{2}$", "$\\frac{8}{3}$", "$\\frac{6}{3}$"],
+        correct: "$\\frac{12}{3}$",
+        explanation: "$6 \times \frac{2}{3} = \frac{12}{3}$"
+      },
+    // Multiply Fractions by Whole Numbers
+      {
+        question: "What is $3 \times \frac{1}{2}$?",
+        choices: ["$\\frac{3}{2}$", "$\\frac{1}{6}$", "$\\frac{2}{3}$", "$\\frac{5}{2}$"],
+        correct: "$\\frac{3}{2}$",
+        explanation: "$3 \times \frac{1}{2} = \frac{3}{2}$"
+      },
+      {
+        question: "What is $4 \times \frac{2}{5}$?",
+        choices: ["$\\frac{8}{5}$", "$\\frac{6}{5}$", "$\\frac{2}{9}$", "$\\frac{4}{5}$"],
+        correct: "$\\frac{8}{5}$",
+        explanation: "$4 \times \frac{2}{5} = \frac{8}{5}$"
+      },
+      {
+        question: "What is $5 \times \frac{3}{4}$?",
+        choices: ["$\\frac{15}{4}$", "$\\frac{8}{5}$", "$\\frac{4}{15}$", "$\\frac{5}{3}$"],
+        correct: "$\\frac{15}{4}$",
+        explanation: "$5 \times \frac{3}{4} = \frac{15}{4}$"
+      },
+      {
+        question: "What is $2 \times \frac{5}{6}$?",
+        choices: ["$\\frac{10}{6}$", "$\\frac{12}{5}$", "$\\frac{7}{6}$", "$\\frac{6}{10}$"],
+        correct: "$\\frac{10}{6}$",
+        explanation: "$2 \times \frac{5}{6} = \frac{10}{6}$"
+      },
+      {
+        question: "What is $6 \times \frac{2}{3}$?",
+        choices: ["$\\frac{12}{3}$", "$\\frac{3}{2}$", "$\\frac{8}{3}$", "$\\frac{6}{3}$"],
+        correct: "$\\frac{12}{3}$",
+        explanation: "$6 \times \frac{2}{3} = \frac{12}{3}$"
+      },
+    // Divide Fractions from the Whole Number
+      {
+        question: "What is $3 \div \frac{1}{2}$?",
+        choices: ["$6$", "$\frac{3}{2}$", "$\frac{1}{6}$", "$\frac{2}{3}$"],
+        correct: "$6$",
+        explanation: "Dividing a whole number by a fraction means multiplying by its reciprocal: $3 \div \frac{1}{2} = 3 \times 2 = 6$"
+      },
+      {
+        question: "What is $4 \div \frac{2}{3}$?",
+        choices: ["$6$", "$\frac{6}{4}$", "$\frac{3}{2}$", "$2$"],
+        correct: "$6$",
+        explanation: "$4 \div \frac{2}{3} = 4 \times \frac{3}{2} = \frac{12}{2} = 6$"
+      },
+      {
+        question: "What is $5 \div \frac{5}{6}$?",
+        choices: ["$6$", "$\frac{5}{11}$", "$\frac{6}{5}$", "$\frac{25}{36}$"],
+        correct: "$6$",
+        explanation: "$5 \div \frac{5}{6} = 5 \times \frac{6}{5} = 6$"
+      },
+      {
+        question: "What is $2 \div \frac{1}{4}$?",
+        choices: ["$4$", "$6$", "$8$", "$12$"],
+        correct: "$8$",
+        explanation: "$2 \div \frac{1}{4} = 2 \times 4 = 8$"
+      },
+      {
+        question: "What is $6 \div \frac{3}{2}$?",
+        choices: ["$4$", "$3$", "$5$", "$6$"],
+        correct: "$4$",
+        explanation: "$6 \div \frac{3}{2} = 6 \times \frac{2}{3} = \frac{12}{3} = 4$"
+      },
+    ];
+
+    let currentQuestionIndex = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+
+    function displayQuestion() {
+      const question = questions[currentQuestionIndex];
+      const questionHtml = `
+        <div>
+          <h4>Question ${currentQuestionIndex + 1}: ${question.question}</h4>
+          ${question.choices
+            .map(
+              (choice) => `
+            <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+      document.getElementById('questionContainer').innerHTML = questionHtml;
+      document.getElementById('feedback').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('checkAnswerBtn').style.display = 'none';
+      renderMathInElement(document.getElementById('questionContainer'), { delimiters: [{ left: '$', right: '$', display: false }] });
     }
-];
 
+    window.selectAnswer = function (choice, element) {
+      const buttons = document.querySelectorAll('.choice-btn');
+      buttons.forEach((button) => button.classList.remove('active'));
+      element.classList.add('active');
+      document.getElementById('checkAnswerBtn').style.display = 'block';
+    };
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+    window.checkAnswer = function () {
+      const question = questions[currentQuestionIndex];
+      const buttons = document.querySelectorAll('.choice-btn');
+      let isCorrect = false;
+      buttons.forEach((button) => {
+        if (button.classList.contains('active')) {
+          if (button.textContent.trim() === question.correct.trim()) {
+            button.classList.add('correct-answer');
+            button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
+            isCorrect = true;
+          } else {
+            button.classList.add('incorrect-answer');
+            button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
+          }
         }
+        button.disabled = true;
+      });
+      updateFeedback(isCorrect, question);
+      document.getElementById('checkAnswerBtn').style.display = 'none';
+    };
 
-        shuffle(questions);
+    function updateFeedback(isCorrect, question) {
+      document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
+      document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
+      document.getElementById('feedback').style.display = 'block';
+      updateScore(isCorrect);
+      document.getElementById('nextBtn').style.display = 'block';
+      renderMathInElement(document.getElementById('feedback'), { delimiters: [{ left: '$', right: '$', display: false }] });
+    }
 
-        let currentQuestionIndex = 0;
-        let correctCount = 0;
-        let incorrectCount = 0;
+    function updateScore(isCorrect) {
+      if (isCorrect) correctCount++;
+      else incorrectCount++;
+      const total = questions.length;
+      document.getElementById('correctProgress').style.width = `${(correctCount / total) * 100}%`;
+      document.getElementById('incorrectProgress').style.width = `${(incorrectCount / total) * 100}%`;
+    }
 
-        function displayQuestion() {
-            const question = questions[currentQuestionIndex];
-            const questionHtml = `
-                <div>
-                    <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
-                    ${question.choices.map(choice => `
-                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('questionContainer').innerHTML = questionHtml;
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
+    window.nextQuestion = function () {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        document.getElementById('questionContainer').innerHTML = '';
+        document.getElementById('completionMessage').innerHTML = `
+          <div class="card-body">
+            <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
+            <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
+          </div>
+        `;
+        document.getElementById('completionMessage').style.display = 'block';
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('checkAnswerBtn').style.display = 'none';
+      }
+    };
 
-        window.selectAnswer = function(choice, element) {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            element.classList.add('active');
-            document.getElementById('checkAnswerBtn').style.display = 'block';
-        }
-
-        window.checkAnswer = function() {
-            const question = questions[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            let isCorrect = false;
-            buttons.forEach(button => {
-                if (button.classList.contains('active')) {
-                    if (button.textContent === question.correct) {
-                        button.classList.add('correct-answer');
-                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
-                        isCorrect = true;
-                    } else {
-                        button.classList.add('incorrect-answer');
-                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
-                    }
-                }
-                button.disabled = true;
-            });
-            updateFeedback(isCorrect, question);
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        function updateFeedback(isCorrect, question) {
-            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
-            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
-            document.getElementById('feedback').style.display = 'block';
-            updateScore(isCorrect);
-            document.getElementById('nextBtn').style.display = 'block';
-        }
-
-        function updateScore(isCorrect) {
-            if (isCorrect) {
-                correctCount++;
-            } else {
-                incorrectCount++;
-            }
-            const totalQuestions = questions.length;
-            const correctProgressPercent = (correctCount / totalQuestions) * 100;
-            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
-            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
-            document.getElementById('correctProgress').setAttribute('aria-valuenow', correctProgressPercent);
-            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
-            document.getElementById('incorrectProgress').setAttribute('aria-valuenow', incorrectProgressPercent);
-        }
-
-        window.nextQuestion = function() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                displayQuestion();
-            } else {
-                document.getElementById('questionContainer').innerHTML = '';
-                document.getElementById('completionMessage').innerHTML = `
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
-                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
-                    </div>
-                `;
-                document.getElementById('completionMessage').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('checkAnswerBtn').style.display = 'none';
-            }
-        }
-
-        displayQuestion(); // Load the first question
-    });
-</script>
+    displayQuestion();
+  </script>
 </body>
 </html>
