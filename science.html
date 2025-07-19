@@ -1,393 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Mastery Test - Science</title>
-    <!-- Bootstrap Flatly Theme from Bootswatch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
-    <!-- Google Fonts: Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 100px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-        }
-        .container {
-            padding-top: 30px;
-            width: 90%;
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        .correct-answer {
-            background-color: #18bc9c; /* Flatly success color */
-        }
-        .incorrect-answer {
-            background-color: #e74c3c; /* Flatly danger color */
-        }
-        .btn-block {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 18px;
-            padding: 10px;
-        }
-        #nextBtn, #checkAnswerBtn {
-            margin-top: 20px;
-            display: none;
-        }
-        .progress {
-            height: 20px;
-        }
-        .progress-bar {
-            transition: width 0.6s ease;
-        }
-        .quiz-complete-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-top: 20px;
-        }
-        .card-icon {
-            font-size: 48px;
-            color: #18bc9c;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Science Reviewer - Sean Everett Beraquit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fff;
+      padding: 20px;
+      font-size: 18px;
+    }
+    .header-main {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 10px;
+      z-index: 1000;
+      border-bottom: 2px solid #ccc;
+    }
+    .header-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    @media (min-width: 768px) {
+      .header-flex {
+        flex-direction: row;
+      }
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .explanation {
+      display: none;
+      font-style: italic;
+      color: green;
+      margin-top: 5px;
+    }
+    .correct {
+      background-color: #d1e7dd;
+    }
+    .wrong {
+      background-color: #f8d7da;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-door-fill"></i> Home
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="english.html">English Test</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="math.html">Math Test</a>
-                    </li>
-                </ul>
-            </div>
+  <div class="container">
+    <div class="header-main">
+      <h3 class="fw-bold text-center">Science Reviewer</h3>
+      <div class="header-flex">
+        <div>
+          <strong>Sean Everett Beraquit</strong><br>
+          Grade 6 - St. Joseph
         </div>
-    </nav>
-
-    <div class="container">
-        <h1 class="text-center">Science 4th Quarter</h1>
-        <div id="questionContainer" class="mt-4"></div>
-        <p id="feedback" class="feedback" style="display:none;"></p>
-        <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
-            <i class="bi bi-check-circle"></i> Check Answer
-        </button>
-        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display:none;">
-            <i class="bi bi-arrow-right-circle"></i> Next Question
-        </button>
-        <div class="progress mt-3">
-            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="text-end">
+          <div>Petsa: Hulyo 19, 2025</div>
+          <div id="score">Iskor: —</div>
         </div>
-        <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
+      </div>
     </div>
-    <!-- Bootstrap JS with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-const questions = [
-    {
-        question: "What is weathering?",
-        choices: ["The process of rocks breaking down into smaller pieces", "The movement of sediment from one place to another", "A type of storm", "The study of weather patterns"],
-        correct: "The process of rocks breaking down into smaller pieces",
-        explanation: "Weathering is the process where rocks are broken down into smaller pieces by physical or chemical means."
-    },
-    {
-        question: "What is erosion?",
-        choices: ["The deposit of soil and minerals in new locations", "The breakdown of rocks", "The movement of sediment from one place to another", "A type of weather disturbance"],
-        correct: "The movement of sediment from one place to another",
-        explanation: "Erosion is the process by which soil and rock particles are worn away and moved elsewhere by wind, water, or ice."
-    },
-    {
-        question: "What is a tropical cyclone?",
-        choices: ["A calm, clear weather pattern", "A type of rock formation", "A rapidly rotating storm system", "A slow-moving cloud formation"],
-        correct: "A rapidly rotating storm system",
-        explanation: "A tropical cyclone is a rapidly rotating storm system characterized by a low-pressure center, a closed low-level atmospheric circulation, strong winds, and a spiral arrangement of thunderstorms that produce heavy rain."
-    },
-    {
-        question: "What can cause physical weathering?",
-        choices: ["Chemical reactions", "Plant roots breaking rocks", "Pollution", "Evaporation of minerals"],
-        correct: "Plant roots breaking rocks",
-        explanation: "Physical weathering can occur due to mechanical processes such as the growth of plant roots in cracks in rocks which eventually break them apart."
-    },
-    {
-        question: "How does water contribute to erosion?",
-        choices: ["By drying out soil", "By freezing in cracks of rocks", "By carrying sediment downstream in rivers", "By sheltering soil from the wind"],
-        correct: "By carrying sediment downstream in rivers",
-        explanation: "Water contributes to erosion by flowing over soil and rocks and carrying away particles, especially in rivers and streams."
-    },
-    {
-        question: "Which layer of the atmosphere do tropical cyclones form in?",
-        choices: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"],
-        correct: "Troposphere",
-        explanation: "Tropical cyclones form in the troposphere, the lowest layer of the atmosphere where weather phenomena occur."
-    },
-    {
-        question: "What is the main difference between weathering and erosion?",
-        choices: ["Weathering involves chemical processes, erosion does not", "Weathering breaks rocks down, erosion moves the pieces", "Erosion happens only with water, weathering does not", "There is no difference; they are the same process"],
-        correct: "Weathering breaks rocks down, erosion moves the pieces",
-        explanation: "Weathering is the process of breaking down rocks into smaller pieces, whereas erosion is the movement of those pieces to new locations."
-    },
-    {
-        question: "What type of weathering is caused by acid rain?",
-        choices: ["Physical weathering", "Biological weathering", "Chemical weathering", "Erosional weathering"],
-        correct: "Chemical weathering",
-        explanation: "Acid rain causes chemical weathering because it involves chemical reactions between the acids in the rain and the minerals in the rocks, leading to decomposition."
-    },
-    {
-        question: "What are the effects of a tropical cyclone?",
-        choices: ["Drought and heatwaves", "Snow and ice", "High winds, heavy rain, and flooding", "Sunny, calm weather"],
-        correct: "High winds, heavy rain, and flooding",
-        explanation: "Tropical cyclones can cause severe weather conditions including high winds, heavy rain, and flooding."
-    },
-    {
-        question: "Which factor does not contribute to soil erosion?",
-        choices: ["Planting vegetation", "Heavy rainfall", "Wind", "River currents"],
-        correct: "Planting vegetation",
-        explanation: "Planting vegetation actually helps prevent erosion by stabilizing the soil with roots and absorbing water."
-    },
-    {
-        question: "How does frost action cause weathering?",
-        choices: ["By cooling the air", "By water freezing and expanding in cracks of rocks", "By forming icicles on cliffs", "By increasing humidity"],
-        correct: "By water freezing and expanding in cracks of rocks",
-        explanation: "Frost action causes weathering when water seeps into cracks in rocks, freezes, and expands, which eventually breaks the rock apart."
-    },
-    {
-        question: "What is the primary energy source for a tropical cyclone?",
-        choices: ["Solar energy", "Geothermal energy", "Energy from oceanic water vapor", "Energy from cold air masses"],
-        correct: "Energy from oceanic water vapor",
-        explanation: "Tropical cyclones derive their energy primarily from the heat released when moist air rises and condenses, a process fueled by warm oceanic waters."
-    },
-    {
-        question: "What does the term 'abrasion' refer to in the context of erosion?",
-        choices: ["The smoothing of surfaces by chemical reactions", "The grinding away of rock by other rock particles carried in water, ice, or wind", "The deposit of sediment in new locations", "The formation of soil layers"],
-        correct: "The grinding away of rock by other rock particles carried in water, ice, or wind",
-        explanation: "Abrasion in erosion is the physical scraping of a rock surface by friction between rocks and moving particles during their transport by wind, glacier, waves, gravity, running water."
-    },
-    {
-        question: "Which climate condition discourages the formation of tropical cyclones?",
-        choices: ["Warm ocean waters", "Cold ocean waters", "High atmospheric instability", "Low air pressure"],
-        correct: "Cold ocean waters",
-        explanation: "Tropical cyclones typically form over warm ocean waters and are less likely to form when ocean waters are cold."
-    },
-    {
-        question: "What role do trees and plants play in preventing erosion?",
-        choices: ["They break the wind speed", "Their roots stabilize the soil", "They attract animals that dig burrows", "They increase water absorption"],
-        correct: "Their roots stabilize the soil",
-        explanation: "The roots of trees and plants help to stabilize the soil, reducing erosion by anchoring the soil in place and absorbing water."
-    },
-    {
-        question: "What is an example of chemical weathering?",
-        choices: ["A tree root splitting a rock", "The polishing effect of sand blown against a rock", "Iron rusting in rock formations", "Rocks cracking from freeze-thaw cycles"],
-        correct: "Iron rusting in rock formations",
-        explanation: "Chemical weathering includes the rusting of iron in rock, which involves a chemical change where iron reacts with oxygen and water."
-    },
-    {
-        question: "What is a common result of erosion along coastlines?",
-        choices: ["Beach formation", "The creation of mountains", "The growth of forests", "Desert formation"],
-        correct: "Beach formation",
-        explanation: "Erosion along coastlines often results in the formation of beaches as materials such as sand are moved from one place to another along the shore."
-    },
-    {
-        question: "Why do tropical cyclones weaken over land?",
-        choices: ["Lack of moisture", "Colder temperatures", "Higher air pressure", "All of the above"],
-        correct: "Lack of moisture",
-        explanation: "Tropical cyclones weaken over land primarily because they are cut off from their primary energy source, the warm ocean water vapor."
-    },
-    {
-        question: "Which process involves the transfer of rock and soil downhill due to gravity?",
-        choices: ["Tectonic movement", "Mass wasting", "Condensation", "Transpiration"],
-        correct: "Mass wasting",
-        explanation: "Mass wasting is the process that involves the movement of soil and rock downhill due to gravity, commonly seen in landslides and rockfalls."
-    },
-    {
-        question: "What type of rock is most susceptible to chemical weathering?",
-        choices: ["Granite", "Sandstone", "Limestone", "Quartzite"],
-        correct: "Limestone",
-        explanation: "Limestone is particularly susceptible to chemical weathering, especially from acid rain, because it is composed largely of calcite which reacts with acidic solutions."
-    },
-    {
-        question: "How do human activities increase soil erosion?",
-        choices: ["By planting trees", "By building dams", "By overgrazing and deforestation", "By fishing"],
-        correct: "By overgrazing and deforestation",
-        explanation: "Human activities such as overgrazing and deforestation remove vegetation cover, increasing soil erosion as there are fewer roots to hold the soil in place."
-    },
-    {
-        question: "What is the scale used to measure the intensity of tropical cyclones?",
-        choices: ["Fujita Scale", "Richter Scale", "Saffir-Simpson Scale", "Mercalli Scale"],
-        correct: "Saffir-Simpson Scale",
-        explanation: "The Saffir-Simpson Scale is used to measure the intensity of tropical cyclones, categorizing them based on their wind speed."
-    },
-    {
-        question: "Which area would most likely experience high rates of erosion?",
-        choices: ["A flat, vegetated plain", "A steep, bare mountain slope", "A frozen tundra", "A densely forested area"],
-        correct: "A steep, bare mountain slope",
-        explanation: "Steep, bare mountain slopes are more likely to experience high rates of erosion due to lack of vegetation to protect the soil and gravity pulling materials downhill."
-    },
-    {
-        question: "What happens during the process of exfoliation in weathering?",
-        choices: ["Soil layers are compressed", "Rocks are polished by wind", "Outer layers of rock peel off", "Water transports soil particles"],
-        correct: "Outer layers of rock peel off",
-        explanation: "Exfoliation is a weathering process where outer rock layers peel off due to pressure release or thermal expansion and contraction."
-    },
-    {
-        question: "What impact does a tropical cyclone have on ocean temperatures?",
-        choices: ["It cools the ocean by mixing surface and deeper waters", "It heats the ocean significantly", "It has no impact on ocean temperatures", "It causes the ocean to freeze"],
-        correct: "It cools the ocean by mixing surface and deeper waters",
-        explanation: "Tropical cyclones can lead to temporary cooling of surface waters, as the intense winds and waves mix warmer surface water with deeper, cooler water."
-    },
-    {
-        question: "What feature is typically formed by water erosion?",
-        choices: ["Deserts", "Mountains", "River valleys", "Plateaus"],
-        correct: "River valleys",
-        explanation: "River valleys are typically formed by water erosion as rivers cut through the land over time, carrying away soil and rock."
-    },
-    {
-        question: "Which factor increases the rate of chemical weathering?",
-        choices: ["Cold, dry climates", "Hot, humid climates", "High altitudes", "Low pressure systems"],
-        correct: "Hot, humid climates",
-        explanation: "Chemical weathering rates increase in hot, humid climates because higher temperatures and moisture levels accelerate chemical reactions."
-    },
-    {
-        question: "What is the primary cause of desertification?",
-        choices: ["Heavy rainfall", "Forest growth", "Soil erosion", "Glacial movement"],
-        correct: "Soil erosion",
-        explanation: "Desertification is primarily caused by soil erosion, which removes the topsoil necessary for plants to grow, reducing the land's fertility."
-    },
-    {
-        question: "What natural barrier can help protect coastlines from erosion?",
-        choices: ["Coral reefs", "Sand dunes", "Mountain ranges", "Both coral reefs and sand dunes"],
-        correct: "Both coral reefs and sand dunes",
-        explanation: "Coral reefs and sand dunes both serve as natural barriers that protect coastlines from the erosive forces of waves and storms."
-    }
+
+<div class="alert alert-info mt-3">
+  <strong>Instructions:</strong> Read and understand each question carefully. Choose the correct answer. Make sure all questions are answered before submitting.
+</div>
+
+    <form id="quizForm">
+      <div id="questions"></div>
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg border-0">
+          <i class="fas fa-check-circle me-2"></i>Submit
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const questionsContainer = document.getElementById('questions');
+
+const questionBank = [
+  { q: "Salt dissolved in water is...", c: ["Heterogeneous", "Colloid", "Suspension", "Homogeneous"], a: 3, e: "The correct answer is Homogeneous." },
+  { q: "H2O is the formula for...", c: ["Oxygen", "Hydrogen", "Water", "Salt"], a: 2, e: "The correct answer is Water." },
+  { q: "Metalloids have properties of...", c: ["Only metals", "Only non-metals", "Both metals and non-metals", "Neither"], a: 2, e: "The correct answer is Both metals and non-metals." },
+  { q: "A pure substance has...", c: ["Variable composition", "Only one kind of particle", "Two or more phases", "Mixtures of gases"], a: 1, e: "The correct answer is Only one kind of particle." },
+  { q: "Which of the following is an element?", c: ["Salt", "Water", "Oxygen", "Carbon dioxide"], a: 2, e: "The correct answer is Oxygen." },
+  { q: "Heating a saturated solution may create a...", c: ["Colloid", "Suspension", "Supersaturated solution", "Pure substance"], a: 2, e: "The correct answer is Supersaturated solution." },
+  { q: "Fruit salad is an example of a...", c: ["Pure substance", "Compound", "Mixture", "Solution"], a: 2, e: "The correct answer is Mixture." },
+  { q: "Which mixture is homogeneous?", c: ["Sand and water", "Oil and water", "Salt and water", "Granola"], a: 2, e: "The correct answer is Salt and water." },
+  { q: "Which is NOT a compound?", c: ["CO2", "NaCl", "H2O", "O"], a: 3, e: "The correct answer is O." },
+  { q: "Which science focuses on the Earth's structure and processes?", c: ["Life Science", "Earth Science", "Chemistry", "Biology"], a: 1, e: "The correct answer is Earth Science." },
+  { q: "What is a mixture?", c: ["Only one type of particle", "Combination of substances", "A compound", "An atom"], a: 1, e: "The correct answer is Combination of substances." },
+  { q: "A supersaturated solution...", c: ["Has excess undissolved solute", "Has no solute", "Is always cloudy", "Is a solid"], a: 0, e: "The correct answer is Has excess undissolved solute." },
+  { q: "Which is a non-metal?", c: ["Iron", "Gold", "Nitrogen", "Silver"], a: 2, e: "The correct answer is Nitrogen." },
+  { q: "Which branch of science deals with non-living matter and energy?", c: ["Life Science", "Earth Science", "Physical Science", "Astronomy"], a: 2, e: "The correct answer is Physical Science." },
+  { q: "Which is a compound?", c: ["Gold", "Hydrogen", "Iron", "Water"], a: 3, e: "The correct answer is Water." },
+  { q: "Which of the following is a solution?", c: ["Oil and water", "Salt and water", "Sand in water", "Smoke"], a: 1, e: "The correct answer is Salt and water." },
+  { q: "Which is commonly shiny and a good conductor?", c: ["Non-metal", "Metal", "Metalloid", "Gas"], a: 1, e: "The correct answer is Metal." },
+  { q: "Which of the following is a living organism?", c: ["Rock", "Water", "Plant", "Air"], a: 2, e: "The correct answer is Plant." },
+  { q: "Which of the following is a metalloid?", c: ["Aluminum", "Silicon", "Carbon", "Zinc"], a: 1, e: "The correct answer is Silicon." },
+  { q: "Which of the following is an example of Life Science?", c: ["Studying animals", "Studying rocks", "Studying magnets", "Studying planets"], a: 0, e: "The correct answer is Studying animals." },
+  { q: "A compound is made up of...", c: ["Only one element", "Atoms of different elements", "Identical atoms", "Gases only"], a: 1, e: "The correct answer is Atoms of different elements." },
+  { q: "A saturated solution...", c: ["Can dissolve more solute", "Cannot dissolve more solute", "Is a gas", "Has no solvent"], a: 1, e: "The correct answer is Cannot dissolve more solute." },
+  { q: "Which of the following is a mixture?", c: ["Salt", "Water", "Iron", "Sand and gravel"], a: 3, e: "The correct answer is Sand and gravel." },
+  { q: "Which of the following is a heterogeneous mixture?", c: ["Air", "Vinegar", "Soil", "Sugar solution"], a: 2, e: "The correct answer is Soil." },
+  { q: "Smoke is an example of a...", c: ["Solution", "Suspension", "Colloid", "Mixture"], a: 2, e: "The correct answer is Colloid." },
+  { q: "Physical science includes the study of...", c: ["Planets", "Weather", "Chemicals and forces", "Cells"], a: 2, e: "The correct answer is Chemicals and forces." },
+  { q: "Which is a pure substance?", c: ["Salt water", "Air", "Sugar", "Soil"], a: 2, e: "The correct answer is Sugar." },
+  { q: "Which mixture scatters light and does not settle?", c: ["Suspension", "Colloid", "Solution", "Compound"], a: 1, e: "The correct answer is Colloid." },
+  { q: "An unsaturated solution...", c: ["Is full of solute", "Is not a mixture", "Can still dissolve more solute", "Is solid only"], a: 2, e: "The correct answer is Can still dissolve more solute." },
+  { q: "Which is a metal?", c: ["Sulfur", "Copper", "Oxygen", "Carbon"], a: 1, e: "The correct answer is Copper." },
+  { q: "Which mixture settles upon standing?", c: ["Solution", "Colloid", "Suspension", "Homogeneous"], a: 2, e: "The correct answer is Suspension." },
+  { q: "What is a mixture?", c: ["Only one type of particle", "Combination of substances", "A compound", "An atom"], a: 1, e: "The correct answer is Combination of substances." },
+  { q: "Which is NOT a colloid?", c: ["Milk", "Fog", "Salt solution", "Smoke"], a: 2, e: "The correct answer is Salt solution." },
+  { q: "Which of the following is an element?", c: ["Salt", "Water", "Oxygen", "Carbon dioxide"], a: 2, e: "The correct answer is Oxygen." },
+  { q: "A compound is made up of...", c: ["Only one element", "Atoms of different elements", "Identical atoms", "Gases only"], a: 1, e: "The correct answer is Atoms of different elements." },
+  { q: "H2O is the formula for...", c: ["Oxygen", "Hydrogen", "Water", "Salt"], a: 2, e: "The correct answer is Water." },
+  { q: "Salt dissolved in water is...", c: ["Heterogeneous", "Colloid", "Suspension", "Homogeneous"], a: 3, e: "The correct answer is Homogeneous." },
+  { q: "Which of the following is a living organism?", c: ["Rock", "Water", "Plant", "Air"], a: 2, e: "The correct answer is Plant." },
+  { q: "A saturated solution...", c: ["Can dissolve more solute", "Cannot dissolve more solute", "Is a gas", "Has no solvent"], a: 1, e: "The correct answer is Cannot dissolve more solute." },
+  { q: "Heating a saturated solution may create a...", c: ["Colloid", "Suspension", "Supersaturated solution", "Pure substance"], a: 2, e: "The correct answer is Supersaturated solution." },
+  { q: "Which mixture has the same composition throughout?", c: ["Homogeneous", "Heterogeneous", "Suspension", "Colloid"], a: 0, e: "The correct answer is Homogeneous." },
+  { q: "Which is a metal?", c: ["Sulfur", "Copper", "Oxygen", "Carbon"], a: 1, e: "The correct answer is Copper." },
+  { q: "Which of the following is a heterogeneous mixture?", c: ["Air", "Vinegar", "Soil", "Sugar solution"], a: 2, e: "The correct answer is Soil." },
+  { q: "Which is NOT a compound?", c: ["CO2", "NaCl", "H2O", "O"], a: 3, e: "The correct answer is O." },
+  { q: "Which of the following is a solution?", c: ["Oil and water", "Salt and water", "Sand in water", "Smoke"], a: 1, e: "The correct answer is Salt and water." },
+  { q: "Which of the following is a pure substance?", c: ["Air", "Salt water", "Water", "Soil"], a: 2, e: "The correct answer is Water." },
+  { q: "Which mixture has visible particles and settles over time?", c: ["Colloid", "Solution", "Suspension", "Element"], a: 2, e: "The correct answer is Suspension." },
+   {
+    q: "Which of the following is a mixture?",
+    c: ["Salt", "Water", "Iron", "Sand and gravel"],
+    a: 3,
+    e: "The correct answer is Sand and gravel."
+  },
+  {
+    q: "Which of the following is a heterogeneous mixture?",
+    c: ["Air", "Vinegar", "Soil", "Sugar solution"],
+    a: 2,
+    e: "The correct answer is Soil."
+  },
+  {
+    q: "Smoke is an example of a...",
+    c: ["Solution", "Suspension", "Colloid", "Mixture"],
+    a: 2,
+    e: "The correct answer is Colloid."
+  }
 ];
 
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
 
-        shuffle(questions);
 
-        let currentQuestionIndex = 0;
-        let correctCount = 0;
-        let incorrectCount = 0;
-
-        function displayQuestion() {
-            const question = questions[currentQuestionIndex];
-            const questionHtml = `
-                <div>
-                    <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
-                    ${question.choices.map(choice => `
-                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('questionContainer').innerHTML = questionHtml;
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        window.selectAnswer = function(choice, element) {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            element.classList.add('active');
-            document.getElementById('checkAnswerBtn').style.display = 'block';
-        }
-
-        window.checkAnswer = function() {
-            const question = questions[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            let isCorrect = false;
-            buttons.forEach(button => {
-                if (button.classList.contains('active')) {
-                    if (button.textContent === question.correct) {
-                        button.classList.add('correct-answer');
-                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
-                        isCorrect = true;
-                    } else {
-                        button.classList.add('incorrect-answer');
-                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
-                    }
-                }
-                button.disabled = true;
-            });
-            updateFeedback(isCorrect, question);
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        function updateFeedback(isCorrect, question) {
-            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
-            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
-            document.getElementById('feedback').style.display = 'block';
-            updateScore(isCorrect);
-            document.getElementById('nextBtn').style.display = 'block';
-        }
-
-        function updateScore(isCorrect) {
-            if (isCorrect) {
-                correctCount++;
-            } else {
-                incorrectCount++;
-            }
-            const totalQuestions = questions.length;
-            const correctProgressPercent = (correctCount / totalQuestions) * 100;
-            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
-            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
-            document.getElementById('correctProgress').setAttribute('aria-valuenow', correctProgressPercent);
-            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
-            document.getElementById('incorrectProgress').setAttribute('aria-valuenow', incorrectProgressPercent);
-        }
-
-        window.nextQuestion = function() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                displayQuestion();
-            } else {
-                document.getElementById('questionContainer').innerHTML = '';
-                document.getElementById('completionMessage').innerHTML = `
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
-                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
-                    </div>
-                `;
-                document.getElementById('completionMessage').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('checkAnswerBtn').style.display = 'none';
-            }
-        }
-
-        displayQuestion(); // Load the first question
+questionBank.forEach((q, index) => {
+      const html = `
+        <div class="question border rounded p-3" id="q${index}">
+          <p><strong>${index + 1}. ${q.q}</strong></p>
+          ${q.c.map((choice, i) => `
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+              <label class="form-check-label" for="q${index}a${i}">${choice}</label>
+            </div>`).join('')}
+          <div class="explanation" id="exp${index}">${q.e}</div>
+        </div>
+      `;
+      questionsContainer.insertAdjacentHTML('beforeend', html);
     });
-</script>
+
+    document.getElementById('quizForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      for (let i = 0; i < questionBank.length; i++) {
+        if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Incomplete',
+            text: `Answer question ${i + 1}.`,
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+      }
+
+      Swal.fire({
+        title: 'Submit?',
+        text: 'Are you sure you want to submit your answers?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, isumite',
+        cancelButtonText: 'Not yet'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let score = 0;
+          questionBank.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const container = document.getElementById(`q${index}`);
+            const explanation = document.getElementById(`exp${index}`);
+
+            container.classList.remove('correct', 'wrong');
+            explanation.style.display = 'block';
+
+            if (parseInt(selected.value) === q.a) {
+              score++;
+              container.classList.add('correct');
+            } else {
+              container.classList.add('wrong');
+            }
+          });
+
+          Swal.fire({
+            title: 'Test Completed!',
+            text: `Your Score ${score} in ${questionBank.length}.`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            document.getElementById('score').innerText = `Iskor: ${score}/${questionBank.length}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
