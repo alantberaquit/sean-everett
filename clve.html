@@ -55,7 +55,7 @@
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-8sodNVYyktF7UlFZqT6P1YEx8PbGUGUc47y0Pn6rqN4nbTu8t8vmI+Kc4lB0fkbUbyayIDKZrh5qsUVr4Ztq7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-$1
+
 <body>
 
   <div class="container">
@@ -198,5 +198,47 @@ questionSections.forEach(section => {
   });
 });
   </script>
+<script>
+    document.getElementById('quizForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+
+      for (let i = 0; i < questionIndex; i++) {
+        if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+          document.getElementById('alertModalBody').textContent = `Please answer question ${i + 1} before submitting.`;
+          alertModal.show();
+          return;
+        }
+      }
+
+      if (!confirm("Are you sure you want to submit your answers?")) return;
+
+      let score = 0;
+      let currentIndex = 0;
+      questionSections.forEach(section => {
+        section.items.forEach((q, i) => {
+          const selected = document.querySelector(`input[name="q${currentIndex}"]:checked`);
+          const container = document.getElementById(`q${currentIndex}`);
+          const explanation = document.getElementById(`exp${currentIndex}`);
+
+          container.classList.remove('correct', 'wrong');
+          explanation.style.display = 'block';
+
+          if (parseInt(selected.value) === q.correct) {
+            score++;
+            container.classList.add('correct');
+          } else {
+            container.classList.add('wrong');
+          }
+
+          currentIndex++;
+        });
+      });
+
+      document.getElementById('score').innerText = `Score: ${score}/${questionIndex}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
 </body>
 </html>
