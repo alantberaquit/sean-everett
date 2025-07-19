@@ -1,253 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 6 Quiz - Filipino Sawikain</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 100px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-        }
-        .container {
-            padding-top: 30px;
-            width: 90%;
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        .correct-answer {
-            background-color: #18bc9c;
-        }
-        .incorrect-answer {
-            background-color: #e74c3c;
-        }
-        .btn-block {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 18px;
-            padding: 10px;
-        }
-        #nextBtn, #checkAnswerBtn {
-            margin-top: 20px;
-            display: none;
-        }
-        .progress {
-            height: 20px;
-        }
-        .progress-bar {
-            transition: width 0.6s ease;
-        }
-        .quiz-complete-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-top: 20px;
-        }
-        .card-icon {
-            font-size: 48px;
-            color: #18bc9c;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AP Reviewer - Sean Everett Beraquit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fff;
+      padding: 20px;
+      font-size: 18px;
+    }
+    .header-main {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 10px;
+      z-index: 1000;
+      border-bottom: 2px solid #ccc;
+    }
+    .header-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    @media (min-width: 768px) {
+      .header-flex {
+        flex-direction: row;
+      }
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .explanation {
+      display: none;
+      font-style: italic;
+      color: green;
+      margin-top: 5px;
+    }
+    .correct {
+      background-color: #d1e7dd;
+    }
+    .wrong {
+      background-color: #f8d7da;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-house-door-fill"></i> Home
-            </a>
+  <div class="container">
+    <div class="header-main">
+      <h3 class="fw-bold text-center">Araling Panlipunan Reviewer</h3>
+      <div class="header-flex">
+        <div>
+          <strong>Sean Everett Beraquit</strong><br>
+          Grade 6 - St. Joseph
         </div>
-    </nav>
-
-    <div class="container">
-        <h1 class="text-center">Filipino: Sawikain Quiz</h1>
-        <div id="questionContainer" class="mt-4"></div>
-        <p id="feedback" class="feedback" style="display:none;"></p>
-        <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
-            <i class="bi bi-check-circle"></i> Check Answer
-        </button>
-        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display:none;">
-            <i class="bi bi-arrow-right-circle"></i> Next Question
-        </button>
-        <div class="progress mt-3">
-            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;"></div>
-            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;"></div>
+        <div class="text-end">
+          <div>Petsa: Hulyo 19, 2025</div>
+          <div id="score">Iskor: —</div>
         </div>
-        <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
+      </div>
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const questions = [
-            {
-                question: "Ano ang ibig sabihin ng sawikaing 'Itaga mo sa bato'?",
-                choices: [
-                    "Kalilimutan agad",
-                    "Isusulat sa papel",
-                    "Pangakong hindi mababali",
-                    "Gawin sa ibang araw"
-                ],
-                correct: "Pangakong hindi mababali",
-                explanation: "Ang 'Itaga mo sa bato' ay nangangahulugang isang pangakong hindi kailanman mababali."
-            },
-            {
-                question: "Ano ang ibig sabihin ng 'Nagbibilang ng poste'?",
-                choices: [
-                    "Naghahanap ng bahay",
-                    "Walang trabaho",
-                    "Gustong lumipat",
-                    "Naglalakad sa kalsada"
-                ],
-                correct: "Walang trabaho",
-                explanation: "Ang 'Nagbibilang ng poste' ay isang sawikain na tumutukoy sa isang taong walang trabaho."
-            },
-            {
-                question: "Ano ang kahulugan ng sawikaing 'Makapal ang mukha'?",
-                choices: [
-                    "Laging nagme-makeup",
-                    "Walang hiya",
-                    "Madaldal",
-                    "Matapang"
-                ],
-                correct: "Walang hiya",
-                explanation: "Ang 'Makapal ang mukha' ay nangangahulugang hindi marunong mahiya."
-            },
-            {
-                question: "Ano ang ibig sabihin ng 'Magsunog ng kilay'?",
-                choices: [
-                    "Magpabeauty treatment",
-                    "Matulog nang matagal",
-                    "Mag-aral nang mabuti",
-                    "Magluto ng paborito"
-                ],
-                correct: "Mag-aral nang mabuti",
-                explanation: "Ang 'Magsunog ng kilay' ay sawikain para sa matiyaga at masigasig na pag-aaral."
-            },
-            {
-                question: "Ano ang kahulugan ng sawikaing 'May krus sa dibdib'?",
-                choices: [
-                    "Taong relihiyoso",
-                    "May lihim na galit",
-                    "May dalang mabigat na suliranin",
-                    "Nag-aalay ng dasal"
-                ],
-                correct: "May dalang mabigat na suliranin",
-                explanation: "Ang 'May krus sa dibdib' ay tumutukoy sa isang taong may mabigat na pinagdaraanan."
-            }
-        ];
+    <div class="alert alert-info mt-3">
+      <strong>Panuto:</strong> Basahin at unawaing mabuti ang bawat tanong. Pumili ng tamang sagot. Siguraduhing nasagutan ang lahat ng bilang bago isumite.
+    </div>
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+    <form id="quizForm">
+      <div id="questions"></div>
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg border-0">
+          <i class="fas fa-check-circle me-2"></i>Isumite
+        </button>
+      </div>
+    </form>
+  </div>
 
-        shuffle(questions);
+  <script>
+    const questionsContainer = document.getElementById('questions');
 
-        let currentQuestionIndex = 0;
-        let correctCount = 0;
-        let incorrectCount = 0;
+const questionBank = [
+  { q: "Ano ang tawag sa guhit sa gitna ng globo na humahati sa Hilaga at Timog Hemispero?", c: ["Prime Meridian", "International Date Line", "Ekwador", "Tropiko ng Kanser"], a: 2, e: "Ang Ekwador ang guhit na humahati sa Hilaga at Timog Hemispero." },
+  { q: "Anong uri ng lokasyon ang tumutukoy sa eksaktong kinaroroonan gamit ang longhitud at latitud?", c: ["Relatibong Lokasyon", "Tiyak na Lokasyon", "Global Lokasyon", "Sikolohikal na Lokasyon"], a: 1, e: "Ang Tiyak na Lokasyon ay tumutukoy sa eksaktong posisyon gamit ang coordinates." },
+  { q: "Alin sa mga sumusunod ang bahagi ng teritoryo ng Pilipinas?", c: ["Kalupaan", "Kalikasan", "Kaluluwa", "Katutubong Paniniwala"], a: 0, e: "Ang kalupaan ay bahagi ng teritoryo kasama ang katubigan at himpapawid." },
+  { q: "Sino sa mga sumusunod ang isang mestizong Espanyol?", c: ["Anak ng Pilipino at Tsino", "Anak ng Pilipino at Espanyol", "Anak ng Pilipino at Amerikano", "Anak ng Pilipino at Arabo"], a: 1, e: "Ang mestizong Espanyol ay anak ng Pilipino at Espanyol." },
+  { q: "Ano ang pangunahing layunin ng pagbubukas ng Suez Canal noong 1869?", c: ["Mapadali ang paglalakbay patungong Silangan", "Magkaroon ng lugar-pasyalan", "Gawing mas malawak ang kalakalan sa Amerika", "Maging sentro ng palakasan"], a: 0, e: "Ang pagbubukas ng Suez Canal ay nagpapabilis sa biyahe mula Europa patungong Asya." },
+  { q: "Ano ang relatibong lokasyon ng Pilipinas?", c: ["Malapit sa ekwador", "Eksaktong nasa ekwador", "Nasa kanlurang bahagi ng Africa", "Nasa gitna ng Indian Ocean"], a: 0, e: "Ang Pilipinas ay malapit sa ekwador, kaya't may tropikal na klima ito." },
+  { q: "Alin sa mga sumusunod ang hindi bahagi ng teritoryo ng bansa?", c: ["Himpapawid", "Karagatan", "Kaluluwa ng mamamayan", "Kalupaan"], a: 2, e: "Hindi kabilang ang kaluluwa sa legal na teritoryo ng bansa." },
+  { q: "Anong linya ang ginagamit upang tukuyin ang pagkakaiba ng petsa?", c: ["Ekwador", "Prime Meridian", "International Date Line", "Tropic of Capricorn"], a: 2, e: "Ang International Date Line ay ginagamit sa pagtatakda ng bagong araw." },
+  { q: "Ang anak ng Pilipino at Tsino ay tinatawag na...", c: ["Mestizong Tsino", "Mestizong Espanyol", "Mestizong Amerikano", "Mestizong Malay"], a: 0, e: "Ang Mestizong Tsino ay anak ng Pilipino at Tsino." },
+  { q: "Saan matatagpuan ang Pilipinas batay sa mga coordinate?", c: ["4°–21° Hilagang Latitud at 116°–127° Silangang Longhitud", "0°–20° Timog Latitud at 100°–120° Kanlurang Longhitud", "10°–30° Hilaga at 90°–100° Silangan", "Hindi matukoy"], a: 0, e: "Ito ang tiyak na lokasyon ng Pilipinas sa mapa." },
+  { q: "Ano ang dulot ng pagbubukas ng Suez Canal sa Pilipinas?", c: ["Pagbilis ng kalakalan", "Paglaki ng agrikultura", "Pagdami ng hayop", "Pagluwag ng trapiko"], a: 0, e: "Mas napadali ang ugnayan ng Pilipinas sa Europa." },
+  { q: "Anong uri ng lokasyon ang batay sa kalapitan sa ibang lugar?", c: ["Tiyak na Lokasyon", "Relatibong Lokasyon", "Longhitud", "Latitud"], a: 1, e: "Ang relatibong lokasyon ay batay sa paligid ng isang lugar." },
+  { q: "Ang pagbubukas ng Suez Canal ay nagbigay daan sa...", c: ["Pagpapalaganap ng Kristiyanismo", "Pagpapalaganap ng malayang kaisipan", "Pagpapalawak ng digmaan", "Pagpapalaganap ng kalakalan lamang"], a: 1, e: "Ito ay nakatulong sa paglaganap ng mga ideyang liberal sa Pilipinas." },
+  { q: "Ang Pilipinas ay isang...", c: ["Kontinente", "Pulo", "Kapuluan", "Peninsula"], a: 2, e: "Ang Pilipinas ay binubuo ng maraming pulo kaya tinatawag na kapuluan." },
+  { q: "Saan bahagi ng mundo matatagpuan ang Pilipinas?", c: ["Hilagang Asya", "Silangang Asya", "Timog-Silangang Asya", "Kanlurang Asya"], a: 2, e: "Ang Pilipinas ay nasa Timog-Silangang Asya." },
+  { q: "Alin sa mga sumusunod ang pinakamalapit na lokasyon ng Pilipinas?", c: ["Hilaga ng Australia", "Kanluran ng India", "Silangan ng Amerika", "Hilaga ng Russia"], a: 0, e: "Ang Pilipinas ay nasa hilaga ng Australia." },
+  { q: "Ano ang epekto ng kinalalagyan ng Pilipinas sa klima nito?", c: ["Malamig buong taon", "Tuyong klima", "Tropikal na klima", "Hindi apektado"], a: 2, e: "Dahil malapit sa ekwador, tropikal ang klima ng bansa." },
+  { q: "Ang anak ng Pilipino at Amerikano ay tinatawag na...", c: ["Mestizong Amerikano", "Mestizong Asyano", "Mestizong Pilipino", "Mestizong Kanluranin"], a: 0, e: "Ito ang tawag sa anak ng Pilipino at Amerikano." },
+  { q: "Ano ang tawag sa mga bansang naapektuhan ng ideyang liberal mula Europa?", c: ["Mestizo States", "Liberal Territories", "Kolonya", "Kolonyang Naging Makabago"], a: 3, e: "Ang mga kolonyang ito ay naapektuhan ng malayang kaisipan." },
+  { q: "Bakit mahalaga ang malayang kaisipan sa kasaysayan ng Pilipinas?", c: ["Nagpalakas ng kalakalan", "Nagbigay daan sa reporma at rebolusyon", "Nagdulot ng digmaan", "Wala itong epekto"], a: 1, e: "Ito ang naging simula ng mga kilusang makabayan." },
+  { q: "Anong direksyon matatagpuan ang Pilipinas mula sa ekwador?", c: ["Hilaga", "Timog", "Silangan", "Kanluran"], a: 0, e: "Hilaga ng ekwador matatagpuan ang Pilipinas." },
+  { q: "Alin sa sumusunod ang hindi uri ng mestizo?", c: ["Mestizong Tsino", "Mestizong Amerikano", "Mestizong Arabo", "Mestizong Katutubo"], a: 3, e: "Mestizong Katutubo ay hindi karaniwang ginagamit." },
+  { q: "Ano ang epekto ng relatibong lokasyon sa kultura ng Pilipinas?", c: ["Isinara sa kalakalan", "Naapektuhan ng ibang kultura", "Naging madilim ang kasaysayan", "Walang epekto"], a: 1, e: "Ang relatibong lokasyon ay dahilan ng impluwensiyang dayuhan." },
+  { q: "Ang longhitud ay guhit na...", c: ["Pahalang", "Pababa", "Pahilis", "Paikot"], a: 1, e: "Ito ay guhit na mula Hilaga patungong Timog." },
+  { q: "Ano ang ginagamit upang matukoy ang relatibong lokasyon?", c: ["Kalapit na lugar", "Coordinates", "Tiyak na direksyon", "Simbolo ng mapa"], a: 0, e: "Kalapit na bansa o anyong tubig." },
+  { q: "Ang anak ng Pilipino at Arabo ay tinatawag na...", c: ["Mestizong Tsino", "Mestizong Arabo", "Mestizong Europeo", "Mestizong Timog"], a: 1, e: "Ito ang tamang tawag." },
+  { q: "Ano ang benepisyo ng pagiging kapuluan ng Pilipinas?", c: ["Iisang kultura lamang", "Maraming likas na yaman", "Mahinang ekonomiya", "Walang benepisyo"], a: 1, e: "Maraming anyong lupa at tubig." },
+  { q: "Paano nakaapekto ang Suez Canal sa edukasyon sa Pilipinas?", c: ["Walang epekto", "Nakadagdag ng guro", "Naipakilala ang liberal na ideya", "Naging mas mura ang edukasyon"], a: 2, e: "Mas dumami ang aklat at bagong ideya." },
+  { q: "Ano ang ginagamit upang tukuyin ang tiyak na lokasyon?", c: ["Compass", "Coordinates", "Direksyon", "Mapa lang"], a: 1, e: "Latitud at longhitud ang ginagamit." },
+   { q: "Ano ang ginagamit upang tukuyin ang tiyak na lokasyon?", c: ["Compass", "Coordinates", "Direksyon", "Mapa lang"], a: 1, e: "Latitud at longhitud ang ginagamit." }
+];
 
-        function displayQuestion() {
-            const question = questions[currentQuestionIndex];
-            const questionHtml = `
-                <div>
-                    <h4>Tanong ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
-                    ${question.choices.map(choice => `
-                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('questionContainer').innerHTML = questionHtml;
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
 
-        window.selectAnswer = function(choice, element) {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            element.classList.add('active');
-            document.getElementById('checkAnswerBtn').style.display = 'block';
-        }
-
-        window.checkAnswer = function() {
-            const question = questions[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            let isCorrect = false;
-            buttons.forEach(button => {
-                if (button.classList.contains('active')) {
-                    if (button.textContent === question.correct) {
-                        button.classList.add('correct-answer');
-                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
-                        isCorrect = true;
-                    } else {
-                        button.classList.add('incorrect-answer');
-                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
-                    }
-                }
-                button.disabled = true;
-            });
-            updateFeedback(isCorrect, question);
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        function updateFeedback(isCorrect, question) {
-            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
-            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
-            document.getElementById('feedback').style.display = 'block';
-            updateScore(isCorrect);
-            document.getElementById('nextBtn').style.display = 'block';
-        }
-
-        function updateScore(isCorrect) {
-            if (isCorrect) {
-                correctCount++;
-            } else {
-                incorrectCount++;
-            }
-            const totalQuestions = questions.length;
-            const correctProgressPercent = (correctCount / totalQuestions) * 100;
-            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
-            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
-            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
-        }
-
-        window.nextQuestion = function() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                displayQuestion();
-            } else {
-                document.getElementById('questionContainer').innerHTML = '';
-                document.getElementById('completionMessage').innerHTML = `
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
-                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
-                    </div>
-                `;
-                document.getElementById('completionMessage').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('checkAnswerBtn').style.display = 'none';
-            }
-        }
-
-        displayQuestion();
+questionBank.forEach((q, index) => {
+      const html = `
+        <div class="question border rounded p-3" id="q${index}">
+          <p><strong>${index + 1}. ${q.q}</strong></p>
+          ${q.c.map((choice, i) => `
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+              <label class="form-check-label" for="q${index}a${i}">${choice}</label>
+            </div>`).join('')}
+          <div class="explanation" id="exp${index}">${q.e}</div>
+        </div>
+      `;
+      questionsContainer.insertAdjacentHTML('beforeend', html);
     });
-    </script>
+
+    document.getElementById('quizForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      for (let i = 0; i < questionBank.length; i++) {
+        if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Hindi Kumpleto',
+            text: `Pakisagutan ang Tanong Bilang ${i + 1}.`,
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+      }
+
+      Swal.fire({
+        title: 'Isumite?',
+        text: 'Sigurado ka na bang nais mong isumite ang iyong mga sagot?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Oo, isumite',
+        cancelButtonText: 'Hindi pa'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let score = 0;
+          questionBank.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const container = document.getElementById(`q${index}`);
+            const explanation = document.getElementById(`exp${index}`);
+
+            container.classList.remove('correct', 'wrong');
+            explanation.style.display = 'block';
+
+            if (parseInt(selected.value) === q.a) {
+              score++;
+              container.classList.add('correct');
+            } else {
+              container.classList.add('wrong');
+            }
+          });
+
+          Swal.fire({
+            title: 'Tapos Na!',
+            text: `Nakuha mong iskor ay ${score} sa ${questionBank.length}.`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            document.getElementById('score').innerText = `Iskor: ${score}/${questionBank.length}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
