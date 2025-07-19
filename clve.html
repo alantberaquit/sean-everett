@@ -1,41 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CLVE Reviewer - Sean Everett Beraquit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #fff;
       padding: 20px;
-      font-size: 1.1rem;
-    }
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 1020;
-      background-color: #fff;
-      padding-bottom: 10px;
+      font-size: 18px;
     }
     .header-main {
-      text-align: center;
-      margin-bottom: 10px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      padding: 10px;
+      z-index: 1000;
+      border-bottom: 2px solid #ccc;
     }
-    .header-sub {
+    .header-flex {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
+      align-items: center;
+      margin-top: 10px;
     }
     @media (min-width: 768px) {
-      .header-sub {
+      .header-flex {
         flex-direction: row;
-        align-items: center;
       }
     }
     .question {
@@ -54,191 +51,153 @@
       background-color: #f8d7da;
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-8sodNVYyktF7UlFZqT6P1YEx8PbGUGUc47y0Pn6rqN4nbTu8t8vmI+Kc4lB0fkbUbyayIDKZrh5qsUVr4Ztq7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+</head>
 <body>
-
   <div class="container">
-    <div class="sticky-header">
-      <div class="header-main">
-        <h3 class="fw-bold">CLVE Reviewer</h3>
-      </div>
-      <div class="header-sub">
+    <div class="header-main">
+      <h3 class="fw-bold text-center">CLVE Reviewer</h3>
+      <div class="header-flex">
         <div>
           <strong>Sean Everett Beraquit</strong><br>
           Grade 6 - St. Joseph
         </div>
         <div class="text-end">
-          <div>Date: July 19, 2025</div>
-          <div id="score">Score: —</div>
+          <div>Petsa: Hulyo 19, 2025</div>
+          <div id="score">Iskor: —</div>
         </div>
       </div>
     </div>
 
-    <!-- Modal Alert -->
-    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <h5 class="modal-title" id="alertModalLabel">Incomplete</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="alertModalBody">
-            Please answer all questions before submitting.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Instructions -->
-    <div class="mb-4 p-3 border rounded bg-light">
-      <h5 class="fw-bold">Instructions:</h5>
-      <ul>
-        <li>Read each question carefully before selecting your answer.</li>
-        <li>Select the best answer by clicking the corresponding circle.</li>
-        <li>Answer all 40 questions. You cannot submit unless all are answered.</li>
-        <li>Click the <strong>Submit</strong> button at the bottom of the page when finished.</li>
-        <li>Check the explanations shown after submission to understand your answers.</li>
-      </ul>
-      <p><strong>Take your time and do your best, Sean!</strong></p>
-    </div>
+<div class="alert alert-info mt-3">
+  <strong>Instructions:</strong> Read and understand each question carefully. Choose the correct answer. Make sure all questions are answered before submitting.
+</div>
 
     <form id="quizForm">
       <div id="questions"></div>
       <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-primary btn-lg rounded-0">
-          Submit <i class="fas fa-check-circle ms-2"></i>
+        <button type="submit" class="btn btn-primary btn-lg border-0">
+          <i class="fas fa-check-circle me-2"></i>Submit
         </button>
       </div>
     </form>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const questionsContainer = document.getElementById('questions');
 
-const questionSections = [
-  {
-    label: 'Part 1: About the Holy Spirit (1–15)',
-    items: [
-      { question: "Who is the third person of the Holy Trinity?", choices: ["Father", "Son", "Holy Spirit", "Angel"], correct: 2, explanation: "The Holy Spirit is the third person of the Holy Trinity." },
-      { question: "What symbol is often used to represent the Holy Spirit?", choices: ["Fire", "Dove", "Wind", "All of the above"], correct: 3, explanation: "The Holy Spirit is represented as fire, dove, and wind." },
-      { question: "What event marks the coming of the Holy Spirit?", choices: ["Baptism", "Christmas", "Pentecost", "Easter"], correct: 2, explanation: "Pentecost marks the coming of the Holy Spirit." },
-      { question: "What does the Holy Spirit give us to guide our actions?", choices: ["Books", "Gifts", "Food", "Money"], correct: 1, explanation: "The Holy Spirit gives us gifts to guide our lives." },
-      { question: "How many gifts of the Holy Spirit are there?", choices: ["5", "7", "9", "12"], correct: 1, explanation: "There are 7 gifts of the Holy Spirit." },
-      { question: "Which is NOT a gift of the Holy Spirit?", choices: ["Wisdom", "Understanding", "Pride", "Fortitude"], correct: 2, explanation: "Pride is not a gift of the Holy Spirit." },
-      { question: "What is the role of the Holy Spirit in prayer?", choices: ["Distracts us", "Teaches us", "Guides us", "Both B and C"], correct: 3, explanation: "The Holy Spirit teaches and guides us in prayer." },
-      { question: "What do we call the fruits of living with the Holy Spirit?", choices: ["Gifts", "Blessings", "Fruits", "Signs"], correct: 2, explanation: "They are called Fruits of the Holy Spirit." },
-      { question: "Which of the following is a fruit of the Holy Spirit?", choices: ["Love", "Anger", "Envy", "Pride"], correct: 0, explanation: "Love is one of the fruits of the Holy Spirit." },
-      { question: "The Holy Spirit helps us become...", choices: ["Richer", "Better Christians", "Stronger physically", "Popular"], correct: 1, explanation: "The Holy Spirit helps us grow spiritually." },
-      { question: "What does the Holy Spirit inspire us to do?", choices: ["Lie", "Cheat", "Do good", "Sin"], correct: 2, explanation: "The Holy Spirit inspires us to do good." },
-      { question: "Who sent the Holy Spirit to us?", choices: ["Mary", "Jesus", "Peter", "Moses"], correct: 1, explanation: "Jesus sent the Holy Spirit after His ascension." },
-      { question: "Which apostle spoke boldly after receiving the Holy Spirit?", choices: ["Thomas", "Peter", "Judas", "John"], correct: 1, explanation: "Peter boldly preached after Pentecost." },
-      { question: "The Holy Spirit is also called the...", choices: ["Enemy", "Helper", "Punisher", "Watcher"], correct: 1, explanation: "The Holy Spirit is our Helper." },
-      { question: "We receive the Holy Spirit especially in the sacrament of...", choices: ["Baptism", "Confirmation", "Eucharist", "Marriage"], correct: 1, explanation: "Confirmation strengthens our bond with the Holy Spirit." }
-    ]
-  },
-  {
-    label: 'Part 2: Mother Teresa (16–30)',
-    items: [
-      { question: "Where was Mother Teresa born?", choices: ["India", "Albania", "Italy", "Spain"], correct: 1, explanation: "Mother Teresa was born in Albania." },
-      { question: "What religious order did she found?", choices: ["Jesuits", "Missionaries of Charity", "Franciscans", "Carmelites"], correct: 1, explanation: "She founded the Missionaries of Charity." },
-      { question: "Where did Mother Teresa serve the poor?", choices: ["London", "Rome", "Calcutta", "New York"], correct: 2, explanation: "Mother Teresa served the poor in Calcutta, India." },
-      { question: "Mother Teresa is known for her...", choices: ["Wealth", "Fame", "Love for the poor", "Music"], correct: 2, explanation: "She is known for her love and care for the poor." },
-      { question: "What did Mother Teresa receive in 1979?", choices: ["Oscar", "Nobel Peace Prize", "Olympic Medal", "Pulitzer"], correct: 1, explanation: "She received the Nobel Peace Prize in 1979." },
-      { question: "Mother Teresa became a saint in what year?", choices: ["2000", "2010", "2016", "2020"], correct: 2, explanation: "She was canonized in 2016." },
-      { question: "What is a famous quote by Mother Teresa?", choices: ["Be the change", "Do small things with great love", "Love wins", "Faith moves mountains"], correct: 1, explanation: "Mother Teresa said, 'Do small things with great love.'" },
-      { question: "Mother Teresa's work focused on...", choices: ["Teaching", "Politics", "Medicine", "Helping the sick and poor"], correct: 3, explanation: "She helped the sick and the poor." },
-      { question: "Mother Teresa believed every person has...", choices: ["A home", "A talent", "Dignity", "Wealth"], correct: 2, explanation: "She believed every person has dignity." },
-      { question: "Mother Teresa is a model of...", choices: ["Pride", "Humility", "Greed", "Luxury"], correct: 1, explanation: "She showed great humility." },
-      { question: "Which Pope canonized Mother Teresa?", choices: ["Pope Benedict XVI", "Pope John Paul II", "Pope Francis", "Pope Leo XIII"], correct: 2, explanation: "Pope Francis canonized her in 2016." },
-      { question: "Mother Teresa said we should find God in...", choices: ["Church only", "The rich", "Everyone", "Statues"], correct: 2, explanation: "She said we should find God in everyone." },
-      { question: "What did Mother Teresa wear?", choices: ["Brown robe", "Sari with blue border", "White dress", "Black veil"], correct: 1, explanation: "She wore a white sari with blue border." },
-      { question: "What is Mother Teresa’s feast day?", choices: ["Sept 5", "Aug 15", "Dec 25", "Oct 1"], correct: 0, explanation: "Her feast day is September 5." },
-      { question: "Mother Teresa taught us to...", choices: ["Ignore the needy", "Love without limits", "Judge others", "Be selfish"], correct: 1, explanation: "She taught us to love without limits." }
-    ]
-  },
-  {
-    label: 'Part 3: The Beatitudes (31–40)',
-    items: [
-      { question: "Who taught the Beatitudes?", choices: ["Moses", "Jesus", "Paul", "Peter"], correct: 1, explanation: "Jesus taught the Beatitudes during the Sermon on the Mount." },
-      { question: "How many Beatitudes are there?", choices: ["7", "8", "10", "12"], correct: 1, explanation: "There are 8 Beatitudes." },
-      { question: "What does 'Blessed are the poor in spirit' mean?", choices: ["They are poor financially", "They are humble before God", "They are sad", "They are hungry"], correct: 1, explanation: "It means those who depend humbly on God." },
-      { question: "What is promised to the pure in heart?", choices: ["Wealth", "They will see God", "Fame", "Long life"], correct: 1, explanation: "Blessed are the pure in heart, for they will see God." },
-      { question: "Which Beatitude speaks of peace?", choices: ["Those who mourn", "Peacemakers", "Poor in spirit", "Meek"], correct: 1, explanation: "Blessed are the peacemakers." },
-      { question: "What is promised to those who hunger and thirst for righteousness?", choices: ["They will be punished", "They will be ignored", "They will be satisfied", "They will be hungry"], correct: 2, explanation: "They will be filled or satisfied." },
-      { question: "'Blessed are the meek' means...", choices: ["They are weak", "They will inherit the earth", "They will fly", "They will lose"], correct: 1, explanation: "It means they will inherit the earth." },
-      { question: "Who are called children of God?", choices: ["Rich", "Sinners", "Peacemakers", "Angels"], correct: 2, explanation: "Peacemakers are called children of God." },
-      { question: "What should we do when persecuted for doing right?", choices: ["Fight back", "Give up", "Rejoice", "Hide"], correct: 2, explanation: "Rejoice, for your reward is great in heaven." },
-      { question: "The Beatitudes are found in which Gospel?", choices: ["Mark", "John", "Matthew", "Luke"], correct: 2, explanation: "They are found in Matthew chapter 5." }
-    ]
-  }
+const questionBank = [
+  { q: "Who is the third person of the Holy Trinity?", c: ["Father", "Son", "Holy Spirit", "Angel"], a: 2, e: "The Holy Spirit is the third person of the Holy Trinity." },
+  { q: "What symbol is often used to represent the Holy Spirit?", c: ["Fire", "Dove", "Wind", "All of the above"], a: 3, e: "The Holy Spirit is represented as fire, dove, and wind." },
+  { q: "What event marks the coming of the Holy Spirit?", c: ["Baptism", "Christmas", "Pentecost", "Easter"], a: 2, e: "Pentecost marks the coming of the Holy Spirit." },
+  { q: "What does the Holy Spirit give us to guide our actions?", c: ["Books", "Gifts", "Food", "Money"], a: 1, e: "The Holy Spirit gives us gifts to guide our lives." },
+  { q: "How many gifts of the Holy Spirit are there?", c: ["5", "7", "9", "12"], a: 1, e: "There are 7 gifts of the Holy Spirit." },
+  { q: "Which is NOT a gift of the Holy Spirit?", c: ["Wisdom", "Understanding", "Pride", "Fortitude"], a: 2, e: "Pride is not a gift of the Holy Spirit." },
+  { q: "What is the role of the Holy Spirit in prayer?", c: ["Distracts us", "Teaches us", "Guides us", "Both B and C"], a: 3, e: "The Holy Spirit teaches and guides us in prayer." },
+  { q: "What do we call the fruits of living with the Holy Spirit?", c: ["Gifts", "Blessings", "Fruits", "Signs"], a: 2, e: "They are called Fruits of the Holy Spirit." },
+  { q: "Which of the following is a fruit of the Holy Spirit?", c: ["Love", "Anger", "Envy", "Pride"], a: 0, e: "Love is one of the fruits of the Holy Spirit." },
+  { q: "The Holy Spirit helps us become...", c: ["Richer", "Better Christians", "Stronger physically", "Popular"], a: 1, e: "The Holy Spirit helps us grow spiritually." },
+  { q: "What does the Holy Spirit inspire us to do?", c: ["Lie", "Cheat", "Do good", "Sin"], a: 2, e: "The Holy Spirit inspires us to do good." },
+  { q: "Who sent the Holy Spirit to us?", c: ["Mary", "Jesus", "Peter", "Moses"], a: 1, e: "Jesus sent the Holy Spirit after His ascension." },
+  { q: "Which apostle spoke boldly after receiving the Holy Spirit?", c: ["Thomas", "Peter", "Judas", "John"], a: 1, e: "Peter boldly preached after Pentecost." },
+  { q: "The Holy Spirit is also called the...", c: ["Enemy", "Helper", "Punisher", "Watcher"], a: 1, e: "The Holy Spirit is our Helper." },
+  { q: "We receive the Holy Spirit especially in the sacrament of...", c: ["Baptism", "Confirmation", "Eucharist", "Marriage"], a: 1, e: "Confirmation strengthens our bond with the Holy Spirit." },
+  { q: "Where was Mother Teresa born?", c: ["India", "Albania", "Italy", "Spain"], a: 1, e: "Mother Teresa was born in Albania." },
+  { q: "What religious order did she found?", c: ["Jesuits", "Missionaries of Charity", "Franciscans", "Carmelites"], a: 1, e: "She founded the Missionaries of Charity." },
+  { q: "Where did Mother Teresa serve the poor?", c: ["London", "Rome", "Calcutta", "New York"], a: 2, e: "Mother Teresa served the poor in Calcutta, India." },
+  { q: "Mother Teresa is known for her...", c: ["Wealth", "Fame", "Love for the poor", "Music"], a: 2, e: "She is known for her love and care for the poor." },
+  { q: "What did Mother Teresa receive in 1979?", c: ["Oscar", "Nobel Peace Prize", "Olympic Medal", "Pulitzer"], a: 1, e: "She received the Nobel Peace Prize in 1979." },
+  { q: "Mother Teresa became a saint in what year?", c: ["2000", "2010", "2016", "2020"], a: 2, e: "She was canonized in 2016." },
+  { q: "What is a famous quote by Mother Teresa?", c: ["Be the change", "Do small things with great love", "Love wins", "Faith moves mountains"], a: 1, e: "Mother Teresa said, 'Do small things with great love.'" },
+  { q: "Mother Teresa's work focused on...", c: ["Teaching", "Politics", "Medicine", "Helping the sick and poor"], a: 3, e: "She helped the sick and the poor." },
+  { q: "Mother Teresa believed every person has...", c: ["A home", "A talent", "Dignity", "Wealth"], a: 2, e: "She believed every person has dignity." },
+  { q: "Mother Teresa is a model of...", c: ["Pride", "Humility", "Greed", "Luxury"], a: 1, e: "She showed great humility." },
+  { q: "Which Pope canonized Mother Teresa?", c: ["Pope Benedict XVI", "Pope John Paul II", "Pope Francis", "Pope Leo XIII"], a: 2, e: "Pope Francis canonized her in 2016." },
+  { q: "Mother Teresa said we should find God in...", c: ["Church only", "The rich", "Everyone", "Statues"], a: 2, e: "She said we should find God in everyone." },
+  { q: "What did Mother Teresa wear?", c: ["Brown robe", "Sari with blue border", "White dress", "Black veil"], a: 1, e: "She wore a white sari with blue border." },
+  { q: "What is Mother Teresa’s feast day?", c: ["Sept 5", "Aug 15", "Dec 25", "Oct 1"], a: 0, e: "Her feast day is September 5." },
+  { q: "Mother Teresa taught us to...", c: ["Ignore the needy", "Love without limits", "Judge others", "Be selfish"], a: 1, e: "She taught us to love without limits." },
+  { q: "Who taught the Beatitudes?", c: ["Moses", "Jesus", "Paul", "Peter"], a: 1, e: "Jesus taught the Beatitudes during the Sermon on the Mount." },
+  { q: "How many Beatitudes are there?", c: ["7", "8", "10", "12"], a: 1, e: "There are 8 Beatitudes." },
+  { q: "What does 'Blessed are the poor in spirit' mean?", c: ["They are poor financially", "They are humble before God", "They are sad", "They are hungry"], a: 1, e: "It means those who depend humbly on God." },
+  { q: "What is promised to the pure in heart?", c: ["Wealth", "They will see God", "Fame", "Long life"], a: 1, e: "Blessed are the pure in heart, for they will see God." },
+  { q: "Which Beatitude speaks of peace?", c: ["Those who mourn", "Peacemakers", "Poor in spirit", "Meek"], a: 1, e: "Blessed are the peacemakers." },
+  { q: "What is promised to those who hunger and thirst for righteousness?", c: ["They will be punished", "They will be ignored", "They will be satisfied", "They will be hungry"], a: 2, e: "They will be filled or satisfied." },
+  { q: "'Blessed are the meek' means...", c: ["They are weak", "They will inherit the earth", "They will fly", "They will lose"], a: 1, e: "It means they will inherit the earth." },
+  { q: "Who are called children of God?", c: ["Rich", "Sinners", "Peacemakers", "Angels"], a: 2, e: "Peacemakers are called children of God." },
+  { q: "What should we do when persecuted for doing right?", c: ["Fight back", "Give up", "Rejoice", "Hide"], a: 2, e: "Rejoice, for your reward is great in heaven." },
+  { q: "The Beatitudes are found in which Gospel?", c: ["Mark", "John", "Matthew", "Luke"], a: 2, e: "They are found in Matthew chapter 5." }
 ];
 
-let questionIndex = 0;
-questionSections.forEach(section => {
-  questionsContainer.insertAdjacentHTML('beforeend', `<h5 class="mt-4">${section.label}</h5>`);
-  section.items.forEach(q => {
-    const html = `
-      <div class="question border rounded p-3" id="q${questionIndex}">
-        <p><strong>${questionIndex + 1}. ${q.question}</strong></p>
-        ${q.choices.map((choice, i) => `
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="q${questionIndex}" value="${i}" id="q${questionIndex}a${i}">
-            <label class="form-check-label" for="q${questionIndex}a${i}">${choice}</label>
-          </div>`).join('')}
-        <div class="explanation" id="exp${questionIndex}">${q.explanation}</div>
-      </div>
-    `;
-    questionsContainer.insertAdjacentHTML('beforeend', html);
-    questionIndex++;
-  });
-});
-  </script>
-<script>
+
+
+questionBank.forEach((q, index) => {
+      const html = `
+        <div class="question border rounded p-3" id="q${index}">
+          <p><strong>${index + 1}. ${q.q}</strong></p>
+          ${q.c.map((choice, i) => `
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+              <label class="form-check-label" for="q${index}a${i}">${choice}</label>
+            </div>`).join('')}
+          <div class="explanation" id="exp${index}">${q.e}</div>
+        </div>
+      `;
+      questionsContainer.insertAdjacentHTML('beforeend', html);
+    });
+
     document.getElementById('quizForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
-
-      for (let i = 0; i < questionIndex; i++) {
+      for (let i = 0; i < questionBank.length; i++) {
         if (!document.querySelector(`input[name="q${i}"]:checked`)) {
-          document.getElementById('alertModalBody').textContent = `Please answer question ${i + 1} before submitting.`;
-          alertModal.show();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Incomplete',
+            text: `Answer question ${i + 1}.`,
+            confirmButtonText: 'OK'
+          });
           return;
         }
       }
 
-      if (!confirm("Are you sure you want to submit your answers?")) return;
+      Swal.fire({
+        title: 'Submit?',
+        text: 'Are you sure you want to submit your answers?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, isumite',
+        cancelButtonText: 'Not yet'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let score = 0;
+          questionBank.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const container = document.getElementById(`q${index}`);
+            const explanation = document.getElementById(`exp${index}`);
 
-      let score = 0;
-      let currentIndex = 0;
-      questionSections.forEach(section => {
-        section.items.forEach((q, i) => {
-          const selected = document.querySelector(`input[name="q${currentIndex}"]:checked`);
-          const container = document.getElementById(`q${currentIndex}`);
-          const explanation = document.getElementById(`exp${currentIndex}`);
+            container.classList.remove('correct', 'wrong');
+            explanation.style.display = 'block';
 
-          container.classList.remove('correct', 'wrong');
-          explanation.style.display = 'block';
+            if (parseInt(selected.value) === q.a) {
+              score++;
+              container.classList.add('correct');
+            } else {
+              container.classList.add('wrong');
+            }
+          });
 
-          if (parseInt(selected.value) === q.correct) {
-            score++;
-            container.classList.add('correct');
-          } else {
-            container.classList.add('wrong');
-          }
-
-          currentIndex++;
-        });
+          Swal.fire({
+            title: 'Test Completed!',
+            text: `Your Score ${score} in ${questionBank.length}.`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            document.getElementById('score').innerText = `Iskor: ${score}/${questionBank.length}`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
       });
-
-      document.getElementById('score').innerText = `Score: ${score}/${questionIndex}`;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-</script>
+  </script>
 </body>
 </html>
