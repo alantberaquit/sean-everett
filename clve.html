@@ -1,405 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade 5 Mastery Test - CLVE</title>
-    <!-- Bootstrap Flatly Theme from Bootswatch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css">
-    <!-- Google Fonts: Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 100px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-        }
-        .container {
-            padding-top: 30px;
-            width: 90%;
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        .correct-answer {
-            background-color: #18bc9c; /* Flatly success color */
-        }
-        .incorrect-answer {
-            background-color: #e74c3c; /* Flatly danger color */
-        }
-        .btn-block {
-            display: block;
-            width: 100%;
-            margin-top: 10px;
-            font-size: 18px;
-            padding: 10px;
-        }
-        #nextBtn, #checkAnswerBtn {
-            margin-top: 20px;
-            display: none;
-        }
-        .progress {
-            height: 20px;
-        }
-        .progress-bar {
-            transition: width 0.6s ease;
-        }
-        .quiz-complete-card {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-top: 20px;
-        }
-        .card-icon {
-            font-size: 48px;
-            color: #18bc9c;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CLVE Reviewer - Sean Everett Beraquit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #fff;
+      padding: 20px;
+    }
+    .header-main {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .header-sub {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+    @media (min-width: 768px) {
+      .header-sub {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .explanation {
+      display: none;
+      font-style: italic;
+      color: green;
+      margin-top: 5px;
+    }
+    .correct {
+      background-color: #d1e7dd;
+    }
+    .wrong {
+      background-color: #f8d7da;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-door-fill"></i> Home
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="english.html">English Test</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="math.html">Math Test</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container">
-        <h1 class="text-center">CLVE: Ten Commandments</h1>
-        <div id="questionContainer" class="mt-4"></div>
-        <p id="feedback" class="feedback" style="display:none;"></p>
-        <button id="checkAnswerBtn" class="btn btn-warning btn-block" style="display:none;" onclick="checkAnswer()">
-            <i class="bi bi-check-circle"></i> Check Answer
-        </button>
-        <button id="nextBtn" class="btn btn-primary btn-block" onclick="nextQuestion()" style="display:none;">
-            <i class="bi bi-arrow-right-circle"></i> Next Question
-        </button>
-        <div class="progress mt-3">
-            <div id="correctProgress" class="progress-bar bg-success" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            <div id="incorrectProgress" class="progress-bar bg-danger" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div id="completionMessage" class="quiz-complete-card" style="display:none;"></div>
+  <div class="container">
+    <div class="header-main">
+      <h3 class="fw-bold">CLVE Reviewer</h3>
     </div>
-    <!-- Bootstrap JS with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <div class="header-sub">
+      <div>
+        <strong>Sean Everett Beraquit</strong><br>
+        Grade 6 - St. Joseph
+      </div>
+      <div class="text-end">
+        <div>Date: July 19, 2025</div>
+        <div id="score">Score: —</div>
+      </div>
+    </div>
 
-const questions = [
-    {
-        question: "What is the first commandment of the Ten Commandments?",
-        choices: ["Honor your father and mother", "You shall not steal", "I am the Lord your God, you shall have no other gods before Me", "Remember the Sabbath day to keep it holy"],
-        correct: "I am the Lord your God, you shall have no other gods before Me",
-        explanation: "The first commandment instructs us to worship only God and put Him first in our lives."
-    },
-    {
-        question: "Which commandment tells us to respect our parents?",
-        choices: ["You shall not bear false witness", "Honor your father and mother", "You shall not kill", "You shall not covet"],
-        correct: "Honor your father and mother",
-        explanation: "The commandment to honor your father and mother teaches us to respect and care for our parents and elders."
-    },
-    {
-        question: "What does the commandment 'You shall not take the name of the Lord your God in vain' mean?",
-        choices: ["Do not lie", "Do not use God&#39;s name disrespectfully", "Do not work on Sundays", "Do not steal"],
-        correct: "Do not use God&#39;s name disrespectfully",
-        explanation: "This commandment instructs us not to use God&#39;s name carelessly or in a disrespectful manner."
-    },
-    {
-        question: "Which commandment instructs us to keep Sundays holy?",
-        choices: ["Remember the Sabbath day to keep it holy", "You shall not kill", "You shall not commit adultery", "You shall not covet your neighbor&#39;s goods"],
-        correct: "Remember the Sabbath day to keep it holy",
-        explanation: "The Sabbath day should be kept holy, which includes going to church and resting from work to honor God."
-    },
-    {
-        question: "What does the commandment 'You shall not kill' prohibit?",
-        choices: ["Being angry with others", "Taking someone&#39;s life", "Speaking harshly to others", "Stealing from someone"],
-        correct: "Taking someone&#39;s life",
-        explanation: "This commandment explicitly prohibits taking another person&#39;s life, emphasizing the sanctity of life."
-    },
-    {
-        question: "Which commandment focuses on being faithful to your spouse?",
-        choices: ["You shall not commit adultery", "You shall not steal", "Honor your father and mother", "You shall not bear false witness against your neighbor"],
-        correct: "You shall not commit adultery",
-        explanation: "This commandment teaches us to remain faithful to our spouse and respect the marital bond."
-    },
-    {
-        question: "What does 'You shall not steal' teach us?",
-        choices: ["To be honest with others", "Not to take anything that isn&#39;t ours", "To keep promises", "To respect others&#39; properties"],
-        correct: "Not to take anything that isn&#39;t ours",
-        explanation: "This commandment instructs us not to take or use someone else&#39;s property without permission."
-    },
-    {
-        question: "Which commandment advises us not to lie?",
-        choices: ["You shall not bear false witness against your neighbor", "Remember the Sabbath day to keep it holy", "You shall not covet your neighbor&#39;s wife", "Honor your father and mother"],
-        correct: "You shall not bear false witness against your neighbor",
-        explanation: "This commandment warns against lying or speaking falsely, particularly about others."
-    },
-    {
-        question: "What does the commandment 'You shall not covet your neighbor&#39;s house' teach us?",
-        choices: ["To be content with what we have", "Not to steal", "Not to lie", "Not to cheat"],
-        correct: "To be content with what we have",
-        explanation: "It teaches us to avoid envy and be grateful for our own blessings rather than desiring others&#39; possessions."
-    },
-    {
-        question: "Why are the Ten Commandments important in Christian living?",
-        choices: ["They help us make friends", "They are good suggestions", "They guide us in living a life pleasing to God", "They are optional rules"],
-        correct: "They guide us in living a life pleasing to God",
-        explanation: "The Ten Commandments are moral guidelines that help Christians live a life that honors God and respects others."
-    },
-    {
-        question: "Which commandment teaches us to not desire others&#39; belongings?",
-        choices: ["You shall not steal", "You shall not covet", "Honor your father and mother", "Remember the Sabbath day"],
-        correct: "You shall not covet",
-        explanation: "This commandment teaches us to control our desires for what others own and to be content with what we have."
-    },
-    {
-        question: "What is forbidden by the commandment 'You shall not commit adultery'?",
-        choices: ["Being jealous", "Breaking promises", "Being unfaithful to your spouse", "Lying"],
-        correct: "Being unfaithful to your spouse",
-        explanation: "Adultery involves being unfaithful to one&#39;s spouse, which breaks the marital covenant."
-    },
-    {
-        question: "How can we observe the commandment to 'Honor your father and mother'?",
-        choices: ["By listening to them", "By giving them gifts", "By obeying them and showing respect", "By doing homework"],
-        correct: "By obeying them and showing respect",
-        explanation: "Obeying and respecting our parents are direct ways to honor them, as commanded in the scriptures."
-    },
-    {
-        question: "What does it mean to take the Lord&#39;s name in vain?",
-        choices: ["Using it in jokes", "Forgetting to pray", "Skipping church", "Not reading the Bible"],
-        correct: "Using it in jokes",
-        explanation: "Taking the Lord&#39;s name in vain includes using God&#39;s name flippantly or in disrespectful contexts, such as jokes."
-    },
-    {
-        question: "What day is specifically mentioned in the commandment to keep holy?",
-        choices: ["Monday", "Wednesday", "Saturday", "Sunday"],
-        correct: "Sunday",
-        explanation: "Christians are called to keep Sunday holy, dedicating it to rest and worship in honor of the Lord&#39;s Resurrection."
-    },
-    {
-        question: "What is the spiritual purpose of the commandment 'You shall not kill'?",
-        choices: ["To promote peace", "To encourage strength", "To ensure fairness", "To foster kindness"],
-        correct: "To promote peace",
-        explanation: "The commandment serves to promote peace and respect for life, discouraging acts of violence."
-    },
-    {
-        question: "Why is stealing wrong according to the commandments?",
-        choices: ["It causes inconvenience", "It is unfair", "It leads to punishment", "It breaks trust"],
-        correct: "It breaks trust",
-        explanation: "Stealing not only involves taking what is not yours but also breaks the fundamental trust among individuals and communities."
-    },
-    {
-        question: "What should you do if you witness someone breaking a commandment?",
-        choices: ["Ignore it", "Join them", "Report it to a trusted adult", "Laugh at it"],
-        correct: "Report it to a trusted adult",
-        explanation: "Reporting wrongdoing to a trusted adult is a responsible action that aligns with living a moral and ethical life."
-    },
-    {
-        question: "How do the Ten Commandments help us in school?",
-        choices: ["They improve grades", "They create rules", "They guide our behavior", "They make learning easier"],
-        correct: "They guide our behavior",
-        explanation: "The Ten Commandments provide moral guidelines that help shape our behavior and interactions with others in school."
-    },
-    {
-        question: "Which commandment directly addresses the sanctity of marriage?",
-        choices: ["You shall not steal", "You shall not lie", "You shall not commit adultery", "Honor your father and mother"],
-        correct: "You shall not commit adultery",
-        explanation: "This commandment underscores the importance of fidelity and the sacredness of the marital relationship."
-    },
-    {
-        question: "What is the core message of the commandment 'You shall not bear false witness'?",
-        choices: ["Be honest", "Be strong", "Be quiet", "Be patient"],
-        correct: "Be honest",
-        explanation: "This commandment emphasizes the importance of honesty and truthfulness in our statements about others."
-    },
-    {
-        question: "Why should we not covet anything that belongs to our neighbor?",
-        choices: ["It&#39;s bad luck", "It&#39;s a waste of time", "It leads to unhappiness", "It can ruin relationships"],
-        correct: "It can ruin relationships",
-        explanation: "Coveting can lead to jealousy and strain relationships, contrary to the spirit of community and fellowship."
-    },
-    {
-        question: "What does it mean to 'keep the Sabbath day holy'?",
-        choices: ["Do no work", "Attend church services", "Both A and B", "Go shopping"],
-        correct: "Both A and B",
-        explanation: "Keeping the Sabbath holy involves resting from work and attending church services to honor God."
-    },
-    {
-        question: "What role do the Ten Commandments play in helping us make decisions?",
-        choices: ["They confuse us", "They guide us", "They restrict us", "They have no impact"],
-        correct: "They guide us",
-        explanation: "The Ten Commandments serve as moral guidelines that help us make ethical decisions and lead a righteous life."
-    },
-    {
-        question: "How can breaking the commandments affect a community?",
-        choices: ["It strengthens the community", "It has no effect", "It can lead to disorder and mistrust", "It makes the community richer"],
-        correct: "It can lead to disorder and mistrust",
-        explanation: "Violating the commandments can undermine moral order and trust within a community, leading to social discord."
-    },
-    {
-        question: "What is the result of following the Ten Commandments in daily life?",
-        choices: ["Increased stress", "Spiritual growth", "Physical growth", "Financial profit"],
-        correct: "Spiritual growth",
-        explanation: "Adhering to the Ten Commandments can lead to spiritual growth and a deeper relationship with God."
-    },
-    {
-        question: "How does the commandment about honoring parents affect family life?",
-        choices: ["It creates conflict", "It strengthens family bonds", "It has no impact", "It reduces communication"],
-        correct: "It strengthens family bonds",
-        explanation: "Respecting and honoring parents helps to strengthen family relationships and fosters a loving home environment."
-    },
-    {
-        question: "What is one way to avoid breaking the commandment 'You shall not take the name of the Lord your God in vain'?",
-        choices: ["Speak respectfully", "Avoid saying God&#39;s name", "Only use it in church", "Forget the commandment"],
-        correct: "Speak respectfully",
-        explanation: "Speaking about God respectfully and avoiding misuse of His name helps fulfill this commandment."
-    },
-    {
-        question: "How can children apply the commandment 'You shall not steal' at school?",
-        choices: ["By not copying homework", "By sharing their lunch", "By playing sports", "By studying hard"],
-        correct: "By not copying homework",
-        explanation: "Not stealing extends to not taking or copying someone else&#39;s work, which is a form of academic dishonesty."
-    },
-    {
-        question: "What is the spiritual benefit of following the commandment 'You shall not covet'?",
-        choices: ["It makes you rich", "It brings peace of mind", "It improves physical health", "It increases popularity"],
-        correct: "It brings peace of mind",
-        explanation: "Not coveting helps maintain inner peace by fostering contentment and gratitude for what one has."
-    }
-];
+    <!-- Modal Alert -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="alertModalLabel">Incomplete</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="alertModalBody">
+            Please answer all questions before submitting.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <form id="quizForm">
+      <div id="questions"></div>
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+      </div>
+    </form>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const questions = [
+      // About the Holy Spirit (1-15)
+      { question: "Who is the third person of the Holy Trinity?", choices: ["Father", "Son", "Holy Spirit", "Angel"], correct: 2, explanation: "The Holy Spirit is the third person of the Holy Trinity." },
+      { question: "What symbol is often used to represent the Holy Spirit?", choices: ["Fire", "Dove", "Wind", "All of the above"], correct: 3, explanation: "The Holy Spirit is represented as fire, dove, and wind." },
+      { question: "What event marks the coming of the Holy Spirit?", choices: ["Baptism", "Christmas", "Pentecost", "Easter"], correct: 2, explanation: "Pentecost marks the coming of the Holy Spirit." },
+      { question: "What does the Holy Spirit give us to guide our actions?", choices: ["Books", "Gifts", "Food", "Money"], correct: 1, explanation: "The Holy Spirit gives us gifts to guide our lives." },
+      { question: "How many gifts of the Holy Spirit are there?", choices: ["5", "7", "9", "12"], correct: 1, explanation: "There are 7 gifts of the Holy Spirit." },
+      { question: "Which is NOT a gift of the Holy Spirit?", choices: ["Wisdom", "Understanding", "Pride", "Fortitude"], correct: 2, explanation: "Pride is not a gift of the Holy Spirit." },
+      { question: "What is the role of the Holy Spirit in prayer?", choices: ["Distracts us", "Teaches us", "Guides us", "Both B and C"], correct: 3, explanation: "The Holy Spirit teaches and guides us in prayer." },
+      { question: "What do we call the fruits of living with the Holy Spirit?", choices: ["Gifts", "Blessings", "Fruits", "Signs"], correct: 2, explanation: "They are called Fruits of the Holy Spirit." },
+      { question: "Which of the following is a fruit of the Holy Spirit?", choices: ["Love", "Anger", "Envy", "Pride"], correct: 0, explanation: "Love is one of the fruits of the Holy Spirit." },
+      { question: "The Holy Spirit helps us become...", choices: ["Richer", "Better Christians", "Stronger physically", "Popular"], correct: 1, explanation: "The Holy Spirit helps us grow spiritually." },
+      { question: "What does the Holy Spirit inspire us to do?", choices: ["Lie", "Cheat", "Do good", "Sin"], correct: 2, explanation: "The Holy Spirit inspires us to do good." },
+      { question: "Who sent the Holy Spirit to us?", choices: ["Mary", "Jesus", "Peter", "Moses"], correct: 1, explanation: "Jesus sent the Holy Spirit after His ascension." },
+      { question: "Which apostle spoke boldly after receiving the Holy Spirit?", choices: ["Thomas", "Peter", "Judas", "John"], correct: 1, explanation: "Peter boldly preached after Pentecost." },
+      { question: "The Holy Spirit is also called the...", choices: ["Enemy", "Helper", "Punisher", "Watcher"], correct: 1, explanation: "The Holy Spirit is our Helper." },
+      { question: "We receive the Holy Spirit especially in the sacrament of...", choices: ["Baptism", "Confirmation", "Eucharist", "Marriage"], correct: 1, explanation: "Confirmation strengthens our bond with the Holy Spirit." },
 
+      // Mother Teresa (16–30)
+      { question: "Where was Mother Teresa born?", choices: ["India", "Albania", "Italy", "Spain"], correct: 1, explanation: "Mother Teresa was born in Albania." },
+      { question: "What religious order did she found?", choices: ["Jesuits", "Missionaries of Charity", "Franciscans", "Carmelites"], correct: 1, explanation: "She founded the Missionaries of Charity." },
+      { question: "Where did Mother Teresa serve the poor?", choices: ["London", "Rome", "Calcutta", "New York"], correct: 2, explanation: "Mother Teresa served the poor in Calcutta, India." },
+      { question: "Mother Teresa is known for her...", choices: ["Wealth", "Fame", "Love for the poor", "Music"], correct: 2, explanation: "She is known for her love and care for the poor." },
+      { question: "What did Mother Teresa receive in 1979?", choices: ["Oscar", "Nobel Peace Prize", "Olympic Medal", "Pulitzer"], correct: 1, explanation: "She received the Nobel Peace Prize in 1979." },
+      { question: "Mother Teresa became a saint in what year?", choices: ["2000", "2010", "2016", "2020"], correct: 2, explanation: "She was canonized in 2016." },
+      { question: "What is a famous quote by Mother Teresa?", choices: ["Be the change", "Do small things with great love", "Love wins", "Faith moves mountains"], correct: 1, explanation: "Mother Teresa said, 'Do small things with great love.'" },
+      { question: "Mother Teresa's work focused on...", choices: ["Teaching", "Politics", "Medicine", "Helping the sick and poor"], correct: 3, explanation: "She helped the sick and the poor." },
+      { question: "Mother Teresa believed every person has...", choices: ["A home", "A talent", "Dignity", "Wealth"], correct: 2, explanation: "She believed every person has dignity." },
+      { question: "Mother Teresa is a model of...", choices: ["Pride", "Humility", "Greed", "Luxury"], correct: 1, explanation: "She showed great humility." },
+      { question: "Which Pope canonized Mother Teresa?", choices: ["Pope Benedict XVI", "Pope John Paul II", "Pope Francis", "Pope Leo XIII"], correct: 2, explanation: "Pope Francis canonized her in 2016." },
+      { question: "Mother Teresa said we should find God in...", choices: ["Church only", "The rich", "Everyone", "Statues"], correct: 2, explanation: "She said we should find God in everyone." },
+      { question: "What did Mother Teresa wear?", choices: ["Brown robe", "Sari with blue border", "White dress", "Black veil"], correct: 1, explanation: "She wore a white sari with blue border." },
+      { question: "What is Mother Teresa’s feast day?", choices: ["Sept 5", "Aug 15", "Dec 25", "Oct 1"], correct: 0, explanation: "Her feast day is September 5." },
+      { question: "Mother Teresa taught us to...", choices: ["Ignore the needy", "Love without limits", "Judge others", "Be selfish"], correct: 1, explanation: "She taught us to love without limits." }
+    ];
 
+    const questionsContainer = document.getElementById('questions');
 
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        shuffle(questions);
-
-        let currentQuestionIndex = 0;
-        let correctCount = 0;
-        let incorrectCount = 0;
-
-        function displayQuestion() {
-            const question = questions[currentQuestionIndex];
-            const questionHtml = `
-                <div>
-                    <h4>Question ${currentQuestionIndex + 1}: ${question.question}<hr> </h4>
-                    ${question.choices.map(choice => `
-                        <button class="btn btn-outline-primary btn-block choice-btn" onclick="selectAnswer('${choice}', this)">${choice}</button>
-                    `).join('')}
-                </div>
-            `;
-            document.getElementById('questionContainer').innerHTML = questionHtml;
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        window.selectAnswer = function(choice, element) {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-            element.classList.add('active');
-            document.getElementById('checkAnswerBtn').style.display = 'block';
-        }
-
-        window.checkAnswer = function() {
-            const question = questions[currentQuestionIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            let isCorrect = false;
-            buttons.forEach(button => {
-                if (button.classList.contains('active')) {
-                    if (button.textContent === question.correct) {
-                        button.classList.add('correct-answer');
-                        button.innerHTML += ' <i class="bi bi-check-circle-fill"></i>';
-                        isCorrect = true;
-                    } else {
-                        button.classList.add('incorrect-answer');
-                        button.innerHTML += ' <i class="bi bi-x-circle-fill"></i>';
-                    }
-                }
-                button.disabled = true;
-            });
-            updateFeedback(isCorrect, question);
-            document.getElementById('checkAnswerBtn').style.display = 'none';
-        }
-
-        function updateFeedback(isCorrect, question) {
-            document.getElementById('feedback').className = isCorrect ? 'feedback correct-answer' : 'feedback incorrect-answer';
-            document.getElementById('feedback').innerHTML = `<small>${question.explanation}</small>`;
-            document.getElementById('feedback').style.display = 'block';
-            updateScore(isCorrect);
-            document.getElementById('nextBtn').style.display = 'block';
-        }
-
-        function updateScore(isCorrect) {
-            if (isCorrect) {
-                correctCount++;
-            } else {
-                incorrectCount++;
-            }
-            const totalQuestions = questions.length;
-            const correctProgressPercent = (correctCount / totalQuestions) * 100;
-            const incorrectProgressPercent = (incorrectCount / totalQuestions) * 100;
-            document.getElementById('correctProgress').style.width = `${correctProgressPercent}%`;
-            document.getElementById('correctProgress').setAttribute('aria-valuenow', correctProgressPercent);
-            document.getElementById('incorrectProgress').style.width = `${incorrectProgressPercent}%`;
-            document.getElementById('incorrectProgress').setAttribute('aria-valuenow', incorrectProgressPercent);
-        }
-
-        window.nextQuestion = function() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                displayQuestion();
-            } else {
-                document.getElementById('questionContainer').innerHTML = '';
-                document.getElementById('completionMessage').innerHTML = `
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="bi bi-emoji-smile"></i> Quiz Completed!</h4>
-                        <p class="card-text">Final score: ${correctCount} out of ${questions.length}</p>
-                    </div>
-                `;
-                document.getElementById('completionMessage').style.display = 'block';
-                document.getElementById('nextBtn').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('checkAnswerBtn').style.display = 'none';
-            }
-        }
-
-        displayQuestion(); // Load the first question
+    questions.forEach((q, index) => {
+      const html = `
+        <div class="question border rounded p-3" id="q${index}">
+          <p><strong>${index + 1}. ${q.question}</strong></p>
+          ${q.choices.map((choice, i) => `
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+              <label class="form-check-label" for="q${index}a${i}">${choice}</label>
+            </div>`).join('')}
+          <div class="explanation" id="exp${index}">${q.explanation}</div>
+        </div>
+      `;
+      questionsContainer.insertAdjacentHTML('beforeend', html);
     });
-</script>
+
+    document.getElementById('quizForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      for (let i = 0; i < questions.length; i++) {
+        if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+          const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+          document.getElementById('alertModalBody').textContent = `Please answer question ${i + 1} before submitting.`;
+          alertModal.show();
+          return;
+        }
+      }
+
+      if (!confirm("Are you sure you want to submit your answers?")) return;
+
+      let score = 0;
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const container = document.getElementById(`q${index}`);
+        const explanation = document.getElementById(`exp${index}`);
+
+        container.classList.remove('correct', 'wrong');
+        explanation.style.display = 'block';
+
+        if (parseInt(selected.value) === q.correct) {
+          score++;
+          container.classList.add('correct');
+        } else {
+          container.classList.add('wrong');
+        }
+      });
+
+      document.getElementById('score').innerText = `Score: ${score}/${questions.length}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
-
