@@ -11,6 +11,14 @@
       font-family: 'Roboto', sans-serif;
       background-color: #fff;
       padding: 20px;
+      font-size: 1.1rem;
+    }
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      background-color: #fff;
+      padding-bottom: 10px;
     }
     .header-main {
       text-align: center;
@@ -46,21 +54,24 @@
       background-color: #f8d7da;
     }
   </style>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-8sodNVYyktF7UlFZqT6P1YEx8PbGUGUc47y0Pn6rqN4nbTu8t8vmI+Kc4lB0fkbUbyayIDKZrh5qsUVr4Ztq7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+$1
 <body>
 
   <div class="container">
-    <div class="header-main">
-      <h3 class="fw-bold">CLVE Reviewer</h3>
-    </div>
-    <div class="header-sub">
-      <div>
-        <strong>Sean Everett Beraquit</strong><br>
-        Grade 6 - St. Joseph
+    <div class="sticky-header">
+      <div class="header-main">
+        <h3 class="fw-bold">CLVE Reviewer</h3>
       </div>
-      <div class="text-end">
-        <div>Date: July 19, 2025</div>
-        <div id="score">Score: —</div>
+      <div class="header-sub">
+        <div>
+          <strong>Sean Everett Beraquit</strong><br>
+          Grade 6 - St. Joseph
+        </div>
+        <div class="text-end">
+          <div>Date: July 19, 2025</div>
+          <div id="score">Score: —</div>
+        </div>
       </div>
     </div>
 
@@ -82,18 +93,37 @@
       </div>
     </div>
 
+    <!-- Instructions -->
+    <div class="mb-4 p-3 border rounded bg-light">
+      <h5 class="fw-bold">Instructions:</h5>
+      <ul>
+        <li>Read each question carefully before selecting your answer.</li>
+        <li>Select the best answer by clicking the corresponding circle.</li>
+        <li>Answer all 40 questions. You cannot submit unless all are answered.</li>
+        <li>Click the <strong>Submit</strong> button at the bottom of the page when finished.</li>
+        <li>Check the explanations shown after submission to understand your answers.</li>
+      </ul>
+      <p><strong>Take your time and do your best, Sean!</strong></p>
+    </div>
+
     <form id="quizForm">
       <div id="questions"></div>
       <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg rounded-0">
+          Submit <i class="fas fa-check-circle ms-2"></i>
+        </button>
       </div>
     </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const questions = [
-      // About the Holy Spirit (1-15)
+    const questionsContainer = document.getElementById('questions');
+
+const questionSections = [
+  {
+    label: 'Part 1: About the Holy Spirit (1–15)',
+    items: [
       { question: "Who is the third person of the Holy Trinity?", choices: ["Father", "Son", "Holy Spirit", "Angel"], correct: 2, explanation: "The Holy Spirit is the third person of the Holy Trinity." },
       { question: "What symbol is often used to represent the Holy Spirit?", choices: ["Fire", "Dove", "Wind", "All of the above"], correct: 3, explanation: "The Holy Spirit is represented as fire, dove, and wind." },
       { question: "What event marks the coming of the Holy Spirit?", choices: ["Baptism", "Christmas", "Pentecost", "Easter"], correct: 2, explanation: "Pentecost marks the coming of the Holy Spirit." },
@@ -108,9 +138,12 @@
       { question: "Who sent the Holy Spirit to us?", choices: ["Mary", "Jesus", "Peter", "Moses"], correct: 1, explanation: "Jesus sent the Holy Spirit after His ascension." },
       { question: "Which apostle spoke boldly after receiving the Holy Spirit?", choices: ["Thomas", "Peter", "Judas", "John"], correct: 1, explanation: "Peter boldly preached after Pentecost." },
       { question: "The Holy Spirit is also called the...", choices: ["Enemy", "Helper", "Punisher", "Watcher"], correct: 1, explanation: "The Holy Spirit is our Helper." },
-      { question: "We receive the Holy Spirit especially in the sacrament of...", choices: ["Baptism", "Confirmation", "Eucharist", "Marriage"], correct: 1, explanation: "Confirmation strengthens our bond with the Holy Spirit." },
-
-      // Mother Teresa (16–30)
+      { question: "We receive the Holy Spirit especially in the sacrament of...", choices: ["Baptism", "Confirmation", "Eucharist", "Marriage"], correct: 1, explanation: "Confirmation strengthens our bond with the Holy Spirit." }
+    ]
+  },
+  {
+    label: 'Part 2: Mother Teresa (16–30)',
+    items: [
       { question: "Where was Mother Teresa born?", choices: ["India", "Albania", "Italy", "Spain"], correct: 1, explanation: "Mother Teresa was born in Albania." },
       { question: "What religious order did she found?", choices: ["Jesuits", "Missionaries of Charity", "Franciscans", "Carmelites"], correct: 1, explanation: "She founded the Missionaries of Charity." },
       { question: "Where did Mother Teresa serve the poor?", choices: ["London", "Rome", "Calcutta", "New York"], correct: 2, explanation: "Mother Teresa served the poor in Calcutta, India." },
@@ -126,59 +159,44 @@
       { question: "What did Mother Teresa wear?", choices: ["Brown robe", "Sari with blue border", "White dress", "Black veil"], correct: 1, explanation: "She wore a white sari with blue border." },
       { question: "What is Mother Teresa’s feast day?", choices: ["Sept 5", "Aug 15", "Dec 25", "Oct 1"], correct: 0, explanation: "Her feast day is September 5." },
       { question: "Mother Teresa taught us to...", choices: ["Ignore the needy", "Love without limits", "Judge others", "Be selfish"], correct: 1, explanation: "She taught us to love without limits." }
-    ];
+    ]
+  },
+  {
+    label: 'Part 3: The Beatitudes (31–40)',
+    items: [
+      { question: "Who taught the Beatitudes?", choices: ["Moses", "Jesus", "Paul", "Peter"], correct: 1, explanation: "Jesus taught the Beatitudes during the Sermon on the Mount." },
+      { question: "How many Beatitudes are there?", choices: ["7", "8", "10", "12"], correct: 1, explanation: "There are 8 Beatitudes." },
+      { question: "What does 'Blessed are the poor in spirit' mean?", choices: ["They are poor financially", "They are humble before God", "They are sad", "They are hungry"], correct: 1, explanation: "It means those who depend humbly on God." },
+      { question: "What is promised to the pure in heart?", choices: ["Wealth", "They will see God", "Fame", "Long life"], correct: 1, explanation: "Blessed are the pure in heart, for they will see God." },
+      { question: "Which Beatitude speaks of peace?", choices: ["Those who mourn", "Peacemakers", "Poor in spirit", "Meek"], correct: 1, explanation: "Blessed are the peacemakers." },
+      { question: "What is promised to those who hunger and thirst for righteousness?", choices: ["They will be punished", "They will be ignored", "They will be satisfied", "They will be hungry"], correct: 2, explanation: "They will be filled or satisfied." },
+      { question: "'Blessed are the meek' means...", choices: ["They are weak", "They will inherit the earth", "They will fly", "They will lose"], correct: 1, explanation: "It means they will inherit the earth." },
+      { question: "Who are called children of God?", choices: ["Rich", "Sinners", "Peacemakers", "Angels"], correct: 2, explanation: "Peacemakers are called children of God." },
+      { question: "What should we do when persecuted for doing right?", choices: ["Fight back", "Give up", "Rejoice", "Hide"], correct: 2, explanation: "Rejoice, for your reward is great in heaven." },
+      { question: "The Beatitudes are found in which Gospel?", choices: ["Mark", "John", "Matthew", "Luke"], correct: 2, explanation: "They are found in Matthew chapter 5." }
+    ]
+  }
+];
 
-    const questionsContainer = document.getElementById('questions');
-
-    questions.forEach((q, index) => {
-      const html = `
-        <div class="question border rounded p-3" id="q${index}">
-          <p><strong>${index + 1}. ${q.question}</strong></p>
-          ${q.choices.map((choice, i) => `
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
-              <label class="form-check-label" for="q${index}a${i}">${choice}</label>
-            </div>`).join('')}
-          <div class="explanation" id="exp${index}">${q.explanation}</div>
-        </div>
-      `;
-      questionsContainer.insertAdjacentHTML('beforeend', html);
-    });
-
-    document.getElementById('quizForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      for (let i = 0; i < questions.length; i++) {
-        if (!document.querySelector(`input[name="q${i}"]:checked`)) {
-          const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
-          document.getElementById('alertModalBody').textContent = `Please answer question ${i + 1} before submitting.`;
-          alertModal.show();
-          return;
-        }
-      }
-
-      if (!confirm("Are you sure you want to submit your answers?")) return;
-
-      let score = 0;
-      questions.forEach((q, index) => {
-        const selected = document.querySelector(`input[name="q${index}"]:checked`);
-        const container = document.getElementById(`q${index}`);
-        const explanation = document.getElementById(`exp${index}`);
-
-        container.classList.remove('correct', 'wrong');
-        explanation.style.display = 'block';
-
-        if (parseInt(selected.value) === q.correct) {
-          score++;
-          container.classList.add('correct');
-        } else {
-          container.classList.add('wrong');
-        }
-      });
-
-      document.getElementById('score').innerText = `Score: ${score}/${questions.length}`;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+let questionIndex = 0;
+questionSections.forEach(section => {
+  questionsContainer.insertAdjacentHTML('beforeend', `<h5 class="mt-4">${section.label}</h5>`);
+  section.items.forEach(q => {
+    const html = `
+      <div class="question border rounded p-3" id="q${questionIndex}">
+        <p><strong>${questionIndex + 1}. ${q.question}</strong></p>
+        ${q.choices.map((choice, i) => `
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="q${questionIndex}" value="${i}" id="q${questionIndex}a${i}">
+            <label class="form-check-label" for="q${questionIndex}a${i}">${choice}</label>
+          </div>`).join('')}
+        <div class="explanation" id="exp${questionIndex}">${q.explanation}</div>
+      </div>
+    `;
+    questionsContainer.insertAdjacentHTML('beforeend', html);
+    questionIndex++;
+  });
+});
   </script>
 </body>
 </html>
