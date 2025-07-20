@@ -1,1 +1,195 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Science Reviewer - Sean Everett Beraquit</title>
+
+  <!-- Bootswatch Flatly Theme -->
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/flatly/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome and SweetAlert -->
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 90px;
+    }
+    .navbar {
+      padding: 1.2rem 1rem;
+    }
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .topic-card {
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      background-color: #ffffff;
+    }
+    .topic-icon {
+      font-size: 1.3rem;
+      color: #0d6efd;
+      margin-right: 0.6rem;
+    }
+    .ready-link .card {
+      background-color: #e7f1ff;
+      border: 2px solid #0d6efd;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .btn-custom {
+      font-size: 1.2rem;
+      padding: 10px 25px;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    .nav-link {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar with Links -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-auto d-flex align-items-center" href="#">
+        <i class="fas fa-book me-2"></i> My Reviewer
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarLinks">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <!-- Study Guides Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              Study Guides
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">AP</a></li>
+              <li><a class="dropdown-item" href="#">Science</a></li>
+              <li><a class="dropdown-item" href="#">Math</a></li>
+              <li><a class="dropdown-item" href="#">CLVE</a></li>
+              <li><a class="dropdown-item" href="#">English</a></li>
+            </ul>
+          </li>
+
+          <!-- Reviewer Exams Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              Reviewer Exams
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">AP</a></li>
+              <li><a class="dropdown-item" href="#">Science</a></li>
+              <li><a class="dropdown-item" href="#">Math</a></li>
+              <li><a class="dropdown-item" href="#">CLVE</a></li>
+              <li><a class="dropdown-item" href="#">English</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container py-4">
+    <h2 class="text-center mb-4"><i class="fas fa-flask-vial text-primary"></i> Science 6 Study Guide</h2>
+
+    <!-- (Insert full study guide content here — this is kept as-is from the previous version) -->
+    <!-- Start of Sample Section -->
+
+    <div class="topic-card">
+      <h4><i class="fas fa-info-circle topic-icon"></i>Overview</h4>
+      <p>This quarter, you'll explore the world of matter—how it looks, feels, mixes, and reacts. Learn how elements combine into compounds, and how mixtures behave differently depending on how they’re made.</p>
+      <p>You’ll become familiar with different types of matter and how scientists classify them into solutions, suspensions, or colloids. All of these help explain everyday things like why oil and water don’t mix, or why rock candy forms.</p>
+    </div>
+
+    <!-- Include the rest of the study guide topic cards below here... -->
+
+    <div class="topic-card">
+  <h4><i class="fas fa-flask-vial topic-icon"></i>Branches of Science</h4>
+  <ul>
+    <li><strong>Life Science</strong>: Study of living organisms (plants, animals, humans). <br><em>Why it matters:</em> Helps us understand health, food chains, and ecosystems.</li>
+    <li><strong>Earth Science</strong>: Study of landforms, weather, natural disasters, and Earth’s layers. <br><em>Why it matters:</em> Helps predict weather, prepare for natural hazards, and conserve resources.</li>
+    <li><strong>Physical Science</strong>: Study of matter, energy, force, and motion. <br><em>Why it matters:</em> Explains how things move, how electricity works, and how we use energy daily.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-flask topic-icon"></i>Pure Substances vs. Mixtures</h4>
+  <ul>
+    <li><strong>Pure Substance:</strong> Contains only one type of particle. Cannot be separated by physical means. <br><em>Examples:</em> Distilled water, gold, oxygen.</li>
+    <li><strong>Mixture:</strong> A combination of two or more substances that are not chemically bonded. <br><em>Examples:</em> Fruit salad, air, salt water. <br><em>Why it matters:</em> Mixtures are everywhere, and we use simple techniques (like filtering or evaporation) to separate them.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-vial topic-icon"></i>Elements and Compounds</h4>
+  <ul>
+    <li><strong>Element:</strong> The simplest form of matter. Made of only one kind of atom. <br><em>Examples:</em> Iron (Fe), Oxygen (O), Gold (Au). <br><em>Why it matters:</em> All substances are made from these building blocks.</li>
+    <li><strong>Compound:</strong> Two or more elements that are chemically combined in fixed proportions. <br><em>Examples:</em> Water (H₂O), Salt (NaCl), Carbon Dioxide (CO₂). <br><em>Why it matters:</em> Compounds form the materials we use in daily life: food, medicine, plastic, etc.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-cube topic-icon"></i>Metals, Non-Metals, Metalloids</h4>
+  <ul>
+    <li><strong>Metals:</strong> Shiny, malleable, good conductors of heat and electricity. <br><em>Examples:</em> Aluminum (foil), Copper (wires), Iron (nails). <br><em>Use:</em> Construction, cooking tools, electronics.</li>
+    <li><strong>Non-Metals:</strong> Dull, brittle, and poor conductors. <br><em>Examples:</em> Oxygen (gas), Sulfur, Carbon (charcoal). <br><em>Use:</em> Breathing (oxygen), fertilizers (sulfur), writing (charcoal).</li>
+    <li><strong>Metalloids:</strong> Have properties of both metals and non-metals. <br><em>Examples:</em> Silicon, Boron. <br><em>Use:</em> Computer chips, solar panels.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-layer-group topic-icon"></i>Homogeneous vs. Heterogeneous Mixtures</h4>
+  <ul>
+    <li><strong>Homogeneous:</strong> Same throughout. You cannot see the separate parts. <br><em>Examples:</em> Salt water, vinegar, syrup. <br><em>Why it matters:</em> Ingredients are evenly spread (ex: soft drinks).</li>
+    <li><strong>Heterogeneous:</strong> You can see or pick out different substances. <br><em>Examples:</em> Halo-halo, salad, cereal with milk. <br><em>Why it matters:</em> Often used in cooking and sorting materials.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-bezier-curve topic-icon"></i>Solutions, Suspensions, Colloids</h4>
+  <ul>
+    <li><strong>Solution:</strong> A mixture where one substance dissolves completely in another. <br><em>Examples:</em> Salt in water, sugar in tea. <br><em>Appearance:</em> Clear.</li>
+    <li><strong>Suspension:</strong> Particles are large and will settle over time. <br><em>Examples:</em> Sand in water, orange juice with pulp. <br><em>Appearance:</em> Cloudy; needs shaking.</li>
+    <li><strong>Colloid:</strong> Medium-sized particles that don't settle. <br><em>Examples:</em> Milk, mayonnaise. <br><em>Appearance:</em> Cloudy but stable.</li>
+  </ul>
+</div>
+
+<div class="topic-card">
+  <h4><i class="fas fa-temperature-high topic-icon"></i>Saturation of Solutions</h4>
+  <ul>
+    <li><strong>Saturated:</strong> No more solute can dissolve at a given temperature. <br><em>Example:</em> Sugar that starts collecting at the bottom of iced tea.</li>
+    <li><strong>Unsaturated:</strong> Can still dissolve more solute. <br><em>Example:</em> Slightly sweet water (can add more sugar).</li>
+    <li><strong>Supersaturated:</strong> Contains more solute than normal because it was heated first. <br><em>Example:</em> Rock candy solution — excess sugar forms crystals.</li>
+  </ul>
+</div>
+    <!-- Example continues... (you can paste all the topic cards from earlier) -->
+
+    <div class="ready-link">
+      <div class="card">
+        <h4 class="mb-3"><i class="fas fa-clipboard-check"></i> All Set?</h4>
+        <p class="lead">You're ready to test your knowledge and take the quiz!</p>
+        <a href="science.html" class="btn btn-primary btn-custom">
+          <i class="fas fa-pen-nib"></i> Take the Reviewer Exam
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
