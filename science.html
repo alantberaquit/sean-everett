@@ -4,36 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Science Reviewer - Sean Everett Beraquit</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-TL0JRxHuvV8AqMdPi/4VpAzAlScqMnH0a6YgJ/2CRgRA4BQhX5ycRzNAlz9XzwbEuZnl9+a7bWvCvFMR7LM2Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #fff;
-      padding: 20px;
-      font-size: 18px;
+      padding-top: 90px;
     }
-    .header-main {
-      position: sticky;
-      top: 0;
-      background: #fff;
-      padding: 10px;
-      z-index: 1000;
-      border-bottom: 2px solid #ccc;
-    }
-    .header-flex {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-    }
-    @media (min-width: 768px) {
-      .header-flex {
-        flex-direction: row;
-      }
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
     .question {
       margin-bottom: 20px;
@@ -53,30 +33,40 @@
   </style>
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container">
+      <a class="navbar-brand mx-auto d-flex align-items-center" href="#">
+        <i class="fas fa-book-reader me-2"></i> My Reviewer
+      </a>
+    </div>
+  </nav>
+
   <div class="container">
-    <div class="header-main">
-      <h3 class="fw-bold text-center">Science Reviewer</h3>
-      <div class="header-flex">
-        <div>
-          <strong>Sean Everett Beraquit</strong><br>
-          Grade 6 - St. Joseph
-        </div>
-        <div class="text-end">
-          <div>Petsa: Hulyo 19, 2025</div>
-          <div id="score">Iskor: —</div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3 class="card-title text-center">Science Reviewer</h3>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <div>
+            <strong>Sean Everett Beraquit</strong><br>
+            Grade 6 - St. Joseph
+          </div>
+          <div class="text-end">
+            <div>Petsa: Hulyo 19, 2025</div>
+            <div id="score">Iskor: —</div>
+          </div>
         </div>
       </div>
     </div>
 
-<div class="alert alert-info mt-3">
-  <strong>Instructions:</strong> Read and understand each question carefully. Choose the correct answer. Make sure all questions are answered before submitting.
-</div>
+    <div class="alert alert-info">
+      <strong>Instructions:</strong> Read and understand each question carefully. Choose the correct answer. Make sure all questions are answered before submitting.
+    </div>
 
     <form id="quizForm">
       <div id="questions"></div>
       <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-primary btn-lg border-0">
-          <i class="fas fa-check-circle me-2"></i>Submit
+        <button type="submit" class="btn btn-success btn-lg">
+          <i class="fas fa-check-circle me-2"></i> Submit Answers
         </button>
       </div>
     </form>
@@ -85,7 +75,10 @@
   <script>
     const questionsContainer = document.getElementById('questions');
 
-const questionBank = [
+    // Place the questionBank here (to save space in this example, I'll skip it)
+    // Paste the full questionBank array from your original HTML here.
+
+    const questionBank = [
   { q: "Salt dissolved in water is...", c: ["Heterogeneous", "Colloid", "Suspension", "Homogeneous"], a: 3, e: "The correct answer is Homogeneous." },
   { q: "H2O is the formula for...", c: ["Oxygen", "Hydrogen", "Water", "Salt"], a: 2, e: "The correct answer is Water." },
   { q: "Metalloids have properties of...", c: ["Only metals", "Only non-metals", "Both metals and non-metals", "Neither"], a: 2, e: "The correct answer is Both metals and non-metals." },
@@ -153,10 +146,7 @@ const questionBank = [
   }
 ];
 
-
-
-
-questionBank.forEach((q, index) => {
+    questionBank.forEach((q, index) => {
       const html = `
         <div class="question border rounded p-3" id="q${index}">
           <p><strong>${index + 1}. ${q.q}</strong></p>
