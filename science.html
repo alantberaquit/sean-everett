@@ -1,27 +1,55 @@
 <!DOCTYPE html>
-<html lang="tl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Science Reviewer - Sean Everett Beraquit</title>
   <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-TL0JRxHuvV8AqMdPi/4VpAzAlScqMnH0a6YgJ/2CRgRA4BQhX5ycRzNAlz9XzwbEuZnl9+a7bWvCvFMR7LM2Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
-      padding-top: 90px;
+      font-family: "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #fff;
+      font-size: 18px;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      padding-top: 6rem;
+      padding-bottom: 5rem;
+    }
+    .navbar, footer {
+      width: 100%;
+      margin: 0;
+      padding-left: 0;
+      padding-right: 0;
     }
     .navbar-brand {
-      font-size: 1.5rem;
       font-weight: bold;
+      font-size: 1.5rem;
+      text-align: center;
+      width: 100%;
+    }
+    .card-title {
+      font-weight: bold;
+      color: #2c3e50;
     }
     .question {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      border: 2px solid #3498db;
+      border-radius: 6px;
+      padding: 20px;
+      background-color: #ecf6fb;
+    }
+    .question p {
+      font-weight: 600;
+    }
+    .form-check-input:checked + .form-check-label {
+      font-weight: bold;
     }
     .explanation {
       display: none;
       font-style: italic;
-      color: green;
+      color: #2ecc71;
       margin-top: 5px;
     }
     .correct {
@@ -30,31 +58,42 @@
     .wrong {
       background-color: #f8d7da;
     }
+    #scoreDisplay {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #2c3e50;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #2c3e50;
+      color: white;
+    }
+    .btn-block {
+      width: 100%;
+      border-radius: 0;
+    }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
-    <div class="container">
-      <a class="navbar-brand mx-auto d-flex align-items-center" href="#">
-        <i class="fas fa-book-reader me-2"></i> My Reviewer
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-3 px-0">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-book-reader me-2"></i>My Reviewer
       </a>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="card mb-4">
+  <div class="container my-5">
+    <div class="card mb-4 shadow-sm">
       <div class="card-body">
-        <h3 class="card-title text-center">Science Reviewer</h3>
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <div>
-            <strong>Sean Everett Beraquit</strong><br>
-            Grade 6 - St. Joseph
-          </div>
-          <div class="text-end">
-            <div>Petsa: Hulyo 19, 2025</div>
-            <div id="score">Iskor: —</div>
-          </div>
-        </div>
+        <h2 class="card-title text-center">
+          <i class="fas fa-flask-vial me-2 text-primary"></i>Science Reviewer Exam
+        </h2>
       </div>
     </div>
 
@@ -65,19 +104,26 @@
     <form id="quizForm">
       <div id="questions"></div>
       <div class="d-grid mt-4">
-        <button type="submit" class="btn btn-success btn-lg">
+        <button type="submit" class="btn btn-success btn-lg btn-block" id="submitBtn">
           <i class="fas fa-check-circle me-2"></i> Submit Answers
         </button>
       </div>
     </form>
+
+    <div id="scoreDisplay">Score: —</div>
   </div>
 
+  <footer class="mt-5 px-0">
+    <div class="container-fluid px-0">
+      <div class="text-center py-3">
+        Science 6 Reviewer &copy; 2025 • Made for Sean Everett Beraquit
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const questionsContainer = document.getElementById('questions');
-
-    // Place the questionBank here (to save space in this example, I'll skip it)
-    // Paste the full questionBank array from your original HTML here.
-
     const questionBank = [
   { q: "Salt dissolved in water is...", c: ["Heterogeneous", "Colloid", "Suspension", "Homogeneous"], a: 3, e: "The correct answer is Homogeneous." },
   { q: "H2O is the formula for...", c: ["Oxygen", "Hydrogen", "Water", "Salt"], a: 2, e: "The correct answer is Water." },
@@ -148,8 +194,8 @@
 
     questionBank.forEach((q, index) => {
       const html = `
-        <div class="question border rounded p-3" id="q${index}">
-          <p><strong>${index + 1}. ${q.q}</strong></p>
+        <div class="question" id="q${index}">
+          <p><i class="fas fa-question-circle text-primary me-2"></i><strong>${index + 1}. ${q.q}</strong></p>
           ${q.c.map((choice, i) => `
             <div class="form-check">
               <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
@@ -202,13 +248,15 @@
             }
           });
 
+          document.getElementById('submitBtn').disabled = true;
+
           Swal.fire({
             title: 'Test Completed!',
             text: `Your Score ${score} in ${questionBank.length}.`,
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            document.getElementById('score').innerText = `Iskor: ${score}/${questionBank.length}`;
+            document.getElementById('scoreDisplay').innerText = `Iskor: ${score}/${questionBank.length}`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
           });
         }
