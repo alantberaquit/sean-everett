@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CLVE Reviewer – 1st Periodic Exam (Grade 6)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --brand:#0ea5e9;     /* sky-500 */
+      --ink:#0f172a;       /* slate-900 */
+      --muted:#475569;     /* slate-600 */
+      --paper:#f8fafc;     /* slate-50 */
+      --card:#ffffff;
+      --border:#e2e8f0;
+    }
+    html,body{font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:var(--paper);}
+    .exam-header{
+      background: radial-gradient(1200px 400px at 10% -10%, rgba(14,165,233,.18), transparent),
+                  radial-gradient(1200px 400px at 90% -10%, rgba(14,165,233,.12), transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .badge-unit{background: rgba(14,165,233,.12); color: var(--brand);}
+    .card{border: 1px solid var(--border); border-radius: 18px;}
+    .card + .card{margin-top: 1rem;}
+    .q{
+      padding: 1rem 1rem 0.75rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .q:last-child{border-bottom: 0;}
+    .q h6{margin:0 0 .5rem 0; font-weight: 600;}
+    .q small{color: var(--muted);}
+    .option{
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .65rem .75rem;
+      transition: .15s ease;
+      background: #fff;
+    }
+    .option:hover{box-shadow: 0 0 0 3px rgba(14,165,233,.12);}
+    .q-input{
+      border-radius: 12px !important;
+      padding: .65rem .75rem;
+    }
+    .section-title{
+      display:flex; align-items:center; gap:.5rem; font-weight:700;
+    }
+    .section-title i{color:var(--brand);}
+    .sticky-actions{
+      position: sticky; bottom: 0; z-index: 50;
+      background: linear-gradient(180deg, rgba(248,250,252,0) 0%, #f8fafc 35%);
+      padding-top: .5rem;
+    }
+    .btn-brand{
+      background: var(--brand); border: none;
+    }
+    .btn-brand:hover{filter: brightness(.95);}
+    .exam-instructions li{margin-bottom: .25rem;}
+    @media (min-width: 992px){
+      .container-narrow{max-width: 850px;}
+    }
+    @media print{
+      .sticky-actions, .print-hide{display:none !important;}
+      body{background:#fff;}
+      .card{box-shadow:none !important;}
+      .q{page-break-inside: avoid;}
+    }
+  </style>
+</head>
+<body>
+  <header class="exam-header pt-4 pb-3 mb-3">
+    <div class="container container-narrow">
+      <div class="d-flex align-items-center gap-3">
+        <div class="rounded-circle bg-white border d-flex align-items-center justify-content-center" style="width:56px;height:56px;">
+          <i class="lni lni-book fs-4" style="color:var(--brand)"></i>
+        </div>
+        <div>
+          <div class="badge badge-unit rounded-pill px-3 py-2 mb-1">Grade 6 • CLVE</div>
+          <h1 class="h4 mb-1">Reviewer – 1st Periodic Exam</h1>
+          <p class="text-secondary mb-0">Topic: Conscience and Laws • Ten Commandments • St. Dominic de Guzman • Values & Morality</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container container-narrow mb-5">
+    <!-- Instructions -->
+    <section class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="section-title mb-2"><i class="lni lni-information"></i> Instructions</div>
+        <ul class="exam-instructions mb-0 text-secondary">
+          <li>Read each question carefully.</li>
+          <li><strong>Test I (Multiple Choice)</strong>: Encircle/choose the letter of the correct answer.</li>
+          <li><strong>Test II (Identification)</strong>: Write the correct word or phrase in the space provided.</li>
+          <li><strong>Test III (Sad/Happy Face)</strong>: Write 😀 if the statement is true, ☹️ if false.</li>
+          <li>Do not leave any item blank. Review your answers before submitting.</li>
+          <li>Keep your work neat and legible. Follow all directions given by your teacher.</li>
+        </ul>
+      </div>
+    </section>
+
+    <form class="needs-validation" novalidate>
+      <!-- Test I – Multiple Choice (1–20) -->
+      <section class="card shadow-sm">
+        <div class="card-body">
+          <div class="section-title mb-3"><i class="lni lni-checkmark-circle"></i> Test I – Multiple Choice (Items 1–20)</div>
+
+          <!-- Q1 -->
+          <div class="q">
+            <h6>1. The inner voice that helps us know right from wrong is called:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6">
+                <label class="option w-100">
+                  <input class="form-check-input me-2" type="radio" name="q1"> a) Spirit
+                </label>
+              </div>
+              <div class="col-12 col-sm-6">
+                <label class="option w-100">
+                  <input class="form-check-input me-2" type="radio" name="q1"> b) Law
+                </label>
+              </div>
+              <div class="col-12 col-sm-6">
+                <label class="option w-100">
+                  <input class="form-check-input me-2" type="radio" name="q1"> c) Conscience
+                </label>
+              </div>
+              <div class="col-12 col-sm-6">
+                <label class="option w-100">
+                  <input class="form-check-input me-2" type="radio" name="q1"> d) Commandment
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="q">
+            <h6>2. The law written in human nature that helps us choose what is good is called:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q2"> a) Natural Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q2"> b) Civil Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q2"> c) Revealed Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q2"> d) School Rule</label></div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="q">
+            <h6>3. God’s law given through the Bible is called:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q3"> a) Natural Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q3"> b) Revealed Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q3"> c) Church Law</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q3"> d) Human Law</label></div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="q">
+            <h6>4. The Ten Commandments are:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q4"> a) Rules for government</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q4"> b) God’s guide for loving Him and others</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q4"> c) Laws only for priests</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q4"> d) Optional suggestions</label></div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="q">
+            <h6>5. Ignoring God’s law leads to:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q5"> a) True freedom</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q5"> b) Loss of true freedom</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q5"> c) More knowledge</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q5"> d) Happiness</label></div>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="q">
+            <h6>6. The 2nd Commandment says:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q6"> a) Do not steal</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q6"> b) You shall not take the name of the Lord in vain</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q6"> c) Honor your parents</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q6"> d) Keep holy the Sabbath</label></div>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="q">
+            <h6>7. The 3rd Commandment asks us to:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q7"> a) Pray before meals</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q7"> b) Honor father and mother</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q7"> c) Keep holy the Lord’s Day</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q7"> d) Avoid lying</label></div>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="q">
+            <h6>8. Which Commandment says “You shall not kill”?</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q8"> a) 4th</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q8"> b) 5th</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q8"> c) 7th</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q8"> d) 8th</label></div>
+            </div>
+          </div>
+
+          <!-- Q9 -->
+          <div class="q">
+            <h6>9. Cheating during exams is a sin against the:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q9"> a) 5th Commandment</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q9"> b) 7th Commandment</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q9"> c) 8th Commandment</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q9"> d) 10th Commandment</label></div>
+            </div>
+          </div>
+
+          <!-- Q10 -->
+          <div class="q">
+            <h6>10. “You shall not bear false witness” means:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q10"> a) Do not steal</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q10"> b) Do not lie or gossip</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q10"> c) Respect parents</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q10"> d) Go to Mass</label></div>
+            </div>
+          </div>
+
+          <!-- Q11 -->
+          <div class="q">
+            <h6>11. God gave the Ten Commandments to:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q11"> a) Punish us</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q11"> b) Guide us in loving Him and others</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q11"> c) Make life harder</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q11"> d) Control our actions</label></div>
+            </div>
+          </div>
+
+          <!-- Q12 -->
+          <div class="q">
+            <h6>12. Which Commandment teaches us to respect and obey our parents?</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q12"> a) 2nd</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q12"> b) 3rd</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q12"> c) 4th</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q12"> d) 5th</label></div>
+            </div>
+          </div>
+
+          <!-- Q13 -->
+          <div class="q">
+            <h6>13. Jesus continues to guide our conscience through the:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q13"> a) Holy Spirit</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q13"> b) Government</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q13"> c) Teachers</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q13"> d) Priests only</label></div>
+            </div>
+          </div>
+
+          <!-- Q14 -->
+          <div class="q">
+            <h6>14. The Holy Spirit inspires us to:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q14"> a) Disobey</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q14"> b) Choose evil</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q14"> c) Love and choose what is good</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q14"> d) Avoid prayer</label></div>
+            </div>
+          </div>
+
+          <!-- Q15 -->
+          <div class="q">
+            <h6>15. In the community, laws are important because they:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q15"> a) Promote chaos</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q15"> b) Promote peace and order</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q15"> c) Allow stealing</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q15"> d) Limit freedom</label></div>
+            </div>
+          </div>
+
+          <!-- Q16 -->
+          <div class="q">
+            <h6>16. Laws in school and community help:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q16"> a) The strongest only</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q16"> b) Everyone live fairly and responsibly</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q16"> c) Only adults</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q16"> d) Only leaders</label></div>
+            </div>
+          </div>
+
+          <!-- Q17 -->
+          <div class="q">
+            <h6>17. St. Dominic de Guzman was born in:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q17"> a) Palencia</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q17"> b) Caleruega, Spain</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q17"> c) Bologna, Italy</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q17"> d) Osma</label></div>
+            </div>
+          </div>
+
+          <!-- Q18 -->
+          <div class="q">
+            <h6>18. St. Dominic founded the:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q18"> a) Jesuits</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q18"> b) Franciscans</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q18"> c) Order of Preachers</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q18"> d) Benedictines</label></div>
+            </div>
+          </div>
+
+          <!-- Q19 -->
+          <div class="q">
+            <h6>19. The Pope who approved the Order of Preachers was:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q19"> a) Pope Francis</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q19"> b) Pope Innocent III</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q19"> c) Pope Honorius III</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q19"> d) Pope John Paul II</label></div>
+            </div>
+          </div>
+
+          <!-- Q20 -->
+          <div class="q">
+            <h6>20. St. Dominic is known for his devotion to the:</h6>
+            <div class="row g-2">
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q20"> a) Mass</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q20"> b) Rosary</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q20"> c) Psalms</label></div>
+              <div class="col-12 col-sm-6"><label class="option w-100"><input class="form-check-input me-2" type="radio" name="q20"> d) Angelus</label></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test II – Identification (21–35) -->
+      <section class="card shadow-sm mt-4">
+        <div class="card-body">
+          <div class="section-title mb-3"><i class="lni lni-pencil-alt"></i> Test II – Identification (Items 21–35)</div>
+
+          <div class="q">
+            <h6>21. The inner voice that tells us right from wrong.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>22. The law written in human nature.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>23. The law given by God through the Bible.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>24. The Commandment that tells us to honor our parents.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>25. The Commandment that teaches us not to steal.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>26. The Commandment that says we must not lie.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>27. The Commandment that tells us to keep holy the Lord’s Day.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>28. The Commandment that says we should not kill.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>29. Jesus guides our conscience through the ______.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>30. Laws in school and community promote ______ and order.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>31. St. Dominic was born in ______, Spain.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>32. He studied at the University of ______.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>33. He founded the Order of ______.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>34. St. Dominic sold his ______ to help the poor.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+          <div class="q">
+            <h6>35. His main mission was to preach the ______.</h6>
+            <input class="form-control q-input" type="text" placeholder="Answer here">
+          </div>
+        </div>
+      </section>
+
+      <!-- Test III – Sad/Happy Face (True/False) (36–50) -->
+      <section class="card shadow-sm mt-4">
+        <div class="card-body">
+          <div class="section-title mb-3"><i class="lni lni-emoji-smile"></i> Test III – Sad or Happy Face (Items 36–50)</div>
+
+          <!-- Helper text -->
+          <p class="text-secondary small mb-3"><strong>Direction:</strong> Write <strong>😀</strong> if the statement is true and <strong>☹️</strong> if false.</p>
+
+          <!-- 36–50 -->
+          <div class="q">
+            <h6>36. Conscience guides us to choose good and avoid evil.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>37. The 7th Commandment allows us to steal if we need something badly.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>38. Cheating in exams is a sin against the 7th Commandment.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>39. The 4th Commandment tells us to respect and obey our parents.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>40. The 8th Commandment says we should not kill.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>41. Our conscience gives us peace when we follow God’s laws.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>42. Ignoring God’s laws brings us true freedom.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>43. The 3rd Commandment asks us to attend Sunday Mass.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>44. Gossiping is breaking the 8th Commandment.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>45. St. Dominic promoted the devotion to the Rosary.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>46. St. Dominic died in Bologna, Italy.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>47. The Holy Spirit helps us to love and choose what is good.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>48. God gave the Commandments to make life harder for us.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>49. Laws protect the common good.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+          <div class="q">
+            <h6>50. True freedom comes from obeying God’s laws.</h6>
+            <input class="form-control q-input" type="text" placeholder="😀 or ☹️">
+          </div>
+        </div>
+      </section>
+
+      <!-- Sticky actions -->
+      <div class="sticky-actions mt-3">
+        <div class="container container-narrow">
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-light border rounded-3 px-3 w-50" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+              <i class="lni lni-arrow-up me-1"></i>Back to Top
+            </button>
+            <button type="button" class="btn btn-brand text-white rounded-3 px-3 w-50" onclick="window.print()">
+              <i class="lni lni-printer me-1"></i>Print / Save as PDF
+            </button>
+          </div>
+          <p class="text-center text-secondary small mt-2 mb-0 print-hide">Tip: On iPad, choose <em>Share</em> → <em>Print</em> → <em>Save as PDF</em>.</p>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <footer class="py-4 text-center text-secondary small">
+    © 2025 • CLVE Reviewer • Conscience and Laws
+  </footer>
+
+  <!-- Bootstrap JS (optional for basic UI) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
