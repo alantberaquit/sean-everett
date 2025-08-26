@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="fil">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filipino 6 – Reviewer (1st Periodic Exam)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --brand:#0ea5e9;  /* sky */
+      --ink:#0f172a;    /* slate-900 */
+      --muted:#475569;  /* slate-600 */
+      --paper:#f8fafc;  /* slate-50 */
+      --border:#e2e8f0; /* slate-200 */
+    }
+    html,body{
+      background:var(--paper);
+      color:var(--ink);
+      font-family:'Roboto',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-size:18px; /* larger for readability */
+      line-height:1.6;
+    }
+    .exam-header{background:#e0f2fe;border-bottom:2px solid #bae6fd;}
+    .section-title{font-weight:700;display:flex;align-items:center;gap:.5rem;}
+    .section-title i{color:var(--brand);}
+    .dir{
+      background:#fff;border:1px solid var(--border);
+      border-left:4px solid var(--brand);
+      border-radius:12px;padding:.75rem 1rem;color:var(--muted);
+    }
+    .q{margin-bottom:1rem;}
+    .q h6{margin:0 0 .35rem 0;font-weight:700;font-size:18px;}
+    .choices{margin:0;padding-left:1.1rem;}
+    .choices li{
+      list-style:none;margin:.15rem 0;background:#fff;border:1px solid var(--border);
+      border-radius:12px;padding:.5rem .65rem;
+    }
+    .choices li b{font-weight:700;margin-right:.35rem;}
+    .badge-level{
+      background:rgba(14,165,233,.12);color:var(--brand);
+      border:1px solid #bae6fd;font-weight:700;
+    }
+    .text-block{
+      background:#fff;border:1px dashed var(--border);
+      border-radius:12px;padding:1rem; margin-bottom:1rem;
+    }
+    @media (min-width:992px){
+      .container-narrow{max-width:900px;}
+      html,body{font-size:19px;}
+    }
+    @media print{
+      .print-hide{display:none!important;}
+      body{background:#fff;}
+    }
+  </style>
+</head>
+<body>
+  <header class="exam-header py-4 mb-4">
+    <div class="container container-narrow">
+      <div class="d-flex align-items-center gap-3">
+        <div class="rounded-circle bg-white border d-flex align-items-center justify-content-center" style="width:60px;height:60px;">
+          <i class="lni lni-text-format fs-3" style="color:#0ea5e9"></i>
+        </div>
+        <div>
+          <span class="badge badge-level rounded-pill px-3 py-2">Filipino 6</span>
+          <h1 class="h4 mt-2 mb-1">Reviewer – 1st Periodic Exam</h1>
+          <p class="mb-0 text-secondary">Uri ng Panghalip • Pangkalahatang Sanggunian • Pagbabasa ng Teksto</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container container-narrow mb-5">
+    <!-- Pangkalahatang Panuto -->
+    <section class="mb-4">
+      <div class="section-title mb-2"><i class="lni lni-information"></i> Pangkalahatang Panuto</div>
+      <div class="dir">
+        <ul class="mb-0">
+          <li>Basahing mabuti ang bawat tanong. Huwag magmadali.</li>
+          <li>Gamitin ang hiwalay na <strong>sagutang papel</strong> para isulat ang inyong sagot.</li>
+          <li>Isulat lamang ang <strong>titik ng tamang sagot</strong>.</li>
+          <li>Huwag mag-iiwan ng blangko. Isulat nang maayos at nababasa.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Test I – Pagpipili (1–30) -->
+    <section class="mb-4">
+      <div class="section-title mb-2"><i class="lni lni-checkmark-circle"></i> Test I – Pagpipili (Mga Item 1–30)</div>
+      <div class="dir mb-3">
+        <strong>Panuto:</strong> Piliin ang tamang sagot at isulat ang <strong>titik</strong> sa iyong sagutang papel.
+      </div>
+
+      <!-- Uri ng Panghalip (1–20) -->
+      <div class="q"><h6>1. Alin sa mga sumusunod ang <em>panghalip panao</em>?</h6>
+        <ul class="choices"><li><b>A.</b> Ako</li><li><b>B.</b> Ito</li><li><b>C.</b> Lahat</li><li><b>D.</b> Saan</li></ul></div>
+
+      <div class="q"><h6>2. Ang salitang <em>iyan</em> ay isang panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Pananong</li></ul></div>
+
+      <div class="q"><h6>3. “<em>Lahat</em> ng mag-aaral ay masigasig.” Ang salitang <em>lahat</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panaklaw</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panao</li><li><b>D.</b> Pananong</li></ul></div>
+
+      <div class="q"><h6>4. Ang panghalip na ginagamit sa pagtatanong ay tinatawag na:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pananong</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Pamatlig</li></ul></div>
+
+      <div class="q"><h6>5. Ang salitang <em>kami</em> ay panghalip na:</h6>
+        <ul class="choices"><li><b>A.</b> Unang panauhan, maramihan</li><li><b>B.</b> Ikalawang panauhan, isahan</li><li><b>C.</b> Ikatlong panauhan, maramihan</li><li><b>D.</b> Unang panauhan, isahan</li></ul></div>
+
+      <div class="q"><h6>6. Ang <em>ito</em> ay halimbawa ng panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Pananong</li></ul></div>
+
+      <div class="q"><h6>7. “<em>Sino</em> ang guro mo?” – Ang salitang <em>sino</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pananong</li><li><b>C.</b> Pamatlig</li><li><b>D.</b> Panaklaw</li></ul></div>
+
+      <div class="q"><h6>8. “<em>Mayroon</em> daw paligsahan sa paaralan.” Ang <em>mayroon</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panaklaw</li><li><b>B.</b> Pananong</li><li><b>C.</b> Pamatlig</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>9. Alin ang <em>hindi</em> kabilang sa uri ng panghalip?</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panlaping</li><li><b>D.</b> Panaklaw</li></ul></div>
+
+      <div class="q"><h6>10. “<em>Ikaw</em> ay mabuting kaibigan.” Ang <em>ikaw</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Unang panauhan</li><li><b>B.</b> Ikalawang panauhan</li><li><b>C.</b> Ikatlong panauhan</li><li><b>D.</b> Pananong</li></ul></div>
+
+      <div class="q"><h6>11. Ang <em>ganyan</em> ay isang panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Pananong</li><li><b>D.</b> Panaklaw</li></ul></div>
+
+      <div class="q"><h6>12. Ang <em>sila</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Unang panauhan</li><li><b>B.</b> Ikalawang panauhan</li><li><b>C.</b> Ikatlong panauhan</li><li><b>D.</b> Pamatlig</li></ul></div>
+
+      <div class="q"><h6>13. Ang <em>alin</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Pananong</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>14. “<em>Lahat tayo</em> ay dapat tumulong.” Ang <em>lahat</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Pamatlig</li><li><b>B.</b> Pananong</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>15. “<em>Nasaan</em> ang iyong aklat?” – Ang <em>nasaan</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Pananong</li><li><b>B.</b> Panaklaw</li><li><b>C.</b> Pamatlig</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>16. “<em>Dito</em> tayo magpupulong.” Ang <em>dito</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Pananong</li><li><b>D.</b> Panaklaw</li></ul></div>
+
+      <div class="q"><h6>17. “<em>Sila</em> ba ang mga panauhing pandangal?” – Ang <em>sila</em> ay:</h6>
+        <ul class="choices"><li><b>A.</b> Unang panauhan</li><li><b>B.</b> Ikalawang panauhan</li><li><b>C.</b> Ikatlong panauhan</li><li><b>D.</b> Pamatlig</li></ul></div>
+
+      <div class="q"><h6>18. “<em>Ito</em> ang bagong mikropono.” – Ang <em>ito</em> ay:</h6>
+        <ul class="choices"><li><b>A.</b> Pananong</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>19. “<em>Saan</em> gaganapin ang palaro?” – Ang <em>saan</em> ay:</h6>
+        <ul class="choices"><li><b>A.</b> Pananong</li><li><b>B.</b> Pamatlig</li><li><b>C.</b> Panaklaw</li><li><b>D.</b> Panao</li></ul></div>
+
+      <div class="q"><h6>20. “<em>Kaunti</em> lamang ang dumalo.” – Ang <em>kaunti</em> ay panghalip:</h6>
+        <ul class="choices"><li><b>A.</b> Panao</li><li><b>B.</b> Panaklaw</li><li><b>C.</b> Pamatlig</li><li><b>D.</b> Pananong</li></ul></div>
+
+      <!-- Pangkalahatang Sanggunian (21–30) -->
+      <div class="q"><h6>21. Ang pangunahing gamit ng <em>pangkalahatang sanggunian</em> ay:</h6>
+        <ul class="choices"><li><b>A.</b> Paglalaro</li><li><b>B.</b> Pagkuha ng impormasyon</li><li><b>C.</b> Pagpinta</li><li><b>D.</b> Pag-awit</li></ul></div>
+
+      <div class="q"><h6>22. Alin ang halimbawa ng <em>pangkalahatang sanggunian</em>?</h6>
+        <ul class="choices"><li><b>A.</b> Komiks</li><li><b>B.</b> Diksyunaryo</li><li><b>C.</b> Radyo</li><li><b>D.</b> Telepono</li></ul></div>
+
+      <div class="q"><h6>23. Aklat na naglalaman ng kahulugan ng salita:</h6>
+        <ul class="choices"><li><b>A.</b> Atlas</li><li><b>B.</b> Diksyunaryo</li><li><b>C.</b> Almanac</li><li><b>D.</b> Ensayklopidya</li></ul></div>
+
+      <div class="q"><h6>24. Aklat na naglalaman ng mga mapa:</h6>
+        <ul class="choices"><li><b>A.</b> Diksyunaryo</li><li><b>B.</b> Atlas</li><li><b>C.</b> Almanac</li><li><b>D.</b> Ensayklopidya</li></ul></div>
+
+      <div class="q"><h6>25. Aklat na naglalaman ng mahahalagang pangyayari at datos kada taon:</h6>
+        <ul class="choices"><li><b>A.</b> Atlas</li><li><b>B.</b> Almanac</li><li><b>C.</b> Ensayklopidya</li><li><b>D.</b> Diksyunaryo</li></ul></div>
+
+      <div class="q"><h6>26. Aklat na may malawak na kaalaman sa iba’t ibang larangan:</h6>
+        <ul class="choices"><li><b>A.</b> Ensayklopidya</li><li><b>B.</b> Atlas</li><li><b>C.</b> Almanac</li><li><b>D.</b> Diksyunaryo</li></ul></div>
+
+      <div class="q"><h6>27. Kung nais mong makita ang kabuuang mapa ng Asya, ang dapat gamitin ay:</h6>
+        <ul class="choices"><li><b>A.</b> Atlas</li><li><b>B.</b> Almanac</li><li><b>C.</b> Diksyunaryo</li><li><b>D.</b> Ensayklopidya</li></ul></div>
+
+      <div class="q"><h6>28. Para malaman ang kahulugan ng “bayanihan,” gagamit ng:</h6>
+        <ul class="choices"><li><b>A.</b> Almanac</li><li><b>B.</b> Diksyunaryo</li><li><b>C.</b> Atlas</li><li><b>D.</b> Ensayklopidya</li></ul></div>
+
+      <div class="q"><h6>29. Upang malaman ang mahahalagang pangyayari noong nakaraang taon, gagamit ng:</h6>
+        <ul class="choices"><li><b>A.</b> Atlas</li><li><b>B.</b> Almanac</li><li><b>C.</b> Diksyunaryo</li><li><b>D.</b> Ensayklopidya</li></ul></div>
+
+      <div class="q"><h6>30. Ang pinakamabilis na paraan ng pagkuha ng datos sa mga nakalimbag na sanggunian ay:</h6>
+        <ul class="choices"><li><b>A.</b> Paghahanap sa komiks</li><li><b>B.</b> Paggamit ng pangkalahatang sanggunian</li><li><b>C.</b> Pagtatanong sa kaklase</li><li><b>D.</b> Pagpapadala ng liham</li></ul></div>
+    </section>
+
+    <!-- Test II – Pag-unawa sa Teksto (31–50) -->
+    <section class="mb-4">
+      <div class="section-title mb-2"><i class="lni lni-book"></i> Test II – Pag-unawa sa Teksto (Mga Item 31–50)</div>
+      <div class="dir mb-3">
+        <strong>Panuto:</strong> Basahin ang mga teksto at sagutin ang mga tanong. Isulat ang <strong>titik</strong> ng tamang sagot sa iyong sagutang papel.
+      </div>
+
+      <!-- Teksto A (31–40) -->
+      <div class="text-block">
+        <strong>Teksto A:</strong><br>
+        Tuwing Buwan ng Hulyo, ipinagdiriwang sa ating bansa ang Buwan ng Nutrisyon. Sa mga paaralan, may mga programa tulad ng slogan-making, poster-making, at pagluluto ng masustansyang pagkain. Layunin ng mga gawaing ito na maipakita ang kahalagahan ng wastong nutrisyon at pangangalaga sa kalusugan ng mag-aaral at pamayanan.
+      </div>
+
+      <div class="q"><h6>31. Ano ang ipinagdiriwang tuwing Hulyo?</h6>
+        <ul class="choices"><li><b>A.</b> Buwan ng Wika</li><li><b>B.</b> Buwan ng Nutrisyon</li><li><b>C.</b> Araw ng Kalayaan</li><li><b>D.</b> Pasko</li></ul></div>
+
+      <div class="q"><h6>32. Alin sa mga sumusunod ang <em>binanggit</em> sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Field trip</li><li><b>B.</b> Poster-making</li><li><b>C.</b> Tree planting</li><li><b>D.</b> Larong pambata</li></ul></div>
+
+      <div class="q"><h6>33. Ano ang pangunahing layunin ng mga gawain?</h6>
+        <ul class="choices"><li><b>A.</b> Magbigay ng premyo</li><li><b>B.</b> Ipakita ang kahalagahan ng nutrisyon</li><li><b>C.</b> Maglinis ng silid</li><li><b>D.</b> Magsaya lamang</li></ul></div>
+
+      <div class="q"><h6>34. Ang pagluluto ng masustansyang pagkain ay nakatutulong sa:</h6>
+        <ul class="choices"><li><b>A.</b> Pagpapaganda ng paaralan</li><li><b>B.</b> Pagpapalakas ng katawan</li><li><b>C.</b> Pagdami ng proyekto</li><li><b>D.</b> Pag-awit ng himno</li></ul></div>
+
+      <div class="q"><h6>35. Ano ang <em>tema</em> ng Teksto A?</h6>
+        <ul class="choices"><li><b>A.</b> Disiplina sa pag-aaral</li><li><b>B.</b> Nutrisyon at kalusugan</li><li><b>C.</b> Paligsahang pampalakasan</li><li><b>D.</b> Pista sa baryo</li></ul></div>
+
+      <div class="q"><h6>36. Alin ang <em>hindi</em> aktibidad sa Teksto A?</h6>
+        <ul class="choices"><li><b>A.</b> Slogan-making</li><li><b>B.</b> Poster-making</li><li><b>C.</b> Paglilinis ng silid</li><li><b>D.</b> Pagluluto</li></ul></div>
+
+      <div class="q"><h6>37. Ang layunin ng Buwan ng Nutrisyon ay upang:</h6>
+        <ul class="choices"><li><b>A.</b> Magbigay ng handaan</li><li><b>B.</b> Magpakita ng kahalagahan ng wastong nutrisyon</li><li><b>C.</b> Magpaunlad ng palakasan</li><li><b>D.</b> Magtanghal ng dula</li></ul></div>
+
+      <div class="q"><h6>38. Alin sa mga sumusunod ang <em>pinakamainam</em> na aral mula sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Kumain ng masustansya upang manatiling malusog</li><li><b>B.</b> Manood ng TV gabi-gabi</li><li><b>C.</b> Iwasan ang gulay</li><li><b>D.</b> Kumain ng matatamis palagi</li></ul></div>
+
+      <div class="q"><h6>39. Ano ang <em>pinatutungkulan</em> ng “pamayanan” sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Pamilya lamang</li><li><b>B.</b> Mga guro lang</li><li><b>C.</b> Kabuuang komunidad</li><li><b>D.</b> Mga atleta</li></ul></div>
+
+      <div class="q"><h6>40. Ang mga gawaing nabanggit ay nakatuon sa:</h6>
+        <ul class="choices"><li><b>A.</b> Pagpapasikat</li><li><b>B.</b> Kalusugan</li><li><b>C.</b> Paglalakbay</li><li><b>D.</b> Musika</li></ul></div>
+
+      <!-- Teksto B (41–50) -->
+      <div class="text-block">
+        <strong>Teksto B:</strong><br>
+        Si Liza ay masigasig na mag-aaral. Madalas siyang magbasa ng aklat at gumamit ng diksyunaryo upang maintindihan ang mahihirap na salita. Kapag may takdang-aralin, ginagawa niya ito agad at ipinapasa sa tamang oras. Sa ganitong paraan, napapahusay niya ang pag-unawa at nakapaghahanda siya para sa mga pagsusulit.
+      </div>
+
+      <div class="q"><h6>41. Ano ang ugali ni Liza ayon sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Tamad</li><li><b>B.</b> Masigasig</li><li><b>C.</b> Malungkutin</li><li><b>D.</b> Palatras</li></ul></div>
+
+      <div class="q"><h6>42. Ano ang ginagamit ni Liza upang maintindihan ang mahihirap na salita?</h6>
+        <ul class="choices"><li><b>A.</b> Diyaryo</li><li><b>B.</b> Atlas</li><li><b>C.</b> Diksyunaryo</li><li><b>D.</b> Almanac</li></ul></div>
+
+      <div class="q"><h6>43. Ano ang ipinahihiwatig ng “ipinapasa sa tamang oras”?</h6>
+        <ul class="choices"><li><b>A.</b> Hindi responsable</li><li><b>B.</b> Masunurin at responsable</li><li><b>C.</b> Mapaglaro</li><li><b>D.</b> Makakalimutin</li></ul></div>
+
+      <div class="q"><h6>44. Ano ang pangunahing bunga ng pagbabasa at paggamit ng sanggunian ni Liza?</h6>
+        <ul class="choices"><li><b>A.</b> Napapaganda ang sulat-kamay</li><li><b>B.</b> Napapahusay ang pag-unawa</li><li><b>C.</b> Dumadami ang kaibigan</li><li><b>D.</b> Dumarami ang proyekto</li></ul></div>
+
+      <div class="q"><h6>45. Ano ang pinakamainam na aral mula sa Teksto B?</h6>
+        <ul class="choices"><li><b>A.</b> Ipagpaliban ang takdang-aralin</li><li><b>B.</b> Gumamit ng sanggunian at maging maagap</li><li><b>C.</b> Magpahinga na lang palagi</li><li><b>D.</b> Huwag magbasa</li></ul></div>
+
+      <div class="q"><h6>46. Alin ang <em>pinakamalapit</em> na kahulugan ng “masigasig”?</h6>
+        <ul class="choices"><li><b>A.</b> Masipag</li><li><b>B.</b> Malungkot</li><li><b>C.</b> Mabagal</li><li><b>D.</b> Malikot</li></ul></div>
+
+      <div class="q"><h6>47. Alin ang <em>pinakamainam</em> na sanggunian para sa kahulugan ng bagong salita?</h6>
+        <ul class="choices"><li><b>A.</b> Ensayklopidya</li><li><b>B.</b> Diksyunaryo</li><li><b>C.</b> Atlas</li><li><b>D.</b> Almanac</li></ul></div>
+
+      <div class="q"><h6>48. Anong kaugnayang sanhi-bunga ang makikita sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Nagbasa at gumamit ng sanggunian → humina ang pag-unawa</li><li><b>B.</b> Nagbasa at gumamit ng sanggunian → <em>humusay ang pag-unawa</em></li><li><b>C.</b> Nagbasa → napagod</li><li><b>D.</b> Walang ugnayan</li></ul></div>
+
+      <div class="q"><h6>49. Ano ang <em>pinatutungkulan</em> ng “ganitong paraan” sa huling pangungusap?</h6>
+        <ul class="choices"><li><b>A.</b> Pagsayaw at pag-awit</li><li><b>B.</b> Pagbabasa at paggamit ng diksyunaryo</li><li><b>C.</b> Paglalaro at pamamasyal</li><li><b>D.</b> Pagsusulat ng liham</li></ul></div>
+
+      <div class="q"><h6>50. Ano ang ipinapakitang magandang gawi ng mag-aaral sa teksto?</h6>
+        <ul class="choices"><li><b>A.</b> Pagpapaliban ng gawain</li><li><b>B.</b> Pagsunod sa oras at maagang pagsasagawa</li><li><b>C.</b> Paggamit ng social media</li><li><b>D.</b> Pag-absent</li></ul></div>
+    </section>
+
+    <div class="text-center print-hide">
+      <button class="btn btn-outline-secondary px-4" onclick="window.print()">
+        <i class="lni lni-printer me-1"></i> I-print / I-save bilang PDF
+      </button>
+    </div>
+  </main>
+
+  <footer class="py-4 text-center text-secondary small">
+    © 2025 • Filipino 6 Reviewer • Uri ng Panghalip • Pangkalahatang Sanggunian • Pag-unawa sa Teksto
+  </footer>
+</body>
+</html>
