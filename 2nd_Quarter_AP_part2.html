@@ -1,387 +1,798 @@
 <!doctype html>
 <html lang="fil">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AP Reviewer – Panahon ng mga Amerikano & Pamahalaang Komonwelt</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AP Interactive Reviewer – American Period → Commonwealth</title>
 
-  <!-- Bootstrap 5 -->
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
 
   <style>
     :root{
-      --ink:#0f172a;
-      --muted:#475569;
-      --paper:#f8fafc;
-      --brand:#0ea5e9;
-      --brand-2:#155e75;
-      --card:#ffffff;
-      --border:#e2e8f0;
+      --ink:#111827; --ink-2:#374151;
+      --paper:#f9fafb; --card:#ffffff;
+      --muted:#6b7280; --line:#e5e7eb;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
     }
-    html,body{ background:var(--paper); color:var(--ink); font-family:'Roboto',system-ui,-apple-system,Segoe UI,Arial; }
-    .container-xl{ max-width:1100px; }
-    .page-title{ font-weight:800; letter-spacing:.2px; }
-    .lead{ color:var(--muted); }
-    .toc{ position:sticky; top:1rem; }
-    .toc a{ text-decoration:none; display:block; padding:.35rem .5rem; border-left:3px solid transparent; color:#0b253a; }
-    .toc a.active, .toc a:hover{ border-color:var(--brand); background:#e6f6ff; }
-    .card{ border-color:var(--border); }
-    .kicker{ text-transform:uppercase; letter-spacing:.12em; color:var(--brand-2); font-weight:700; font-size:.8rem; }
-    .badge-key{ background:var(--brand); }
-    .keyterm{ border-left:4px solid var(--brand); padding-left:.75rem; }
-    .timeline-dot{ width:10px; height:10px; border-radius:50%; background:var(--brand); display:inline-block; margin-right:.5rem; }
-    .rule{ border-top:1px dashed var(--border); }
-    .note{ background:#fffbe6; border:1px solid #ffe58f; }
-    .why{ background:#eef9ff; border:1px solid #bae6ff; }
-    .print-tip{ font-size:.9rem; color:#64748b; }
+    html,body{ background:var(--paper); color:var(--ink); font-family:'Poppins',system-ui,-apple-system,Segoe UI,Arial,sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:980px; }
 
-    /* Small helpers for section headings */
-    h2{ scroll-margin-top:90px; }
-    h3{ scroll-margin-top:84px; }
+    .hero{ margin-top:1rem; margin-bottom:1rem; }
+    .scorecard{ display:none; border:1px solid var(--line); background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
 
-    /* Print styles */
-    @media print{
-      .no-print{ display:none !important; }
-      body{ background:#fff; }
-      .card{ break-inside:avoid; }
-      a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:.8em; color:#666; }
+    .instructions{ background:#f3f4f6; border:1px solid var(--line); padding:1rem; }
+    .dark-mode .instructions{ background:#1f2937; border-color:#374151; }
+
+    h1,h4{ font-weight:700; }
+    .section-title{ margin-top:2rem; margin-bottom:.75rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid var(--line); background:var(--card); }
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+
+    /* Buttons (flat, square, teal when selected) */
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; font-weight:500;
     }
+    .options button.selected{ background:var(--accent) !important; border-color:var(--accent-2) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; color:#fff !important; }
+
+    /* Drag items */
+    .drag-item{ padding:.6rem; margin:.3rem 0; border:1px solid #d1d5db; background:#fff; cursor:grab; border-radius:0; }
+    .dark-mode .drag-item{ background:#374151; border-color:#4b5563; color:#f9fafb; }
+
+    /* Feedback blocks */
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; border-radius:0; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; color:var(--ink-2); }
+    .dark-mode .exp{ border-top-color:#4b5563; color:#e5e7eb; }
+    .exp-toggle{ margin-top:.35rem; padding:.25rem 0; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+
+    /* Top actions */
+    .actions{ position:sticky; bottom:0; padding:.75rem 0; background:transparent; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); }
+    .submit-btn:hover{ background:var(--accent-2); }
+    .reset-btn{ background:#111827; color:#fff; border:1px solid #0f172a; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+
+    /* Links inside feedback */
+    a.inline{ color:var(--accent-2); text-decoration:none; border-bottom:1px dotted var(--accent-2); }
+    a.inline:hover{ opacity:.85; }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-light bg-white border-bottom sticky-top">
-    <div class="container-xl">
-      <span class="navbar-brand mb-0 h1">AP Reviewer: Panahon ng mga Amerikano → Komonwelt</span>
-      <span class="print-tip no-print">Tip: Press <kbd>Ctrl/Cmd + P</kbd> to print or save as PDF</span>
+
+<div class="container">
+  <div class="hero">
+    <h1 class="h3 text-center"><i class="lni lni-graduation"></i> AP Interactive Reviewer</h1>
+    <p class="text-center text-muted">American Period • Commonwealth Era • Independence Movement</p>
+  </div>
+
+  <!-- SCORE CARD (shown after submit) -->
+  <div id="scorecard" class="scorecard mb-3">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="fs-4" aria-label="star-rating"></div>
     </div>
-  </nav>
+  </div>
 
-  <main class="container-xl my-4">
-    <div class="row g-4">
-      <!-- TOC -->
-      <aside class="col-lg-4">
-        <div class="card shadow-sm">
-          <div class="card-body toc">
-            <div class="kicker mb-2">Mabilis na Gabay</div>
-            <a href="#intro" class="active">Ano ang sakop ng aralin</a>
-            <a href="#start">Pagsisimula ng pamamahalang Amerikano</a>
-            <a href="#commissions">Komisyon sa Pilipinas</a>
-            <a href="#laws">Mahahalagang Batas (1902–1934)</a>
-            <a href="#missions">Mga Misyon para sa Kalayaan</a>
-            <a href="#commonwealth">Pamahalaang Komonwelt (1935–1946)</a>
-            <a href="#programs">Mga Programang Pang-Komonwelt</a>
-            <a href="#economy">Patakarang Pang-ekonomiya & NEPA</a>
-            <a href="#people">Mahahalagang Tao</a>
-            <a href="#recap">Buod & Mnemonics</a>
-          </div>
-        </div>
-      </aside>
+  <!-- INSTRUCTIONS -->
+  <div class="instructions mb-4">
+    <p class="mb-2"><b>How to Answer</b></p>
+    <ul class="mb-0">
+      <li>Tap the best choice for multiple-choice and true/false.</li>
+      <li><b>Drag &amp; Drop (Timeline):</b> <em>Press and hold</em> an item, then drag it up or down into the correct order.</li>
+      <li>Tap <b>Submit</b> when finished. If there are unanswered items, you’ll be notified and may still proceed.</li>
+      <li>After submitting, each question shows ✅/❌ and a <b>Show Explanation</b> toggle.</li>
+      <li>Use the <b>🌙 Dark Mode</b> button for comfortable reading.</li>
+    </ul>
+  </div>
 
-      <!-- Content -->
-      <section class="col-lg-8">
-        <!-- Intro -->
-        <div id="intro" class="mb-4">
-          <h1 class="page-title h2 mb-2">Panahon ng mga Amerikano at Pamahalaang Komonwelt</h1>
-          <p class="lead">
-            Layunin ng reviewer na ito na ipaliwanag sa simple at malinaw na paraan ang mahahalagang pangyayari
-            mula sa pagdating ng mga Amerikano hanggang sa pagtatatag ng <strong>Pamahalaang Komonwelt</strong>.
-            Hindi ito exam—ito ay “kwento + paliwanag + bakit mahalaga.”
-          </p>
-          <div class="alert why">
-            <strong>Bakit mahalaga?</strong> Dito natin nakikita kung paano unti-unting sinanay ang Pilipinas sa
-            sariling pamahalaan at paghahanda sa kalayaan: edukasyon, batas, ekonomiya, karapatan, at pagtatanggol.
-          </div>
-        </div>
+  <!-- PART I -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–10)</h2>
 
-        <!-- Start -->
-        <div id="start" class="mb-4">
-          <h2 class="h4">1) Pagsisimula ng pamamahalang Amerikano</h2>
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="mb-2"><span class="timeline-dot"></span><strong>Pamahalaang Militar (1898)</strong> – sundalo ang namahala matapos ang Espanya. Layunin: kontrol at kapayapaan.</div>
-              <div class="mb-2"><span class="timeline-dot"></span><strong>Patakarang Pasipikasyon</strong> – “pakalmahin” ang paglaban at ipakitang “mabuti” ang pamamahala.</div>
-              <div class="mb-2"><span class="timeline-dot"></span><strong>Ko-optasyon</strong> – isali ang piling Pilipino sa gobyerno kapalit ng panunumpa ng katapatan sa U.S.</div>
-              <hr class="rule">
-              <p class="mb-0 keyterm"><span class="badge badge-key text-dark me-2">Key term</span><b>Benevolent Assimilation</b> – tawag ng U.S. sa “mabait” na pananakop; layuning ma-assimilate ang mga Pilipino sa bagong sistema.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Commissions -->
-        <div id="commissions" class="mb-4">
-          <h2 class="h4">2) Komisyon sa Pilipinas</h2>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="kicker mb-1">1899</div>
-                  <h3 class="h6 mb-2">Komisyong Schurman</h3>
-                  <ul class="mb-0">
-                    <li>Siniyasat ang kalagayan; inirekomenda ang <b>pamahalaang sibil</b>.</li>
-                    <li>Layunin: makipag-ayos sa Pilipino at alamin ang angkop na pamamahala.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="kicker mb-1">1900–1901</div>
-                  <h3 class="h6 mb-2">Komisyong Taft</h3>
-                  <ul class="mb-0">
-                    <li>Pinangunahan ni <b>William H. Taft</b>.</li>
-                    <li>Nagpatayo ng mga <b>paaralan</b> (Ingles ang medium), <b>kalsada</b>, at <b>civil service</b>.</li>
-                    <li>Sinimulan ang mas malawak na partisipasyon ng Pilipino sa gobyerno.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Laws -->
-        <div id="laws" class="mb-4">
-          <h2 class="h4">3) Mahahalagang Batas (1902–1934)</h2>
-          <div class="card">
-            <div class="card-body">
-              <ol class="mb-0">
-                <li class="mb-2"><b>Philippine Bill / Batas Cooper (1902)</b> – naglatag ng balangkas ng sibil na pamahalaan at daan sa <b>Philippine Assembly</b>.</li>
-                <li class="mb-2"><b>Philippine Assembly (1907)</b> – unang halalan para sa mga kinatawang Pilipino.</li>
-                <li class="mb-2"><b>Batas Gabaldon (1907)</b> – pondo para sa pagtatayo ng pampublikong paaralan.</li>
-                <li class="mb-2"><b>Batas Jones (1916)</b> – pangakong <i>eventual independence</i> kapag handa na ang Pilipinas.</li>
-                <li class="mb-2"><b>Tydings–McDuffie Act (1934)</b> – pormal na <b>10-taong paghahanda</b> → simula ng <b>Pamahalaang Komonwelt</b>.</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        <!-- Missions -->
-        <div id="missions" class="mb-4">
-          <h2 class="h4">4) Mga Misyon para sa Kalayaan</h2>
-          <div class="card mb-3">
-            <div class="card-body">
-              <ul class="mb-0">
-                <li class="mb-2"><b>Unang Misyon ni Quezon (1919)</b> – pormal na hiling para sa kalayaan.</li>
-                <li class="mb-2"><b>Misyong OsRox (1931)</b> – nagbunga ng <b>Hare-Hawes-Cutting Act (1932)</b>; tinanggihan dahil sa kondisyon ng U.S. military bases.</li>
-                <li class="mb-2"><b>Ika-2 Misyon ni Quezon (1933)</b> – nagbunga ng <b>Tydings–McDuffie</b> na mas katanggap-tanggap.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Commonwealth -->
-        <div id="commonwealth" class="mb-4">
-          <h2 class="h4">5) Pamahalaang Komonwelt (1935–1946)</h2>
-          <div class="card">
-            <div class="card-body">
-              <p class="mb-2 keyterm"><span class="badge badge-key text-dark me-2">Layunin</span>Ihanda ang Pilipinas sa ganap na kasarinlan sa loob ng 10 taon.</p>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Mga Pinuno</h3>
-                    <ul class="mb-0">
-                      <li><b>Manuel L. Quezon</b> – Pangulo</li>
-                      <li><b>Sergio Osmeña</b> – Pangalawang Pangulo</li>
-                      <li><b>Frank Murphy, Paul McNutt</b> – U.S. High Commissioners (kinatawan ng U.S.)</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Tatlong Sangay</h3>
-                    <ul class="mb-0">
-                      <li><b>Ehekutibo</b> – Pangulo ang nagpapatupad.</li>
-                      <li><b>Lehislatura</b> – <i>Pambansang Asamblea</i> (kalaunan Senado + Mababang Kapulungan).</li>
-                      <li><b>Hudikatura</b> – Korte Suprema; may <i>Bill of Rights</i> para sa mamamayan.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="alert note mt-3">
-                <strong>Tandaan:</strong> Pawang Pilipino ang namuno ngunit nanatili pa ring may impluwensiya ang Estados Unidos hanggang sa ganap na kalayaan.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Programs -->
-        <div id="programs" class="mb-4">
-          <h2 class="h4">6) Mga Programang Pang-Komonwelt</h2>
-
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="h6">a) Katarungang Panlipunan</h3>
-              <ul class="mb-2">
-                <li><b>Minimum wage</b> at <b>Eight-Hour Labor Law</b> – proteksiyon sa manggagawa.</li>
-                <li><b>Tenancy Act (1933)</b> – usaping may-ari ng lupa at kasama/magsasaka.</li>
-                <li><b>Court of Industrial Relations</b> – namamagitan sa alitan ng manggagawa at kapitalista.</li>
-              </ul>
-              <div class="why p-2 rounded">Bakit mahalaga? – Naglalayong bawasan ang agwat ng mayaman at mahirap; bigyan ng boses ang manggagawa at magsasaka.</div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="h6">b) Pagtatanggol sa Bansa</h3>
-              <ul class="mb-2">
-                <li><b>Batas Tanggulang Pambansa (1935)</b> – pagtatatag ng Hukbong Katihan, Dagat, at Himpapawid.</li>
-                <li><b>Hen. Douglas MacArthur</b> – military adviser; plano sa reserba at regular na hukbo.</li>
-              </ul>
-              <div class="why p-2 rounded">Bakit mahalaga? – Papalapit na ang Ikalawang Digmaang Pandaigdig; kailangang handa ang bansa.</div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="h6">c) Patakarang Homestead</h3>
-              <p>Pagbibigay ng lupa (marami sa Mindanao) upang makapagsaka ang mga Pilipino at paunlarin ang agrikultura.</p>
-              <div class="note p-2 rounded">Suliranin: pagtutol ng katutubong pamayanan (lupang ninuno), kakulangan ng suporta sa mahihirap na magsasaka.</div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="h6">d) Pagsulong ng Pambansang Wika</h3>
-              <ul class="mb-2">
-                <li><b>Surian ng Wikang Pambansa (1936)</b> – pag-aaral ng wikang batayan.</li>
-                <li><b>Jaime C. de Veyra</b> – pinuno; napiling batayan ang Tagalog.</li>
-                <li>1959: “Pilipino”; 1973: “Filipino”.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h3 class="h6">e) Karapatan ng Kababaihan sa Boto</h3>
-              <ul class="mb-2">
-                <li>1935 Konstitusyon – binigyan ng pagkakataon ang kababaihan kung papayag ang nakararami sa plebisito.</li>
-                <li><b>Abril 30, 1937</b> – plebisito: pabor ang karamihan.</li>
-                <li><b>Disyembre 14, 1937</b> – unang partisipasyon ng kababaihan sa pambansang halalan.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Economy -->
-        <div id="economy" class="mb-4">
-          <h2 class="h4">7) Patakarang Pang-ekonomiya at NEPA</h2>
-          <div class="card mb-3">
-            <div class="card-body">
-              <p><b>Free trade</b> sa U.S. (Payne-Aldrich 1909; Underwood-Simmons 1913) → lumakas ang pag-export ng <i>asukal, abaka, niyog, tabako</i> ngunit humina ang lokal na industriya dahil nasanay sa imported.</p>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Problema</h3>
-                    <ul class="mb-0">
-                      <li>Pag-asa sa iilang produktong pang-export.</li>
-                      <li>Di-pantay na benepisyo: mas nakinabang ang malalaking may-ari ng lupa.</li>
-                      <li>Kontrol ng dayuhan sa ilang sektor.</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Sagot ng Pamahalaan</h3>
-                    <ul class="mb-0">
-                      <li><b>NARIC</b> – bigas at mais; <b>National Coconut Corporation</b>; <b>National Sugar Board</b>.</li>
-                      <li><b>National Economic Council</b>, <b>National Development Company</b>.</li>
-                      <li><b>NEPA (1934)</b> – kampanya “<i>Buy Philippines</i>” para tangkilikin ang sariling produkto.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- People -->
-        <div id="people" class="mb-4">
-          <h2 class="h4">8) Mahahalagang Tao</h2>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h3 class="h6">Mga Amerikano</h3>
-                  <ul class="mb-0">
-                    <li><b>William H. Taft</b> – unang gobernador-sibil; edukasyon at imprastruktura.</li>
-                    <li><b>Frank Murphy</b>, <b>Paul McNutt</b> – U.S. High Commissioners (kinatawan sa Pilipinas).</li>
-                    <li><b>Douglas MacArthur</b> – tagapayo sa Tanggulang Pambansa.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h3 class="h6">Mga Pilipino</h3>
-                  <ul class="mb-0">
-                    <li><b>Manuel L. Quezon</b> – Pangulo ng Komonwelt.</li>
-                    <li><b>Sergio Osmeña</b> – Pangalawang Pangulo; katuwang sa mga misyon.</li>
-                    <li><b>Cayetano Arellano</b> – unang Punong Mahistrado.</li>
-                    <li><b>Trinidad Pardo de Tavera</b>, <b>Benito Legarda</b>, <b>Rafael Palma</b> – mga lider sa sibil na pamahalaan.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recap -->
-        <div id="recap" class="mb-5">
-          <h2 class="h4">9) Buod & Mnemonics</h2>
-          <div class="card mb-3">
-            <div class="card-body">
-              <p class="mb-2"><b>Buod:</b> Mula militar → komisyon → mga batas → mga misyon → <b>Komonwelt</b>. Sa Komonwelt, paghahanda sa <i>kalayaan</i> sa pamamagitan ng wika, karapatan, lupa, ekonomiya, at tanggulang pambansa.</p>
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Mnemonic sa Batas (sunod-sunod)</h3>
-                    <p class="mb-1"><b>“Bi-As-Ga-Jo-Ty”</b></p>
-                    <ul class="mb-0">
-                      <li><b>Bi</b>ll (Cooper) 1902</li>
-                      <li><b>As</b>sembly 1907</li>
-                      <li><b>Ga</b>baldon 1907</li>
-                      <li><b>Jo</b>nes 1916</li>
-                      <li><b>Ty</b>dings-McDuffie 1934</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3 border rounded h-100">
-                    <h3 class="h6">Mnemonic sa Misyon</h3>
-                    <ul class="mb-0">
-                      <li><b>Q-19</b> – Unang Misyon ni Quezon (1919)</li>
-                      <li><b>OR-31 → HHC-32</b> – OsRox (1931) → Hare-Hawes-Cutting (1932, tinanggihan)</li>
-                      <li><b>Q-33 → T-M-34</b> – Quezon (1933) → Tydings-McDuffie (1934)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <hr class="rule my-3">
-              <p class="mb-0"><b>Pang-araw-araw na paliwanag:</b> Ang Komonwelt ay parang <i>practice stage</i> bago graduation. Tinuturuan ang bansa kung paano tumakbo nang sarili: gumawa ng batas, protektahan ang mamamayan, at paunlarin ang ekonomiya.</p>
-            </div>
-          </div>
-          <p class="text-muted">Handa nang mag-review ng Q&A kapag gusto ninyo. Maaari rin akong gumawa ng printable timeline poster.</p>
-        </div>
-      </section>
+  <div class="question" id="q1">
+    <div class="qhead">1) The first American governor-general of the Philippines was…</div>
+    <div class="options">
+      <button data-answer="A">A) William Howard Taft</button>
+      <button data-answer="B">B) Francis Burton Harrison</button>
+      <button data-answer="C">C) Leonard Wood</button>
+      <button data-answer="D">D) Arthur MacArthur</button>
     </div>
-  </main>
+    <div class="feedback"></div>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Simple active link highlighting for the TOC
-    document.addEventListener('scroll', () => {
-      const links = document.querySelectorAll('.toc a');
-      const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
-      let activeId = '#intro';
-      sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top < 140) activeId = '#' + sec.id;
-      });
-      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeId));
+  <div class="question" id="q2">
+    <div class="qhead">2) The Philippine Bill of 1902 established the…</div>
+    <div class="options">
+      <button data-answer="A">A) Philippine Assembly</button>
+      <button data-answer="B">B) Jones Law</button>
+      <button data-answer="C">C) Constitutional Convention</button>
+      <button data-answer="D">D) Civil Government</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) Which law promised independence after a transition period?</div>
+    <div class="options">
+      <button data-answer="A">A) Hare-Hawes Cutting Act</button>
+      <button data-answer="B">B) Tydings-McDuffie Act</button>
+      <button data-answer="C">C) Jones Law</button>
+      <button data-answer="D">D) Philippine Bill of 1902</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) The “Father of the Philippine National Language” was…</div>
+    <div class="options">
+      <button data-answer="A">A) Sergio Osmeña</button>
+      <button data-answer="B">B) Manuel L. Quezon</button>
+      <button data-answer="C">C) Jose P. Laurel</button>
+      <button data-answer="D">D) Claro M. Recto</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) The Schurman Commission (1899) was sent to…</div>
+    <div class="options">
+      <button data-answer="A">A) Prepare the country for independence</button>
+      <button data-answer="B">B) Study conditions and recommend a form of government</button>
+      <button data-answer="C">C) Establish the Philippine Assembly</button>
+      <button data-answer="D">D) Promote the NEPA Movement</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) The Jones Law (1916) was important because it…</div>
+    <div class="options">
+      <button data-answer="A">A) Gave Filipinos full independence</button>
+      <button data-answer="B">B) Created a bicameral legislature with elected Filipinos</button>
+      <button data-answer="C">C) Allowed women to vote</button>
+      <button data-answer="D">D) Started the NEPA program</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) The program encouraging Filipinos to “Buy Philippine products” was…</div>
+    <div class="options">
+      <button data-answer="A">A) NEPA Movement</button>
+      <button data-answer="B">B) Filipino First Policy</button>
+      <button data-answer="C">C) Cooperatives Act</button>
+      <button data-answer="D">D) Homestead Program</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) The National Defense Act (Commonwealth Act No. 1) was created under the…</div>
+    <div class="options">
+      <button data-answer="A">A) Philippine Bill of 1902</button>
+      <button data-answer="B">B) Jones Law</button>
+      <button data-answer="C">C) Constitutional Convention</button>
+      <button data-answer="D">D) Commonwealth Government</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) The Philippine Assembly was inaugurated in 1907 under the…</div>
+    <div class="options">
+      <button data-answer="A">A) Hare-Hawes Cutting Act</button>
+      <button data-answer="B">B) Philippine Bill of 1902</button>
+      <button data-answer="C">C) Tydings-McDuffie Act</button>
+      <button data-answer="D">D) Jones Law</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) The OsRox Mission (1931) was sent to the U.S. mainly to…</div>
+    <div class="options">
+      <button data-answer="A">A) Negotiate independence terms</button>
+      <button data-answer="B">B) Draft the Constitution</button>
+      <button data-answer="C">C) Create the NEPA Movement</button>
+      <button data-answer="D">D) Organize the Philippine Army</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- PART II -->
+  <h2 class="section-title h5">Part II – Arrange the Sequence (11–20)</h2>
+
+  <div class="question" id="timelineA">
+    <div class="qhead">Set A (11–15): Early American Rule – Arrange in correct order</div>
+    <div class="drag-item" draggable="true" data-correct="1">Philippine Bill of 1902</div>
+    <div class="drag-item" draggable="true" data-correct="2">Jones Law (1916)</div>
+    <div class="drag-item" draggable="true" data-correct="3">Hare-Hawes Cutting Act (1932)</div>
+    <div class="drag-item" draggable="true" data-correct="4">Tydings-McDuffie Act (1934)</div>
+    <div class="drag-item" draggable="true" data-correct="5">Constitutional Convention (1934–35)</div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="timelineB">
+    <div class="qhead">Set B (16–20): Commissions and Governance – Arrange in correct order</div>
+    <div class="drag-item" draggable="true" data-correct="1">Schurman Commission (1899)</div>
+    <div class="drag-item" draggable="true" data-correct="2">Taft Commission (1900–01)</div>
+    <div class="drag-item" draggable="true" data-correct="3">Philippine Assembly (1907)</div>
+    <div class="drag-item" draggable="true" data-correct="4">OsRox Mission (1931)</div>
+    <div class="drag-item" draggable="true" data-correct="5">Commonwealth Government established (1935)</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- PART III -->
+  <h2 class="section-title h5">Part III – True/False (21–30)</h2>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) The Commonwealth government was established in 1935.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q22">
+    <div class="qhead">22) The Schurman Commission was created to organize a Philippine Army.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q23">
+    <div class="qhead">23) Women gained the right to vote during the Commonwealth era.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q24">
+    <div class="qhead">24) The Hare-Hawes Cutting Act was immediately accepted by the Filipinos.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q25">
+    <div class="qhead">25) Manuel Quezon was the first President of the Philippine Commonwealth.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q26">
+    <div class="qhead">26) The NEPA encouraged buying imported goods.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q27">
+    <div class="qhead">27) The Philippine Assembly was the first fully elected legislative body.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q28">
+    <div class="qhead">28) The Jones Law stated the U.S. would grant independence once a stable government was established.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q29">
+    <div class="qhead">29) The Homestead Program encouraged settlement in Mindanao.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+  <div class="question" id="q30">
+    <div class="qhead">30) Claro M. Recto was one of the key leaders in writing the 1935 Constitution.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- PART IV -->
+  <h2 class="section-title h5">Part IV – Choose the Best Explanation (31–50)</h2>
+
+  <!-- Jones Law (31–35) -->
+  <div class="question" id="q31">
+    <div class="qhead">31) Why was the Jones Law a major step toward independence?</div>
+    <div class="options">
+      <button data-answer="A">A) It gave immediate independence to the Philippines.</button>
+      <button data-answer="B">B) It created a legislature with elected Filipinos, expanding self-rule.</button>
+      <button data-answer="C">C) It introduced women’s suffrage nationwide.</button>
+      <button data-answer="D">D) It required Filipinos to buy local products.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Which best describes the government change under the Jones Law?</div>
+    <div class="options">
+      <button data-answer="A">A) It created a single National Assembly like in 1935.</button>
+      <button data-answer="B">B) It replaced the appointed Philippine Commission with an elected Senate and House.</button>
+      <button data-answer="C">C) It made the Supreme Court choose the Governor-General.</button>
+      <button data-answer="D">D) It abolished all executive power.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) What principle did the Jones Law declare about Philippine independence?</div>
+    <div class="options">
+      <button data-answer="A">A) The U.S. would recognize independence once a stable government was established.</button>
+      <button data-answer="B">B) Independence was to be granted immediately.</button>
+      <button data-answer="C">C) Independence depended on a national plebiscite of women only.</button>
+      <button data-answer="D">D) Independence would come after joining the League of Nations.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) How did the Jones Law affect executive power in the Philippines?</div>
+    <div class="options">
+      <button data-answer="A">A) It transferred executive power to an elected Filipino president.</button>
+      <button data-answer="B">B) It kept a U.S.-appointed Governor-General but increased Filipino control via the elected legislature.</button>
+      <button data-answer="C">C) It allowed the Supreme Court to remove the Governor-General at will.</button>
+      <button data-answer="D">D) It abolished the Governor-General’s veto entirely.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) Why didn’t the Jones Law equal full independence?</div>
+    <div class="options">
+      <button data-answer="A">A) U.S. sovereignty and a U.S.-appointed Governor-General still remained.</button>
+      <button data-answer="B">B) Because Filipinos refused to serve in government.</button>
+      <button data-answer="C">C) Because the U.S. stopped funding all schools.</button>
+      <button data-answer="D">D) Because the 1935 Constitution was already in effect.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- Commonwealth prep (36–40) -->
+  <div class="question" id="q36">
+    <div class="qhead">36) How did the Commonwealth prepare Filipinos politically for self-rule?</div>
+    <div class="options">
+      <button data-answer="A">A) By adopting the 1935 Constitution, holding elections, and practicing the three branches of government.</button>
+      <button data-answer="B">B) By dissolving all local governments.</button>
+      <button data-answer="C">C) By keeping all officials appointed by the U.S.</button>
+      <button data-answer="D">D) By replacing the legislature with military rule.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) How did the Commonwealth prepare the economy?</div>
+    <div class="options">
+      <button data-answer="A">A) By creating agencies like NARIC/NDC/NEC to stabilize prices and support industries.</button>
+      <button data-answer="B">B) By cutting all trade with the U.S. immediately.</button>
+      <button data-answer="C">C) By banning cooperatives and credit.</button>
+      <button data-answer="D">D) By privatizing all public corporations.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) How did the Commonwealth prepare culture and identity?</div>
+    <div class="options">
+      <button data-answer="A">A) By founding the Surian ng Wikang Pambansa to develop a national language.</button>
+      <button data-answer="B">B) By banning local languages and using English only.</button>
+      <button data-answer="C">C) By abolishing cultural and arts programs.</button>
+      <button data-answer="D">D) By requiring Spanish as the national language.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) How did the Commonwealth prepare for national defense?</div>
+    <div class="options">
+      <button data-answer="A">A) By passing the National Defense Act and building a citizen army under Gen. MacArthur’s plan.</button>
+      <button data-answer="B">B) By disbanding the constabulary without replacement.</button>
+      <button data-answer="C">C) By relying purely on U.S. forces and doing nothing locally.</button>
+      <button data-answer="D">D) By training only police for city patrols.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) How did the Commonwealth promote social justice?</div>
+    <div class="options">
+      <button data-answer="A">A) Through the Eight-Hour Law, tenancy reforms, and the Court of Industrial Relations.</button>
+      <button data-answer="B">B) By removing all worker protections.</button>
+      <button data-answer="C">C) By giving all land away regardless of ownership.</button>
+      <button data-answer="D">D) By forcing industrial workers to become farmers.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- Tydings–McDuffie (41–45) -->
+  <div class="question" id="q41">
+    <div class="qhead">41) Why was the Tydings–McDuffie Act important?</div>
+    <div class="options">
+      <button data-answer="A">A) It set a 10-year Commonwealth transition leading to full independence.</button>
+      <button data-answer="B">B) It granted immediate independence in 1934.</button>
+      <button data-answer="C">C) It removed the need for a constitution.</button>
+      <button data-answer="D">D) It made the Philippines a U.S. state.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) How did Tydings–McDuffie differ from Hare–Hawes–Cutting?</div>
+    <div class="options">
+      <button data-answer="A">A) It offered similar independence but with terms acceptable to Philippine leaders, which led to approval.</button>
+      <button data-answer="B">B) It gave independence instantly with no conditions.</button>
+      <button data-answer="C">C) It ended the need for a Constitutional Convention.</button>
+      <button data-answer="D">D) It abolished U.S. military bases immediately and permanently.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) What did Tydings–McDuffie require domestically before independence?</div>
+    <div class="options">
+      <button data-answer="A">A) Draft and ratify the 1935 Constitution and establish the Commonwealth government.</button>
+      <button data-answer="B">B) Hold a presidential election without a charter.</button>
+      <button data-answer="C">C) Join the League of Nations first.</button>
+      <button data-answer="D">D) Abolish all local governments.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) Which best describes Tydings–McDuffie’s economic provisions?</div>
+    <div class="options">
+      <button data-answer="A">A) Gradual tariffs/quotas to transition away from free trade with the U.S.</button>
+      <button data-answer="B">B) Permanent free trade forever.</button>
+      <button data-answer="C">C) Immediate total trade cutoff.</button>
+      <button data-answer="D">D) U.S. must buy all Philippine sugar indefinitely.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) What limitation remained under the Commonwealth?</div>
+    <div class="options">
+      <button data-answer="A">A) The U.S. retained certain powers (e.g., foreign affairs, military bases) during the transition.</button>
+      <button data-answer="B">B) The Philippines could sign any foreign treaty alone.</button>
+      <button data-answer="C">C) The U.S. had no say in defense planning.</button>
+      <button data-answer="D">D) The Philippines controlled U.S. immigration policy.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- NEPA (46–50) -->
+  <div class="question" id="q46">
+    <div class="qhead">46) What was NEPA?</div>
+    <div class="options">
+      <button data-answer="A">A) National Economic Protectionism Association promoting Filipino products and industries.</button>
+      <button data-answer="B">B) A U.S. agency to import American goods.</button>
+      <button data-answer="C">C) A military alliance under the Commonwealth.</button>
+      <button data-answer="D">D) A court for labor disputes.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q47">
+    <div class="qhead">47) How did NEPA affect the economy?</div>
+    <div class="options">
+      <button data-answer="A">A) It encouraged local entrepreneurship and demand for Filipino-made goods.</button>
+      <button data-answer="B">B) It increased dependence on imports.</button>
+      <button data-answer="C">C) It ended small businesses.</button>
+      <button data-answer="D">D) It replaced private firms with government monopolies.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q48">
+    <div class="qhead">48) What was a challenge faced by NEPA?</div>
+    <div class="options">
+      <button data-answer="A">A) Limited local manufacturing capacity and consumer preference for imported goods.</button>
+      <button data-answer="B">B) A ban on exports.</button>
+      <button data-answer="C">C) A prohibition on advertising.</button>
+      <button data-answer="D">D) A tariff on locally made products.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q49">
+    <div class="qhead">49) Which is an example of a NEPA campaign?</div>
+    <div class="options">
+      <button data-answer="A">A) “Buy Philippines” labels and local product fairs.</button>
+      <button data-answer="B">B) Subsidies to import American goods.</button>
+      <button data-answer="C">C) Replacing Filipino brands with U.S. brands.</button>
+      <button data-answer="D">D) Encouraging migration to the U.S. for work.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q50">
+    <div class="qhead">50) Why is NEPA’s message still relevant today?</div>
+    <div class="options">
+      <button data-answer="A">A) Supporting local MSMEs builds jobs and resilience in the economy.</button>
+      <button data-answer="B">B) It discourages innovation and competition.</button>
+      <button data-answer="C">C) It isolates the country from global trade.</button>
+      <button data-answer="D">D) It is only a historical slogan with no use now.</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button class="submit-btn btn text-white" id="submitBtn"><i class="lni lni-checkmark-circle"></i> Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn"><i class="lni lni-reload"></i> Retake Quiz</button>
+  </div>
+</div>
+
+<!-- Dark mode toggle -->
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()" title="Toggle dark mode"><i class="lni lni-night"></i></button>
+
+<script>
+/* =======================
+   ANSWER KEY (1–50)
+   ======================= */
+const answers = {
+  q1:"A", q2:"A", q3:"B", q4:"B", q5:"B", q6:"B", q7:"A", q8:"D", q9:"B", q10:"A",
+  q21:"T", q22:"F", q23:"T", q24:"F", q25:"T", q26:"F", q27:"T", q28:"T", q29:"T", q30:"T",
+  q31:"B", q32:"B", q33:"A", q34:"B", q35:"A",
+  q36:"A", q37:"A", q38:"A", q39:"A", q40:"A",
+  q41:"A", q42:"A", q43:"A", q44:"A", q45:"A",
+  q46:"A", q47:"A", q48:"A", q49:"A", q50:"A"
+};
+
+/* =======================
+   EXPLANATIONS (hard-coded per Q)
+   ======================= */
+function explain(q){
+  const e = {
+
+    // Part I
+    q1: "William Howard Taft was the first <i>civil</i> governor-general. Arthur MacArthur was the last <i>military</i> governor. Taft’s administration began broad reforms in education, infrastructure, and civil service.",
+    q2: "The Philippine Bill of 1902 laid the framework for civil government and created the <b>Philippine Assembly</b>, the first nationwide elective legislative body.",
+    q3: "The Tydings–McDuffie Act (1934) set a <b>10-year transition</b> under the Commonwealth, after which full independence would be granted.",
+    q4: "Manuel L. Quezon championed the development of a <b>national language</b> through the Surian ng Wikang Pambansa, earning the title “Ama ng Wikang Pambansa.”",
+    q5: "The Schurman Commission (1899) studied conditions on the ground and recommended establishing a <b>civil government</b> for the Philippines.",
+    q6: "The Jones Law (1916) created a <b>bicameral legislature</b> (elected Senate and House), expanding Filipino participation in lawmaking.",
+    q7: "NEPA (National Economic Protectionism Association) promoted <b>buying Filipino products</b> to strengthen local industries and jobs.",
+    q8: "The National Defense Act (Commonwealth Act No. 1) was enacted under the <b>Commonwealth</b>, creating a citizen army and defense plan.",
+    q9: "The <b>Philippine Bill of 1902</b> provided for the creation of the Philippine Assembly, inaugurated in 1907.",
+    q10:"The OsRox Mission (1931) negotiated <b>independence terms</b> in the U.S., leading to the Hare–Hawes–Cutting Act (later replaced by Tydings–McDuffie).",
+
+    // Part III (T/F)
+    q21:"Correct: The Commonwealth was inaugurated in <b>1935</b> with Quezon as President and Osmeña as Vice President.",
+    q22:"False: The Schurman Commission’s role was to <b>study and recommend governance</b>, not to organize a Philippine Army.",
+    q23:"Correct: Women gained suffrage during the Commonwealth (plebiscite on <b>April 30, 1937</b>; first national vote on <b>Dec 14, 1937</b>).",
+    q24:"False: The Hare–Hawes–Cutting Act was <b>not</b> immediately accepted due to issues like U.S. bases; it was replaced by Tydings–McDuffie.",
+    q25:"Correct: <b>Manuel L. Quezon</b> served as the first President of the Commonwealth.",
+    q26:"False: NEPA encouraged buying <b>local</b> Filipino goods, not imports.",
+    q27:"Correct: The <b>Philippine Assembly</b> (1907) was the first fully elected legislative body in the Philippines.",
+    q28:"Correct: The Jones Law declared U.S. policy to recognize <b>Philippine independence when a stable government</b> was established.",
+    q29:"Correct: The Homestead Program encouraged settlement (notably in <b>Mindanao</b>) to develop agriculture.",
+    q30:"Correct: <b>Claro M. Recto</b> played a key role in drafting the <b>1935 Constitution</b>.",
+
+    // Part IV – Jones Law
+    q31:"The Jones Law didn’t grant independence immediately, but it <b>expanded Filipino self-rule</b> by creating an elected legislature—an essential step toward independence.",
+    q32:"It <b>replaced the appointed Philippine Commission</b> with an <b>elected Senate</b> and retained an elected House, making the legislature <b>fully Filipino-elected</b>.",
+    q33:"Its preamble declared U.S. policy to recognize <b>independence once a stable government</b> was established in the Philippines.",
+    q34:"Executive power stayed with a <b>U.S.-appointed Governor-General</b>, but Filipinos gained leverage through a <b>fully elected legislature</b> (laws, budget, oversight).",
+    q35:"Because <b>U.S. sovereignty</b> and the <b>Governor-General</b> remained, the Jones Law was a step—not full independence.",
+
+    // Part IV – Commonwealth prep
+    q36:"Politically, the Commonwealth adopted the <b>1935 Constitution</b>, held national elections, and operated the <b>three branches</b>—practicing self-rule.",
+    q37:"Economically, agencies like <b>NARIC</b> (rice/corn), <b>NDC</b>, and <b>NEC</b> stabilized prices and supported industries for long-term development.",
+    q38:"Culturally, the <b>Surian ng Wikang Pambansa</b> developed a <b>national language</b> to strengthen unity and identity.",
+    q39:"Defense preparation came via the <b>National Defense Act</b>, building a citizen army and reserves under plans advised by <b>Gen. Douglas MacArthur</b>.",
+    q40:"For social justice, reforms included the <b>Eight-Hour Law</b>, tenancy measures, and the <b>Court of Industrial Relations</b> to mediate labor disputes.",
+
+    // Part IV – Tydings–McDuffie
+    q41:"Tydings–McDuffie set a <b>10-year Commonwealth transition</b> ending in independence, giving a clear timetable and framework.",
+    q42:"Compared to Hare–Hawes–Cutting, Tydings–McDuffie had <b>more acceptable terms</b> to Philippine leaders, leading to approval and action.",
+    q43:"It required a <b>Constitutional Convention</b>, ratification of the <b>1935 Constitution</b>, and the establishment of the <b>Commonwealth government</b>.",
+    q44:"It provided for a <b>gradual tariff/quota</b> regime to transition away from free trade with the U.S., cushioning economic shocks.",
+    q45:"During the transition, the U.S. retained certain powers like <b>foreign affairs</b> and <b>military bases</b> access—hence not full sovereignty yet.",
+
+    // Part IV – NEPA
+    q46:"<b>NEPA</b> (National Economic Protectionism Association) urged Filipinos to <b>buy local products</b> and support Filipino industries.",
+    q47:"By shifting demand to <b>Filipino-made goods</b>, NEPA encouraged <b>local entrepreneurship</b> and helped build domestic industries.",
+    q48:"NEPA faced limits from <b>weak manufacturing capacity</b>, reliance on imports, and consumer habits favoring imported brands.",
+    q49:"Examples include <b>“Buy Philippines”</b> labels, local trade fairs, and public campaigns to patronize Filipino goods.",
+    q50:"Today, choosing local helps <b>MSMEs</b>, jobs, and economic resilience—NEPA’s message remains <b>practical and relevant</b>."
+  };
+  return e[q] || "";
+}
+
+/* =======================
+   SELECTION HANDLERS
+   ======================= */
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent = btn.closest('.question');
+    parent.dataset.selected = btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* =======================
+   DRAG & DROP (touch-friendly basic)
+   ======================= */
+let dragged = null;
+document.addEventListener("dragstart", e=>{
+  if(e.target.classList.contains("drag-item")) dragged = e.target;
+});
+document.addEventListener("dragover", e=> e.preventDefault());
+document.addEventListener("drop", e=>{
+  const list = e.target.closest('#timelineA, #timelineB');
+  if(!list) return;
+  const targetItem = e.target.classList.contains("drag-item") ? e.target : null;
+  if(targetItem && dragged){
+    list.insertBefore(dragged, targetItem.nextSibling);
+  } else if(dragged){
+    list.appendChild(dragged);
+  }
+});
+
+/* Shuffle timelines on load */
+function shuffleList(containerId){
+  const list = document.querySelectorAll(`#${containerId} .drag-item`);
+  const arr = Array.from(list);
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    arr[i].parentNode.insertBefore(arr[j], arr[i]);
+  }
+}
+shuffleList('timelineA');
+shuffleList('timelineB');
+
+/* =======================
+   SUBMIT: scoring + feedback
+   ======================= */
+const scorecardEl = document.getElementById('scorecard');
+const totalScoreEl = document.getElementById('totalScore');
+const starRowEl   = document.getElementById('starRow');
+const scoreMsgEl  = document.getElementById('scoreMsg');
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  // Check unanswered (MCQ/TF/Exp only)
+  const questionIds = Object.keys(answers);
+  let unanswered = [];
+  questionIds.forEach(q=>{
+    const el = document.getElementById(q);
+    if(el && !el.dataset.selected) unanswered.push(q);
+  });
+
+  if(unanswered.length){
+    const proceed = confirm(`You have ${unanswered.length} unanswered question(s). Submit anyway?`);
+    if(!proceed) return;
+  } else {
+    const proceed = confirm("Are you sure you want to submit?");
+    if(!proceed) return;
+  }
+
+  let score = 0;
+
+  // Grade MCQ/TF/Exp – give feedback + explanation toggles
+  questionIds.forEach(q=>{
+    const el = document.getElementById(q);
+    if(!el) return;
+    const fb = el.querySelector('.feedback');
+    fb.innerHTML = ""; // reset
+    let sel = el.dataset.selected;
+
+    // Build feedback line
+    let statusHTML = "";
+    if(!sel){
+      statusHTML = `<div class="unanswered">⚠️ You did not answer this question.</div>`;
+    } else if(sel === answers[q]) {
+      score += 1;
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+    } else {
+      statusHTML = `<div class="incorrect">❌ Incorrect — Correct answer: <b>${answers[q]}</b></div>`;
+    }
+
+    // Explanation toggle (always available)
+    const expId = `${q}-exp`;
+    const expBtnId = `${q}-btn`;
+    const expBlock = `
+      ${statusHTML}
+      <button class="exp-toggle" id="${expBtnId}" type="button">
+        <i class="lni lni-chevron-down"></i> Show Explanation
+      </button>
+      <div class="exp" id="${expId}">${explain(q)}</div>
+    `;
+    fb.innerHTML = expBlock;
+
+    // Wire toggle
+    const btn = document.getElementById(expBtnId);
+    const exp = document.getElementById(expId);
+    btn.addEventListener('click', ()=>{
+      const open = exp.style.display === 'block';
+      exp.style.display = open ? 'none' : 'block';
+      btn.innerHTML = open
+        ? `<i class="lni lni-chevron-down"></i> Show Explanation`
+        : `<i class="lni lni-chevron-up"></i> Hide Explanation`;
     });
-  </script>
+  });
+
+  // Grade timelines (5 pts each if perfectly correct)
+  function gradeTimeline(id, correctList, label){
+    const container = document.getElementById(id);
+    const items = [...container.querySelectorAll('.drag-item')];
+    const fb = container.querySelector('.feedback');
+    let ok = true;
+    items.forEach((it,idx)=>{
+      if(Number(it.dataset.correct)!== (idx+1)) ok=false;
+    });
+    if(ok){
+      score += 5;
+      fb.innerHTML = `<div class="correct">✅ Correct order! ${label}</div>
+        <button class="exp-toggle" id="${id}-btn" type="button"><i class="lni lni-chevron-down"></i> Show Explanation</button>
+        <div class="exp" id="${id}-exp">${correctList}</div>`;
+    }else{
+      fb.innerHTML = `<div class="incorrect">❌ Incorrect order.</div>
+        <button class="exp-toggle" id="${id}-btn" type="button"><i class="lni lni-chevron-down"></i> Show Explanation</button>
+        <div class="exp" id="${id}-exp">${correctList}</div>`;
+    }
+    // toggle
+    const btn = document.getElementById(`${id}-btn`);
+    const exp = document.getElementById(`${id}-exp`);
+    btn.addEventListener('click', ()=>{
+      const open = exp.style.display === 'block';
+      exp.style.display = open ? 'none' : 'block';
+      btn.innerHTML = open
+        ? `<i class="lni lni-chevron-down"></i> Show Explanation`
+        : `<i class="lni lni-chevron-up"></i> Hide Explanation`;
+    });
+  }
+
+  gradeTimeline(
+    'timelineA',
+    `<b>Correct order (11–15):</b> Philippine Bill (1902) → Jones Law (1916) → Hare–Hawes–Cutting (1932) → Tydings–McDuffie (1934) → Constitutional Convention (1934–35).<br>
+     <b>Why:</b> The sequence shows the legal steps from early U.S. civil government and expanded Filipino lawmaking to formal transition planning and drafting the 1935 Constitution.`,
+    "This shows the step-by-step path from early civil government to the Commonwealth transition."
+  );
+  gradeTimeline(
+    'timelineB',
+    `<b>Correct order (16–20):</b> Schurman Commission (1899) → Taft Commission (1900–01) → Philippine Assembly (1907) → OsRox Mission (1931) → Commonwealth established (1935).<br>
+     <b>Why:</b> From fact-finding and civil organization to elected institutions, negotiations abroad, and finally the Commonwealth launch.`,
+    "From commissions and early governance to the establishment of the Commonwealth."
+  );
+
+  // Show scorecard with stars + message
+  totalScoreEl.textContent = score.toString();
+  const stars = Math.floor(score / 10); // 0–5
+  starRowEl.innerHTML = "★".repeat(stars) + "☆".repeat(5 - stars);
+  let msg = "";
+  if(score >= 45) msg = "🌟 Excellent work, Sean!";
+  else if(score >= 35) msg = "👍 Great job! A little more practice.";
+  else if(score >= 25) msg = "🙂 Good effort! Review the notes again.";
+  else msg = "💪 Keep practicing—you’re getting there!";
+  scoreMsgEl.textContent = msg;
+
+  scorecardEl.style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* =======================
+   RESET / RETAKE
+   ======================= */
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  if(!confirm("Retake the quiz and clear all answers?")) return;
+
+  // clear selections and feedback
+  Object.keys(answers).forEach(q=>{
+    const el = document.getElementById(q);
+    if(!el) return;
+    delete el.dataset.selected;
+    el.querySelectorAll('.options button').forEach(b=>b.classList.remove('selected'));
+    const fb = el.querySelector('.feedback');
+    if(fb) fb.innerHTML = "";
+  });
+
+  // clear timelines feedback + shuffle again
+  ['timelineA','timelineB'].forEach(id=>{
+    const fb = document.querySelector(`#${id} .feedback`);
+    if(fb) fb.innerHTML = "";
+    shuffleList(id);
+  });
+
+  // hide scorecard
+  document.getElementById('scorecard').style.display = 'none';
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* =======================
+   DARK MODE
+   ======================= */
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+window.toggleDark = toggleDark;
+</script>
 </body>
 </html>
