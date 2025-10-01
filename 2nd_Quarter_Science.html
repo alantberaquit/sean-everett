@@ -1,199 +1,826 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Science Reviewer – Musculoskeletal & Integumentary (Grade 6)</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Science Interactive Reviewer – Musculoskeletal & Integumentary</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- LineIcons -->
-  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- LineIcons -->
+<link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
 
-  <style>
-    :root{
-      --brand:#0ea5e9;
-      --ink:#0f172a;
-      --muted:#475569;
-      --paper:#f8fafc;
-      --border:#e2e8f0;
-    }
-    html,body{
-      background:var(--paper);
-      color:var(--ink);
-      font-family:'Roboto',sans-serif;
-      font-size:18px;
-      line-height:1.6;
-    }
-    .exam-header{background:#e0f2fe;border-bottom:2px solid #bae6fd;}
-    .section-title{font-weight:700;display:flex;align-items:center;gap:.5rem;}
-    .section-title i{color:var(--brand);}
-    .dir{
-      background:#fff;border:1px solid var(--border);
-      border-left:4px solid var(--brand);
-      border-radius:12px;padding:.75rem 1rem;color:var(--muted);
-    }
-    .q{margin-bottom:1rem;}
-    .q h6{margin:0 0 .35rem 0;font-weight:700;font-size:18px;}
-    .choices{margin:0;padding-left:1.1rem;}
-    .choices li{
-      list-style:none;margin:.15rem 0;background:#fff;border:1px solid var(--border);
-      border-radius:12px;padding:.5rem .65rem;
-    }
-    .choices li b{font-weight:700;margin-right:.35rem;}
-    .badge-level{
-      background:rgba(14,165,233,.12);color:var(--brand);
-      border:1px solid #bae6fd;font-weight:700;
-    }
-    @media (min-width:992px){
-      .container-narrow{max-width:900px;}
-      html,body{font-size:19px;}
-    }
-    @media print{
-      .print-hide{display:none!important;}
-      body{background:#fff;}
-    }
-  </style>
+<style>
+:root{
+  --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+  --accent:#14b8a6; --accent-2:#0d9488;
+  --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+  --line:#e5e7eb;
+}
+body{ background:var(--paper); color:var(--ink); font-family:'Poppins',system-ui,-apple-system,Segoe UI,Arial,sans-serif;}
+.dark-mode{ background:#111827; color:#f9fafb; }
+.container{ max-width:960px; }
+h1,h2{ font-weight:700; }
+.section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding:.35rem .5rem; }
+.divider{ margin-top:2rem; margin-bottom:.75rem; }
+.question{ margin-bottom:1rem; padding:1rem; border:1px solid var(--line); background:var(--card);}
+.dark-mode .question{ background:#1f2937; border-color:#374151; }
+.qhead{ font-weight:600; margin-bottom:.5rem; }
+.options button{
+  display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+  border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; font-weight:500;
+}
+.options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:700; border-color:var(--accent-2) !important; }
+.dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+.dark-mode .options button.selected{ background:var(--accent-2) !important; color:#fff !important; }
+
+.feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+.correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+.incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+.unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+.exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; color:#334155; }
+.dark-mode .exp{ border-top-color:#4b5563; color:#e5e7eb; }
+.exp-toggle{ margin-top:.35rem; padding:0; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+
+.blank, .map-select{
+  display:inline-block; min-width:180px; padding:.4rem; border:1px solid #d1d5db; border-radius:0; margin:.2rem 0;
+  background:#fff;
+}
+.dark-mode .blank, .dark-mode .map-select{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+
+.instructions{ background:#f3f4f6; border:1px solid var(--line); padding:1rem; }
+.dark-mode .instructions{ background:#1f2937; border-color:#374151; }
+
+.scorecard{ display:none; border:1px solid var(--line); background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+.dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+.score-stars{ font-size:1.5rem; }
+
+.submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+.submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+.submit-btn:hover{ background:var(--accent-2); }
+.reset-btn{ background:#111827; color:#fff; border:1px solid #0f172a; }
+
+.dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+.small-muted{ font-size:.9rem; color:#6b7280; }
+.badge-num{ background:#e5e7eb; border-radius:0; padding:.15rem .35rem; margin-right:.35rem; }
+.dark-mode .badge-num{ background:#374151; color:#e5e7eb; }
+</style>
 </head>
 <body>
-  <header class="exam-header py-4 mb-4">
-    <div class="container container-narrow">
-      <div class="d-flex align-items-center gap-3">
-        <div class="rounded-circle bg-white border d-flex align-items-center justify-content-center" style="width:60px;height:60px;">
-          <i class="lni lni-microscope fs-3" style="color:#0ea5e9"></i>
-        </div>
-        <div>
-          <span class="badge badge-level rounded-pill px-3 py-2">Grade 6 • Science</span>
-          <h1 class="h4 mt-2 mb-1">Reviewer – Musculoskeletal & Integumentary Systems</h1>
-          <p class="mb-0 text-secondary">Test Types: MCQ • Fill in the Blank • True/False • Case Study • Concept Mapping (Total: 50 pts)</p>
-        </div>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-laboratory"></i> Science Interactive Reviewer</h1>
+  <p class="text-center text-muted">Musculoskeletal System • Integumentary System</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
       </div>
+      <div id="starRow" class="score-stars"></div>
     </div>
-  </header>
+  </div>
 
-  <main class="container container-narrow mb-5">
-    <!-- General Instructions -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-information"></i> General Instructions</div>
-      <div class="dir">
-        <ul class="mb-0">
-          <li>Read each item carefully. Use a separate <strong>answer sheet</strong>.</li>
-          <li>Write answers neatly. For MCQ, write the <strong>letter only</strong>.</li>
-          <li>Answer all items. Manage your time wisely.</li>
-        </ul>
-      </div>
-    </section>
+  <!-- Instructions -->
+  <div class="instructions mb-4">
+    <p class="mb-2"><b>How to Answer</b></p>
+    <ul class="mb-0">
+      <li>Tap the best choice for Multiple Choice and True/False.</li>
+      <li><b>Fill in the Blank / Concept Map:</b> use the dropdowns to pick the correct term.</li>
+      <li>Tap <b>Submit</b> when finished. If anything is unanswered, you’ll be notified and can still proceed.</li>
+      <li>After submitting, each item shows ✅/❌ and a <b>Show Explanation</b> toggle.</li>
+      <li>Use <b>🌙 Dark Mode</b> for comfortable reading.</li>
+    </ul>
+  </div>
 
-    <!-- Part I – Multiple Choice -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-checkmark-circle"></i> Reviewer Part I – Multiple Choice (Items 1–10) • 10 pts</div>
-      <div class="dir mb-3">
-        <strong>Directions:</strong> Choose the <strong>best answer</strong>. Write the <strong>letter only</strong> (A, B, C, or D).
-      </div>
+  <!-- =================== PART I =================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border divider">Part I – Multiple Choice (1–10)</h2>
 
-      <ol start="1">
-        <li>Which system supports the body, protects organs, and allows movement?</li>
-        <li>Which tissue connects <em>muscle to bone</em>?</li>
-        <li>The outermost layer of the skin is the…</li>
-        <li>Which organ protects the brain?</li>
-        <li>Which glands produce sweat?</li>
-        <li>What cushions the ends of bones at joints?</li>
-        <li>Involuntary muscles mainly function to…</li>
-        <li>Which part protects the tips of fingers and toes?</li>
-        <li>Which skin layer contains nerves, sweat glands, and blood vessels?</li>
-        <li>Which system regulates body temperature mainly through sweating?</li>
-      </ol>
-    </section>
-
-    <!-- Part II – Fill in the Blank -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-text-format"></i> Reviewer Part II – Fill in the Blank (Items 11–20) • 10 pts</div>
-      <div class="dir mb-3">
-        <strong>Directions:</strong> Write the missing word/term that best completes each statement.
-      </div>
-
-      <ol start="11">
-        <li>The __________ system gives the body shape, support, and protection.</li>
-        <li>A __________ connects bones to other bones.</li>
-        <li>The __________ connects muscles to bones.</li>
-        <li>The largest organ of the body is the __________.</li>
-        <li>The outermost layer of the skin is the __________.</li>
-        <li>__________ muscles are under our conscious control.</li>
-        <li>The __________ protects the chest (heart and lungs).</li>
-        <li>__________ glands produce oil (sebum) to keep skin soft.</li>
-        <li>__________ cushions the joints to prevent bone damage.</li>
-        <li>The inner skin layer that has nerves and blood vessels is the __________.</li>
-      </ol>
-    </section>
-
-    <!-- Part III – True/False -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-emoji-happy"></i> Reviewer Part III – True or False (Items 21–30) • 10 pts</div>
-      <div class="dir mb-3">
-        <strong>Directions:</strong> Write <strong>T</strong> if the statement is True, and <strong>F</strong> if False.
-      </div>
-
-      <ol start="21">
-        <li>Bones help produce blood cells. _____</li>
-        <li>Ligaments connect muscles to bones. _____</li>
-        <li>The integumentary system helps regulate body temperature. _____</li>
-        <li>Nails and hair belong to the musculoskeletal system. _____</li>
-        <li>Cartilage is softer and more flexible than bone. _____</li>
-        <li>The skull protects the lungs. _____</li>
-        <li>The epidermis is the outermost layer of the skin. _____</li>
-        <li>Voluntary muscles are controlled consciously. _____</li>
-        <li>Sweat glands help the body release excess heat. _____</li>
-        <li>The musculoskeletal system also protects internal organs. _____</li>
-      </ol>
-    </section>
-
-    <!-- Part IV – Case Study -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-clipboard"></i> Reviewer Part IV – Case Study (Items 31–32) • 10 pts</div>
-      <div class="dir mb-3">
-        <strong>Directions:</strong> Read each situation. Answer in <strong>2–3 sentences</strong>. State the exact body part/tissue <em>and</em> its function. (5 points each)
-      </div>
-
-      <ol start="31">
-        <li>Miguel sprained his ankle while playing basketball.  
-          <br>• Which connective tissue is most likely injured?  
-          <br>• Explain why this tissue is affected in a sprain.</li>
-        <li>Anna’s skin is very dry because her oil glands stopped working well.  
-          <br>• Which glands are affected?  
-          <br>• What is their role in skin health?</li>
-      </ol>
-    </section>
-
-    <!-- Part V – Concept Mapping -->
-    <section class="mb-4">
-      <div class="section-title mb-2"><i class="lni lni-network"></i> Reviewer Part V – Concept Mapping (Items 33–50) • 10 pts</div>
-      <div class="dir mb-3">
-        <strong>Directions:</strong> Complete each map by filling in the <strong>main parts</strong> and <strong>key functions</strong>. (5 points each)
-      </div>
-
-      <ol start="33">
-        <li><strong>A) Musculoskeletal System</strong>  
-          <br><u>Parts:</u> __________ • __________ • __________  
-          <br><u>Functions:</u> __________ • __________ • __________  
-        </li>
-        <li><strong>B) Integumentary System</strong>  
-          <br><u>Parts:</u> __________ • __________ • __________ • __________  
-          <br><u>Functions:</u> __________ • __________ • __________  
-        </li>
-      </ol>
-    </section>
-
-    <div class="text-center print-hide">
-      <button class="btn btn-outline-secondary px-4" onclick="window.print()">
-        <i class="lni lni-printer me-1"></i> Print / Save as PDF
-      </button>
+  <div class="question" id="q1">
+    <div class="qhead">1) Which system supports the body, protects organs, and allows movement?</div>
+    <div class="options">
+      <button data-answer="A">A) Musculoskeletal System</button>
+      <button data-answer="B">B) Integumentary System</button>
+      <button data-answer="C">C) Circulatory System</button>
+      <button data-answer="D">D) Nervous System</button>
     </div>
-  </main>
+    <div class="feedback"></div>
+  </div>
 
-  <footer class="py-4 text-center text-secondary small">
-    © 2025 • Science Reviewer • Musculoskeletal & Integumentary • Total: 50 pts
-  </footer>
+  <div class="question" id="q2">
+    <div class="qhead">2) Which tissue connects muscle to bone?</div>
+    <div class="options">
+      <button data-answer="A">A) Tendon</button>
+      <button data-answer="B">B) Ligament</button>
+      <button data-answer="C">C) Cartilage</button>
+      <button data-answer="D">D) Nerve</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) The outermost layer of the skin is the…</div>
+    <div class="options">
+      <button data-answer="A">A) Epidermis</button>
+      <button data-answer="B">B) Dermis</button>
+      <button data-answer="C">C) Hypodermis (subcutaneous)</button>
+      <button data-answer="D">D) Fascia</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) Which structure protects the brain?</div>
+    <div class="options">
+      <button data-answer="A">A) Skull (cranium)</button>
+      <button data-answer="B">B) Rib cage</button>
+      <button data-answer="C">C) Pelvis</button>
+      <button data-answer="D">D) Scapula</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) Which glands produce sweat?</div>
+    <div class="options">
+      <button data-answer="A">A) Sudoriferous (sweat) glands</button>
+      <button data-answer="B">B) Sebaceous (oil) glands</button>
+      <button data-answer="C">C) Salivary glands</button>
+      <button data-answer="D">D) Endocrine glands</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) What cushions the ends of bones at joints?</div>
+    <div class="options">
+      <button data-answer="A">A) Cartilage</button>
+      <button data-answer="B">B) Tendon</button>
+      <button data-answer="C">C) Ligament</button>
+      <button data-answer="D">D) Bone marrow</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) Involuntary muscles mainly function to…</div>
+    <div class="options">
+      <button data-answer="A">A) Move internal organs automatically (e.g., heartbeat, digestion)</button>
+      <button data-answer="B">B) Move bones on command</button>
+      <button data-answer="C">C) Store minerals</button>
+      <button data-answer="D">D) Produce red blood cells</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) Which part protects the tips of fingers and toes?</div>
+    <div class="options">
+      <button data-answer="A">A) Nails</button>
+      <button data-answer="B">B) Hair</button>
+      <button data-answer="C">C) Sweat pores</button>
+      <button data-answer="D">D) Melanin</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) Which skin layer contains nerves, sweat glands, and blood vessels?</div>
+    <div class="options">
+      <button data-answer="A">A) Dermis</button>
+      <button data-answer="B">B) Epidermis</button>
+      <button data-answer="C">C) Hypodermis</button>
+      <button data-answer="D">D) Stratum corneum</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Which system regulates body temperature mainly through sweating?</div>
+    <div class="options">
+      <button data-answer="A">A) Integumentary System</button>
+      <button data-answer="B">B) Digestive System</button>
+      <button data-answer="C">C) Respiratory System</button>
+      <button data-answer="D">D) Reproductive System</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =================== PART II =================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border divider">Part II – Fill in the Blank (11–20)</h2>
+
+  <div class="question" id="q11">
+    <div class="qhead"><span class="badge-num">11</span> The __________ system gives the body shape, support, and protection.</div>
+    <select class="blank" data-correct="Musculoskeletal System">
+      <option value="">-- Select --</option>
+      <option>Musculoskeletal System</option>
+      <option>Integumentary System</option>
+      <option>Circulatory System</option>
+      <option>Nervous System</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead"><span class="badge-num">12</span> A __________ connects bones to other bones.</div>
+    <select class="blank" data-correct="Ligament">
+      <option value="">-- Select --</option>
+      <option>Ligament</option>
+      <option>Tendon</option>
+      <option>Cartilage</option>
+      <option>Muscle</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead"><span class="badge-num">13</span> The __________ connects muscles to bones.</div>
+    <select class="blank" data-correct="Tendon">
+      <option value="">-- Select --</option>
+      <option>Tendon</option>
+      <option>Ligament</option>
+      <option>Cartilage</option>
+      <option>Nerve</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead"><span class="badge-num">14</span> The largest organ of the body is the __________.</div>
+    <select class="blank" data-correct="Skin">
+      <option value="">-- Select --</option>
+      <option>Skin</option>
+      <option>Liver</option>
+      <option>Heart</option>
+      <option>Lungs</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead"><span class="badge-num">15</span> The outermost layer of the skin is the __________.</div>
+    <select class="blank" data-correct="Epidermis">
+      <option value="">-- Select --</option>
+      <option>Epidermis</option>
+      <option>Dermis</option>
+      <option>Hypodermis</option>
+      <option>Stratum basale</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead"><span class="badge-num">16</span> __________ muscles are under our conscious control.</div>
+    <select class="blank" data-correct="Voluntary (skeletal)">
+      <option value="">-- Select --</option>
+      <option>Voluntary (skeletal)</option>
+      <option>Involuntary (smooth)</option>
+      <option>Cardiac</option>
+      <option>Reflex</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead"><span class="badge-num">17</span> The __________ protects the chest (heart and lungs).</div>
+    <select class="blank" data-correct="Rib cage (thoracic cage)">
+      <option value="">-- Select --</option>
+      <option>Rib cage (thoracic cage)</option>
+      <option>Skull (cranium)</option>
+      <option>Pelvis</option>
+      <option>Vertebral column</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead"><span class="badge-num">18</span> __________ glands produce oil (sebum) to keep skin soft.</div>
+    <select class="blank" data-correct="Sebaceous">
+      <option value="">-- Select --</option>
+      <option>Sebaceous</option>
+      <option>Sudoriferous (sweat)</option>
+      <option>Endocrine</option>
+      <option>Salivary</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead"><span class="badge-num">19</span> __________ cushions the joints to prevent bone damage.</div>
+    <select class="blank" data-correct="Cartilage (articular)">
+      <option value="">-- Select --</option>
+      <option>Cartilage (articular)</option>
+      <option>Bone marrow</option>
+      <option>Tendon</option>
+      <option>Ligament</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead"><span class="badge-num">20</span> The inner skin layer that has nerves and blood vessels is the __________.</div>
+    <select class="blank" data-correct="Dermis">
+      <option value="">-- Select --</option>
+      <option>Dermis</option>
+      <option>Epidermis</option>
+      <option>Hypodermis</option>
+      <option>Stratum corneum</option>
+    </select>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =================== PART III =================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border divider">Part III – True or False (21–30)</h2>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) Bones help produce blood cells.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) Ligaments connect muscles to bones.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) The integumentary system helps regulate body temperature.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) Nails and hair belong to the musculoskeletal system.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) Cartilage is softer and more flexible than bone.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) The skull protects the lungs.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) The epidermis is the outermost layer of the skin.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Voluntary muscles are controlled consciously.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Sweat glands help the body release excess heat.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) The musculoskeletal system also protects internal organs.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =================== PART IV =================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border divider">Part IV – Case Study (31–32)</h2>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Miguel sprained his ankle while playing basketball. Which connective tissue is most likely injured, and why?</div>
+    <div class="options">
+      <button data-answer="A">A) Ligament — connects bone to bone; sprains are ligament injuries caused by overstretching or tearing</button>
+      <button data-answer="B">B) Tendon — connects muscle to bone; sprains are tendon injuries</button>
+      <button data-answer="C">C) Cartilage — cushions joints; sprains always damage cartilage only</button>
+      <button data-answer="D">D) Muscle — contracts to move bones; sprains are muscle fiber tears</button>
+    </div>
+    <div class="small-muted">Tip: “Sprain” vs “Strain” — sprain = ligament; strain = muscle/tendon.</div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Anna’s skin is very dry because her oil glands stopped working well. Which glands are affected, and what is their role?</div>
+    <div class="options">
+      <button data-answer="A">A) Sebaceous glands — secrete sebum that lubricates skin & hair to prevent dryness</button>
+      <button data-answer="B">B) Sweat glands — produce sweat for cooling; they mainly add oil for moisture</button>
+      <button data-answer="C">C) Endocrine glands — release hormones directly onto the skin surface</button>
+      <button data-answer="D">D) Salivary glands — add moisture to skin through saliva</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =================== PART V =================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border divider">Part V – Concept Mapping (33–50)</h2>
+
+  <!-- Map A: Musculoskeletal (graded as a 5-pt block) -->
+  <div class="question" id="mapA">
+    <div class="qhead"><span class="badge-num">33–38</span> Musculoskeletal System — <span class="small-muted">Select the 3 main parts and 3 core functions</span></div>
+
+    <div class="mb-2 fw-semibold">Parts</div>
+    <div>
+      <label class="me-2">(<span class="badge-num">33</span>)</label>
+      <select class="map-select" data-correct="Bones">
+        <option value="">-- Select Part --</option>
+        <option>Bones</option><option>Muscles</option><option>Joints</option>
+        <option>Skin</option><option>Hair</option><option>Nails</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">34</span>)</label>
+      <select class="map-select" data-correct="Muscles">
+        <option value="">-- Select Part --</option>
+        <option>Bones</option><option>Muscles</option><option>Joints</option>
+        <option>Glands</option><option>Cartilage</option><option>Ligaments</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">35</span>)</label>
+      <select class="map-select" data-correct="Joints">
+        <option value="">-- Select Part --</option>
+        <option>Joints</option><option>Bones</option><option>Muscles</option>
+        <option>Nerves</option><option>Sweat glands</option><option>Sebaceous glands</option>
+      </select>
+    </div>
+
+    <div class="mt-3 mb-2 fw-semibold">Functions</div>
+    <div>
+      <label class="me-2">(<span class="badge-num">36</span>)</label>
+      <select class="map-select" data-correct="Support & shape">
+        <option value="">-- Select Function --</option>
+        <option>Support & shape</option><option>Protection of organs</option><option>Movement</option>
+        <option>Barrier to pathogens</option><option>Temperature regulation</option><option>Sensation</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">37</span>)</label>
+      <select class="map-select" data-correct="Protection of organs">
+        <option value="">-- Select Function --</option>
+        <option>Protection of organs</option><option>Support & shape</option><option>Movement</option>
+        <option>Vitamin D synthesis</option><option>Sebum production</option><option>Hair growth</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">38</span>)</label>
+      <select class="map-select" data-correct="Movement">
+        <option value="">-- Select Function --</option>
+        <option>Movement</option><option>Excretion via sweat</option><option>Water resistance</option>
+        <option>Sensation</option><option>Barrier to pathogens</option><option>Temperature regulation</option>
+      </select>
+    </div>
+
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Map B: Integumentary (graded as a 5-pt block) -->
+  <div class="question" id="mapB">
+    <div class="qhead"><span class="badge-num">39–50</span> Integumentary System — <span class="small-muted">Select the 4 main parts and 3 key functions (7 blanks shown; the “33–50” item label refers to the sub-items in this map)</span></div>
+
+    <div class="mb-2 fw-semibold">Parts</div>
+    <div>
+      <label class="me-2">(<span class="badge-num">39</span>)</label>
+      <select class="map-select" data-correct="Skin">
+        <option value="">-- Select Part --</option>
+        <option>Skin</option><option>Hair</option><option>Nails</option><option>Glands</option>
+        <option>Bones</option><option>Muscles</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">40</span>)</label>
+      <select class="map-select" data-correct="Hair">
+        <option value="">-- Select Part --</option>
+        <option>Hair</option><option>Skin</option><option>Nails</option><option>Glands</option>
+        <option>Cartilage</option><option>Ligaments</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">41</span>)</label>
+      <select class="map-select" data-correct="Nails">
+        <option value="">-- Select Part --</option>
+        <option>Nails</option><option>Hair</option><option>Skin</option><option>Glands</option>
+        <option>Joints</option><option>Muscles</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">42</span>)</label>
+      <select class="map-select" data-correct="Glands">
+        <option value="">-- Select Part --</option>
+        <option>Glands</option><option>Skin</option><option>Hair</option><option>Nails</option>
+        <option>Bones</option><option>Joints</option>
+      </select>
+    </div>
+
+    <div class="mt-3 mb-2 fw-semibold">Functions</div>
+    <div>
+      <label class="me-2">(<span class="badge-num">43</span>)</label>
+      <select class="map-select" data-correct="Protection (barrier)">
+        <option value="">-- Select Function --</option>
+        <option>Protection (barrier)</option><option>Temperature regulation</option><option>Sensation</option>
+        <option>Support & shape</option><option>Movement</option><option>Mineral storage</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">44</span>)</label>
+      <select class="map-select" data-correct="Temperature regulation">
+        <option value="">-- Select Function --</option>
+        <option>Temperature regulation</option><option>Protection (barrier)</option><option>Sensation</option>
+        <option>Blood cell production</option><option>Movement</option><option>Joint stabilization</option>
+      </select>
+    </div>
+    <div>
+      <label class="me-2">(<span class="badge-num">45</span>)</label>
+      <select class="map-select" data-correct="Sensation">
+        <option value="">-- Select Function --</option>
+        <option>Sensation</option><option>Temperature regulation</option><option>Protection (barrier)</option>
+        <option>Support & shape</option><option>Movement</option><option>Vitamin D synthesis (extra)</option>
+      </select>
+    </div>
+
+    <div class="small-muted mt-2">
+      Note: For simplicity we grade this map as a single 5-point block once all blanks are correct (core parts & functions).
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn"><i class="lni lni-checkmark-circle"></i> Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn"><i class="lni lni-reload"></i> Retake Quiz</button>
+  </div>
+
+</div>
+
+<!-- Dark Mode -->
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()" title="Toggle dark mode"><i class="lni lni-night"></i></button>
+
+<script>
+/* =========================
+   Answer Key
+   ========================= */
+const answers = {
+  // Part I MCQ (1–10)
+  q1:"A", q2:"A", q3:"A", q4:"A", q5:"A", q6:"A", q7:"A", q8:"A", q9:"A", q10:"A",
+  // Part II Fill-in (dropdowns) (11–20)
+  q11:"Musculoskeletal System",
+  q12:"Ligament",
+  q13:"Tendon",
+  q14:"Skin",
+  q15:"Epidermis",
+  q16:"Voluntary (skeletal)",
+  q17:"Rib cage (thoracic cage)",
+  q18:"Sebaceous",
+  q19:"Cartilage (articular)",
+  q20:"Dermis",
+  // Part III T/F (21–30)
+  q21:"T", q22:"F", q23:"T", q24:"F", q25:"T", q26:"F", q27:"T", q28:"T", q29:"T", q30:"T",
+  // Part IV MCQ (31–32)
+  q31:"A", q32:"A"
+  // Part V maps are graded as blocks (mapA, mapB)
+};
+
+/* ============ Explanations (hard-coded) ============ */
+function explain(q){
+  const ex = {
+    // Part I
+    q1:"The <b>musculoskeletal system</b> (bones, muscles, joints) supports the body, protects organs (e.g., skull, rib cage), and works with muscles to produce <b>movement</b>.",
+    q2:"A <b>tendon</b> connects <b>muscle to bone</b>. (<b>Ligament</b> connects bone to bone. <b>Cartilage</b> cushions joints.)",
+    q3:"The <b>epidermis</b> is the <b>outermost</b> skin layer; the <b>dermis</b> lies underneath and contains nerves, vessels, and glands.",
+    q4:"The <b>skull (cranium)</b> is a bony case that <b>protects the brain</b> from mechanical injury.",
+    q5:"<b>Sudoriferous (sweat) glands</b> produce sweat that evaporates to help <b>cool</b> the body.",
+    q6:"<b>Articular cartilage</b> is smooth and resilient, reducing friction and <b>cushioning</b> bone ends at joints.",
+    q7:"<b>Involuntary muscles</b> (cardiac and smooth) drive automatic processes: <b>heartbeat</b>, <b>peristalsis</b>, vessel constriction, etc.",
+    q8:"<b>Nails</b> protect fingertip/toe tip tissues and enhance grip and fine manipulation.",
+    q9:"The <b>dermis</b> contains <b>nerves</b>, <b>blood vessels</b>, and <b>sweat glands</b>; the epidermis is mainly protective layers of cells.",
+    q10:"The <b>integumentary system</b> (skin and glands) regulates temperature chiefly through <b>sweating</b> and blood vessel changes.",
+    // Part II
+    q11:"‘Shape, support, and protection’ are hallmark functions of the <b>musculoskeletal</b> system.",
+    q12:"<b>Ligaments</b> stabilize joints by connecting <b>bone to bone</b>.",
+    q13:"<b>Tendons</b> anchor <b>muscle to bone</b>, transmitting pull to move bones.",
+    q14:"<b>Skin</b> is the body’s largest organ by area and weight.",
+    q15:"The <b>epidermis</b> is the outside layer; the <b>dermis</b> is the functional layer underneath.",
+    q16:"<b>Voluntary (skeletal) muscles</b> are consciously controlled (e.g., moving limbs).",
+    q17:"The <b>rib cage</b> protects the <b>heart</b> and <b>lungs</b>.",
+    q18:"<b>Sebaceous</b> glands secrete <b>sebum</b> (oil) to lubricate skin and hair.",
+    q19:"<b>Cartilage</b> cushions joints, reducing wear and absorbing shock.",
+    q20:"The <b>dermis</b> houses <b>nerves</b>, <b>vessels</b>, and <b>glands</b>; it supports the epidermis.",
+    // Part III
+    q21:"True — <b>red bone marrow</b> produces blood cells (hematopoiesis).",
+    q22:"False — <b>tendons</b> connect muscle to bone; <b>ligaments</b> connect bone to bone.",
+    q23:"True — the <b>integumentary</b> system helps control temperature via sweat and vasodilation/vasoconstriction.",
+    q24:"False — hair and nails belong to the <b>integumentary</b> system.",
+    q25:"True — <b>cartilage</b> is more flexible/softer than bone, ideal for cushioning joints.",
+    q26:"False — the <b>rib cage</b> protects the lungs; the skull protects the brain.",
+    q27:"True — the <b>epidermis</b> is the outermost skin layer.",
+    q28:"True — <b>voluntary</b> (skeletal) muscles are under conscious control.",
+    q29:"True — <b>sweat glands</b> help release heat through evaporation.",
+    q30:"True — bones like the <b>skull</b> and <b>rib cage</b> protect vital organs.",
+    // Part IV
+    q31:"A <b>sprain</b> is a <b>ligament</b> injury (overstretch or tear). Tendon/muscle injuries are <b>strains</b>.",
+    q32:"<b>Sebaceous</b> glands secrete <b>sebum</b> that moisturizes and protects skin/hair; failure leads to dryness.",
+  };
+  return ex[q] || "";
+}
+
+/* ====== Randomize options (MCQ/TF) and dropdown choices (keep placeholder first) ====== */
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+  return array;
+}
+
+function randomizeButtons(){
+  document.querySelectorAll('.options').forEach(opt=>{
+    const btns=[...opt.children];
+    const shuffled=shuffle(btns);
+    shuffled.forEach(b=>opt.appendChild(b));
+  });
+}
+
+function randomizeSelects(){
+  document.querySelectorAll('select.blank, select.map-select').forEach(sel=>{
+    const opts=[...sel.options];
+    const first=opts.shift(); // keep placeholder first
+    const shuffled=shuffle(opts);
+    sel.innerHTML="";
+    sel.appendChild(first);
+    shuffled.forEach(o=>sel.appendChild(o));
+  });
+}
+
+/* ================== Selection handlers ================== */
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ================== Submit / Grade ================== */
+const scorecardEl=document.getElementById('scorecard');
+const totalScoreEl=document.getElementById('totalScore');
+const starRowEl=document.getElementById('starRow');
+const scoreMsgEl=document.getElementById('scoreMsg');
+
+function unansweredCount(){
+  let count=0;
+  // Count MCQ/TF & Fill-ins by presence of dataset.selected or select value
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q);
+    if(!el) return;
+    if(el.classList.contains('question') && el.querySelector('.options')){
+      if(!el.dataset.selected) count++;
+    }else{
+      // fill-in dropdowns
+      const sel=el.querySelector('select.blank');
+      if(sel && !sel.value) count++;
+    }
+  });
+  // Map blocks need all selects chosen
+  ['mapA','mapB'].forEach(id=>{
+    const container=document.getElementById(id);
+    if(!container) return;
+    const sels=container.querySelectorAll('select.map-select');
+    sels.forEach(s=>{ if(!s.value) count++; });
+  });
+  return count;
+}
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const missing=unansweredCount();
+  if(missing){
+    const go=confirm(`You have ${missing} unanswered item(s). Submit anyway?`);
+    if(!go) return;
+  }else{
+    const go=confirm('Are you sure you want to submit?');
+    if(!go) return;
+  }
+
+  let score=0;
+
+  // Grade MCQ / TF / Fill-in (11–20)
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q);
+    if(!el) return;
+    const fb=el.querySelector('.feedback'); fb.innerHTML="";
+    let statusHTML="";
+    if(el.querySelector('.options')){ // button-type
+      const sel=el.dataset.selected;
+      if(!sel) statusHTML=`<div class="unanswered">⚠️ You did not answer this item.</div>`;
+      else if(sel===answers[q]){ statusHTML=`<div class="correct">✅ Correct</div>`; score+=1; }
+      else statusHTML=`<div class="incorrect">❌ Incorrect — Correct: <b>${answers[q]}</b></div>`;
+    }else{ // dropdown-type
+      const s=el.querySelector('select');
+      if(!s || !s.value) statusHTML=`<div class="unanswered">⚠️ You did not answer this item.</div>`;
+      else if(s.value===answers[q]){ statusHTML=`<div class="correct">✅ Correct</div>`; score+=1; }
+      else statusHTML=`<div class="incorrect">❌ Incorrect — Correct: <b>${answers[q]}</b></div>`;
+    }
+    // Explanation toggle
+    const expId=`${q}-exp`;
+    const expHTML = `<button class="exp-toggle" type="button" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+                     <div class="exp" id="${expId}">${explain(q)}</div>`;
+    fb.innerHTML = statusHTML + expHTML;
+  });
+
+  // Grade Concept Maps (block: 5 pts each)
+  function gradeMap(id, corrects, labelText){
+    const el=document.getElementById(id);
+    const fb=el.querySelector('.feedback');
+    const sels=[...el.querySelectorAll('select.map-select')];
+    let ok=true;
+    sels.forEach((s,i)=>{
+      if(s.value!==corrects[i]) ok=false;
+    });
+    if(ok){
+      score+=5;
+      fb.innerHTML=`<div class="correct">✅ ${labelText}: All blanks correct (5 pts).</div>
+        <button class="exp-toggle" type="button" onclick="toggleExp('${id}-exp',this)">Show Explanation</button>
+        <div class="exp" id="${id}-exp">
+          <b>Why correct:</b> Musculoskeletal = Bones, Muscles, Joints → Support & shape, Protect organs, Movement.
+          Integumentary = Skin, Hair, Nails, Glands → Protection (barrier), Temperature regulation, Sensation.
+        </div>`;
+    }else{
+      const corrList = corrects.map(c=>`<code>${c}</code>`).join(", ");
+      fb.innerHTML=`<div class="incorrect">❌ ${labelText}: Some blanks are wrong.<br><b>Correct set:</b> ${corrList} <span class="small-muted">(0/5 for this map)</span></div>
+        <button class="exp-toggle" type="button" onclick="toggleExp('${id}-exp',this)">Show Explanation</button>
+        <div class="exp" id="${id}-exp">
+          <b>Guide:</b> Choose the structural parts and the core functions that match each system’s role.
+        </div>`;
+    }
+  }
+
+  // Map A: expected order equals the selects order above
+  gradeMap('mapA',
+    ["Bones","Muscles","Joints","Support & shape","Protection of organs","Movement"],
+    "Musculoskeletal Concept Map"
+  );
+  // Map B:
+  gradeMap('mapB',
+    ["Skin","Hair","Nails","Glands","Protection (barrier)","Temperature regulation","Sensation"],
+    "Integumentary Concept Map"
+  );
+
+  // Scorecard
+  totalScoreEl.textContent=score.toString();
+  const stars=Math.floor(score/10);
+  starRowEl.textContent="★".repeat(stars)+"☆".repeat(5-stars);
+  let msg="";
+  if(score>=45) msg="🌟 Excellent work!";
+  else if(score>=35) msg="👍 Great job! A little more practice.";
+  else if(score>=25) msg="🙂 Good effort! Review the notes again.";
+  else msg="💪 Keep practicing — you’ve got this!";
+  scoreMsgEl.textContent=msg;
+  scorecardEl.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ================== Retake ================== */
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake the quiz and clear all answers?")) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    const sel=q.querySelector('select'); if(sel) sel.value="";
+  });
+  document.getElementById('scorecard').style.display='none';
+  // re-randomize after reset
+  randomizeButtons();
+  randomizeSelects();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ================== Toggles & Theme ================== */
+function toggleExp(id,btn){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const open=el.style.display==='block';
+  el.style.display=open?'none':'block';
+  btn.innerHTML=open?'Show Explanation':'Hide Explanation';
+}
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+
+/* ================== Init: randomize choices ================== */
+document.addEventListener('DOMContentLoaded',()=>{
+  randomizeButtons();
+  randomizeSelects();
+});
+</script>
 </body>
 </html>
