@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="fil">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filipino 6 Study Guide – Kayarian at Pokus (with 20-Item Quiz)</title>
+
+  <!-- Google Fonts / Bootstrap / LineIcons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --brand:#0ea5e9; --ink:#0f172a; --muted:#475569; --paper:#f8fafc; --border:#e2e8f0; --sel:#e0f2fe;
+    }
+    *{box-sizing:border-box}
+    html,body{font-family:'Roboto',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+    img,svg{max-width:100%;height:auto;display:block}
+    .page-title{font-weight:700;letter-spacing:.2px}
+    .card{border:1px solid var(--border);box-shadow:0 6px 18px rgba(2,8,20,.05)}
+    .brand{color:var(--brand)}
+    .small-muted{color:var(--muted)}
+    .badge-tip{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+    .section-title{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .pill{border-radius:999px;padding:.15rem .6rem;border:1px solid var(--border);background:#fff;display:inline-block}
+    .list-tight li{margin:.2rem 0}
+    .icon{width:1.35rem;display:inline-flex;align-items:center;justify-content:center}
+    details summary{cursor:pointer; user-select:none}
+
+    /* Quiz UI */
+    .choices{display:flex;flex-direction:column;gap:.5rem;margin-top:.35rem}
+    label.choice{display:flex;align-items:flex-start;gap:.6rem;padding:.65rem .8rem;border:1px solid var(--border);border-radius:.6rem;background:#fff;cursor:pointer;width:100%}
+    label.choice input{margin-top:.2rem}
+    label.choice .letter{font-weight:700;min-width:1.25rem}
+    label.choice:has(input:checked){border-color:var(--brand);background:var(--sel);box-shadow:0 0 0 2px rgba(14,165,233,.15) inset}
+    .qnum{min-width:2rem;height:2rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;font-weight:700;margin-right:.5rem}
+    .feedback{min-height:1.3rem}
+    .right{color:#15803d}.wrong{color:#b91c1c}
+
+    /* Sticky controls */
+    .sticky-actions{position:sticky;bottom:0;background:linear-gradient(to top,#fff,rgba(255,255,255,.95));padding:.75rem;border-top:1px solid var(--border);z-index:3;width:100%}
+    .actions-grid{display:grid;grid-template-columns:1fr;gap:.5rem}
+    .actions-grid .btn{width:100%}
+    .score-wrap{display:flex;gap:.5rem;flex-wrap:wrap}
+    .score-wrap .pill{flex:1 1 140px;text-align:center}
+    @media (min-width:768px){
+      .actions-grid{grid-template-columns:1fr 1fr 1fr auto;align-items:center}
+      .score-wrap{justify-self:end}
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <!-- Header -->
+    <header class="mb-4">
+      <h1 class="page-title h3 section-title">
+        <i class="lni lni-graduation brand icon"></i>
+        Filipino 6 Study Guide – Kayarian & Pokus
+      </h1>
+      <p class="small-muted mb-2">
+        Saklaw: <strong>Kayarian ng Pang-uri</strong> (Payak, Maylapi, Tambalan, Inuulit) at
+        <strong>Pokus ng Pandiwa</strong> (Aktor, Layon, Ganapan, Gamit).
+      </p>
+      <div class="alert alert-info py-2 px-3 small mb-0">
+        Gamitin ang <em>Quick Decision Guides</em> at mga halimbawa. Sa ibaba, may <strong>20-point interactive quiz</strong> na may agarang feedback at paliwanag.
+      </div>
+    </header>
+
+    <!-- ===== KAYARIAN NG PANG-URI ===== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title">
+            <i class="lni lni-pencil brand icon"></i>
+            Kayarian ng Pang-uri
+          </h2>
+          <span class="badge badge-tip">Payak • Maylapi • Tambalan • Inuulit</span>
+        </div>
+        <hr class="mt-2 mb-3">
+
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1">1) Payak</h3>
+              <p class="small mb-2"><strong>Kahulugan:</strong> salitang-ugat; walang panlapi, hindi inuulit, hindi tambalan.</p>
+              <p class="mb-2"><strong>Halimbawa:</strong> bago, puti, itim, tuwid, bilog, tapat, payapa, banayad, malawak</p>
+              <p class="small-muted mb-0"><strong>Tip:</strong> Kung puwedeng ilista sa diksyunaryo bilang ugat at walang idinugtong, <em>Payak</em>.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1">2) Maylapi</h3>
+              <p class="small mb-2"><strong>Kahulugan:</strong> may panlapi (unlapi, gitlapi, hulapi, kabilaan).</p>
+              <p class="mb-2"><strong>Karaniwang panlapi:</strong> <em>ma-</em>, <em>napaka-</em>, <em>pinaka-</em>, <em>ka-…-an</em>, <em>maka-</em>, <em>kasing-</em></p>
+              <p class="mb-2"><strong>Halimbawa:</strong> <em>malinis</em>, <em>napakatalino</em>, <em>pinakamabango</em>, <em>kagandahan</em>, <em>kasingtamis</em>, <em>magalang</em></p>
+              <p class="small-muted mb-0"><strong>Tip:</strong> May idinikit bago/sa gitna/sa dulo ng ugat → <em>Maylapi</em>.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1">3) Tambalan</h3>
+              <p class="small mb-2"><strong>Kahulugan:</strong> dalawang salitang-ugat na pinagsama upang bumuo ng iisang pang-uri.</p>
+              <p class="mb-2"><strong>Halimbawa:</strong> bukas-palad, balat-sibuyas, pusong-mamon, pikit-mata, ubod-tamis, walang-kibo</p>
+              <p class="small-muted mb-0"><strong>Tip:</strong> Madalas may <em>gitling (-)</em> at dalawang ugat ang pinagtambal.</p>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1">4) Inuulit</h3>
+              <p class="small mb-2"><strong>Kahulugan:</strong> inuulit ang buo o bahagi ng salita.</p>
+              <ul class="mb-2 list-tight">
+                <li><strong>Parsiyal:</strong> bahagi lang ang inuulit – <em>maliit-liit, ganda-ganda, maayos-ayos</em></li>
+                <li><strong>Ganap:</strong> buo/halos buo – <em>pula-pula, dilaw na dilaw, bago-bago</em></li>
+              </ul>
+              <p class="small-muted mb-0"><strong>Tip:</strong> Kahit may salitang “<em>na</em>” sa gitna (*dilaw na dilaw*), <em>Inuulit</em> pa rin.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-3">
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1"><i class="lni lni-bulb brand"></i> Quick Decision Guide (Kayarian)</h3>
+              <ol class="mb-0 list-tight">
+                <li>Dalawang ugat na pinagdikit? → <strong>Tambalan</strong></li>
+                <li>May pag-uulit (buo o bahagi)? → <strong>Inuulit</strong></li>
+                <li>May panlapi? → <strong>Maylapi</strong></li>
+                <li>Kung wala sa itaas → <strong>Payak</strong></li>
+              </ol>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1"><i class="lni lni-bookmark brand"></i> Sample Sentences</h3>
+              <ul class="mb-0 list-tight">
+                <li><em>Payak:</em> <strong>puti</strong> ang kurtina.</li>
+                <li><em>Maylapi:</em> <strong>napakabango</strong> ng hardin.</li>
+                <li><em>Tambalan:</em> <strong>bukas-palad</strong> si Tito sa mga kapitbahay.</li>
+                <li><em>Inuulit:</em> <strong>pula-pula</strong> ang rosas sa paso.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POKUS NG PANDIWA ===== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title">
+            <i class="lni lni-target brand icon"></i>
+            Pokus ng Pandiwa
+          </h2>
+          <span class="badge badge-tip">Aktor • Layon • Ganapan • Gamit</span>
+        </div>
+        <hr class="mt-2 mb-3">
+
+        <p class="mb-2"><strong>Depinisyon:</strong> Ugnayan ng <em>pandiwa</em> at <em>paksa</em> (salitang may <em>ang/si/ang mga/sina</em>). Tanong gabay: <em>Ano ang papel ng paksa sa kilos?</em></p>
+
+        <div class="table-responsive">
+          <table class="table table-sm align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Pokus</th>
+                <th>Paksa ang…</th>
+                <th>Karaniwang Panlapi</th>
+                <th>Halimbawa + Paliwanag</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Aktor</strong></td>
+                <td>Gumagawa ng kilos</td>
+                <td><em>-um-</em>, <em>mag-/nag-</em>, <em>ma-</em>, <em>mang-</em>, <em>maka-</em></td>
+                <td><em>Naglinis</em> si Dan ng silid. <span class="small-muted">— si Dan ang gumawa</span></td>
+              </tr>
+              <tr>
+                <td><strong>Layon</strong></td>
+                <td>Bagay na inaksyunan</td>
+                <td><em>-in-/-hin-</em>, <em>i-</em></td>
+                <td><em>Tinahi</em> ni Rom ang <strong>punit na pantalon</strong>. <span class="small-muted">— bagay ang tinamaan</span></td>
+              </tr>
+              <tr>
+                <td><strong>Ganapan</strong></td>
+                <td>Lugar na pinangyarihan</td>
+                <td><em>-an/-han</em>, <em>pag-…-an</em></td>
+                <td><em>Pinaglinisan</em> nila ang <strong>bakuran</strong>. <span class="small-muted">— lugar ang paksa</span></td>
+              </tr>
+              <tr>
+                <td><strong>Gamit</strong></td>
+                <td>Gamit/Instrumento</td>
+                <td><em>ipang-</em></td>
+                <td><em>Ipinanghiwa</em> ni Carlo ang <strong>kutsilyo</strong>. <span class="small-muted">— instrumento ang paksa</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1"><i class="lni lni-bulb brand"></i> Quick Decision Guide (Pokus)</h3>
+              <ol class="mb-0 list-tight">
+                <li>Hanapin ang <strong>paksa</strong> (may <em>ang/si</em>).</li>
+                <li>Tukuyin ang papel nito:
+                  <ul class="list-tight">
+                    <li>Gumagawa? → <strong>Aktor</strong></li>
+                    <li>Bagay na inaksyunan? → <strong>Layon</strong></li>
+                    <li>Pinangyarihang lugar? → <strong>Ganapan</strong></li>
+                    <li>Instrumentong ginamit? → <strong>Gamit</strong></li>
+                  </ul>
+                </li>
+                <li>I-check ang <strong>panlapi</strong> kung tugma.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="p-3 border rounded-3 bg-white">
+              <h3 class="h6 mb-1"><i class="lni lni-direction brand"></i> Pagkakaiba (madalas malito)</h3>
+              <ul class="mb-0 list-tight">
+                <li><strong>Layon vs Ganapan:</strong> <em>Pinunasan ang mesa</em> (mesa = bagay → Layon) vs <em>Pinagpunasan ang mesa</em> (mesa = lugar → Ganapan).</li>
+                <li><strong>Gamit vs Layon:</strong> <em>Ipinangputol ang gunting</em> (gunting = instrumento → Gamit) vs <em>Pinutol ang papel</em> (papel = bagay → Layon).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 20-ITEM INTERACTIVE QUIZ ===== -->
+    <section class="card mb-4" id="quiz">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title">
+            <i class="lni lni-checkbox brand icon"></i>
+            20-Item Interactive Quiz (1 pt each)
+          </h2>
+          <span class="badge badge-tip">May feedback at paliwanag</span>
+        </div>
+        <hr class="mt-2 mb-3">
+
+        <div id="quizWrap" class="d-grid gap-3"></div>
+      </div>
+    </section>
+
+    <!-- Sticky Actions -->
+    <div class="sticky-actions">
+      <div class="actions-grid">
+        <button id="checkBtn" class="btn btn-primary btn-lg"><i class="lni lni-bolt"></i> Check Answers</button>
+        <button id="showBtn" class="btn btn-outline-secondary btn-lg"><i class="lni lni-eye"></i> Show Answers</button>
+        <button id="resetBtn" class="btn btn-light border btn-lg"><i class="lni lni-reload"></i> Reset</button>
+        <div class="score-wrap">
+          <span id="scoreBox" class="pill"><strong>Score:</strong> 0 / 20</span>
+          <span id="pctBox" class="pill"><strong>%:</strong> 0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center small-muted mt-3">
+      Mobile-friendly • Google Fonts + Line Icons + Bootstrap 5 • Save/print: <kbd>Ctrl</kbd> + <kbd>P</kbd>
+    </footer>
+  </div>
+
+  <script>
+    // ===== Helpers =====
+    const Letters = ["A","B","C","D"];
+    const KayarianOpts = ["Payak","Maylapi","Tambalan","Inuulit"];
+    const PokusOpts = ["Aktor","Layon","Ganapan","Gamit"];
+
+    function radioGroupHTML(name, options){
+      return `<div class="choices">` + options.map((opt,i)=>`
+        <label class="choice">
+          <input type="radio" name="${name}" value="${opt}">
+          <span class="letter">${Letters[i]}.</span>
+          <span class="opt">${opt}</span>
+        </label>
+      `).join("") + `</div>`;
+    }
+
+    function mcBlockHTML(idx, prompt, name, options){
+      return `
+      <div class="p-3 border rounded-3 bg-white" data-name="${name}" data-points="1">
+        <div class="d-flex align-items-start">
+          <span class="qnum me-2">${idx}</span>
+          <div class="flex-grow-1">
+            <div class="mb-1">${prompt}</div>
+            ${radioGroupHTML(name, options)}
+            <div id="fb-${name}" class="feedback small mt-2"></div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // ===== Quiz Data (20 items) =====
+    const items = [
+      // Kayarian (10)
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>napakabango</strong>.", ans:"Maylapi", exp:"May unlaping <em>napaka-</em> kaya maylapi."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>bukas-palad</strong>.", ans:"Tambalan", exp:"Pinagsamang dalawang ugat na may gitling."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>dilaw na dilaw</strong>.", ans:"Inuulit", exp:"Pag-uulit (ganap), kahit may salitang <em>na</em> sa gitna."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>kagandahan</strong>.", ans:"Maylapi", exp:"Kabilaan: <em>ka-…-an</em> + ugat na <em>ganda</em>."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>puti</strong>.", ans:"Payak", exp:"Salitang-ugat, walang panlapi o pag-uulit."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>ubod-tamis</strong>.", ans:"Tambalan", exp:"Dalawang ugat na pinagtambal (metaporikal)."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>maganda-ganda</strong>.", ans:"Inuulit", exp:"Parsiyal na pag-uulit ng ugat na <em>ganda</em>."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>kasinglaki</strong>.", ans:"Maylapi", exp:"May unlaping <em>kasing-</em>."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>walang-kibo</strong>.", ans:"Tambalan", exp:"Tambalang pang-uri na may gitling."},
+      {type:"kayarian", p:"Tukuyin ang kayarian: <strong>bago</strong>.", ans:"Payak", exp:"Salitang-ugat na pang-uri."},
+
+      // Pokus (10)
+      {type:"pokus", p:"Piliin ang pokus: <strong>Naglinis</strong> si Ana ng kwarto.", ans:"Aktor", exp:"<em>Nag-</em> → aktor; si Ana ang gumawa."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Tinahi</strong> ni Rom ang punit na pantalon.", ans:"Layon", exp:"<em>-in-</em> → layon; pantalon ang bagay na inaksyunan."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Pinaglinisan</strong> nila ang bakuran.", ans:"Ganapan", exp:"<em>pag-…-an</em> → lugar/ganapan; bakuran ang paksa."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Ipinanghiwa</strong> ni Carlo ang kutsilyo.", ans:"Gamit", exp:"<em>ipang-</em> → instrumento/gamit; kutsilyo ang paksa."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Inayos</strong> ni Lia ang mesa.", ans:"Layon", exp:"<em>i-</em> → layon; mesa ang inaksyunan."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Nilagyan</strong> ni Ben ng pako ang kahoy.", ans:"Ganapan", exp:"<em>-an</em> → lokatib; kahoy ang pinaglagyan (lugar)."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Ipinangsulat</strong> ni Kim ang lapis sa karton.", ans:"Gamit", exp:"<em>ipang-</em> → gamit; lapis ang instrumento."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Nagpinta</strong> si Noel sa pader.", ans:"Aktor", exp:"<em>nag-</em> → aktor; si Noel ang gumawa (ang pader ay 'sa', hindi paksa)."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Pinukpok</strong> ni Tito ang pako.", ans:"Layon", exp:"Pagkilos sa bagay; pako ang tinamaan."},
+      {type:"pokus", p:"Piliin ang pokus: <strong>Sinulatan</strong> ni Bea ang pisara.", ans:"Ganapan", exp:"<em>-an</em> → lugar na sinusulatan; pisara ang paksa."}
+    ];
+
+    // ===== Render Quiz =====
+    const quizWrap = document.getElementById("quizWrap");
+    let qIndex = 1;
+    items.forEach((q,i)=>{
+      const name = `q_${i}`;
+      const opts = q.type==="kayarian" ? KayarianOpts : PokusOpts;
+      quizWrap.insertAdjacentHTML("beforeend", mcBlockHTML(qIndex++, q.p, name, opts));
+      const fb = document.getElementById(`fb-${name}`);
+      fb.dataset.answer = q.ans;
+      fb.dataset.exp = q.exp;
+    });
+
+    // ===== Grade / Show / Reset =====
+    const scoreBox = document.getElementById("scoreBox");
+    const pctBox = document.getElementById("pctBox");
+
+    function grade(){
+      let score = 0, total = 0;
+      document.querySelectorAll("[data-name]").forEach(block=>{
+        const name = block.getAttribute("data-name");
+        const pts = Number(block.getAttribute("data-points")) || 1;
+        total += pts;
+        const fb = document.getElementById(`fb-${name}`);
+        const correct = fb.dataset.answer;
+        const exp = fb.dataset.exp || "";
+        const chosenEl = document.querySelector(`input[name="${name}"]:checked`);
+        if(!chosenEl){
+          fb.innerHTML = `<span class="wrong">• Pumili ng sagot</span>`;
+          return;
+        }
+        const ans = chosenEl.value;
+        if(ans === correct){
+          score += pts;
+          fb.innerHTML = `<span class="right">✔ Tama (${pts} pt)</span> <span class="small-muted ms-2">${exp}</span>`;
+        }else{
+          fb.innerHTML = `<span class="wrong">✖ Mali — Tamang sagot: <strong>${correct}</strong> (${pts} pt)</span> <span class="small-muted ms-2">${exp}</span>`;
+        }
+      });
+      scoreBox.innerHTML = `<strong>Score:</strong> ${score} / ${total}`;
+      const pct = Math.round((score/total)*100);
+      pctBox.innerHTML = `<strong>%:</strong> ${isNaN(pct)?0:pct}%`;
+      try{ localStorage.setItem("fil6_study_quiz_v1", JSON.stringify({score, total, ts:Date.now()})); }catch(_){}
+      window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    }
+
+    function showAnswers(){
+      document.querySelectorAll("[data-name]").forEach(block=>{
+        const name = block.getAttribute("data-name");
+        const fb = document.getElementById(`fb-${name}`);
+        const ans = fb.dataset.answer;
+        const exp = fb.dataset.exp || "";
+        fb.innerHTML = `<span class="brand">Answer: <strong>${ans}</strong></span> <span class="small-muted ms-2">${exp}</span>`;
+      });
+    }
+
+    function resetAll(){
+      document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);
+      document.querySelectorAll(".feedback").forEach(fb=>fb.innerHTML="");
+      scoreBox.innerHTML = `<strong>Score:</strong> 0 / 20`;
+      pctBox.innerHTML = `<strong>%:</strong> 0%`;
+      try{ localStorage.removeItem("fil6_study_quiz_v1"); }catch(_){}
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", (e)=>{ e.preventDefault(); grade(); });
+    document.getElementById("showBtn").addEventListener("click", (e)=>{ e.preventDefault(); showAnswers(); });
+    document.getElementById("resetBtn").addEventListener("click", (e)=>{ e.preventDefault(); resetAll(); });
+
+    // preload last score
+    try{
+      const saved = JSON.parse(localStorage.getItem("fil6_study_quiz_v1")||"null");
+      if(saved && saved.total===20){
+        scoreBox.innerHTML = `<strong>Score:</strong> ${saved.score} / ${saved.total}`;
+        pctBox.innerHTML = `<strong>%:</strong> ${Math.round(saved.score/saved.total*100)}%`;
+      }
+    }catch(_){}
+  </script>
+</body>
+</html>
