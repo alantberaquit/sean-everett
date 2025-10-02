@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="fil">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filipino 6 – Kayarian • Pokus ng Pandiwa • Denotasyon • Pagbabasa (50 items • 50 pts)</title>
+
+  <!-- Fonts / Icons / CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --brand:#0ea5e9; --ink:#0f172a; --muted:#475569; --paper:#f8fafc; --border:#e2e8f0;
+      --sel:#e0f2fe;
+    }
+    html,body{background:var(--paper);color:var(--ink);font-family:'Roboto',sans-serif}
+    .page-title{font-weight:700;letter-spacing:.2px}
+    .card{border:1px solid var(--border);box-shadow:0 6px 18px rgba(2,8,20,.04)}
+    .brand{color:var(--brand)}
+    .badge-tip{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+    .pill{border-radius:999px;padding:.1rem .6rem;border:1px solid var(--border);background:#fff}
+    .small-muted{color:var(--muted);font-size:.95rem}
+    .section-title{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .qnum{min-width:2.1rem;height:2.1rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;font-weight:700;margin-right:.5rem}
+    .feedback{min-height:1.4rem}
+    .right{color:#15803d}.wrong{color:#b91c1c}
+    .sticky-actions{position:sticky;bottom:0;background:linear-gradient(to top,#fff,rgba(255,255,255,.7));padding:.75rem;border-top:1px solid var(--border);z-index:3}
+    .kbd{font-family: ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:#e2e8f0;padding:.1rem .35rem;border-radius:.25rem}
+    details summary{cursor:pointer}
+    /* Mobile-friendly choice blocks */
+    .choices{display:flex;flex-direction:column;gap:.5rem;margin-top:.25rem}
+    label.choice{display:flex;align-items:flex-start;gap:.6rem;padding:.55rem .75rem;border:1px solid var(--border);border-radius:.6rem;background:#fff;cursor:pointer}
+    label.choice .letter{font-weight:700;min-width:1.25rem}
+    label.choice input{margin-top:.25rem}
+    label.choice:has(input:checked){border-color:var(--brand);background:var(--sel);box-shadow:0 0 0 2px rgba(14,165,233,.15) inset}
+    /* Make hit area large on touch */
+    @media (hover:none){
+      label.choice{padding:.75rem .9rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <header class="mb-4">
+      <h1 class="page-title h3 section-title">
+        <i class="lni lni-graduation brand"></i> Filipino 6 Interactive Reviewer (50 items • 50 pts)
+      </h1>
+      <p class="small-muted mb-2">
+        Saklaw: <strong>Kayarian ng Pang-uri</strong>, <strong>Pokus ng Pandiwa</strong>, <strong>Denotasyon</strong>, at <strong>Pagbabasa ng Teksto</strong>.
+        <br/>Uri ng pagsusulit: Pagtutukoy, Pagpipili, Pag-unawa sa Teksto. Lahat ng item = 1 punto.
+      </p>
+      <div class="alert alert-info py-2 px-3 small mb-0">
+        Tip: Mas malalaking tap targets para sa mobile. I-click ang <em>Check Answers</em> para makita ang score at paliwanag, o <em>Show Answers</em> para sa key.
+      </div>
+    </header>
+
+    <!-- ============== Section 1: Kayarian (15 items) ============== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title"><i class="lni lni-pencil-alt"></i> Kayarian ng Pang-uri <span class="pill">15 items</span></h2>
+          <span class="badge badge-tip">Payak • Maylapi • Inuulit • Tambalan</span>
+        </div>
+        <hr class="mt-2 mb-3">
+        <p class="small-muted mb-2"><strong>A. Pagtutukoy (8 items)</strong> – Piliin ang <em>kayarian</em> ng salitang ibinigay.</p>
+        <div id="sec1A" class="d-grid gap-3"></div>
+        <hr class="my-3">
+        <p class="small-muted mb-2"><strong>B. Pagpipili (7 items)</strong> – Tukuyin ang kayarian batay sa salita/pangungusap.</p>
+        <div id="sec1B" class="d-grid gap-3"></div>
+      </div>
+    </section>
+
+    <!-- ============== Section 2: Pandiwa (20 items) ============== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title"><i class="lni lni-target"></i> Pokus ng Pandiwa <span class="pill">20 items</span></h2>
+          <span class="badge badge-tip">Aktor • Layon • Ganapan • Tagatanggap • Gamit • Sanhi • Direksiyonal</span>
+        </div>
+        <hr class="mt-2 mb-3">
+        <p class="small-muted mb-2"><strong>A. Pagtutukoy (10 items)</strong> – Piliin ang tamang <em>pokus</em> sa pangungusap (A–D choices lamang).</p>
+        <div id="sec2A" class="d-grid gap-3"></div>
+        <hr class="my-3">
+        <p class="small-muted mb-2"><strong>B. Pagpipili (7 items)</strong> – Piliin ang pokus sa ibinigay na pangungusap.</p>
+        <div id="sec2B" class="d-grid gap-3"></div>
+        <hr class="my-3">
+        <p class="small-muted mb-2"><strong>C. Tamang Panlapi para sa Hinihinging Pokus (3 items)</strong></p>
+        <div id="sec2C" class="d-grid gap-3"></div>
+      </div>
+    </section>
+
+    <!-- ============== Section 3: Denotasyon (10 items) ============== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title"><i class="lni lni-book"></i> Denotasyon (Literal na Kahulugan) <span class="pill">10 items</span></h2>
+          <span class="badge badge-tip">Piliin ang literal / diksyunaryong kahulugan</span>
+        </div>
+        <hr class="mt-2 mb-3">
+        <div id="sec3" class="d-grid gap-3"></div>
+      </div>
+    </section>
+
+    <!-- ============== Section 4: Pagbabasa (5 items) ============== -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h2 class="h5 m-0 section-title"><i class="lni lni-text-format"></i> Pagbabasa ng Teksto <span class="pill">5 items</span></h2>
+          <span class="badge badge-tip">Lahat 1 pt</span>
+        </div>
+        <hr class="mt-2 mb-3">
+
+        <div class="p-3 border rounded-3 bg-white mb-3">
+          <p class="mb-2"><strong>Basahin:</strong></p>
+          <p class="mb-0 small">
+            Tuwing huling Biyernes ng buwan, nagsasagawa ang Grade 6 ng <em>Clean and Green Day</em> sa paaralan.
+            Itinakda ng mga guro ang maikling pulong upang ipaliwanag ang layunin: gawing ligtas, malinis, at maaliwalas ang
+            silid-aralan at kapaligiran. Ayon sa planong ginawa ng mga pinuno ng klase, hinati ang mga mag-aaral sa maliliit
+            na pangkat. May pangkat na nakatalaga sa pagwawalis at pag-alis ng kalat, may pangkat sa pag-aayos ng mga aklat,
+            at mayroon ding grupo sa pagtatanim ng mga halamang ornamental sa bakuran. Binigyang-diin ng punong-guro na
+            <em>priyoridad</em> ang wastong paghihiwalay ng nabubulok at di-nabubulok na basura. Sa huli, nagtipon ang lahat
+            upang suriin ang naging resulta at magmungkahi ng susunod na hakbang. Napagtanto ng mga bata na mas mabilis
+            matapos ang gawain kapag magkakasama at may malinaw na tungkulin ang bawat isa.
+          </p>
+        </div>
+
+        <div id="sec4" class="d-grid gap-3"></div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="sticky-actions d-flex flex-wrap align-items-center gap-2">
+      <button id="checkBtn" class="btn btn-primary"><i class="lni lni-bolt"></i> Check Answers</button>
+      <!-- <button id="showBtn" class="btn btn-outline-secondary"><i class="lni lni-eye"></i> Show Answers</button> -->
+      <button id="resetBtn" class="btn btn-light border"><i class="lni lni-reload"></i> Reset</button>
+      <div class="ms-auto d-flex align-items-center gap-2">
+        <span id="scoreBox" class="pill"><strong>Score:</strong> 0 / 50</span>
+        <span id="pctBox" class="pill"><strong>%:</strong> 0%</span>
+      </div>
+    </div>
+
+    <footer class="text-center small-muted mt-3">
+      Built for Grade 6 practice • Mobile-friendly • Print: <span class="kbd">Ctrl</span> + <span class="kbd">P</span>
+    </footer>
+  </div>
+
+  <script>
+    // ========== Helpers ==========
+    const Letters = ["A","B","C","D","E","F"];
+    const KayarianOpts = ["Payak","Maylapi","Inuulit","Tambalan"];
+
+    // Build vertical radio group with letter labels
+    function radioGroupHTML(name, options){
+      return `<div class="choices">` + options.map((opt,i)=>`
+        <label class="choice">
+          <input type="radio" name="${name}" value="${opt}">
+          <span class="letter">${Letters[i] || ""}.</span>
+          <span class="opt">${opt}</span>
+        </label>
+      `).join("") + `</div>`;
+    }
+
+    function mcBlockHTML(idx, prompt, name, options, points){
+      return `
+      <div class="p-3 border rounded-3 bg-white" data-points="${points||1}" data-name="${name}">
+        <div class="d-flex align-items-start">
+          <span class="qnum me-2">${idx}</span>
+          <div class="flex-grow-1">
+            <div class="mb-1">${prompt}</div>
+            ${radioGroupHTML(name, options)}
+            <div id="fb-${name}" class="feedback small mt-2"></div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // Utility to shuffle an array (Fisher–Yates)
+    function shuffle(arr){
+      let a = arr.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    // ========== Section Data ==========
+
+    // 1A: Kayarian – Pagtutukoy (8 items)
+    const sec1A = [
+      {w:"puti", ans:"Payak"},
+      {w:"napakabango", ans:"Maylapi"},
+      {w:"pula-pula", ans:"Inuulit"},
+      {w:"bukas-palad", ans:"Tambalan"},
+      {w:"kasingtamis", ans:"Maylapi"},
+      {w:"maliit-liit", ans:"Inuulit"},
+      {w:"ganda", ans:"Payak"},
+      {w:"mapagbigay", ans:"Maylapi"},
+    ];
+
+    // 1B: Kayarian – MCQ (7 items)
+    const sec1B = [
+      {p:`Alin ang kayarian ng salitang <strong>magandang</strong> sa pangungusap: “Ang magandang bulaklak ay ibinigay niya sa nanay.”`, ans:"Maylapi"},
+      {p:`Tukuyin ang kayarian: <strong>matibay-tibay</strong>.`, ans:"Inuulit"},
+      {p:`Tukuyin ang kayarian: <strong>balat-sibuyas</strong>.`, ans:"Tambalan"},
+      {p:`Tukuyin ang kayarian: <strong>mabango</strong>.`, ans:"Maylapi"},
+      {p:`Tukuyin ang kayarian: <strong>bago</strong>.`, ans:"Payak"},
+      {p:`Tukuyin ang kayarian: <strong>napakasarap</strong>.`, ans:"Maylapi"},
+      {p:`Tukuyin ang kayarian: <strong>bahay-kubo</strong>.`, ans:"Tambalan"},
+    ];
+
+    // 2A: Pandiwa – Pagtutukoy (10 items) – Each with 4 choices
+    const sec2A = [
+      {s:"Umiyak ang sanggol.", ans:"Aktor", choices:["Aktor","Layon","Ganapan","Tagatanggap"], tip:"um- → aktor ang paksa"},
+      {s:"Ininom ni Lito ang gatas.", ans:"Layon", choices:["Layon","Aktor","Ganapan","Gamit"], tip:"-in- → layon (gatas)"},
+      {s:"Pininturahan nila ang pader.", ans:"Ganapan", choices:["Ganapan","Layon","Tagatanggap","Direksiyonal"], tip:"-an → lugar/ganapan"},
+      {s:"Ipinagluto ni Ana ang kapatid.", ans:"Tagatanggap", choices:["Tagatanggap","Aktor","Ganapan","Layon"], tip:"ipag- → para kanino"},
+      {s:"Ipinanghiwa ni Ruel ang kutsilyo sa mansanas.", ans:"Gamit", choices:["Gamit","Layon","Direksiyonal","Tagatanggap"], tip:"ipang- → instrumento"},
+      {s:"Ikinagalak ni Bea ang pagkapanalo.", ans:"Sanhi", choices:["Sanhi","Aktor","Ganapan","Layon"], tip:"ikina- → sanhi/dahilan"},
+      {s:"Pinuntahan namin ang museo.", ans:"Direksiyonal", choices:["Direksiyonal","Ganapan","Layon","Gamit"], tip:"-an → patutunguhan"},
+      {s:"Binigyan ni Lola ng baon si Carlo.", ans:"Tagatanggap", choices:["Tagatanggap","Layon","Aktor","Gamit"], tip:"-in-/-an → tatanggap"},
+      {s:"Ibinenta ni Ana ang lumang bisikleta.", ans:"Layon", choices:["Layon","Aktor","Direksiyonal","Sanhi"], tip:"i-/ -in- sa layon"},
+      {s:"Pinaglinisan nila ang bakuran.", ans:"Ganapan", choices:["Ganapan","Tagatanggap","Gamit","Aktor"], tip:"pag- -an → lugar na nilinisan"},
+    ];
+
+    // 2B: Pandiwa – MCQ (7 items)
+    const sec2B = [
+      {p:"Ikinahiya ni Marco ang kanyang asal.", ans:"Sanhi", choices:["Sanhi","Layon","Aktor","Tagatanggap"]},
+      {p:"Ipinuwesto ni Liza ang mesa sa gitna.", ans:"Layon", choices:["Layon","Ganapan","Direksiyonal","Aktor"]},
+      {p:"Sinulatan ni Rhea ang punong-guro.", ans:"Tagatanggap", choices:["Tagatanggap","Layon","Gamit","Aktor"]},
+      {p:"Naglinis ng kwarto si Dan.", ans:"Aktor", choices:["Aktor","Layon","Direksiyonal","Ganapan"]},
+      {p:"Tinahi ni Lito ang punit na pantalon.", ans:"Layon", choices:["Layon","Gamit","Tagatanggap","Sanhi"]},
+      {p:"Pinasyalan namin ang Rizal Park.", ans:"Ganapan", choices:["Ganapan","Direksiyonal","Layon","Aktor"]},
+      {p:"Ipinambili ni Jorge ng bigas ang pera.", ans:"Gamit", choices:["Gamit","Layon","Tagatanggap","Sanhi"]},
+    ];
+
+    // 2C: Pandiwa – Tamang panlapi ayon sa hinihinging pokus (3 items)
+    const sec2C = [
+      {
+        p:`(Tagatanggap) ___ ni Mara ang <em>ulam</em> para sa kapatid.`,
+        choices:["Niluto","Ipinagluto","Ipinangluto","Ilinuto"],
+        ans:"Ipinagluto",
+        tip:"ipag- → may tatanggap/beneficiary"
+      },
+      {
+        p:`(Gamit/Instrumental) ___ ang <em>kutsilyo</em> sa paghihiwa ng karne.`,
+        choices:["Ipinanghiwa","Hiniwa","Ipinaghiwa","Ipinahiwa"],
+        ans:"Ipinanghiwa",
+        tip:"ipang- → gamit/instrumento"
+      },
+      {
+        p:`(Tagatanggap) ___ ni Rosa ang kanyang kaibigan sa Maynila ng sulat.`,
+        choices:["Pinadalhan","Ipinadala","Nagpadala","Pinadalaan"],
+        ans:"Pinadalhan",
+        tip:"-an (padalahan) → tatanggap"
+      },
+    ];
+
+    // 3: Denotasyon – MCQ (10 items, 4 options each)
+    const sec3 = [
+      {p:"Piliin ang <strong>denotatibong</strong> kahulugan ng “ahas”.", choices:[
+        "Isang uri ng hayop na gumagapang",
+        "Taksil na kaibigan",
+        "Lihim na galaw laban sa iba",
+        "Tao na tuso sa negosyo"
+      ], ans:"Isang uri ng hayop na gumagapang"},
+      {p:"Alin ang denotasyon ng “bakal”?", choices:[
+        "Metal na matigas at mabigat",
+        "Mahigpit na pamamahala (bakal na kamay)",
+        "Taong hindi umiiyak",
+        "Masinsing plano"
+      ], ans:"Metal na matigas at mabigat"},
+      {p:"Alin ang denotasyon ng “buwan”?", choices:[
+        "Natural na satelayt ng Daigdig na umiikot sa kanya",
+        "Pag-ibig na malayo (tila buwan)",
+        "Isang pangarap na mailap",
+        "Mahalagang oras"
+      ], ans:"Natural na satelayt ng Daigdig na umiikot sa kanya"},
+      {p:"Alin ang denotasyon ng “kulog”?", choices:[
+        "Malakas na tunog kasunod ng kidlat",
+        "Galit na tinig ng guro",
+        "Ingay sa kapitbahay",
+        "Sigaw ng mga manonood"
+      ], ans:"Malakas na tunog kasunod ng kidlat"},
+      {p:"Alin ang denotasyon ng “dila”?", choices:[
+        "Bahagi ng bibig na gamit sa pagsasalita at paglasa",
+        "Dialekto o paraan ng pananalita",
+        "Pagsesermon",
+        "Matamis na pangako"
+      ], ans:"Bahagi ng bibig na gamit sa pagsasalita at paglasa"},
+      {p:"Alin ang denotasyon ng “bulaklak”?", choices:[
+        "Bahagi ng halaman na nagbubunga o pinagmumulan ng bunga",
+        "Pinakamagandang miyembro ng grupo",
+        "Bagong kasintahan",
+        "Pagpapakitang-gilas"
+      ], ans:"Bahagi ng halaman na nagbubunga o pinagmumulan ng bunga"},
+      {p:"Alin ang denotasyon ng “sibuyas”?", choices:[
+        "Gulay na may maraming balat at matapang ang amoy",
+        "Taong madaling masaktan (balat-sibuyas)",
+        "Sekreto na madaling mabunyag",
+        "Pag-iyak sa drama"
+      ], ans:"Gulay na may maraming balat at matapang ang amoy"},
+      {p:"Alin ang denotasyon ng “talon”?", choices:[
+        "Bagsak ng tubig mula sa mataas na lugar (waterfall)",
+        "Matinding tuwa",
+        "Paglipat ng paksa",
+        "Pag-akyat sa antas"
+      ], ans:"Bagsak ng tubig mula sa mataas na lugar (waterfall)"},
+      {p:"Alin ang denotasyon ng “barko”?", choices:[
+        "Malaking sasakyang pandagat",
+        "Taong malaki ang katawan",
+        "Malaking problema",
+        "Maraming bisita"
+      ], ans:"Malaking sasakyang pandagat"},
+      {p:"Alin ang denotasyon ng “kalapati”?", choices:[
+        "Isang uri ng ibon",
+        "Simbolo ng kapayapaan",
+        "Taong maputi ang kutis",
+        "Bagong kasintahan"
+      ], ans:"Isang uri ng ibon"},
+    ];
+
+    // 4: Pagbabasa – 5 items (4 options each)
+    const sec4 = [
+      {p:"(Main Idea) Ano ang pangunahing layunin ng Clean and Green Day?", choices:[
+        "Gawing ligtas, malinis, at maaliwalas ang paaralan",
+        "Magdaos ng paligsahan sa pagitan ng mga seksyon",
+        "Maghanda para sa field trip ng paaralan",
+        "Maglinis lang ng silid-aralan ng Grade 6"
+      ], ans:"Gawing ligtas, malinis, at maaliwalas ang paaralan"},
+      {p:"(Detalye) Paano inorganisa ang mga mag-aaral?", choices:[
+        "Hinati sa maliliit na pangkat na may takdang gawain",
+        "Bumuo ng iisang malaking grupo",
+        "Naglinis ayon sa kung sinong may oras",
+        "Pinapunta lamang ang piling lider"
+      ], ans:"Hinati sa maliliit na pangkat na may takdang gawain"},
+      {p:"(Sanhi-Bunga) Bakit binigyang-diin ang wastong paghihiwalay ng basura?", choices:[
+        "Upang mas maging maayos at ligtas ang paglilinis",
+        "Dahil ito ang pinakamadaling gawain",
+        "Para mas konti ang estudyanteng gagalaw",
+        "Para makaiwas sa init ng araw"
+      ], ans:"Upang mas maging maayos at ligtas ang paglilinis"},
+      {p:"(Pagkakasunod-sunod) Ano ang ginawa ng mga mag-aaral pagkatapos ng mga gawain?", choices:[
+        "Nagtipon upang suriin ang resulta at magmungkahi ng susunod na hakbang",
+        "Nag-uwian kaagad",
+        "Naglaro sa bakuran",
+        "Nagpahinga sa library"
+      ], ans:"Nagtipon upang suriin ang resulta at magmungkahi ng susunod na hakbang"},
+      {p:"(Kahulugan sa Konteksto) Ano ang ibig sabihin ng salitang <em>priyoridad</em> sa talata?", choices:[
+        "Isang bagay na mas mahalaga at dapat unahin",
+        "Isang patakaran na opsyonal lamang",
+        "Isang gawaing pang-extra lamang",
+        "Isang bagay na bihirang gawin"
+      ], ans:"Isang bagay na mas mahalaga at dapat unahin"},
+    ];
+
+    // ========== Render ==========
+    let qIndex = 1;
+
+    function renderSection(containerId, data, isKayarian=false){
+      const wrap = document.getElementById(containerId);
+      data.forEach((q,i)=>{
+        const name = `${containerId}_${i}`;
+        if(q.w){ // kayarian word
+          wrap.insertAdjacentHTML("beforeend",
+            mcBlockHTML(qIndex++, `Tukuyin ang kayarian ng salitang <strong>${q.w}</strong>.`, name, KayarianOpts, 1)
+          );
+        }else if(q.s){ // sentence with pokus (with provided choices)
+          wrap.insertAdjacentHTML("beforeend",
+            mcBlockHTML(qIndex++, `<strong>Piliin ang pokus</strong>: ${q.s}`, name, q.choices || [], 1)
+          );
+        }else if(q.p && q.choices){ // generic MCQ
+          wrap.insertAdjacentHTML("beforeend",
+            mcBlockHTML(qIndex++, q.p, name, q.choices, 1)
+          );
+        }else if(q.p){ // kayarian sec1B
+          wrap.insertAdjacentHTML("beforeend",
+            mcBlockHTML(qIndex++, q.p, name, KayarianOpts, 1)
+          );
+        }
+        const fb = document.getElementById(`fb-${name}`);
+        fb.dataset.answer = q.ans;
+        if(q.tip) fb.dataset.tip = q.tip;
+      });
+    }
+
+    renderSection("sec1A", sec1A);
+    renderSection("sec1B", sec1B);
+    renderSection("sec2A", sec2A);
+    renderSection("sec2B", sec2B);
+    renderSection("sec2C", sec2C);
+    renderSection("sec3",  sec3);
+    renderSection("sec4",  sec4);
+
+    // ========== Check / Show / Reset ==========
+    const scoreBox = document.getElementById("scoreBox");
+    const pctBox = document.getElementById("pctBox");
+
+    function grade(){
+      let score = 0, total = 0;
+      document.querySelectorAll("[data-name]").forEach(block=>{
+        const name = block.getAttribute("data-name");
+        const pts = Number(block.getAttribute("data-points")) || 1;
+        total += pts;
+        const fb = document.getElementById(`fb-${name}`);
+        const correct = fb.dataset.answer;
+        const tip = fb.dataset.tip || "";
+        const chosenEl = document.querySelector(`input[name="${name}"]:checked`);
+        if(!chosenEl){
+          fb.innerHTML = `<span class="wrong">• Pumili ng sagot</span>`;
+          return;
+        }
+        const ans = chosenEl.value;
+        if(ans === correct){
+          score += pts;
+          fb.innerHTML = `<span class="right">✔ Tama (${pts} pt)</span> <span class="small-muted ms-2">${tip}</span>`;
+        }else{
+          fb.innerHTML = `<span class="wrong">✖ Mali — Tamang sagot: <strong>${correct}</strong> (${pts} pt)</span> <span class="small-muted ms-2">${tip}</span>`;
+        }
+      });
+      scoreBox.innerHTML = `<strong>Score:</strong> ${score} / ${total}`;
+      const pct = Math.round((score/total)*100);
+      pctBox.innerHTML = `<strong>%:</strong> ${isNaN(pct)?0:pct}%`;
+      try{ localStorage.setItem("fil6_score_v2", JSON.stringify({score, total, ts:Date.now()})); }catch(_){}
+    }
+
+    function showAnswers(){
+      document.querySelectorAll("[data-name]").forEach(block=>{
+        const name = block.getAttribute("data-name");
+        const fb = document.getElementById(`fb-${name}`);
+        const ans = fb.dataset.answer;
+        const tip = fb.dataset.tip || "";
+        fb.innerHTML = `<span class="brand">Answer: <strong>${ans}</strong></span> <span class="small-muted ms-2">${tip}</span>`;
+      });
+    }
+
+    function resetAll(){
+      document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);
+      document.querySelectorAll(".feedback").forEach(fb=>fb.innerHTML="");
+      scoreBox.innerHTML = `<strong>Score:</strong> 0 / 50`;
+      pctBox.innerHTML = `<strong>%:</strong> 0%`;
+    }
+
+    document.getElementById("checkBtn").addEventListener("click", (e)=>{ e.preventDefault(); grade(); });
+    document.getElementById("showBtn").addEventListener("click", (e)=>{ e.preventDefault(); showAnswers(); });
+    document.getElementById("resetBtn").addEventListener("click", (e)=>{ e.preventDefault(); resetAll(); });
+
+    // preload last score
+    try{
+      const saved = JSON.parse(localStorage.getItem("fil6_score_v2")||"null");
+      if(saved && saved.total===50){
+        scoreBox.innerHTML = `<strong>Score:</strong> ${saved.score} / ${saved.total}`;
+        pctBox.innerHTML = `<strong>%:</strong> ${Math.round(saved.score/saved.total*100)}%`;
+      }
+    }catch(_){}
+  </script>
+</body>
+</html>
