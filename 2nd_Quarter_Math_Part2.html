@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Quiz – Signs with Exponents + Proportion Types (Grade 6)</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --brand:#0ea5e9; --ink:#0f172a; --muted:#475569; --paper:#f8fafc; --border:#e2e8f0;
+    }
+    html,body{background:var(--paper);color:var(--ink);font-family:'Roboto',sans-serif;}
+    .page-title{font-weight:700;letter-spacing:.3px}
+    .card{border:1px solid var(--border);box-shadow:0 6px 18px rgba(2,8,20,.04)}
+    .badge-tip{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+    .q-num{width:2.2rem;height:2.2rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;font-weight:700;margin-right:.5rem}
+    .expr{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:1.05rem}
+    .feedback{min-height:1.5rem}
+    .sticky-actions{position:sticky;bottom:0;background:linear-gradient(to top, #fff, rgba(255,255,255,.7));padding:.75rem;border-top:1px solid var(--border)}
+    .small-muted{color:var(--muted);font-size:.95rem}
+    .right{color:#15803d}
+    .wrong{color:#b91c1c}
+    .pill{border-radius:999px;padding:.15rem .6rem;border:1px solid var(--border);background:#fff}
+    .brand{color:var(--brand)}
+    .kbd{font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; background:#e2e8f0; padding:.1rem .35rem; border-radius:.25rem;}
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <header class="mb-4">
+      <h1 class="page-title h3 d-flex align-items-center gap-2">
+        <i class="lni lni-graduation brand"></i> Math Interactive – Signs with Exponents & Proportion Types (G6)
+      </h1>
+      <p class="small-muted mb-1">
+        Choose <span class="pill">Positive</span> or <span class="pill">Negative</span> for each expression. 
+        Remember: <strong>Exponents first</strong>, then apply the negative sign.
+      </p>
+      <div class="alert alert-info py-2 px-3 small mb-0">
+        <strong>Rule of Thumb:</strong> In <span class="expr">-3^2</span>, the exponent applies to <em>3</em> only, then the negative makes it <span class="expr">-(3^2) = -9</span>. 
+        To square a negative number, you must use parentheses: <span class="expr">(-3)^2 = +9</span>.
+      </div>
+    </header>
+
+    <!-- QUIZ CARD -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h2 class="h5 m-0"><i class="lni lni-checkmark-circle"></i> Quiz: Positive or Negative? (20 items)</h2>
+          <span class="badge badge-tip text-uppercase">Exponents First</span>
+        </div>
+        <hr class="mt-2 mb-3">
+
+        <form id="quizForm" class="d-grid gap-3">
+          <!-- Questions will be injected here -->
+        </form>
+
+        <div class="sticky-actions mt-3 d-flex flex-wrap align-items-center gap-2">
+          <button id="checkBtn" class="btn btn-primary">
+            <i class="lni lni-bolt"></i> Check Answers
+          </button>
+          <!-- <button id="showAnswersBtn" type="button" class="btn btn-outline-secondary">
+            <i class="lni lni-eye"></i> Show Correct Signs
+          </button> -->
+          <button id="resetBtn" type="button" class="btn btn-light border">
+            <i class="lni lni-reload"></i> Reset
+          </button>
+          <div class="ms-auto">
+            <span id="scoreBox" class="pill"><strong>Score:</strong> 0 / 20</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPORTION TYPES STUDY CARD -->
+    <section class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h2 class="h5 m-0"><i class="lni lni-ruler-pencil"></i> Study: 3 Types of Proportion (Grade 6)</h2>
+          <span class="badge badge-tip">Quick Guide</span>
+        </div>
+        <hr class="mt-2 mb-3">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100 bg-white">
+              <h6 class="mb-1">1) Direct Proportion</h6>
+              <p class="small mb-2">As one quantity <em>increases</em>, the other also <em>increases</em> at a constant rate (or both decrease together).</p>
+              <ul class="small mb-2">
+                <li>Formula idea: <span class="expr">y = kx</span> (k is constant)</li>
+                <li>Example: More apples bought → higher total price.</li>
+              </ul>
+              <span class="badge text-bg-success">Same direction</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100 bg-white">
+              <h6 class="mb-1">2) Inverse Proportion</h6>
+              <p class="small mb-2">As one quantity <em>increases</em>, the other <em>decreases</em> such that the product stays constant.</p>
+              <ul class="small mb-2">
+                <li>Formula idea: <span class="expr">y = k / x</span></li>
+                <li>Example: More workers → less time to finish the same job.</li>
+              </ul>
+              <span class="badge text-bg-warning">Opposite direction</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border rounded-3 h-100 bg-white">
+              <h6 class="mb-1">3) Partitive Proportion</h6>
+              <p class="small mb-2">Dividing a whole amount into parts according to a given ratio.</p>
+              <ul class="small mb-2">
+                <li>Idea: Split ₱600 among Ana:Ben:Cal = 2:3:5 → parts sum = 10 → Ana gets 2/10 of 600, etc.</li>
+              </ul>
+              <span class="badge text-bg-info">Sharing by ratio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Quick-Check (Optional, not counted in main score) -->
+        <div class="mt-3">
+          <details class="mb-2">
+            <summary class="fw-medium">Try a 3-item quick check (not graded)</summary>
+            <div class="mt-2 d-grid gap-2">
+              <div class="border rounded-3 p-3 bg-white">
+                <p class="mb-2"><strong>P1.</strong> Buying more pencils increases total cost at a constant price per pencil. This is…</p>
+                <div>
+                  <label class="me-3"><input type="radio" name="p1"> Direct</label>
+                  <label class="me-3"><input type="radio" name="p1"> Inverse</label>
+                  <label class="me-3"><input type="radio" name="p1"> Partitive</label>
+                </div>
+              </div>
+              <div class="border rounded-3 p-3 bg-white">
+                <p class="mb-2"><strong>P2.</strong> 8 workers finish in 5 days; 10 workers finish faster. This is…</p>
+                <div>
+                  <label class="me-3"><input type="radio" name="p2"> Direct</label>
+                  <label class="me-3"><input type="radio" name="p2"> Inverse</label>
+                  <label class="me-3"><input type="radio" name="p2"> Partitive</label>
+                </div>
+              </div>
+              <div class="border rounded-3 p-3 bg-white">
+                <p class="mb-2"><strong>P3.</strong> Share ₱900 in the ratio 1:2:2 among three friends. This is…</p>
+                <div>
+                  <label class="me-3"><input type="radio" name="p3"> Direct</label>
+                  <label class="me-3"><input type="radio" name="p3"> Inverse</label>
+                  <label class="me-3"><input type="radio" name="p3"> Partitive</label>
+                </div>
+              </div>
+              <button id="checkMini" class="btn btn-outline-primary w-auto">
+                <i class="lni lni-checkmark"></i> Reveal Mini Answers
+              </button>
+              <div id="miniOut" class="small-muted"></div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center small-muted">
+      Built for Grade 6 practice • Tip: Use <span class="kbd">Ctrl</span> + <span class="kbd">P</span> to print or save as PDF
+    </footer>
+  </div>
+
+  <script>
+    // === Quiz Data (20 items) ===
+    // Only TWO are Positive: #13 and #15; all others are Negative.
+    const items = [
+      {expr:"(-4^2)", value:-16},
+      {expr:"(-5^3)", value:-125},
+      {expr:"(-2^4)", value:-16},
+      {expr:"(-7^1)", value:-7},
+      {expr:"(-6^2)", value:-36},
+      {expr:"(-3^2) + (-2^2)", value:-9 + (-4)},
+      {expr:"(-5^2) + (-2^3)", value:-25 + (-8)},
+      {expr:"(-4^3) + (-1^2)", value:-64 + (-1)},
+      {expr:"(-2^2) + (-3^3)", value:-4 + (-27)},
+      {expr:"(-1^5) + (-1^2)", value:-1 + (-1)},
+      {expr:"(-6^2) - (-2^3)", value:-36 - (-8)},      // = -28
+      {expr:"(-3^3) - (-2^2)", value:-27 - (-4)},      // = -23
+      {expr:"(-4^2) - (-5^3)", value:-16 - (-125)},    // = 109
+      {expr:"(-2^4) - (-2^3)", value:-16 - (-8)},      // = -8
+      {expr:"(-7^2) - (-6^3)", value:-49 - (-216)},    // = 167
+      {expr:"(-2^5) + (-2^4)", value:-32 + (-16)},     // = -48
+      {expr:"(-3^4) + (-3^3)", value:-81 + (-27)},     // = -108
+      {expr:"(-4^3) - (-2^4)", value:-64 - (-16)},     // = -48
+      {expr:"(-5^2) + (-1^6)", value:-25 + (-1)},      // = -26
+      {expr:"(-8^2) - (-2^5)", value:-64 - (-32)}      // = -32
+    ].map((q, i) => ({...q, sign: q.value > 0 ? "Positive" : q.value < 0 ? "Negative" : "Zero"}));
+
+    const form = document.getElementById('quizForm');
+
+    // Build the form
+    items.forEach((q, idx) => {
+      const idP = `q${idx}_P`;
+      const idN = `q${idx}_N`;
+      const block = document.createElement('div');
+      block.className = 'p-3 border rounded-3 bg-white';
+
+      block.innerHTML = `
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <span class="q-num">${idx+1}</span>
+            <span class="expr">${q.expr}</span>
+          </div>
+          <div class="small-muted">
+            <span class="pill">Value on check</span>
+          </div>
+        </div>
+        <div class="mt-2">
+          <label class="me-3">
+            <input type="radio" name="q${idx}" id="${idP}" value="Positive" /> Positive
+          </label>
+          <label class="me-3">
+            <input type="radio" name="q${idx}" id="${idN}" value="Negative" /> Negative
+          </label>
+        </div>
+        <div id="fb${idx}" class="feedback small mt-2"></div>
+      `;
+      form.appendChild(block);
+    });
+
+    // Buttons
+    const scoreBox = document.getElementById('scoreBox');
+    const checkBtn = document.getElementById('checkBtn');
+    const showAnswersBtn = document.getElementById('showAnswersBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    checkBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      let score = 0;
+      items.forEach((q, idx) => {
+        const choice = (form.querySelector(`input[name="q${idx}"]:checked`)||{}).value;
+        const fb = document.getElementById(`fb${idx}`);
+        if (!choice) {
+          fb.innerHTML = `<span class="wrong">• Select an answer</span>`;
+        } else if (choice === q.sign) {
+          score++;
+          fb.innerHTML = `<span class="right">✔ Correct — ${q.sign}. <span class="small-muted">Value = ${q.value}</span></span>`;
+        } else {
+          fb.innerHTML = `<span class="wrong">✖ Incorrect — Correct is <strong>${q.sign}</strong>. <span class="small-muted">Value = ${q.value}</span></span>`;
+        }
+      });
+      scoreBox.innerHTML = `<strong>Score:</strong> ${score} / ${items.length}`;
+      // Save simple progress (optional)
+      try { localStorage.setItem('g6_signs_score', score); } catch(_) {}
+    });
+
+    showAnswersBtn.addEventListener('click', () => {
+      items.forEach((q, idx) => {
+        const fb = document.getElementById(`fb${idx}`);
+        fb.innerHTML = `<span class="brand">Answer: <strong>${q.sign}</strong></span> <span class="small-muted ms-2">Value = ${q.value}</span>`;
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      items.forEach((_, idx) => {
+        document.getElementById(`fb${idx}`).innerHTML = '';
+      });
+      scoreBox.innerHTML = `<strong>Score:</strong> 0 / ${items.length}`;
+    });
+
+    // Mini proportion quick-check
+    document.getElementById('checkMini').addEventListener('click', (e) => {
+      e.preventDefault();
+      const ans = { p1:'Direct', p2:'Inverse', p3:'Partitive' };
+      let out = [];
+      for (const k of Object.keys(ans)) {
+        const chosen = [...document.querySelectorAll(`input[name="${k}"]`)]
+          .find(r => r.checked)?.parentElement?.innerText?.trim();
+        const ok = chosen && chosen.toLowerCase().startsWith(ans[k].toLowerCase());
+        out.push(`${k.toUpperCase()}: ${ok ? '✔' : '✖'} (Answer: ${ans[k]})`);
+      }
+      document.getElementById('miniOut').textContent = out.join('  •  ');
+    });
+  </script>
+</body>
+</html>
