@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CLVE Reviewer – The Second & Third Commandments (50 Items)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body{font-family: Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif; background:#f8fafc}
+    .paper{max-width: 980px; margin: 24px auto; background:#fff; border:1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.06)}
+    .paper .header{background: linear-gradient(180deg,#0ea5e9,#0284c7); color:#fff; border-radius:12px 12px 0 0; padding:24px}
+    .paper .header h1{font-size:1.4rem; margin:0}
+    .paper .header p{margin:4px 0 0; opacity:.95}
+    .section-title{font-weight:700; margin: 28px 0 12px; font-size:1.05rem; color:#0f172a}
+    .question{padding:14px 16px; border:1px solid #e5e7eb; border-radius:10px; margin-bottom:12px; background:#ffffff}
+    .qnum{font-weight:700; color:#0ea5e9; margin-right:6px}
+    .choices .form-check{margin-left:6px}
+    .explanation{display:none; border-left:4px solid #0ea5e9; background:#f0f9ff; color:#082f49; padding:10px 12px; border-radius:6px; margin-top:10px}
+    .badge-type{font-size:.75rem; margin-left:6px}
+    .scorebox{position:sticky; bottom:12px; right:12px; background:#0ea5e9; color:#fff; border-radius:999px; padding:8px 14px; display:inline-block}
+    .footer-note{font-size:.85rem; color:#6b7280}
+    .req{color:#ef4444}
+    .instr{background:#f9fafb; border:1px dashed #cbd5e1; padding:12px; border-radius:10px}
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <div class="header">
+      <h1><i class="fa-solid fa-dove me-2"></i>CLVE Reviewer – The Second & Third Commandments</h1>
+      <p>For: <strong>Sean Everett Beraquit (Grade 6)</strong> • Total Items: <strong>50</strong> • Time: 40–50 mins</p>
+    </div>
+    <div class="p-3 p-md-4">
+      <div class="instr mb-3">
+        <strong>Instructions:</strong> Answer all questions. For Multiple Choice, select the best answer. For True/False, choose T or F. For Identification/Situational, type the word/phrase asked. Click <em>Submit</em> to see score and explanations.
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button id="submitBtn" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i>Submit Answers</button>
+        <button id="resetBtn" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i>Reset</button>
+      </div>
+
+      <hr class="my-4" />
+      <div id="result" class="mb-2 fs-5"></div>
+      <div id="summary"></div>
+
+      <p class="footer-note mt-3">Coverage: Second Commandment (Respecting God's Holy Name), Third Commandment (Keeping the Lord's Day Holy). Explanations appear after you submit.</p>
+    </div>
+  </div>
+
+<script>
+// ===== Helper formatting =====
+const html = String.raw;
+
+// Normalize user text for short answers
+function norm(s){
+  return (s||'').toString().trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+// Accept if user's answer matches any in acceptable list (case-insensitive)
+function accepts(user, list){
+  const u = norm(user);
+  return list.some(x => {
+    const target = norm(x);
+    if(target.includes('*')){
+      // wildcard support: * stands for any characters
+      const pattern = new RegExp('^' + target.split('*').map(y=>y.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('.*') + '$');
+      return pattern.test(u);
+    }
+    return u === target;
+  });
+}
+
+// ===== Question Bank =====
+// Types: mcq, tf, id (identification / fill-in), sit (short text situational)
+const questions = [
+  // 25 MCQ (1–25)
+  {type:'mcq', id:1,  text:'What is the Second Commandment?', 
+    choices:['Keep holy the Sabbath day','Honor your father and mother','You shall not take the name of the Lord your God in vain','You shall not steal'],
+    answer:2,
+    explain:'The Second Commandment forbids misuse of God\'s name; we must treat it with reverence.'},
+  {type:'mcq', id:2,  text:'To use God\'s name properly means to…',
+    choices:['Avoid praying aloud','Bless, praise, and glorify His name','Use it only when angry','Never say it at all'],
+    answer:1,
+    explain:'Proper use: bless, praise, and glorify God\'s name.'},
+  {type:'mcq', id:3,  text:'What is the most serious sin against the Second Commandment?',
+    choices:['Laziness','Blasphemy','Gossip','Jealousy'],
+    answer:1,
+    explain:'Blasphemy = words of hatred or defiance against God, Jesus, the Church, or the saints.'},
+  {type:'mcq', id:4,  text:'“Abba,” used by Jesus, most nearly means…',
+    choices:['Master','Judge','Father / Daddy','Lord of Hosts'],
+    answer:2,
+    explain:'Abba is an intimate Aramaic term meaning Father (like “Daddy”).'},
+  {type:'mcq', id:5,  text:'“Shekinah” refers to…',
+    choices:['The Ten Commandments','The visible presence of God','A Hebrew greeting','A Jewish festival'],
+    answer:1,
+    explain:'Shekinah = God\'s visible dwelling/presence (e.g., cloud by day in the desert).'},
+  {type:'mcq', id:6,  text:'Which is an example of using God\'s name in vain?',
+    choices:['Prayer before meals','Saying “Oh my God” in anger or lying','Singing a hymn at Mass','Silently reflecting'],
+    answer:1,
+    explain:'Careless/angry or deceitful use shows disrespect for God\'s holy name.'},
+  {type:'mcq', id:7,  text:'How should old or broken sacramentals (e.g., damaged rosary) be disposed?',
+    choices:['Throw in trash','Donate to anyone','Burn or bury respectfully','Sell online'],
+    answer:2,
+    explain:'Sacramentals are treated with reverence; dispose by burning or burying respectfully.'},
+  {type:'mcq', id:8,  text:'Proper response at Mass: “The Word of the Lord.” People reply…',
+    choices:['“Praise to you, Lord Jesus Christ.”','“Thanks be to God.”','“Amen, amen.”','“Alleluia.”'],
+    answer:1,
+    explain:'After readings, the assembly responds: “Thanks be to God.”'},
+  {type:'mcq', id:9,  text:'Original sense of “Bahala na Diyos” best expresses…',
+    choices:['Giving up responsibility','Irresponsible risk-taking','Deep trust that God will provide while doing our part','Superstition'],
+    answer:2,
+    explain:'It means faith-filled trust in God, not laziness.'},
+  {type:'mcq', id:10, text:'The Third Commandment tells us to…',
+    choices:['Avoid all work forever','Keep holy the Sabbath / Lord\'s Day','Never celebrate festivals','Fast every Sunday'],
+    answer:1,
+    explain:'It commands keeping holy the Sabbath (fulfilled in Sunday, the Lord\'s Day).'},
+  {type:'mcq', id:11, text:'Why do Christians keep Sunday as the Lord\'s Day?',
+    choices:['Because it was convenient for workers','It is the day of Jesus\' Resurrection','The apostles preferred it to Saturday','It follows Roman law only'],
+    answer:1,
+    explain:'Sunday celebrates the Resurrection, the beginning of new creation.'},
+  {type:'mcq', id:12, text:'What fulfills the Sunday obligation if attended on Saturday evening?',
+    choices:['Any prayer at home','A weekday Mass','An anticipatory (vigil) Mass','Confession'],
+    answer:2,
+    explain:'The Church permits fulfilling the obligation Saturday evening (anticipatory Mass).'},
+  {type:'mcq', id:13, text:'“Menuha,” the Sabbath rest, means…',
+    choices:['Only sleeping all day','Freedom from all chores forever','Peace, harmony, serenity in God','Playing video games all day'],
+    answer:2,
+    explain:'Menuha = tranquil rest in God, more than just stopping work.'},
+  {type:'mcq', id:14, text:'Which best summarizes Jesus\' teaching: “The Sabbath was made for man, not man for the Sabbath”?',
+    choices:['People exist to serve rules','Rules are always more important than people','The law serves human good and salvation','The Sabbath must be ignored'],
+    answer:2,
+    explain:'God\'s law serves our good; acts of mercy are fitting on the holy day.'},
+  {type:'mcq', id:15, text:'According to Catholic teaching, missing Sunday Mass without a serious reason is…',
+    choices:['Not a big deal','A serious moral fault','Always excused for students','Optional'],
+    answer:1,
+    explain:'Deliberately missing Mass without grave reason is a serious sin.'},
+  {type:'mcq', id:16, text:'Which activity best fits the balance of the Lord\'s Day?',
+    choices:['Skipping Mass for shopping','Mass, family time, and a work of mercy','Gaming all day alone','Doing unnecessary business all day'],
+    answer:1,
+    explain:'Lord\'s Day = worship, rest/joy, and charity.'},
+  {type:'mcq', id:17, text:'Jesus healed on the Sabbath to teach that…',
+    choices:['No one should work ever','Only priests can act on Sundays','Doing good and mercy honors God even on the Sabbath','The Sabbath law should be abolished'],
+    answer:2,
+    explain:'Acts of mercy are always appropriate.'},
+  {type:'mcq', id:18, text:'The Jewish Sabbath is celebrated on…',
+    choices:['Friday','Saturday','Sunday','Monday'],
+    answer:1,
+    explain:'Sabbath = Saturday, the seventh day; Christians keep Sunday, the Lord\'s Day.'},
+  {type:'mcq', id:19, text:'Which statement about the Eucharist is correct?',
+    choices:['It is optional on Sundays','It is the Church\'s central act of worship','It is only a symbol','It replaces prayer'],
+    answer:1,
+    explain:'The Eucharist is the supreme memorial of Christ\'s Paschal Mystery.'},
+  {type:'mcq', id:20, text:'Respect for God\'s name leads us also to…',
+    choices:['Ignore others\' names','Respect people\'s names and reputations','Use nicknames disrespectfully','Only respect saints\' names'],
+    answer:1,
+    explain:'We honor the names of all persons (including Mary and the saints).'},
+  {type:'mcq', id:21, text:'Which of the following is a sacramental?',
+    choices:['Rosary','Baptism','Confession','Confirmation'],
+    answer:0,
+    explain:'Rosary and crucifix are sacramentals (sacraments are Baptism, etc.).'},
+  {type:'mcq', id:22, text:'During Mass readings, after “The Word of the Lord,” the people say…',
+    choices:['“And with your spirit.”','“Thanks be to God.”','“Glory to You.”','“Holy, Holy, Holy.”'],
+    answer:1,
+    explain:'Liturgical response to the reading: “Thanks be to God.”'},
+  {type:'mcq', id:23, text:'Which best describes the Christian Lord\'s Day?',
+    choices:['A day to maximize profit','A day of worship, rest, and loving service','A day with no prayer','A day of strict rules only'],
+    answer:1,
+    explain:'The Lord\'s Day balances worship, rest/joy, and works of mercy.'},
+  {type:'mcq', id:24, text:'Blasphemy includes…',
+    choices:['Telling a joke kindly','Words of hatred or defiance against God or the saints','A respectful question','Silent prayer'],
+    answer:1,
+    explain:'Blasphemy is grave disrespect to God, Jesus, the Church, or saints.'},
+  {type:'mcq', id:25, text:'Which reason also grounds Sabbath rest in the Old Testament?',
+    choices:['Israel\'s liberation from slavery in Egypt','Harvest superstition','Roman weekend custom','Greek philosophy only'],
+    answer:0,
+    explain:'Sabbath recalls creation rest and liberation from slavery.'},
+
+  // 15 True/False (26–40)
+  {type:'tf', id:26, text:'Using God\'s name casually in anger is acceptable if you do not mean it.', answer:false,
+    explain:'Casual or angry use of God\'s name is irreverent and forbidden.'},
+  {type:'tf', id:27, text:'“Abba” expresses a close, loving relationship with God.', answer:true,
+    explain:'Abba is an intimate way to address God as Father.'},
+  {type:'tf', id:28, text:'Jesus taught that helping the sick on the Sabbath is wrong.', answer:false,
+    explain:'Jesus healed on the Sabbath to show mercy is always good.'},
+  {type:'tf', id:29, text:'The Eucharist is central to Sunday worship for Catholics.', answer:true,
+    explain:'It is the supreme memorial of the Paschal Mystery.'},
+  {type:'tf', id:30, text:'Anticipatory Mass on Saturday night can fulfill the Sunday obligation.', answer:true,
+    explain:'The Church permits fulfilling the obligation the evening before.'},
+  {type:'tf', id:31, text:'“Menuha” means only physical sleep and nothing spiritual.', answer:false,
+    explain:'Menuha includes peace, harmony, and spiritual serenity.'},
+  {type:'tf', id:32, text:'Respecting God\'s name also implies respecting the names of other people.', answer:true,
+    explain:'We honor others\' dignity, including their names.'},
+  {type:'tf', id:33, text:'Throwing a broken crucifix in the trash is the preferred way to dispose of it.', answer:false,
+    explain:'Sacramentals should be respectfully burned or buried.'},
+  {type:'tf', id:34, text:'The Jewish Sabbath is Sunday.', answer:false,
+    explain:'Jewish Sabbath is Saturday; Christians keep Sunday.'},
+  {type:'tf', id:35, text:'Missing Sunday Mass for no serious reason is a serious fault.', answer:true,
+    explain:'Deliberate absence without grave reason is sinful.'},
+  {type:'tf', id:36, text:'“Bahala na Diyos” originally expresses trust in God, not laziness.', answer:true,
+    explain:'It reflects faithful trust while still doing our part.'},
+  {type:'tf', id:37, text:'Blasphemy means praising God with hymns.', answer:false,
+    explain:'Blasphemy is hatred/defiance toward God or holy things.'},
+  {type:'tf', id:38, text:'Works of mercy are fitting activities on the Lord\'s Day.', answer:true,
+    explain:'The day balances worship, rest, and loving service.'},
+  {type:'tf', id:39, text:'“Shekinah” refers to God\'s visible presence among the people.', answer:true,
+    explain:'Yes, e.g., cloud by day during the Exodus.'},
+  {type:'tf', id:40, text:'The law of the Sabbath is more important than human well-being.', answer:false,
+    explain:'Jesus taught that the Sabbath serves humanity\'s good.'},
+
+  // 10 Mixed: Identification / Short text / Situational (41–50)
+  {type:'id', id:41, text:'Fill in: The Second Commandment forbids taking the name of the Lord your God in _____.',
+    acceptable:['vain'], explain:'We must never use God\'s name in vain.'},
+  {type:'id', id:42, text:'Give the liturgical response after the reading: “The Word of the Lord.”',
+    acceptable:['thanks be to god','thanks be to god.'], explain:'People respond: “Thanks be to God.”'},
+  {type:'id', id:43, text:'Term for God\'s visible dwelling/presence among His people (pillar of cloud):',
+    acceptable:['shekinah'], explain:'Shekinah = visible presence/dwelling of God.'},
+  {type:'id', id:44, text:'Aramaic word used by Jesus to address God with intimacy:',
+    acceptable:['abba'], explain:'Abba means Father/Daddy.'},
+  {type:'id', id:45, text:'One word (Hebrew): the deep peace/rest intended by the Sabbath:',
+    acceptable:['menuha','menuchah','menucha'], explain:'Menuha = Sabbath rest: peace, harmony, serenity.'},
+  {type:'sit', id:46, text:'Situation: Your classmate says a saint\'s name in a mocking joke. What should you do (1 short sentence)?',
+    acceptable:['ask them to be respectful','remind them to be respectful','tell them to respect the saints','politely ask them to stop','remind them it\'s disrespectful','politely remind respect for holy names','politely remind to respect holy names'],
+    explain:'Respect for God\'s name extends to Mary and the saints; respond politely and uphold respect.'},
+  {type:'sit', id:47, text:'Situation: Family is traveling Saturday night. How can you still keep the Sunday obligation?',
+    acceptable:['attend anticipatory mass','go to anticipatory mass','go to vigil mass','attend vigil mass','saturday evening mass','go to mass saturday evening'],
+    explain:'Attend an anticipatory (vigil) Mass on Saturday evening.'},
+  {type:'id', id:48, text:'Write the Catholic name for Sunday as a holy day (two words):',
+    acceptable:['lord\'s day','lords day','the lord\'s day'], explain:'Christians keep Sunday as the Lord\'s Day.'},
+  {type:'sit', id:49, text:'Short answer: Name one fitting activity on the Lord\'s Day besides Mass.',
+    acceptable:['works of mercy','work of mercy','visit the sick','help the poor','family time','spend time with family','prayer','rest','charity','helping others'],
+    explain:'The Lord\'s Day balances worship, rest/joy, and loving service.'},
+  {type:'sit', id:50, text:'Short answer: Proper way to dispose of a broken rosary or crucifix?',
+    acceptable:['burn or bury','bury','burn','burn it or bury it','bury it','burn it'],
+    explain:'Sacramentals should be respectfully burned or buried.'},
+];
+
+// ===== Render =====
+function render(){
+  const wrap = document.getElementById('questions');
+  const mcqList   = questions.filter(q=>q.type==='mcq');
+  const tfList    = questions.filter(q=>q.type==='tf');
+  const mixedList = questions.filter(q=>q.type==='id' || q.type==='sit');
+
+  const sec = (title, items, renderer) => html`
+    <div class="section-title">${title}
+      <span class="badge rounded-pill text-bg-info badge-type">${items.length} item(s)</span>
+    </div>
+    ${items.map(renderer).join('')}
+  `;
+
+  const mcqRenderer = q => html`
+    <div class="question" data-qid="${q.id}" data-type="mcq">
+      <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+      <div class="choices mt-2">
+        ${q.choices.map((c,i)=>html`
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}">
+            <label class="form-check-label" for="q${q.id}_${i}">${String.fromCharCode(65+i)}. ${c}</label>
+          </div>`).join('')}
+      </div>
+      <div class="explanation" id="exp${q.id}"></div>
+    </div>`;
+
+  const tfRenderer = q => html`
+    <div class="question" data-qid="${q.id}" data-type="tf">
+      <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+      <div class="choices mt-2">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_t" value="true">
+          <label class="form-check-label" for="q${q.id}_t">True</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_f" value="false">
+          <label class="form-check-label" for="q${q.id}_f">False</label>
+        </div>
+      </div>
+      <div class="explanation" id="exp${q.id}"></div>
+    </div>`;
+
+  const idRenderer = q => html`
+    <div class="question" data-qid="${q.id}" data-type="${q.type}">
+      <div><span class="qnum">${q.id}.)</span> ${q.text} <span class="req">(short answer)</span></div>
+      <input class="form-control mt-2" type="text" id="q${q.id}" placeholder="Type your answer here" />
+      <div class="explanation" id="exp${q.id}"></div>
+    </div>`;
+
+  wrap.innerHTML = [
+    sec('I. Multiple Choice', mcqList, mcqRenderer),
+    sec('II. True or False', tfList, tfRenderer),
+    sec('III. Identification / Situational', mixedList, idRenderer),
+  ].join('');
+}
+
+render();
+
+// ===== Evaluate =====
+function evaluate(){
+  let score = 0; const total = questions.length;
+  const details = [];
+
+  questions.forEach(q => {
+    const exp = document.getElementById('exp'+q.id);
+    let correct = false; let userAnsDisplay = '';
+
+    if(q.type==='mcq'){
+      const picked = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(picked){
+        const val = parseInt(picked.value,10);
+        userAnsDisplay = `${String.fromCharCode(65+val)} - ${q.choices[val]}`;
+        correct = (val === q.answer);
+      } else { userAnsDisplay = '(no answer)'; }
+    }
+    else if(q.type==='tf'){
+      const picked = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(picked){
+        const val = (picked.value==='true');
+        userAnsDisplay = val ? 'True' : 'False';
+        correct = (val === q.answer);
+      } else { userAnsDisplay = '(no answer)'; }
+    }
+    else { // id or sit
+      const inp = document.getElementById('q'+q.id);
+      const val = inp ? inp.value : '';
+      userAnsDisplay = val || '(no answer)';
+      correct = accepts(val, q.acceptable || []);
+    }
+
+    // Tally score
+    if(correct) score++;
+
+    // show explanation
+    const icon = correct ? '✅' : '❌';
+    const extra = (q.type==='mcq')
+      ? html`<div><strong>Correct Answer:</strong> ${String.fromCharCode(65+(q.answer??0))}. ${(q.choices||[])[q.answer??0]||''}</div>`
+      : (q.type==='tf')
+        ? html`<div><strong>Correct Answer:</strong> ${q.answer ? 'True' : 'False'}</div>`
+        : html`<div><strong>Acceptable Answer(s):</strong> ${(q.acceptable||[]).join(', ')}</div>`;
+
+    exp.innerHTML = html`<div><strong>${icon} Explanation:</strong> ${q.explain||''}</div>${extra}`;
+    exp.style.display = 'block';
+
+    details.push({id:q.id, correct, user:userAnsDisplay});
+  });
+
+  const percent = Math.round((score/total)*100);
+  const result = document.getElementById('result');
+  result.innerHTML = html`<span class="scorebox">Score: <strong>${score}/${total}</strong> (${percent}%)</span>`;
+
+  // Build summary table
+  const rows = details.map(d=>html`<tr><td>${d.id}</td><td>${d.correct? 'Correct':'Incorrect'}</td><td>${d.user}</td></tr>`).join('');
+  document.getElementById('summary').innerHTML = html`
+    <div class="section-title mt-3">Summary</div>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead class="table-light"><tr><th>#</th><th>Result</th><th>Your Answer</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+// ===== Events =====
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  evaluate();
+  // Gentle popup for encouragement (no remarks tiers since user only confirmed #1)
+  const scoreText = document.getElementById('result').innerText || '';
+  Swal.fire({
+    title: 'Submitted!',
+    text: scoreText,
+    confirmButtonText: 'Review Explanations',
+    icon: 'success'
+  });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  // Clear selections and explanations
+  document.querySelectorAll('input[type="radio"]').forEach(el=> el.checked = false);
+  document.querySelectorAll('input[type="text"]').forEach(el=> el.value = '');
+  document.querySelectorAll('.explanation').forEach(el=> {el.style.display='none'; el.innerHTML='';});
+  document.getElementById('result').innerHTML = '';
+  document.getElementById('summary').innerHTML = '';
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+</script>
+</body>
+</html>
