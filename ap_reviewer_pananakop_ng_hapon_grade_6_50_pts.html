@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AP Reviewer – Pananakop ng Hapon (G6) – 50 Puntos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body{font-family: Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif; background:#f8fafc}
+    .paper{max-width:980px;margin:24px auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .header{background:linear-gradient(180deg,#0ea5e9,#0284c7);color:#fff;border-radius:12px 12px 0 0;padding:24px}
+    .header h1{font-size:1.35rem;margin:0}
+    .section-title{font-weight:700;margin:28px 0 12px;font-size:1.05rem;color:#0f172a}
+    .question{padding:14px 16px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:12px;background:#fff}
+    .qnum{font-weight:700;color:#0ea5e9;margin-right:6px}
+    .explanation{display:none;border-left:4px solid #0ea5e9;background:#f0f9ff;color:#082f49;padding:10px 12px;border-radius:6px;margin-top:10px}
+    .badge-type{font-size:.75rem;margin-left:6px}
+    .instr{background:#f9fafb;border:1px dashed #cbd5e1;padding:12px;border-radius:10px}
+    .scorebox{position:sticky;bottom:12px;right:12px;background:#0ea5e9;color:#fff;border-radius:999px;padding:8px 14px;display:inline-block}
+    .rubric{font-size:.9rem;color:#334155;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:10px}
+    .small{font-size:.9rem}
+    textarea{min-height:130px}
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <div class="header">
+      <h1><i class="fa-solid fa-flag me-2"></i>Araling Panlipunan Reviewer – Pananakop ng Hapon (Grade 6)</h1>
+      <p class="mb-0">For: <strong>Sean Everett Beraquit</strong> • Kabuuang Puntos: <strong>50</strong> (MCQ 25, T/M 15, Sanaysay 10)</p>
+    </div>
+    <div class="p-3 p-md-4">
+      <div class="instr mb-3">
+        <strong>Panuto:</strong> Sagutin ang lahat ng tanong. Pumili ng tamang sagot sa Multiple Choice at Tama/Mali. Sa Sanaysay, sumagot ng 5–7 pangungusap. I-click ang <em>Submit</em> upang makita ang iskor at paliwanag. (Lalabas ang paliwanag pagkatapos magsumite.)
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button id="submitBtn" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i>Submit</button>
+        <button id="resetBtn" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i>I-reset</button>
+      </div>
+
+      <hr class="my-4" />
+      <div id="result" class="mb-2 fs-5"></div>
+      <div id="summary"></div>
+
+      <p class="small text-muted mt-3">Coverage: Greater East Asia Co-Prosperity Sphere, Pearl Harbor (Dis. 7, 1941), USAFFE, Bataan (Abril 9, 1942), Corregidor (Mayo 6, 1942), Open City (Maynila), Quezon, MacArthur, Wainwright, Homma, Martsa ng Kamatayan, Ikalawang Republika, Jose P. Laurel, Mickey Mouse Money, BIGSA, Makapili, Gerilya, HUKBALAHAP, PEC, Hyperinflation.</p>
+    </div>
+  </div>
+
+<script>
+const html = String.raw;
+function norm(s){return (s||'').toString().trim().toLowerCase().replace(/\s+/g,' ');} 
+function accepts(user, list){const u=norm(user);return list.some(x=>norm(x)===u);} 
+
+// ===== Question Bank =====
+// type: mcq, tf, essay
+const Q = [
+  // 25 MCQ (1–25)
+  {type:'mcq',id:1,text:'Ano ang motibo ng “Greater East Asia Co‑Prosperity Sphere” ayon sa propaganda ng Hapon?',choices:['Palayasin ang mga Asyano','Pag-isahin ang Asya at paalisin ang Kanluranin','Gawing probinsya ng Japan ang buong Asya','Palitan ang wika ng Asya'],answer:1,explain:'Ideyang Asyano para sa Asyano: pag-iisa ng Asya at pag-alis ng impluwensiyang Kanluranin.'},
+  {type:'mcq',id:2,text:'Bakit sinakop ng Hapon ang Pilipinas noong Ikalawang Digmaang Pandaigdig?',choices:['Dahil hawak tayo ng mga Amerikano','Dahil sa langis sa Palawan','Dahil gusto nila ng turismo','Dahil sa kalakal ng tsaa'],answer:0,explain:'Target ang Pilipinas dahil teritoryo ng U.S. sa Asya at estratehikong lokasyon.'},
+  {type:'mcq',id:3,text:'Kailan inatake ng Hapon ang Pearl Harbor?',choices:['Disyembre 7, 1941','Enero 1, 1942','Abril 9, 1942','Mayo 6, 1942'],answer:0,explain:'Ang pag-atake sa Pearl Harbor ay noong Disyembre 7, 1941.'},
+  {type:'mcq',id:4,text:'Aling lungsod ang idineklarang “Open City”?',choices:['Cebu','Davao','Maynila','Baguio'],answer:2,explain:'Idineklarang Open City ang Maynila upang maiwasan ang higit pang pagkasira.'},
+  {type:'mcq',id:5,text:'Sino ang Pangulong lumikas mula Pilipinas patungong Washington D.C. upang humingi ng tulong?',choices:['Sergio Osmeña','Manuel L. Quezon','Jose P. Laurel','Emilio Aguinaldo'],answer:1,explain:'Si Manuel L. Quezon ang lumikas muna sa Corregidor bago sa U.S.'},
+  {type:'mcq',id:6,text:'Ano ang ibig sabihin ng USAFFE?',choices:['United States Armed Forces in the Far East','Union of Southeast Asian Freedom Fighters','US Army for Filipino Expedition','United Service Alliance For Far East'],answer:0,explain:'USAFFE = United States Armed Forces in the Far East na pinamunuan ni MacArthur.'},
+  {type:'mcq',id:7,text:'Sino ang Heneral na nagsabing “I shall return”?',choices:['Heneral Wainwright','Heneral Yamashita','Heneral Douglas MacArthur','Heneral Volckmann'],answer:2,explain:'Pangakong babalik ni Heneral Douglas MacArthur.'},
+  {type:'mcq',id:8,text:'Sino ang Heneral na namuno sa pagsakop ng mga sundalong Hapones sa Pilipinas sa simula ng digmaan?',choices:['Tomoyuki Yamashita','Masaharu Homma','Hideki Tojo','Isoroku Yamamoto'],answer:1,explain:'Si Heneral Masaharu Homma ang namuno sa mga puwersang sumakop noong 1941–42.'},
+  {type:'mcq',id:9,text:'Kailan sumuko ang USAFFE sa Bataan?',choices:['Enero 2, 1942','Abril 9, 1942','Mayo 6, 1942','Hunyo 12, 1942'],answer:1,explain:'Bataan surrender: Abril 9, 1942 dahil sa kakulangan sa armas, pagkain at gamot.'},
+  {type:'mcq',id:10,text:'Ano ang tawag sa sapilitang paglalakad ng mga bihag mula Bataan patungong Capas, Tarlac?',choices:['Lakbay Dusa','Martsa ng Kamatayan (Death March)','Lakbay Laya','Martsa ng Tagumpay'],answer:1,explain:'Ang Death March ay sapilitang pagpapalakad sa mga bihag na Pilipino at Amerikano.'},
+  {type:'mcq',id:11,text:'Sino ang sumuko kasama ng kanyang hukbo sa Corregidor noong Mayo 6, 1942?',choices:['Heneral Wainwright','Heneral MacArthur','Pang. Quezon','Heneral Homma'],answer:0,explain:'Si Heneral Jonathan Wainwright ang sumuko sa Corregidor noong Mayo 6, 1942.'},
+  {type:'mcq',id:12,text:'Ano ang pangunahing dahilan ng mabilis na pagbagsak ng Corregidor?',choices:['Mahinang depensa sa pader','Kakulangan sa pagkain, gamot at tulong','Walang bala ang kanyon','Naubos ang tubig-dagat'],answer:1,explain:'Matinding kakulangan sa suplay at tulong ang nagtulak sa pagbagsak.'},
+  {type:'mcq',id:13,text:'Ano ang tawag sa pamahalaang papet na itinatag sa panahon ng Hapon?',choices:['Unang Republika','Ikalawang Republika','Commonwealth','Rebolusyonaryong Pamahalaan'],answer:1,explain:'Ang “Ikalawang Republika” ang papet na pamahalaan ng Hapon.'},
+  {type:'mcq',id:14,text:'Sino ang Pangulo ng Republikang Papet?',choices:['Manuel L. Quezon','Sergio Osmeña','Jose P. Laurel','Jose Abad Santos'],answer:2,explain:'Si Jose P. Laurel ang naging Pangulo ng Ikalawang Republika.'},
+  {type:'mcq',id:15,text:'Ano ang tawag sa salaping walang tunay na halaga noong okupasyon?',choices:['Fiat Money','Mickey Mouse Money','Hero Money','Yen Peso'],answer:1,explain:'“Mickey Mouse Money” – mabilis bumagsak ang halaga kaya nagdulot ng hyperinflation.'},
+  {type:'mcq',id:16,text:'Aling ahensya ang unang itinatag ng Hapon noong 1942 upang pamahalaan ang Pilipinas?',choices:['KALIBAPI','BIGSA','PEC (Philippine Executive Commission)','PCGG'],answer:2,explain:'Ang PEC ang pansamantalang pamahalaang pinamunuan ni Jorge B. Vargas.'},
+  {type:'mcq',id:17,text:'Ano ang layunin ng BIGSA ayon sa tala?',choices:['Kontrolin ang pagkain / bigas','Kontrolin ang edukasyon','Kontrolin ang transportasyon','Kontrolin ang imprastraktura'],answer:0,explain:'Itinatag upang kontrolin at ipamahagi ang pagkain (bigas) sa panahon ng kakulangan.'},
+  {type:'mcq',id:18,text:'Ano ang tawag sa mga Pilipinong nakipagtulungan sa mga Hapones?',choices:['Katipunero','Makapili','Ilustrado','Regidor'],answer:1,explain:'Makapili – mga kolaborador na nakipagtulungan sa puwersang Hapones.'},
+  {type:'mcq',id:19,text:'Ano ang tawag sa paraang labanang ginamit ng maraming Pilipino matapos ang pagsuko?',choices:['Trench warfare','Gerilya','Siege','Open battle'],answer:1,explain:'Gerilya – mabilis, lihim, at hit-and-run na pakikipaglaban.'},
+  {type:'mcq',id:20,text:'Aling pangkat-gerilya ang malaki ang impluwensya sa Gitnang Luzon?',choices:['KMU','HUKBALAHAP','Makapili','PCSO'],answer:1,explain:'HUKBALAHAP – Hukbong Bayan Laban sa Hapon.'},
+  {type:'mcq',id:21,text:'Sino si Volckmann sa konteksto ng digmaan?',choices:['Pinuno ng Makapili','Pinuno ng USAFFE/Gerilya sa Hilagang Luzon','Pangulo ng PEC','Punong Ministro ng Hapon'],answer:1,explain:'Si Col. Russell Volckmann ay lider-gerilya ng USAFFE sa Hilagang Luzon.'},
+  {type:'mcq',id:22,text:'Ano ang epekto ng “Mickey Mouse Money” sa ekonomiya?',choices:['Deflation','Hyperinflation','Equilibrium','Zero inflation'],answer:1,explain:'Sobrang pagdami ng salapi na walang halaga = hyperinflation.'},
+  {type:'mcq',id:23,text:'Anong samahan pampulitika ang itinatag ng Hapon upang kontrolin ang lipunan at pulitika?',choices:['KALIBAPI','CEC','NPC','LP'],answer:0,explain:'Bagaman hindi nasa tala, kaugnay ng Ikalawang Republika ang KALIBAPI bilang partidong pinayagan.'},
+  {type:'mcq',id:24,text:'Ano ang wastong paliwanag sa “Open City” status?',choices:['Malayang magprotesta','Bawal galawin at bombahin upang iligtas ang sibilyan at pamanang gusali','Libre ang kalakalan','Open sa turista'],answer:1,explain:'Open City = hindi dapat atakihin upang maiwasan ang pinsala sa sibilyan/gusali.'},
+  {type:'mcq',id:25,text:'Sino ang komandante ng USAFFE na unang namuno sa depensa ng Pilipinas?',choices:['Heneral Wainwright','Heneral Douglas MacArthur','Heneral Percival','Heneral Homma'],answer:1,explain:'Si MacArthur ang komandante ng USAFFE sa simula ng depensa.'},
+
+  // 15 Tama/Mali (26–40)
+  {type:'tf',id:26,text:'Ang Pearl Harbor ay inatake noong Disyembre 7, 1941.',answer:true,explain:'Tama. Ito ang nagpasiklab ng malawakang digmaan sa Pasipiko.'},
+  {type:'tf',id:27,text:'Idineklarang “Open City” ang Cebu upang hindi na ito bombahin.',answer:false,explain:'Mali. Ang Maynila ang idineklarang Open City.'},
+  {type:'tf',id:28,text:'Sumuko ang Bataan noong Abril 9, 1942 dahil kulang sa armas at suplay.',answer:true,explain:'Tama. Kakulangan sa armas, pagkain at gamot.'},
+  {type:'tf',id:29,text:'Ang Corregidor ay bumagsak noong Mayo 6, 1942 sa pangunguna ni Heneral Wainwright.',answer:true,explain:'Tama. Siya ang sumuko kasama ang garison.'},
+  {type:'tf',id:30,text:'Si Jose P. Laurel ang Pangulo ng Ikalawang Republika.',answer:true,explain:'Tama. Siya ang pinunong papet ng Hapon.'},
+  {type:'tf',id:31,text:'Ang “Mickey Mouse Money” ay matibay ang halaga kaya tumaas ang kapangyariang bumili.',answer:false,explain:'Mali. Mababa ang halaga kaya nagdulot ng hyperinflation.'},
+  {type:'tf',id:32,text:'Ang BIGSA ay kaugnay ng pagkontrol sa pagkain sa panahon ng kakapusan.',answer:true,explain:'Tama ayon sa tala – upang ayusin ang suplay ng pagkain/bigas.'},
+  {type:'tf',id:33,text:'Ang Makapili ay tumutukoy sa mga Pilipinong lumaban sa Hapon sa kabundukan.',answer:false,explain:'Mali. Iyon ay mga kolaborador. Ang gerilya ang lumaban sa kabundukan.'},
+  {type:'tf',id:34,text:'Ang HUKBALAHAP ay isang kilusang gerilya laban sa Hapon sa Gitnang Luzon.',answer:true,explain:'Tama. Malaking kilusan sa rehiyong iyon.'},
+  {type:'tf',id:35,text:'Ang PEC (Philippine Executive Commission) ang pansamantalang pamahalaang itinatag ng Hapon noong 1942.',answer:true,explain:'Tama. Pinamunuan ni Jorge B. Vargas.'},
+  {type:'tf',id:36,text:'Si Manuel L. Quezon ay hindi kailanman lumikas sa Corregidor.',answer:false,explain:'Mali. Lumikas muna siya sa Corregidor bago tumungo sa U.S.'},
+  {type:'tf',id:37,text:'Si Heneral Masaharu Homma ang namuno sa mga puwersang Hapones sa simula ng pagsakop.',answer:true,explain:'Tama.'},
+  {type:'tf',id:38,text:'Ang “Greater East Asia Co‑Prosperity Sphere” ay malinaw na pagtakwil sa anumang impluwensiyang Kanluranin.',answer:true,explain:'Tama sa propaganda: Asyano para sa Asyano.'},
+  {type:'tf',id:39,text:'Ang gerilya ay tuwirang labanan sa malalaking pormasyon at bukas na larangan.',answer:false,explain:'Mali. Lihim/mabilis na operasyon (hit‑and‑run) ang gerilya.'},
+  {type:'tf',id:40,text:'Ang hyperinflation ay bunga ng salaping walang halaga at kakulangan sa produkto.',answer:true,explain:'Tama. Sobra ang pera, kulang ang kalakal → pagtaas ng presyo.'},
+
+  // 2 Sanaysay (41–50 points include essays worth 5 pts each → 10 pts)
+  {type:'essay',id:4145,text:'Sanaysay 1 (5 pts): Ipaliwanag sa 5–7 pangungusap ang kahulugan ng “Open City” at bakit ito idineklara sa Maynila noong digmaan. Isama ang layunin nito para sa mga sibilyan.',explain:'Hanapin sa sagot: depinisyon ng Open City, dahilan (iwas pinsala/bombardment), proteksyon sa sibilyan at pamanang gusali, konteksto ng pagsalakay.'},
+  {type:'essay',id:4250,text:'Sanaysay 2 (5 pts): Ilahad ang naging epekto ng “Mickey Mouse Money” sa pang-araw‑araw na buhay ng mga Pilipino. Ipaliwanag ang salitang hyperinflation at magbigay ng halimbawa.',explain:'Hanapin sa sagot: pagbulusok ng halaga ng pera, pagtaas ng presyo, hirap sa bilihin/kalakalan, paliwanag sa hyperinflation at halimbawa.'}
+];
+
+function section(title, items, renderer){return html`<div class="section-title">${title} <span class="badge rounded-pill text-bg-info badge-type">${items.length} item(s)</span></div>${items.map(renderer).join('')}`}
+
+function render(){
+  const wrap = document.getElementById('questions');
+  const mcq = Q.filter(q=>q.type==='mcq');
+  const tf  = Q.filter(q=>q.type==='tf');
+  const ess = Q.filter(q=>q.type==='essay');
+
+  const mcqR = q=> html`<div class="question" data-qid="${q.id}" data-type="mcq">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <div class="mt-2">
+      ${q.choices.map((c,i)=> html`<div class="form-check"><input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}"><label class="form-check-label" for="q${q.id}_${i}">${String.fromCharCode(65+i)}. ${c}</label></div>`).join('')}
+    </div>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  const tfR = q=> html`<div class="question" data-qid="${q.id}" data-type="tf">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <div class="mt-2">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_t" value="true">
+        <label class="form-check-label" for="q${q.id}_t">Tama</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_f" value="false">
+        <label class="form-check-label" for="q${q.id}_f">Mali</label>
+      </div>
+    </div>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  const essR = q=> html`<div class="question" data-qid="${q.id}" data-type="essay">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <div class="rubric mt-2">
+      <strong>Rubric (5 pts):</strong>
+      <ul class="mb-0">
+        <li>Nilalaman (2) – tama at kumpletong ideya</li>
+        <li>Ayos/Kaayusan (1) – malinaw ang daloy</li>
+        <li>Wika at Balarila (1) – maayos ang baybay/gramatika</li>
+        <li>Kumpletong haba (1) – 5–7 pangungusap</li>
+      </ul>
+    </div>
+    <textarea class="form-control mt-2" id="q${q.id}" placeholder="Isulat ang iyong sagot dito (5–7 pangungusap)..."></textarea>
+    <div class="d-flex align-items-center gap-2 mt-2">
+      <label for="score${q.id}" class="form-label mb-0">Iskor (0–5):</label>
+      <input type="number" id="score${q.id}" class="form-control" style="max-width:120px" min="0" max="5" step="1" placeholder="0" />
+      <span class="text-muted small">(Teacher input)</span>
+    </div>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  wrap.innerHTML = [
+    section('I. Multiple Choice', mcq, mcqR),
+    section('II. Tama o Mali', tf, tfR),
+    section('III. Sanaysay (2 tanong × 5 pts = 10 pts)', ess, essR),
+  ].join('');
+}
+render();
+
+function evaluate(){
+  let score = 0; const totalObjective = 25 + 15; // 40 pts auto-check
+  const details = [];
+
+  Q.forEach(q=>{
+    const exp = document.getElementById('exp'+q.id);
+    let correct=false, user='';
+
+    if(q.type==='mcq'){
+      const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(sel){const v=parseInt(sel.value,10); user=`${String.fromCharCode(65+v)} - ${q.choices[v]}`; correct=(v===q.answer);} else {user='(walang sagot)';}
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Paliwanag:</strong> ${q.explain}</div><div><strong>Tamang Sagot:</strong> ${String.fromCharCode(65+q.answer)}. ${q.choices[q.answer]}</div>`;
+      exp.style.display='block';
+    }
+    else if(q.type==='tf'){
+      const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(sel){const v=(sel.value==='true'); user=v?'Tama':'Mali'; correct=(v===q.answer);} else {user='(walang sagot)';}
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Paliwanag:</strong> ${q.explain}</div><div><strong>Tamang Sagot:</strong> ${q.answer?'Tama':'Mali'}</div>`;
+      exp.style.display='block';
+    }
+    else if(q.type==='essay'){
+      const es = document.getElementById('score'+q.id);
+      const pts = Math.max(0, Math.min(5, parseInt(es.value||'0',10)));
+      user = (document.getElementById('q'+q.id).value||'(walang sagot)').slice(0,120) + ( (document.getElementById('q'+q.id).value||'').length>120 ? '…' : '' );
+      score += pts; // teacher-scored
+      exp.innerHTML = html`<div><strong>ℹ️ Gabay:</strong> ${q.explain}</div><div><strong>Iskor na inilagay:</strong> ${pts}/5</div>`;
+      exp.style.display='block';
+    }
+
+    details.push({id:q.id,user,remark:q.type==='essay'? 'Sanaysay':'Objective',pts:q.type==='essay'? undefined: (correct?1:0)});
+  });
+
+  const percent = Math.round((score/50)*100);
+  const result = document.getElementById('result');
+  result.innerHTML = html`<span class="scorebox">Kabuuang Iskor: <strong>${score}/50</strong> (${percent}%)</span>`;
+
+  // Summary
+  const rows = Q.map(q=>{
+    if(q.type==='essay'){
+      const es = document.getElementById('score'+q.id);
+      const pts = Math.max(0, Math.min(5, parseInt(es.value||'0',10)));
+      return html`<tr><td>${q.id}</td><td>Sanaysay</td><td>${pts}/5</td></tr>`;
+    } else {
+      const exp = document.getElementById('exp'+q.id);
+      const correctShown = exp && exp.innerText.includes('Tamang');
+      // compute correctness again
+      let ok=false; if(q.type==='mcq'){const sel=document.querySelector(`input[name="q${q.id}"]:checked`); if(sel){ok=(parseInt(sel.value,10)===q.answer);} } else {const sel=document.querySelector(`input[name="q${q.id}"]:checked`); if(sel){ok=(sel.value==='true')===q.answer;}}
+      return html`<tr><td>${q.id}</td><td>${ok?'Tama':'Mali'}</td><td>${ok? '1/1':'0/1'}</td></tr>`;
+    }
+  }).join('');
+
+  document.getElementById('summary').innerHTML = html`
+    <div class="section-title mt-3">Buod</div>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead class="table-light"><tr><th>#</th><th>Resulta</th><th>Puntos</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  Swal.fire({title:'Naipasa!', text:`Kabuuang Iskor: ${score}/50 (${percent}%)`, icon:'success', confirmButtonText:'Suriin ang Paliwanag'});
+}
+
+document.getElementById('submitBtn').addEventListener('click', evaluate);
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('input[type="radio"]').forEach(el=> el.checked=false);
+  document.querySelectorAll('textarea').forEach(el=> el.value='');
+  document.querySelectorAll('input[type="number"]').forEach(el=> el.value='');
+  document.querySelectorAll('.explanation').forEach(el=>{el.style.display='none';el.innerHTML='';});
+  document.getElementById('result').innerHTML='';
+  document.getElementById('summary').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
