@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>CLVE Interactive Reviewer – Second & Third Commandments</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{ --ink:#111827; --paper:#f9fafb; --card:#ffffff; --accent:#6366f1; --accent-2:#4338ca; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#0b1220; color:#e5eef8; }
+    .container{ max-width:980px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card); }
+    .dark-mode .question{ background:#0f172a; border-color:#1f2a44; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{ display:block; width:100%; text-align:left; border-radius:0; padding:.7rem .8rem; border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#1f2a44; color:#e5eef8; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#eef2ff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#0b153a; border-color:#1e2b7a; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .short-input{ max-width:520px; }
+    .smallmuted{ font-size:.9rem; color:#64748b; }
+    .dark-mode .smallmuted{ color:#9fb3c8; }
+  </style>
+</head>
+<body>
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> CLVE Interactive Reviewer – The Second & Third Commandments</h1>
+  <p class="text-center text-muted">Para kay: <b>Sean Everett Beraquit (Grade 6)</b> • <b>50 Items</b> • Oras: 40–50 minuto</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Kabuuang Iskor: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p><b>Panuto:</b> Sagutin ang lahat ng tanong. Sa Multiple Choice, piliin ang pinakamahusay na sagot. Sa True/False, piliin ang T o F. Sa Identification/Sitwasyonal, i-type ang hinihinging salita o parirala. I-click ang <b>Submit</b> upang makita ang iskor at paliwanag.</p>
+  </div>
+
+  <!-- =========================== I. Multiple Choice (1–25) =========================== -->
+  <h2 class="section-title h5">I. Multiple Choice (1–25)</h2>
+
+  <!-- Render MCQs (1–25) -->
+  <div class="question" id="q1"><div class="qhead">1) What is the Second Commandment?</div>
+    <div class="options"><button data-answer="A">A) Keep holy the Sabbath day</button><button data-answer="B">B) Honor your father and mother</button><button data-answer="C">C) You shall not take the name of the Lord your God in vain</button><button data-answer="D">D) You shall not steal</button></div><div class="feedback"></div></div>
+  <div class="question" id="q2"><div class="qhead">2) To use God's name properly means to…</div>
+    <div class="options"><button data-answer="A">A) Avoid praying aloud</button><button data-answer="B">B) Bless, praise, and glorify His name</button><button data-answer="C">C) Use it only when angry</button><button data-answer="D">D) Never say it at all</button></div><div class="feedback"></div></div>
+  <div class="question" id="q3"><div class="qhead">3) What is the most serious sin against the Second Commandment?</div>
+    <div class="options"><button data-answer="A">A) Laziness</button><button data-answer="B">B) Blasphemy</button><button data-answer="C">C) Gossip</button><button data-answer="D">D) Jealousy</button></div><div class="feedback"></div></div>
+  <div class="question" id="q4"><div class="qhead">4) “Abba,” used by Jesus, most nearly means…</div>
+    <div class="options"><button data-answer="A">A) Master</button><button data-answer="B">B) Judge</button><button data-answer="C">C) Father / Daddy</button><button data-answer="D">D) Lord of Hosts</button></div><div class="feedback"></div></div>
+  <div class="question" id="q5"><div class="qhead">5) “Shekinah” refers to…</div>
+    <div class="options"><button data-answer="A">A) The Ten Commandments</button><button data-answer="B">B) The visible presence of God</button><button data-answer="C">C) A Hebrew greeting</button><button data-answer="D">D) A Jewish festival</button></div><div class="feedback"></div></div>
+  <div class="question" id="q6"><div class="qhead">6) Which is an example of using God's name in vain?</div>
+    <div class="options"><button data-answer="A">A) Prayer before meals</button><button data-answer="B">B) Saying “Oh my God” in anger or lying</button><button data-answer="C">C) Singing a hymn at Mass</button><button data-answer="D">D) Silently reflecting</button></div><div class="feedback"></div></div>
+  <div class="question" id="q7"><div class="qhead">7) How should old or broken sacramentals (e.g., damaged rosary) be disposed?</div>
+    <div class="options"><button data-answer="A">A) Throw in trash</button><button data-answer="B">B) Donate to anyone</button><button data-answer="C">C) Burn or bury respectfully</button><button data-answer="D">D) Sell online</button></div><div class="feedback"></div></div>
+  <div class="question" id="q8"><div class="qhead">8) Proper response at Mass: “The Word of the Lord.” People reply…</div>
+    <div class="options"><button data-answer="A">A) “Praise to you, Lord Jesus Christ.”</button><button data-answer="B">B) “Thanks be to God.”</button><button data-answer="C">C) “Amen, amen.”</button><button data-answer="D">D) “Alleluia.”</button></div><div class="feedback"></div></div>
+  <div class="question" id="q9"><div class="qhead">9) Original sense of “Bahala na Diyos” best expresses…</div>
+    <div class="options"><button data-answer="A">A) Giving up responsibility</button><button data-answer="B">B) Irresponsible risk-taking</button><button data-answer="C">C) Deep trust that God will provide while doing our part</button><button data-answer="D">D) Superstition</button></div><div class="feedback"></div></div>
+  <div class="question" id="q10"><div class="qhead">10) The Third Commandment tells us to…</div>
+    <div class="options"><button data-answer="A">A) Avoid all work forever</button><button data-answer="B">B) Keep holy the Sabbath / Lord's Day</button><button data-answer="C">C) Never celebrate festivals</button><button data-answer="D">D) Fast every Sunday</button></div><div class="feedback"></div></div>
+  <div class="question" id="q11"><div class="qhead">11) Why do Christians keep Sunday as the Lord's Day?</div>
+    <div class="options"><button data-answer="A">A) Because it was convenient for workers</button><button data-answer="B">B) It is the day of Jesus' Resurrection</button><button data-answer="C">C) The apostles preferred it to Saturday</button><button data-answer="D">D) It follows Roman law only</button></div><div class="feedback"></div></div>
+  <div class="question" id="q12"><div class="qhead">12) What fulfills the Sunday obligation if attended on Saturday evening?</div>
+    <div class="options"><button data-answer="A">A) Any prayer at home</button><button data-answer="B">B) A weekday Mass</button><button data-answer="C">C) An anticipatory (vigil) Mass</button><button data-answer="D">D) Confession</button></div><div class="feedback"></div></div>
+  <div class="question" id="q13"><div class="qhead">13) “Menuha,” the Sabbath rest, means…</div>
+    <div class="options"><button data-answer="A">A) Only sleeping all day</button><button data-answer="B">B) Freedom from all chores forever</button><button data-answer="C">C) Peace, harmony, serenity in God</button><button data-answer="D">D) Playing video games all day</button></div><div class="feedback"></div></div>
+  <div class="question" id="q14"><div class="qhead">14) Which best summarizes Jesus' teaching: “The Sabbath was made for man, not man for the Sabbath”?</div>
+    <div class="options"><button data-answer="A">A) People exist to serve rules</button><button data-answer="B">B) Rules are always more important than people</button><button data-answer="C">C) The law serves human good and salvation</button><button data-answer="D">D) The Sabbath must be ignored</button></div><div class="feedback"></div></div>
+  <div class="question" id="q15"><div class="qhead">15) According to Catholic teaching, missing Sunday Mass without a serious reason is…</div>
+    <div class="options"><button data-answer="A">A) Not a big deal</button><button data-answer="B">B) A serious moral fault</button><button data-answer="C">C) Always excused for students</button><button data-answer="D">D) Optional</button></div><div class="feedback"></div></div>
+  <div class="question" id="q16"><div class="qhead">16) Which activity best fits the balance of the Lord's Day?</div>
+    <div class="options"><button data-answer="A">A) Skipping Mass for shopping</button><button data-answer="B">B) Mass, family time, and a work of mercy</button><button data-answer="C">C) Gaming all day alone</button><button data-answer="D">D) Doing unnecessary business all day</button></div><div class="feedback"></div></div>
+  <div class="question" id="q17"><div class="qhead">17) Jesus healed on the Sabbath to teach that…</div>
+    <div class="options"><button data-answer="A">A) No one should work ever</button><button data-answer="B">B) Only priests can act on Sundays</button><button data-answer="C">C) Doing good and mercy honors God even on the Sabbath</button><button data-answer="D">D) The Sabbath law should be abolished</button></div><div class="feedback"></div></div>
+  <div class="question" id="q18"><div class="qhead">18) The Jewish Sabbath is celebrated on…</div>
+    <div class="options"><button data-answer="A">A) Friday</button><button data-answer="B">B) Saturday</button><button data-answer="C">C) Sunday</button><button data-answer="D">D) Monday</button></div><div class="feedback"></div></div>
+  <div class="question" id="q19"><div class="qhead">19) Which statement about the Eucharist is correct?</div>
+    <div class="options"><button data-answer="A">A) It is optional on Sundays</button><button data-answer="B">B) It is the Church's central act of worship</button><button data-answer="C">C) It is only a symbol</button><button data-answer="D">D) It replaces prayer</button></div><div class="feedback"></div></div>
+  <div class="question" id="q20"><div class="qhead">20) Respect for God's name leads us also to…</div>
+    <div class="options"><button data-answer="A">A) Ignore others' names</button><button data-answer="B">B) Respect people's names and reputations</button><button data-answer="C">C) Use nicknames disrespectfully</button><button data-answer="D">D) Only respect saints' names</button></div><div class="feedback"></div></div>
+  <div class="question" id="q21"><div class="qhead">21) Which of the following is a sacramental?</div>
+    <div class="options"><button data-answer="A">A) Rosary</button><button data-answer="B">B) Baptism</button><button data-answer="C">C) Confession</button><button data-answer="D">D) Confirmation</button></div><div class="feedback"></div></div>
+  <div class="question" id="q22"><div class="qhead">22) During Mass readings, after “The Word of the Lord,” the people say…</div>
+    <div class="options"><button data-answer="A">A) “And with your spirit.”</button><button data-answer="B">B) “Thanks be to God.”</button><button data-answer="C">C) “Glory to You.”</button><button data-answer="D">D) “Holy, Holy, Holy.”</button></div><div class="feedback"></div></div>
+  <div class="question" id="q23"><div class="qhead">23) Which best describes the Christian Lord's Day?</div>
+    <div class="options"><button data-answer="A">A) A day to maximize profit</button><button data-answer="B">B) A day of worship, rest, and loving service</button><button data-answer="C">C) A day with no prayer</button><button data-answer="D">D) A day of strict rules only</button></div><div class="feedback"></div></div>
+  <div class="question" id="q24"><div class="qhead">24) Blasphemy includes…</div>
+    <div class="options"><button data-answer="A">A) Telling a joke kindly</button><button data-answer="B">B) Words of hatred or defiance against God or the saints</button><button data-answer="C">C) A respectful question</button><button data-answer="D">D) Silent prayer</button></div><div class="feedback"></div></div>
+  <div class="question" id="q25"><div class="qhead">25) Which reason also grounds Sabbath rest in the Old Testament?</div>
+    <div class="options"><button data-answer="A">A) Israel's liberation from slavery in Egypt</button><button data-answer="B">B) Harvest superstition</button><button data-answer="C">C) Roman weekend custom</button><button data-answer="D">D) Greek philosophy only</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== II. True/False (26–40) =========================== -->
+  <h2 class="section-title h5">II. True or False (26–40)</h2>
+
+  <!-- Render TF (26–40) -->
+  <div class="question" id="q26"><div class="qhead">26) Using God's name casually in anger is acceptable if you do not mean it.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q27"><div class="qhead">27) “Abba” expresses a close, loving relationship with God.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q28"><div class="qhead">28) Jesus taught that helping the sick on the Sabbath is wrong.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q29"><div class="qhead">29) The Eucharist is central to Sunday worship for Catholics.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q30"><div class="qhead">30) Anticipatory Mass on Saturday night can fulfill the Sunday obligation.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q31"><div class="qhead">31) “Menuha” means only physical sleep and nothing spiritual.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q32"><div class="qhead">32) Respecting God's name also implies respecting the names of other people.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q33"><div class="qhead">33) Throwing a broken crucifix in the trash is the preferred way to dispose of it.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q34"><div class="qhead">34) The Jewish Sabbath is Sunday.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q35"><div class="qhead">35) Missing Sunday Mass for no serious reason is a serious fault.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q36"><div class="qhead">36) “Bahala na Diyos” originally expresses trust in God, not laziness.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q37"><div class="qhead">37) Blasphemy means praising God with hymns.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q38"><div class="qhead">38) Works of mercy are fitting activities on the Lord's Day.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q39"><div class="qhead">39) “Shekinah” refers to God's visible presence among the people.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q40"><div class="qhead">40) The law of the Sabbath is more important than human well-being.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== III. Identification / Situational (41–50) =========================== -->
+  <h2 class="section-title h5">III. Identification / Situational (41–50)</h2>
+
+  <div class="question" id="q41"><div class="qhead">41) Fill in: The Second Commandment forbids taking the name of the Lord your God in _____. (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q42"><div class="qhead">42) Give the liturgical response after the reading: “The Word of the Lord.” (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q43"><div class="qhead">43) Term for God's visible dwelling/presence among His people (pillar of cloud): (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q44"><div class="qhead">44) Aramaic word used by Jesus to address God with intimacy: (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q45"><div class="qhead">45) One word (Hebrew): the deep peace/rest intended by the Sabbath: (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q46"><div class="qhead">46) Situation: Your classmate says a saint's name in a mocking joke. What should you do (1 short sentence)? (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q47"><div class="qhead">47) Situation: Family is traveling Saturday night. How can you still keep the Sunday obligation? (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q48"><div class="qhead">48) Write the Catholic name for Sunday as a holy day (two words): (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q49"><div class="qhead">49) Short answer: Name one fitting activity on the Lord's Day besides Mass. (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <div class="question" id="q50"><div class="qhead">50) Short answer: Proper way to dispose of a broken rosary or crucifix? (short answer)</div>
+    <input type="text" class="form-control short-input" placeholder="Type your answer here"></input><div class="feedback"></div></div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key: MCQ + TF --- */
+const answers={
+  q1:"C",q2:"B",q3:"B",q4:"C",q5:"B",q6:"B",q7:"C",q8:"B",q9:"C",q10:"B",
+  q11:"B",q12:"C",q13:"C",q14:"C",q15:"B",q16:"B",q17:"C",q18:"B",q19:"B",q20:"B",
+  q21:"A",q22:"B",q23:"B",q24:"B",q25:"A",
+  q26:"F",q27:"T",q28:"F",q29:"T",q30:"T",q31:"F",q32:"T",q33:"F",q34:"F",q35:"T",q36:"T",q37:"F",q38:"T",q39:"T",q40:"F"
+};
+
+/* --- Short Answer acceptable patterns --- */
+const shortAns={
+  q41:[/\bvain\b/i],
+  q42:[/thanks be to god/i, /^thanks$/i],
+  q43:[/shekinah/i],
+  q44:[/abba/i],
+  q45:[/menuha|menucha|menucha/i],
+  // Open-ended with keywords
+  q46:[/respect/i, /stop|correct|tell|remind/i],
+  q47:[/vigil\s*mass/i, /saturday\s*evening\s*mass/i, /anticipatory/i],
+  q48:[/lord'?s\s*day/i],
+  q49:[/work of mercy|charity|visit|help|serve|pray|family|rest|read\s*scripture|bible|rosary|adoration/i],
+  q50:[/burn|bury|respect/i]
+};
+
+/* --- Explanations --- */
+function explain(id){
+  const e={
+    q1:"Second Commandment forbids misuse of God’s name.",
+    q2:"We bless, praise, and glorify God’s name.",
+    q3:"Blasphemy is the gravest offense against the Second Commandment.",
+    q4:"‘Abba’ is an intimate way of saying Father/Daddy.",
+    q5:"Shekinah means God’s visible dwelling/presence.",
+    q6:"Using God’s name in anger or in lies is taking His name in vain.",
+    q7:"Sacramentals are disposed by burning or burying reverently.",
+    q8:"After readings: ‘Thanks be to God.’",
+    q9:"Original sense shows trust in God while acting responsibly.",
+    q10:"Third Commandment: keep holy the Sabbath/Lord’s Day.",
+    q11:"Christians keep Sunday for the Resurrection of Jesus.",
+    q12:"The vigil (anticipatory) Mass fulfills Sunday obligation.",
+    q13:"Menuha refers to deep peace, harmony, serenity in God.",
+    q14:"Sabbath serves the good of people; law serves salvation.",
+    q15:"Deliberate absence without serious reason is a serious fault.",
+    q16:"Balance: worship, rest/joy, and works of mercy with family.",
+    q17:"Jesus taught mercy is fitting even on the Sabbath.",
+    q18:"The Jewish Sabbath is Saturday.",
+    q19:"The Eucharist is the Church’s central act of worship.",
+    q20:"Reverence for God leads to respect for others’ names.",
+    q21:"Rosary is a sacramental (not a sacrament).",
+    q22:"People respond ‘Thanks be to God.’",
+    q23:"Lord’s Day is for worship, rest, and charity.",
+    q24:"Blasphemy: words of hatred/defiance against God or the saints.",
+    q25:"Sabbath rest also recalls liberation from slavery in Egypt.",
+    q26:"Using God’s name irreverently is never okay.",
+    q27:"‘Abba’ shows closeness and love.",
+    q28:"Jesus healed on Sabbath, teaching mercy is permitted.",
+    q29:"The Eucharist is central to Sunday for Catholics.",
+    q30:"A Saturday evening vigil Mass fulfills the obligation.",
+    q31:"Menuha is spiritual peace, not mere sleep.",
+    q32:"Respect for God’s name extends to people’s names.",
+    q33:"Broken sacramentals should be burned or buried, not trashed.",
+    q34:"The Jewish Sabbath is Saturday, not Sunday.",
+    q35:"Missing Mass without grave reason is a serious fault.",
+    q36:"‘Bahala na Diyos’ = trusting God while acting responsibly.",
+    q37:"Blasphemy is the opposite of praising God.",
+    q38:"Works of mercy fit the Lord’s Day.",
+    q39:"Shekinah refers to God’s visible presence.",
+    q40:"The Sabbath exists for people’s good (Mk 2:27).",
+    q41:"‘Vain’—forbids irreverent use of God’s name.",
+    q42:"Liturgical response: ‘Thanks be to God.’",
+    q43:"‘Shekinah’—visible presence/dwelling of God.",
+    q44:"‘Abba’—intimate address to the Father.",
+    q45:"‘Menuha’—deep peace/rest of Sabbath.",
+    q46:"Respond with respectful correction and uphold reverence.",
+    q47:"Attend a Saturday evening (vigil) Mass.",
+    q48:"‘Lord’s Day’ is the Christian name for Sunday.",
+    q49:"Examples: works of mercy, prayer, Scripture, family time, rest.",
+    q50:"Dispose of sacramentals by burning or burying reverently."
+  };
+  return e[id]||"";
+}
+
+/* --- Selection logic for MCQ/TF --- */
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* --- Submit grading with confirmation --- */
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(!confirm('Are you sure you want to submit your answers? Explanations will show after submitting.')) return;
+  let score=0;
+
+  // Grade MCQ + TF
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q); if(!el) return; // short answers not in answers map
+    const fb=el.querySelector('.feedback'); if(!fb) return;
+    fb.innerHTML='';
+    const sel=el.dataset.selected;
+    let statusHTML='';
+    if(!sel) statusHTML=`<div class='unanswered'>⚠️ Not answered</div>`;
+    else if(sel===answers[q]){ statusHTML=`<div class='correct'>✅ Correct</div>`; score++; }
+    else statusHTML=`<div class='incorrect'>❌ Incorrect (Correct: ${answers[q]})</div>`;
+    const expId=`${q}-exp`;
+    fb.innerHTML=`${statusHTML}<button class='exp-toggle' onclick="toggleExp('${expId}',this)">Show Explanation</button><div class='exp' id='${expId}'>${explain(q)}</div>`;
+  });
+
+  // Grade Short Answers (41–50)
+  for(let i=41;i<=50;i++){
+    const qid='q'+i;
+    const wrap=document.getElementById(qid); if(!wrap) continue;
+    const inp=wrap.querySelector('input'); if(!inp) continue;
+    const fb=wrap.querySelector('.feedback'); fb.innerHTML='';
+    const val=(inp.value||'').trim();
+    let correct=false;
+    const pats=shortAns[qid]||[];
+    for(const re of pats){ if(re.test(val)) { correct=true; break; } }
+    if(val==='') fb.innerHTML=`<div class='unanswered'>⚠️ Not answered</div>`;
+    else if(correct){ fb.innerHTML=`<div class='correct'>✅ Correct</div>`; score++; }
+    else { fb.innerHTML=`<div class='incorrect'>❌ May be incomplete or incorrect</div>`; }
+    const expId=`${qid}-exp`;
+    fb.innerHTML += ` <button class='exp-toggle' onclick="toggleExp('${expId}',this)">Show Explanation</button><div class='exp' id='${expId}'>${explain(qid)}</div>`;
+  }
+
+  // Score UI
+  document.getElementById('totalScore').textContent=score;
+  const stars=Math.floor(score/10);
+  document.getElementById('starRow').textContent='★'.repeat(stars)+'☆'.repeat(5-stars);
+  const msg=score>=45?'🌟 Excellent!':score>=35?'👍 Great job!':score>=25?'🙂 Good effort!':'💪 Keep practicing!';
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* --- Reset --- */
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Retake quiz?')) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML='';
+    const inp=q.querySelector('input'); if(inp) inp.value='';
+  });
+  document.getElementById('scorecard').style.display='none';
+});
+
+function toggleExp(id,btn){
+  const exp=document.getElementById(id);
+  if(exp.style.display==='block'){ exp.style.display='none'; btn.innerHTML='Show Explanation'; }
+  else{ exp.style.display='block'; btn.innerHTML='Hide Explanation'; }
+}
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+</script>
+</body>
+</html>
