@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Science Reviewer – G6 (Digestive • Cardiorespiratory • Nervous) – 50 pts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2d2a6a2a2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body{font-family:Roboto,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#f8fafc}
+    .paper{max-width:980px;margin:24px auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .header{background:linear-gradient(180deg,#0ea5e9,#0284c7);color:#fff;border-radius:12px 12px 0 0;padding:24px}
+    .header h1{font-size:1.35rem;margin:0}
+    .section-title{font-weight:700;margin:28px 0 12px;font-size:1.05rem;color:#0f172a}
+    .question{padding:14px 16px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:12px;background:#fff}
+    .qnum{font-weight:700;color:#0ea5e9;margin-right:6px}
+    .explanation{display:none;border-left:4px solid #0ea5e9;background:#f0f9ff;color:#082f49;padding:10px 12px;border-radius:6px;margin-top:10px}
+    .badge-type{font-size:.75rem;margin-left:6px}
+    .instr{background:#f9fafb;border:1px dashed #cbd5e1;padding:12px;border-radius:10px}
+    .scorebox{position:sticky;bottom:12px;right:12px;background:#0ea5e9;color:#fff;border-radius:999px;padding:8px 14px;display:inline-block}
+    select.form-select{max-width:420px}
+  </style>
+</head>
+<body>
+  <div class="paper">
+    <div class="header">
+      <h1><i class="fa-solid fa-flask me-2"></i>Science Reviewer – Digestive • Cardiorespiratory • Nervous (G6)</h1>
+      <p class="mb-0">For: <strong>Sean Everett Beraquit</strong> • Total Points: <strong>50</strong> (MCQ 20, ID 10, T/F 10, Matching 10)</p>
+    </div>
+    <div class="p-3 p-md-4">
+      <div class="instr mb-3">
+        <strong>Instructions:</strong> Answer all questions. Multiple Choice (choose one), Identification (type the term), True/False, and Matching (use the dropdown to match). Click <em>Submit</em> to see your score and explanations.
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="d-flex gap-2 mt-3">
+        <button id="submitBtn" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i>Submit</button>
+        <button id="resetBtn" class="btn btn-outline-secondary"><i class="fa-solid fa-rotate-left me-1"></i>Reset</button>
+      </div>
+
+      <hr class="my-4" />
+      <div id="result" class="mb-2 fs-5"></div>
+      <div id="summary"></div>
+
+      <p class="text-muted small mt-3">Covers: digestive organs and enzymes; blood/air flow and gas exchange; brain parts, neurons, and reflexes; system interactions.</p>
+    </div>
+  </div>
+
+<script>
+const html = String.raw;
+function norm(s){return (s||'').toString().trim().toLowerCase().replace(/\s+/g,' ');} 
+function accepts(user, list){const u=norm(user);return list.some(x=>norm(x)===u);} 
+
+// ========= Question Bank =========
+// Types: mcq, id, tf, match
+const Q = [
+  // -- 20 MCQ (1–20)
+  {type:'mcq',id:1,text:'Which structure is the primary site of nutrient absorption?',choices:['Stomach','Small intestine','Large intestine','Esophagus'],answer:1,explain:'Villi in the small intestine greatly increase surface area for absorption.'},
+  {type:'mcq',id:2,text:'Which enzyme in saliva begins the chemical digestion of starch?',choices:['Pepsin','Amylase','Lipase','Trypsin'],answer:1,explain:'Salivary amylase breaks down starch into simpler sugars.'},
+  {type:'mcq',id:3,text:'Mechanical digestion in the mouth is mainly performed by the—',choices:['Tongue only','Teeth and tongue','Saliva','Esophagus'],answer:1,explain:'Chewing by teeth and mixing by the tongue physically break food apart.'},
+  {type:'mcq',id:4,text:'Which organ produces bile that helps digest fats?',choices:['Pancreas','Gallbladder','Liver','Appendix'],answer:2,explain:'The liver makes bile; the gallbladder stores it.'},
+  {type:'mcq',id:5,text:'Which chamber of the heart pumps oxygenated blood to the body?',choices:['Right atrium','Right ventricle','Left atrium','Left ventricle'],answer:3,explain:'The left ventricle has the thickest walls and pumps to the systemic circuit.'},
+  {type:'mcq',id:6,text:'Blood vessels that carry blood away from the heart are called—',choices:['Arteries','Veins','Capillaries','Venules'],answer:0,explain:'Arteries carry blood away (A for away).'},
+  {type:'mcq',id:7,text:'Where does gas exchange primarily occur in the lungs?',choices:['Bronchi','Trachea','Alveoli','Diaphragm'],answer:2,explain:'Alveoli are tiny air sacs with thin walls for gas exchange.'},
+  {type:'mcq',id:8,text:'Which blood cells are responsible for carrying oxygen?',choices:['Platelets','White blood cells','Red blood cells','Plasma'],answer:2,explain:'Hemoglobin in red blood cells binds and carries oxygen.'},
+  {type:'mcq',id:9,text:'Which part of the brain controls balance and coordination?',choices:['Cerebrum','Cerebellum','Brain stem','Hypothalamus'],answer:1,explain:'The cerebellum helps coordinate movement and maintain balance.'},
+  {type:'mcq',id:10,text:'Which part of the neuron receives incoming messages?',choices:['Axon','Dendrites','Myelin','Synapse'],answer:1,explain:'Dendrites receive signals; axons send signals.'},
+  {type:'mcq',id:11,text:'Which structure prevents food from entering the windpipe when swallowing?',choices:['Uvula','Epiglottis','Larynx','Pharynx'],answer:1,explain:'The epiglottis covers the trachea during swallowing.'},
+  {type:'mcq',id:12,text:'Which organ secretes insulin and digestive enzymes?',choices:['Liver','Pancreas','Spleen','Kidney'],answer:1,explain:'The pancreas secretes insulin (endocrine) and digestive enzymes (exocrine).'},
+  {type:'mcq',id:13,text:'Which statement best describes capillaries?',choices:['Thick, elastic vessels','Pump blood','Thin vessels for exchange of materials','Carry only deoxygenated blood'],answer:2,explain:'Capillaries are one cell thick to allow exchange of gases and nutrients.'},
+  {type:'mcq',id:14,text:'What happens to the diaphragm when you inhale?',choices:['Relaxes and moves up','Contracts and moves down','Contracts and moves up','Stays still'],answer:1,explain:'Diaphragm contracts and flattens, increasing chest volume for inhalation.'},
+  {type:'mcq',id:15,text:'Which brain part controls involuntary actions like heartbeat and breathing?',choices:['Cerebrum','Cerebellum','Brain stem','Thalamus'],answer:2,explain:'The brain stem (medulla) controls vital involuntary functions.'},
+  {type:'mcq',id:16,text:'Which structure connects the mouth to the stomach?',choices:['Trachea','Esophagus','Pharynx','Larynx'],answer:1,explain:'The esophagus transports food to the stomach via peristalsis.'},
+  {type:'mcq',id:17,text:'Which vessels return blood to the heart?',choices:['Arteries','Veins','Capillaries','Arterioles'],answer:1,explain:'Veins return blood to the heart (many have valves).'},
+  {type:'mcq',id:18,text:'Which side of the heart receives deoxygenated blood from the body?',choices:['Left side','Right side','Both sides','Neither side'],answer:1,explain:'The right atrium receives deoxygenated blood via the venae cavae.'},
+  {type:'mcq',id:19,text:'A rapid, automatic response to a stimulus that protects the body is called—',choices:['Conscious response','Reflex','Voluntary action','Conditioned behavior'],answer:1,explain:'Reflexes are fast and do not require conscious thought.'},
+  {type:'mcq',id:20,text:'Which pathway shows the correct order of the digestive tract?',choices:['Mouth → Stomach → Esophagus → Small intestine → Large intestine','Mouth → Esophagus → Stomach → Small intestine → Large intestine','Mouth → Pharynx → Trachea → Stomach → Small intestine','Mouth → Esophagus → Stomach → Large intestine → Small intestine'],answer:1,explain:'Correct path: mouth → esophagus → stomach → small intestine → large intestine.'},
+
+  // -- 10 Identification (21–30)
+  {type:'id',id:21,text:'Primary organ for chemical digestion of proteins (acid + pepsin):',acceptable:['stomach'],explain:'The stomach uses acid and pepsin to begin protein digestion.'},
+  {type:'id',id:22,text:'Tiny finger-like structures that increase surface area in the small intestine:',acceptable:['villi','villus'],explain:'Villi and microvilli increase surface area for absorption.'},
+  {type:'id',id:23,text:'Muscular movement that pushes food along the digestive tract:',acceptable:['peristalsis'],explain:'Peristalsis moves food through the digestive system.'},
+  {type:'id',id:24,text:'Site of oxygen and carbon dioxide exchange in the lungs:',acceptable:['alveoli','alveolus'],explain:'Gas exchange occurs across the alveolar walls.'},
+  {type:'id',id:25,text:'Protein in red blood cells that carries oxygen:',acceptable:['hemoglobin','haemoglobin'],explain:'Hemoglobin binds oxygen; gives RBCs their red color.'},
+  {type:'id',id:26,text:'Largest part of the brain responsible for thinking and memory:',acceptable:['cerebrum'],explain:'The cerebrum manages higher thought and voluntary actions.'},
+  {type:'id',id:27,text:'Nerve cells that transmit electrical signals:',acceptable:['neurons','neuron','nerve cell'],explain:'Neurons are the basic units of the nervous system.'},
+  {type:'id',id:28,text:'Bundle of nerves that connects brain to the body and controls reflexes:',acceptable:['spinal cord','spinalcord'],explain:'The spinal cord relays signals and controls many reflexes.'},
+  {type:'id',id:29,text:'Microscopic blood vessels where exchange of materials happens:',acceptable:['capillaries','capillary'],explain:'Capillaries allow exchange of gases, nutrients, and wastes.'},
+  {type:'id',id:30,text:'Muscle that separates the chest from the abdomen and helps breathing:',acceptable:['diaphragm'],explain:'The diaphragm flattens during inhalation.'},
+
+  // -- 10 True/False (31–40)
+  {type:'tf',id:31,text:'Veins always carry deoxygenated blood.',answer:false,explain:'Most veins carry deoxygenated blood, but pulmonary veins carry oxygenated blood.'},
+  {type:'tf',id:32,text:'The trachea is part of the digestive system.',answer:false,explain:'The trachea is in the respiratory system.'},
+  {type:'tf',id:33,text:'The cerebellum is mainly responsible for thinking and reasoning.',answer:false,explain:'The cerebrum handles higher thinking; cerebellum coordinates movement.'},
+  {type:'tf',id:34,text:'Peristalsis occurs only in the esophagus.',answer:false,explain:'Peristalsis happens throughout the digestive tract.'},
+  {type:'tf',id:35,text:'Capillaries have thin walls to allow diffusion of gases and nutrients.',answer:true,explain:'Capillaries are one cell thick for easy exchange.'},
+  {type:'tf',id:36,text:'The left side of the heart pumps blood to the lungs only.',answer:false,explain:'The left side pumps to the body (systemic circulation).'},
+  {type:'tf',id:37,text:'A reflex action can occur without the brain’s direct involvement.',answer:true,explain:'Spinal reflexes can occur without conscious brain processing.'},
+  {type:'tf',id:38,text:'Bile is produced by the gallbladder.',answer:false,explain:'Bile is produced by the liver and stored in the gallbladder.'},
+  {type:'tf',id:39,text:'During inhalation, the diaphragm contracts and moves downward.',answer:true,explain:'This increases chest volume and draws air in.'},
+  {type:'tf',id:40,text:'Red blood cells fight infections by producing antibodies.',answer:false,explain:'White blood cells handle defense and antibodies; RBCs carry oxygen.'},
+
+  // -- 10 Matching (41–50) — dropdown style
+  // Each item: prompt term -> correct letter/word from choices
+  // We will show choices once at the top of the section
+  {type:'match',id:41,text:'Cerebrum',answer:'Controls thinking, memory, and voluntary actions',explain:'Cerebrum = higher functions.'},
+  {type:'match',id:42,text:'Cerebellum',answer:'Coordinates balance and movement',explain:'Cerebellum = balance/coordination.'},
+  {type:'match',id:43,text:'Brain stem',answer:'Controls involuntary actions (heartbeat, breathing)',explain:'Brain stem/medulla = vital functions.'},
+  {type:'match',id:44,text:'Alveoli',answer:'Tiny air sacs for gas exchange',explain:'Alveoli = gas exchange surfaces.'},
+  {type:'match',id:45,text:'Arteries',answer:'Carry blood away from the heart',explain:'Arteries = away from the heart.'},
+  {type:'match',id:46,text:'Veins',answer:'Return blood to the heart; many have valves',explain:'Veins = return to heart.'},
+  {type:'match',id:47,text:'Capillaries',answer:'Microscopic vessels for exchange',explain:'Capillaries = exchange.'},
+  {type:'match',id:48,text:'Small intestine',answer:'Main site of nutrient absorption',explain:'Small intestine with villi absorbs nutrients.'},
+  {type:'match',id:49,text:'Pancreas',answer:'Secretes insulin and digestive enzymes',explain:'Pancreas = endocrine & exocrine functions.'},
+  {type:'match',id:50,text:'Diaphragm',answer:'Muscle that helps inhalation',explain:'Diaphragm contracts to inhale.'}
+];
+
+// Matching choices pool (displayed at top of matching section)
+const MATCH_CHOICES = [
+  'Controls thinking, memory, and voluntary actions',
+  'Coordinates balance and movement',
+  'Controls involuntary actions (heartbeat, breathing)',
+  'Tiny air sacs for gas exchange',
+  'Carry blood away from the heart',
+  'Return blood to the heart; many have valves',
+  'Microscopic vessels for exchange',
+  'Main site of nutrient absorption',
+  'Secretes insulin and digestive enzymes',
+  'Muscle that helps inhalation'
+];
+
+function section(title, items, renderer){return html`<div class="section-title">${title} <span class="badge rounded-pill text-bg-info badge-type">${items.length} item(s)</span></div>${items.map(renderer).join('')}`}
+
+function render(){
+  const wrap = document.getElementById('questions');
+  const mcq = Q.filter(q=>q.type==='mcq');
+  const idq = Q.filter(q=>q.type==='id');
+  const tf  = Q.filter(q=>q.type==='tf');
+  const mt  = Q.filter(q=>q.type==='match');
+
+  const mcqR = q=> html`<div class="question" data-qid="${q.id}" data-type="mcq">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <div class="mt-2">
+      ${q.choices.map((c,i)=> html`<div class="form-check"><input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}"><label class="form-check-label" for="q${q.id}_${i}">${String.fromCharCode(65+i)}. ${c}</label></div>`).join('')}
+    </div>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  const idR = q=> html`<div class="question" data-qid="${q.id}" data-type="id">
+    <div><span class="qnum">${q.id}.)</span> ${q.text} <span class="text-danger">(short answer)</span></div>
+    <input class="form-control mt-2" type="text" id="q${q.id}" placeholder="Type your answer here" />
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  const tfR = q=> html`<div class="question" data-qid="${q.id}" data-type="tf">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <div class="mt-2">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_t" value="true">
+        <label class="form-check-label" for="q${q.id}_t">True</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="q${q.id}" id="q${q.id}_f" value="false">
+        <label class="form-check-label" for="q${q.id}_f">False</label>
+      </div>
+    </div>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  const matchHeader = html`<div class="alert alert-secondary small">Match each term with the correct description using the dropdown. <strong>Choices:</strong> ${MATCH_CHOICES.join(' • ')}</div>`;
+  const matchR = q=> html`<div class="question" data-qid="${q.id}" data-type="match">
+    <div><span class="qnum">${q.id}.)</span> ${q.text}</div>
+    <select class="form-select mt-2" id="q${q.id}">
+      <option value="">— Select description —</option>
+      ${MATCH_CHOICES.map(ch=> html`<option value="${ch}">${ch}</option>`).join('')}
+    </select>
+    <div class="explanation" id="exp${q.id}"></div>
+  </div>`;
+
+  wrap.innerHTML = [
+    section('I. Multiple Choice', mcq, mcqR),
+    section('II. Identification', idq, idR),
+    section('III. True or False', tf, tfR),
+    matchHeader + section('IV. Matching Type (Dropdown)', mt, matchR)
+  ].join('');
+}
+render();
+
+function evaluate(){
+  let score = 0; const total = 50;
+  const details = [];
+
+  Q.forEach(q=>{
+    const exp = document.getElementById('exp'+q.id);
+    let correct=false, user='';
+
+    if(q.type==='mcq'){
+      const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(sel){const v=parseInt(sel.value,10); user=`${String.fromCharCode(65+v)} - ${q.choices[v]}`; correct=(v===q.answer);} else {user='(no answer)';}
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Explanation:</strong> ${q.explain}</div><div><strong>Correct Answer:</strong> ${String.fromCharCode(65+q.answer)}. ${q.choices[q.answer]}</div>`;
+      exp.style.display='block';
+    }
+    else if(q.type==='id'){
+      const inp = document.getElementById('q'+q.id);
+      const val = inp? inp.value : '';
+      user = val || '(no answer)';
+      correct = accepts(val, q.acceptable || []);
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Explanation:</strong> ${q.explain}</div><div><strong>Acceptable:</strong> ${(q.acceptable||[]).join(', ')}</div>`;
+      exp.style.display='block';
+    }
+    else if(q.type==='tf'){
+      const sel = document.querySelector(`input[name="q${q.id}"]:checked`);
+      if(sel){const v=(sel.value==='true'); user=v?'True':'False'; correct=(v===q.answer);} else {user='(no answer)';}
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Explanation:</strong> ${q.explain}</div><div><strong>Correct Answer:</strong> ${q.answer?'True':'False'}</div>`;
+      exp.style.display='block';
+    }
+    else if(q.type==='match'){
+      const sel = document.getElementById('q'+q.id);
+      const val = sel? sel.value : '';
+      user = val || '(no answer)';
+      correct = (val === q.answer);
+      if(correct) score+=1;
+      exp.innerHTML = html`<div><strong>${correct?'✅':'❌'} Explanation:</strong> ${q.explain}</div><div><strong>Correct Match:</strong> ${q.answer}</div>`;
+      exp.style.display='block';
+    }
+
+    details.push({id:q.id,correct,user});
+  });
+
+  const percent = Math.round((score/total)*100);
+  document.getElementById('result').innerHTML = html`<span class="scorebox">Score: <strong>${score}/${total}</strong> (${percent}%)</span>`;
+
+  // Summary table
+  const rows = details.map(d=> html`<tr><td>${d.id}</td><td>${d.correct? 'Correct':'Incorrect'}</td><td>${d.user}</td></tr>`).join('');
+  document.getElementById('summary').innerHTML = html`
+    <div class="section-title mt-3">Summary</div>
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead class="table-light"><tr><th>#</th><th>Result</th><th>Your Answer</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  Swal.fire({title:'Submitted!', text:`Score: ${score}/50 (${percent}%)`, icon:'success', confirmButtonText:'Review Explanations'});
+}
+
+document.getElementById('submitBtn').addEventListener('click', evaluate);
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('input[type="radio"]').forEach(el=> el.checked=false);
+  document.querySelectorAll('input[type="text"]').forEach(el=> el.value='');
+  document.querySelectorAll('select').forEach(el=> el.value='');
+  document.querySelectorAll('.explanation').forEach(el=>{el.style.display='none';el.innerHTML='';});
+  document.getElementById('result').innerHTML='';
+  document.getElementById('summary').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
