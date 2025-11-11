@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="fil">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Araling Panlipunan Reviewer – Pananakop ng Hapon (Grade 6)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+  <style>
+    :root{ --ink:#111827; --paper:#f9fafb; --card:#ffffff; --accent:#0ea5e9; --accent-2:#0369a1; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#0b1220; color:#e5eef8; }
+    .container{ max-width:980px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card); }
+    .dark-mode .question{ background:#0f172a; border-color:#1f2a44; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{ display:block; width:100%; text-align:left; border-radius:0; padding:.7rem .8rem; border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#1f2a44; color:#e5eef8; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#e0f2fe; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#08283a; border-color:#124861; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .essay{ background:#f8fafc; }
+    .dark-mode .essay{ background:#0b1730; }
+    .rubric li{ margin-bottom:.2rem; }
+    .smallmuted{ font-size:.9rem; color:#64748b; }
+    .dark-mode .smallmuted{ color:#9fb3c8; }
+  </style>
+</head>
+<body>
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> Araling Panlipunan Reviewer – Pananakop ng Hapon (Grade 6)</h1>
+  <p class="text-center text-muted">Para kay: <b>Sean Everett Beraquit</b> • <b>Kabuuang Puntos: 50</b> (MCQ 25, T/M 15, Sanaysay 10)</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Kinalabasan: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <div class="instructions p-3 mb-4 border">
+    <p><b>Panuto:</b> Sagutin ang lahat ng tanong. Pumili ng tamang sagot sa Multiple Choice at Tama/Mali. Sa Sanaysay, sumagot ng 5–7 pangungusap. I-click ang <b>Isumite</b> upang makita ang iskor at paliwanag.</p>
+  </div>
+
+  <!-- =========================== I. Multiple Choice (1–25) =========================== -->
+  <h2 class="section-title h5">I. Multiple Choice (1–25)</h2>
+  <!-- MCQ items 1–25 -->
+  <div class="question" id="q1"><div class="qhead">1) Ano ang motibo ng “Greater East Asia Co‑Prosperity Sphere” ayon sa propaganda ng Hapon?</div>
+    <div class="options"><button data-answer="A">A) Palayasin ang mga Asyano</button><button data-answer="B">B) Pag‑isahin ang Asya at paalisin ang Kanluranin</button><button data-answer="C">C) Gawing probinsya ng Japan ang buong Asya</button><button data-answer="D">D) Palitan ang wika ng Asya</button></div><div class="feedback"></div></div>
+  <div class="question" id="q2"><div class="qhead">2) Bakit sinakop ng Hapon ang Pilipinas noong Ikalawang Digmaang Pandaigdig?</div>
+    <div class="options"><button data-answer="A">A) Dahil hawak tayo ng mga Amerikano</button><button data-answer="B">B) Dahil sa langis sa Palawan</button><button data-answer="C">C) Dahil gusto nila ng turismo</button><button data-answer="D">D) Dahil sa kalakal ng tsaa</button></div><div class="feedback"></div></div>
+  <div class="question" id="q3"><div class="qhead">3) Kailan inatake ng Hapon ang Pearl Harbor?</div>
+    <div class="options"><button data-answer="A">A) Disyembre 7, 1941</button><button data-answer="B">B) Enero 1, 1942</button><button data-answer="C">C) Abril 9, 1942</button><button data-answer="D">D) Mayo 6, 1942</button></div><div class="feedback"></div></div>
+  <div class="question" id="q4"><div class="qhead">4) Aling lungsod ang idineklarang “Open City”?</div>
+    <div class="options"><button data-answer="A">A) Cebu</button><button data-answer="B">B) Davao</button><button data-answer="C">C) Maynila</button><button data-answer="D">D) Baguio</button></div><div class="feedback"></div></div>
+  <div class="question" id="q5"><div class="qhead">5) Sino ang Pangulong lumikas mula Pilipinas patungong Washington D.C. upang humingi ng tulong?</div>
+    <div class="options"><button data-answer="A">A) Sergio Osmeña</button><button data-answer="B">B) Manuel L. Quezon</button><button data-answer="C">C) Jose P. Laurel</button><button data-answer="D">D) Emilio Aguinaldo</button></div><div class="feedback"></div></div>
+  <div class="question" id="q6"><div class="qhead">6) Ano ang ibig sabihin ng USAFFE?</div>
+    <div class="options"><button data-answer="A">A) United States Armed Forces in the Far East</button><button data-answer="B">B) Union of Southeast Asian Freedom Fighters</button><button data-answer="C">C) US Army for Filipino Expedition</button><button data-answer="D">D) United Service Alliance For Far East</button></div><div class="feedback"></div></div>
+  <div class="question" id="q7"><div class="qhead">7) Sino ang Heneral na nagsabing “I shall return”?</div>
+    <div class="options"><button data-answer="A">A) Heneral Wainwright</button><button data-answer="B">B) Heneral Yamashita</button><button data-answer="C">C) Heneral Douglas MacArthur</button><button data-answer="D">D) Heneral Volckmann</button></div><div class="feedback"></div></div>
+  <div class="question" id="q8"><div class="qhead">8) Sino ang Heneral na namuno sa pagsakop ng mga sundalong Hapones sa Pilipinas sa simula ng digmaan?</div>
+    <div class="options"><button data-answer="A">A) Tomoyuki Yamashita</button><button data-answer="B">B) Masaharu Homma</button><button data-answer="C">C) Hideki Tojo</button><button data-answer="D">D) Isoroku Yamamoto</button></div><div class="feedback"></div></div>
+  <div class="question" id="q9"><div class="qhead">9) Kailan sumuko ang USAFFE sa Bataan?</div>
+    <div class="options"><button data-answer="A">A) Enero 2, 1942</button><button data-answer="B">B) Abril 9, 1942</button><button data-answer="C">C) Mayo 6, 1942</button><button data-answer="D">D) Hunyo 12, 1942</button></div><div class="feedback"></div></div>
+  <div class="question" id="q10"><div class="qhead">10) Ano ang tawag sa sapilitang paglalakad ng mga bihag mula Bataan patungong Capas, Tarlac?</div>
+    <div class="options"><button data-answer="A">A) Lakbay Dusa</button><button data-answer="B">B) Martsa ng Kamatayan (Death March)</button><button data-answer="C">C) Lakbay Laya</button><button data-answer="D">D) Martsa ng Tagumpay</button></div><div class="feedback"></div></div>
+  <div class="question" id="q11"><div class="qhead">11) Sino ang sumuko kasama ng kanyang hukbo sa Corregidor noong Mayo 6, 1942?</div>
+    <div class="options"><button data-answer="A">A) Heneral Wainwright</button><button data-answer="B">B) Heneral MacArthur</button><button data-answer="C">C) Pang. Quezon</button><button data-answer="D">D) Heneral Homma</button></div><div class="feedback"></div></div>
+  <div class="question" id="q12"><div class="qhead">12) Ano ang pangunahing dahilan ng mabilis na pagbagsak ng Corregidor?</div>
+    <div class="options"><button data-answer="A">A) Mahinang depensa sa pader</button><button data-answer="B">B) Kakulangan sa pagkain, gamot at tulong</button><button data-answer="C">C) Walang bala ang kanyon</button><button data-answer="D">D) Naubos ang tubig-dagat</button></div><div class="feedback"></div></div>
+  <div class="question" id="q13"><div class="qhead">13) Ano ang tawag sa pamahalaang papet na itinatag sa panahon ng Hapon?</div>
+    <div class="options"><button data-answer="A">A) Unang Republika</button><button data-answer="B">B) Ikalawang Republika</button><button data-answer="C">C) Commonwealth</button><button data-answer="D">D) Rebolusyonaryong Pamahalaan</button></div><div class="feedback"></div></div>
+  <div class="question" id="q14"><div class="qhead">14) Sino ang Pangulo ng Republikang Papet?</div>
+    <div class="options"><button data-answer="A">A) Manuel L. Quezon</button><button data-answer="B">B) Sergio Osmeña</button><button data-answer="C">C) Jose P. Laurel</button><button data-answer="D">D) Jose Abad Santos</button></div><div class="feedback"></div></div>
+  <div class="question" id="q15"><div class="qhead">15) Ano ang tawag sa salaping walang tunay na halaga noong okupasyon?</div>
+    <div class="options"><button data-answer="A">A) Fiat Money</button><button data-answer="B">B) Mickey Mouse Money</button><button data-answer="C">C) Hero Money</button><button data-answer="D">D) Yen Peso</button></div><div class="feedback"></div></div>
+  <div class="question" id="q16"><div class="qhead">16) Aling ahensya ang unang itinatag ng Hapon noong 1942 upang pamahalaan ang Pilipinas?</div>
+    <div class="options"><button data-answer="A">A) KALIBAPI</button><button data-answer="B">B) BIGSA</button><button data-answer="C">C) PEC (Philippine Executive Commission)</button><button data-answer="D">D) PCGG</button></div><div class="feedback"></div></div>
+  <div class="question" id="q17"><div class="qhead">17) Ano ang layunin ng BIGSA ayon sa tala?</div>
+    <div class="options"><button data-answer="A">A) Kontrolin ang pagkain / bigas</button><button data-answer="B">B) Kontrolin ang edukasyon</button><button data-answer="C">C) Kontrolin ang transportasyon</button><button data-answer="D">D) Kontrolin ang imprastraktura</button></div><div class="feedback"></div></div>
+  <div class="question" id="q18"><div class="qhead">18) Ano ang tawag sa mga Pilipinong nakipagtulungan sa mga Hapones?</div>
+    <div class="options"><button data-answer="A">A) Katipunero</button><button data-answer="B">B) Makapili</button><button data-answer="C">C) Ilustrado</button><button data-answer="D">D) Regidor</button></div><div class="feedback"></div></div>
+  <div class="question" id="q19"><div class="qhead">19) Ano ang tawag sa paraang labanang ginamit ng maraming Pilipino matapos ang pagsuko?</div>
+    <div class="options"><button data-answer="A">A) Trench warfare</button><button data-answer="B">B) Gerilya</button><button data-answer="C">C) Siege</button><button data-answer="D">D) Open battle</button></div><div class="feedback"></div></div>
+  <div class="question" id="q20"><div class="qhead">20) Aling pangkat‑gerilya ang malaki ang impluwensya sa Gitnang Luzon?</div>
+    <div class="options"><button data-answer="A">A) KMU</button><button data-answer="B">B) HUKBALAHAP</button><button data-answer="C">C) Makapili</button><button data-answer="D">D) PCSO</button></div><div class="feedback"></div></div>
+  <div class="question" id="q21"><div class="qhead">21) Sino si Volckmann sa konteksto ng digmaan?</div>
+    <div class="options"><button data-answer="A">A) Pinuno ng Makapili</button><button data-answer="B">B) Pinuno ng USAFFE/Gerilya sa Hilagang Luzon</button><button data-answer="C">C) Pangulo ng PEC</button><button data-answer="D">D) Punong Ministro ng Hapon</button></div><div class="feedback"></div></div>
+  <div class="question" id="q22"><div class="qhead">22) Ano ang epekto ng “Mickey Mouse Money” sa ekonomiya?</div>
+    <div class="options"><button data-answer="A">A) Deflation</button><button data-answer="B">B) Hyperinflation</button><button data-answer="C">C) Equilibrium</button><button data-answer="D">D) Zero inflation</button></div><div class="feedback"></div></div>
+  <div class="question" id="q23"><div class="qhead">23) Anong samahang pampulitika ang itinatag ng Hapon upang kontrolin ang lipunan at pulitika?</div>
+    <div class="options"><button data-answer="A">A) KALIBAPI</button><button data-answer="B">B) CEC</button><button data-answer="C">C) NPC</button><button data-answer="D">D) LP</button></div><div class="feedback"></div></div>
+  <div class="question" id="q24"><div class="qhead">24) Ano ang wastong paliwanag sa “Open City” status?</div>
+    <div class="options"><button data-answer="A">A) Malayang magprotesta</button><button data-answer="B">B) Bawal galawin at bombahin upang iligtas ang sibilyan at pamanang gusali</button><button data-answer="C">C) Libre ang kalakalan</button><button data-answer="D">D) Open sa turista</button></div><div class="feedback"></div></div>
+  <div class="question" id="q25"><div class="qhead">25) Sino ang komandante ng USAFFE na unang namuno sa depensa ng Pilipinas?</div>
+    <div class="options"><button data-answer="A">A) Heneral Wainwright</button><button data-answer="B">B) Heneral Douglas MacArthur</button><button data-answer="C">C) Heneral Percival</button><button data-answer="D">D) Heneral Homma</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== II. Tama o Mali (26–40) =========================== -->
+  <h2 class="section-title h5">II. Tama o Mali (26–40)</h2>
+  <div class="question" id="q26"><div class="qhead">26) Ang Pearl Harbor ay inatake noong Disyembre 7, 1941.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q27"><div class="qhead">27) Idineklarang “Open City” ang Cebu upang hindi na ito bombahin.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q28"><div class="qhead">28) Sumuko ang Bataan noong Abril 9, 1942 dahil kulang sa armas at suplay.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q29"><div class="qhead">29) Ang Corregidor ay bumagsak noong Mayo 6, 1942 sa pangunguna ni Heneral Wainwright.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q30"><div class="qhead">30) Si Jose P. Laurel ang Pangulo ng Ikalawang Republika.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q31"><div class="qhead">31) Ang “Mickey Mouse Money” ay matibay ang halaga kaya tumaas ang kapangyarihang bumili.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q32"><div class="qhead">32) Ang BIGSA ay kaugnay ng pagkontrol sa pagkain sa panahon ng kakapusan.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q33"><div class="qhead">33) Ang Makapili ay tumutukoy sa mga Pilipinong lumaban sa Hapon sa kabundukan.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q34"><div class="qhead">34) Ang HUKBALAHAP ay isang kilusang gerilya laban sa Hapon sa Gitnang Luzon.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q35"><div class="qhead">35) Ang PEC (Philippine Executive Commission) ang pansamantalang pamahalaang itinatag ng Hapon noong 1942.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q36"><div class="qhead">36) Si Manuel L. Quezon ay hindi kailanman lumikas sa Corregidor.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q37"><div class="qhead">37) Si Heneral Masaharu Homma ang namuno sa mga puwersang Hapones sa simula ng pagsakop.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q38"><div class="qhead">38) Ang “Greater East Asia Co‑Prosperity Sphere” ay malinaw na pagtakwil sa anumang impluwensiyang Kanluranin.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q39"><div class="qhead">39) Ang gerilya ay tuwirang labanan sa malalaking pormasyon at bukas na larangan.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q40"><div class="qhead">40) Ang hyperinflation ay bunga ng salaping walang halaga at kakulangan sa produkto.</div><div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== III. Sanaysay (41–42) =========================== -->
+  <h2 class="section-title h5">III. Sanaysay (2 tanong × 5 pts = 10 pts)</h2>
+
+  <div class="question essay" id="q41essay">
+    <div class="qhead">41) <b>Sanaysay 1 (5 pts):</b> Ipaliwanag sa 5–7 pangungusap ang kahulugan ng “Open City” at bakit ito idineklara sa Maynila noong digmaan. Isama ang layunin nito para sa mga sibilyan.</div>
+    <div class="smallmuted">Rubric (5 pts): Nilalaman (2) • Ayos/Kaayusan (1) • Wika at Balarila (1) • Haba (1)</div>
+    <textarea class="form-control mt-2" rows="5" placeholder="Isulat ang iyong sagot dito (5–7 pangungusap)..."></textarea>
+    <div class="mt-2">Iskor (0–5): <input id="essay41Score" type="number" min="0" max="5" step="1" value="0" class="form-control" style="max-width:120px; display:inline-block"></div>
+  </div>
+
+  <div class="question essay" id="q42essay">
+    <div class="qhead">42) <b>Sanaysay 2 (5 pts):</b> Ilahad ang naging epekto ng “Mickey Mouse Money” sa pang‑araw‑araw na buhay ng mga Pilipino. Ipaliwanag ang salitang <i>hyperinflation</i> at magbigay ng halimbawa. (5–7 pangungusap)</div>
+    <div class="smallmuted">Rubric (5 pts): Nilalaman (2) • Ayos/Kaayusan (1) • Wika at Balarila (1) • Haba (1)</div>
+    <textarea class="form-control mt-2" rows="5" placeholder="Isulat ang iyong sagot dito (5–7 pangungusap)..."></textarea>
+    <div class="mt-2">Iskor (0–5): <input id="essay42Score" type="number" min="0" max="5" step="1" value="0" class="form-control" style="max-width:120px; display:inline-block"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Isumite</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Ulitin ang Pagsusulit</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key (MCQ/TM) --- */
+const answers={
+  q1:"B",q2:"A",q3:"A",q4:"C",q5:"B",q6:"A",q7:"C",q8:"B",q9:"B",q10:"B",
+  q11:"A",q12:"B",q13:"B",q14:"C",q15:"B",q16:"C",q17:"A",q18:"B",q19:"B",q20:"B",
+  q21:"B",q22:"B",q23:"A",q24:"B",q25:"B",
+  q26:"T",q27:"F",q28:"T",q29:"T",q30:"T",q31:"F",q32:"T",q33:"F",q34:"T",q35:"T",q36:"F",q37:"T",q38:"T",q39:"F",q40:"T"
+};
+
+function explain(q){
+  const e={
+    q1:"Propagandang pag-iisa ng Asya at pagtulak sa Kanluranin.",
+    q2:"Mahalagang base ang Pilipinas; noon ay nasa ilalim ng US.",
+    q3:"Ang pag-atake sa Pearl Harbor ay Disyembre 7, 1941.",
+    q4:"Maynila ang idineklarang Open City upang iligtas ang sibilyan/pamana.",
+    q5:"Lumikas si Quezon upang humingi ng tulong sa US.",
+    q6:"Tamang kahulugan ng USAFFE.",
+    q7:"Pahayag ni Heneral Douglas MacArthur.",
+    q8:"Si Masaharu Homma ang nanguna sa unang pagsakop.",
+    q9:"Bataan surrender: Abril 9, 1942.",
+    q10:"Martsa ng Kamatayan ang tawag sa sapilitang paglalakad.",
+    q11:"Sumuko si Heneral Jonathan Wainwright sa Corregidor.",
+    q12:"Kakulangan sa pagkain, gamot, at tulong ang sanhi.",
+    q13:"Ika‑lawang Republika ang papet na pamahalaan.",
+    q14:"Si Jose P. Laurel ang pangulo ng papet na republika.",
+    q15:"Mickey Mouse Money = salaping halos walang halaga.",
+    q16:"PEC ang pansamantalang komisyon noong 1942.",
+    q17:"BIGSA: pagkontrol sa bigas/pagkain.",
+    q18:"Makapili: nakipagtulungan sa Hapon.",
+    q19:"Gerilya warfare ang ginamit matapos sumuko ang mga hukbo.",
+    q20:"HUKBALAHAP ang malaki sa Gitnang Luzon.",
+    q21:"Volckmann: USAFFE/gerilya leader sa Hilagang Luzon.",
+    q22:"Mickey Mouse Money → hyperinflation.",
+    q23:"KALIBAPI ang partidong panlipunan/pampulitika.",
+    q24:"Open City: bawal bombahin/galawin para sa sibilyan at pamanang gusali.",
+    q25:"MacArthur ang unang komandante ng USAFFE.",
+    q26:"Tama ang petsa ng Pearl Harbor.",
+    q27:"Mali: Maynila, hindi Cebu, ang Open City.",
+    q28:"Tama: kakulangan sa armas/suplay.",
+    q29:"Tama: Corregidor fell May 6, 1942 under Wainwright.",
+    q30:"Tama: Laurel ang pangulo ng Ikalawang Republika.",
+    q31:"Mali: walang halaga → bagsak ang buying power.",
+    q32:"Tama: food/rice control sa kakapusan.",
+    q33:"Mali: Makapili = nakipagtulungan, hindi gerilya.",
+    q34:"Tama: HUKBALAHAP ay gerilya laban sa Hapon.",
+    q35:"Tama: PEC ang pansamantalang pamahalaan.",
+    q36:"Mali: lumikas si Quezon sa Corregidor at lumipad pa-US.",
+    q37:"Tama: Homma ang unang commander.",
+    q38:"Tama: ideolohiyang anti‑Kanluran ang propaganda.",
+    q39:"Mali: gerilya = lihim/maliit na yunit, hindi open field.",
+    q40:"Tama: salaping walang halaga + kakapusan → hyperinflation."
+  }; return e[q]||"";
+}
+
+// Pagpili ng sagot
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// Grade + confirm
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(!confirm('Sigurado ka bang isusumite na ang mga sagot? Makikita mo ang paliwanag pagkatapos.')) return;
+  let score=0; // 0–50
+
+  // Auto-graded: MCQ (1 pt bawat isa) at Tama/Mali (1 pt bawat isa)
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q); if(!el) return; // skip essay ids
+    const fb=el.querySelector('.feedback'); if(!fb) return;
+    fb.innerHTML="";
+    const sel=el.dataset.selected;
+    let statusHTML="";
+    if(!sel) statusHTML=`<div class='unanswered'>⚠️ Walang sagot</div>`;
+    else if(sel===answers[q]){ statusHTML=`<div class='correct'>✅ Tama</div>`; score++; }
+    else statusHTML=`<div class='incorrect'>❌ Mali (Tama: ${answers[q]})</div>`;
+    const expId=`${q}-exp`;
+    fb.innerHTML=`${statusHTML}<button class='exp-toggle' onclick="toggleExp('${expId}',this)">Ipakita ang Paliwanag</button><div class='exp' id='${expId}'>${explain(q)}</div>`;
+  });
+
+  // Essay manual score (max 10 pts)
+  const e41=Number(document.getElementById('essay41Score').value||0);
+  const e42=Number(document.getElementById('essay42Score').value||0);
+  const essayTotal=Math.max(0,Math.min(5,e41))+Math.max(0,Math.min(5,e42));
+  score += essayTotal; // add to total
+
+  // Score UI
+  document.getElementById('totalScore').textContent=score;
+  const stars=Math.floor(score/10);
+  document.getElementById('starRow').textContent='★'.repeat(stars)+'☆'.repeat(5-stars);
+  const msg=score>=45?'🌟 Napakahusay!':score>=35?'👍 Magaling!':score>=25?'🙂 Sapat na pagsisikap!':'💪 Ipagpatuloy ang pagsasanay!';
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Reset
+ document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Ulitin ang pagsusulit?')) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected; q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML='';
+    const ta=q.querySelector('textarea'); if(ta) ta.value='';
+  });
+  document.getElementById('essay41Score').value=0; document.getElementById('essay42Score').value=0;
+  document.getElementById('scorecard').style.display='none';
+ });
+
+function toggleExp(id,btn){ const exp=document.getElementById(id); if(exp.style.display==='block'){ exp.style.display='none'; btn.innerHTML='Ipakita ang Paliwanag'; } else { exp.style.display='block'; btn.innerHTML='Itago ang Paliwanag'; } }
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+</script>
+</body>
+</html>
