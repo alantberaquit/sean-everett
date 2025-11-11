@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Science Interactive Reviewer – Digestive • Cardiorespiratory • Nervous</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{ --ink:#111827; --paper:#f9fafb; --card:#ffffff; --accent:#14b8a6; --accent-2:#0d9488; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card); }
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{ display:block; width:100%; text-align:left; border-radius:0; padding:.75rem; border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .match-item{ margin:.3rem 0; display:flex; align-items:center; gap:.5rem; }
+    .match-item select{ padding:.35rem; border:1px solid #d1d5db; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .choices-note{font-size:.9rem}
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-layers"></i> Science Interactive Reviewer</h1>
+  <p class="text-center text-muted">Digestive • Cardiorespiratory • Nervous Systems • Total: 50 points</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p><b>How to Answer:</b></p>
+    <ul>
+      <li>Tap the best choice for Multiple-Choice and True/False.</li>
+      <li><b>Matching (11–20):</b> Use the dropdowns (1–5) to match each structure to the correct function set.</li>
+      <li>Tap <b>Submit</b> when done. You’ll see ✅/❌ plus explanations.</li>
+      <li>Tap <b>Show Explanation</b> to learn why each answer is correct or incorrect.</li>
+    </ul>
+  </div>
+
+  <!-- =========================== PART I – Multiple Choice (1–10) =========================== -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–10)</h2>
+
+  <div class="question" id="q1"><div class="qhead">1) Most nutrient absorption happens in the…</div>
+    <div class="options"><button data-answer="A">A) Stomach</button><button data-answer="B">B) Small intestine</button><button data-answer="C">C) Large intestine</button><button data-answer="D">D) Esophagus</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q2"><div class="qhead">2) Which enzyme in saliva begins starch digestion?</div>
+    <div class="options"><button data-answer="A">A) Pepsin</button><button data-answer="B">B) Amylase</button><button data-answer="C">C) Lipase</button><button data-answer="D">D) Trypsin</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q3"><div class="qhead">3) Mechanical digestion in the mouth is mainly done by the…</div>
+    <div class="options"><button data-answer="A">A) Uvula</button><button data-answer="B">B) Teeth and tongue</button><button data-answer="C">C) Salivary glands</button><button data-answer="D">D) Epiglottis</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q4"><div class="qhead">4) Which organ produces bile to help digest fats?</div>
+    <div class="options"><button data-answer="A">A) Gallbladder</button><button data-answer="B">B) Pancreas</button><button data-answer="C">C) Liver</button><button data-answer="D">D) Stomach</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q5"><div class="qhead">5) Which heart chamber pumps oxygen-rich blood to the body?</div>
+    <div class="options"><button data-answer="A">A) Right atrium</button><button data-answer="B">B) Left ventricle</button><button data-answer="C">C) Right ventricle</button><button data-answer="D">D) Left atrium</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q6"><div class="qhead">6) Blood vessels that carry blood away from the heart are called…</div>
+    <div class="options"><button data-answer="A">A) Arteries</button><button data-answer="B">B) Veins</button><button data-answer="C">C) Capillaries</button><button data-answer="D">D) Venules</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q7"><div class="qhead">7) Gas exchange occurs in tiny air sacs of the lungs called…</div>
+    <div class="options"><button data-answer="A">A) Bronchi</button><button data-answer="B">B) Bronchioles</button><button data-answer="C">C) Alveoli</button><button data-answer="D">D) Villi</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q8"><div class="qhead">8) The primary function of red blood cells is to carry…</div>
+    <div class="options"><button data-answer="A">A) Antibodies</button><button data-answer="B">B) Hormones</button><button data-answer="C">C) Oxygen using hemoglobin</button><button data-answer="D">D) Digestive enzymes</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q9"><div class="qhead">9) Which brain region coordinates balance and movement?</div>
+    <div class="options"><button data-answer="A">A) Cerebrum</button><button data-answer="B">B) Cerebellum</button><button data-answer="C">C) Brain stem</button><button data-answer="D">D) Thalamus</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q10"><div class="qhead">10) The branched parts of a neuron that receive signals are called…</div>
+    <div class="options"><button data-answer="A">A) Axon</button><button data-answer="B">B) Dendrites</button><button data-answer="C">C) Myelin</button><button data-answer="D">D) Synapse</button></div>
+    <div class="feedback"></div></div>
+
+  <!-- =========================== PART II – Matching (11–20) =========================== -->
+  <h2 class="section-title h5">Part II – Matching (11–20)</h2>
+
+  <div class="alert alert-secondary choices-note">
+    <strong>Set A Keys (1–5):</strong> 1) Stomach — mixes food with acid & churns  • 2) Villi — increase absorption area  • 3) Peristalsis — wave-like movement  • 4) Enzymes — break down food  • 5) Epiglottis — blocks trachea when swallowing
+  </div>
+  <div class="question" id="matchA">
+    <div class="qhead">Set A (11–15): Digestive System – Choose the correct key number (1–5)</div>
+    <div class="match-item"><select data-correct="1"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Stomach</div>
+    <div class="match-item"><select data-correct="2"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Villi</div>
+    <div class="match-item"><select data-correct="3"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Peristalsis</div>
+    <div class="match-item"><select data-correct="4"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Enzymes</div>
+    <div class="match-item"><select data-correct="5"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Epiglottis</div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="alert alert-secondary choices-note">
+    <strong>Set B Keys (1–5):</strong> 1) Alveoli — gas exchange  • 2) Arteries — carry blood away  • 3) Veins — return blood, many valves  • 4) Capillaries — thin walls for exchange  • 5) Diaphragm — contracts for inhalation
+  </div>
+  <div class="question" id="matchB">
+    <div class="qhead">Set B (16–20): Cardiorespiratory – Choose the correct key number (1–5)</div>
+    <div class="match-item"><select data-correct="1"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Alveoli</div>
+    <div class="match-item"><select data-correct="2"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Arteries</div>
+    <div class="match-item"><select data-correct="3"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Veins</div>
+    <div class="match-item"><select data-correct="4"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Capillaries</div>
+    <div class="match-item"><select data-correct="5"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Diaphragm</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =========================== PART III – True/False (21–30) =========================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border">Part III – True/False (21–30)</h2>
+
+  <div class="question" id="q21"><div class="qhead">21) The esophagus performs chemical digestion by secreting enzymes.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q22"><div class="qhead">22) “Breathe in” happens when the diaphragm contracts and moves downward.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q23"><div class="qhead">23) Capillaries have thick, muscular walls to withstand high pressure.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q24"><div class="qhead">24) The cerebrum controls thinking, memory, and voluntary actions.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q25"><div class="qhead">25) The brain stem helps regulate heartbeat and breathing.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q26"><div class="qhead">26) Peristalsis is the wave-like contraction that pushes food along the digestive tract.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q27"><div class="qhead">27) The right side of the heart pumps oxygen-rich blood to the body.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q28"><div class="qhead">28) Red blood cells carry oxygen using hemoglobin.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q29"><div class="qhead">29) Neurons are the basic units of the nervous system.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+  <div class="question" id="q30"><div class="qhead">30) The diaphragm relaxes and moves up during exhalation.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== PART IV – Best Explanation (31–50) =========================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border">Part IV – Best Explanation (31–50)</h2>
+
+  <div class="question" id="q31"><div class="qhead">31) Why are villi important in the small intestine?</div>
+    <div class="options">
+      <button data-answer="A">A) They secrete hydrochloric acid to break proteins.</button>
+      <button data-answer="B">B) They increase surface area, improving nutrient absorption.</button>
+      <button data-answer="C">C) They push food along by peristalsis.</button>
+      <button data-answer="D">D) They store bile for fat digestion.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q32"><div class="qhead">32) Why can the left ventricle pump blood with the greatest force?</div>
+    <div class="options">
+      <button data-answer="A">A) It receives deoxygenated blood from the body.</button>
+      <button data-answer="B">B) It has the thickest muscular wall to pump blood to the whole body.</button>
+      <button data-answer="C">C) It sends blood only to the lungs.</button>
+      <button data-answer="D">D) It contains the pacemaker (SA node).</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q33"><div class="qhead">33) Why is the epiglottis essential during swallowing?</div>
+    <div class="options">
+      <button data-answer="A">A) It absorbs nutrients.</button>
+      <button data-answer="B">B) It prevents food from entering the trachea by covering it.</button>
+      <button data-answer="C">C) It secretes saliva.</button>
+      <button data-answer="D">D) It breaks down fat droplets.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q34"><div class="qhead">34) Why are capillaries ideal sites for exchange of gases and nutrients?</div>
+    <div class="options">
+      <button data-answer="A">A) They have valves that stop backflow.</button>
+      <button data-answer="B">B) They have very thin walls and are close to body cells.</button>
+      <button data-answer="C">C">C) They carry only oxygenated blood.</button>
+      <button data-answer="D">D) They connect only to the heart.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q35"><div class="qhead">35) Why does breathing rate increase during exercise?</div>
+    <div class="options">
+      <button data-answer="A">A) Muscles need more oxygen and must remove more carbon dioxide.</button>
+      <button data-answer="B">B) The diaphragm stops working.</button>
+      <button data-answer="C">C) The lungs lose surface area.</button>
+      <button data-answer="D">D) Blood cells disappear.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q36"><div class="qhead">36) Why is amylase important for digestion?</div>
+    <div class="options">
+      <button data-answer="A">A) It breaks down starch into simpler sugars.</button>
+      <button data-answer="B">B) It emulsifies fats.</button>
+      <button data-answer="C">C) It digests proteins in the stomach.</button>
+      <button data-answer="D">D) It neutralizes stomach acid.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q37"><div class="qhead">37) Why do veins often have valves?</div>
+    <div class="options">
+      <button data-answer="A">A) To prevent backflow of blood as it returns to the heart.</button>
+      <button data-answer="B">B) To increase blood pressure.</button>
+      <button data-answer="C">C) To carry oxygen to tissues.</button>
+      <button data-answer="D">D) To pump blood away from the heart.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q38"><div class="qhead">38) Why is the brain stem vital for survival?</div>
+    <div class="options">
+      <button data-answer="A">A) It controls involuntary actions like breathing and heartbeat.</button>
+      <button data-answer="B">B) It handles memory and learning.</button>
+      <button data-answer="C">C">C) It is where digestion starts.</button>
+      <button data-answer="D">D) It produces antibodies.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q39"><div class="qhead">39) Why are lungs filled with many alveoli?</div>
+    <div class="options">
+      <button data-answer="A">A) To greatly increase surface area for gas exchange.</button>
+      <button data-answer="B">B">B) To store extra blood.</button>
+      <button data-answer="C">C) To digest fats.</button>
+      <button data-answer="D">D) To filter urine.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q40"><div class="qhead">40) Why is hemoglobin essential for oxygen transport?</div>
+    <div class="options">
+      <button data-answer="A">A) It binds oxygen in the lungs and releases it in tissues.</button>
+      <button data-answer="B">B">B) It produces oxygen.</button>
+      <button data-answer="C">C) It digests proteins.</button>
+      <button data-answer="D">D) It makes blood clot.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q41"><div class="qhead">41) Why is chewing food thoroughly helpful for digestion?</div>
+    <div class="options">
+      <button data-answer="A">A) It increases surface area for enzymes to work on.</button>
+      <button data-answer="B">B">B) It removes nutrients.</button>
+      <button data-answer="C">C) It turns starch into fat.</button>
+      <button data-answer="D">D) It lowers blood pressure.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q42"><div class="qhead">42) Why do arteries have thicker muscular walls than veins?</div>
+    <div class="options">
+      <button data-answer="A">A) They must withstand higher pressure from the heart.</button>
+      <button data-answer="B">B">B) They do not carry blood.</button>
+      <button data-answer="C">C) They store air.</button>
+      <button data-answer="D">D) They absorb food.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q43"><div class="qhead">43) Why is the cerebellum important for athletes?</div>
+    <div class="options">
+      <button data-answer="A">A) It coordinates balance and precise movements.</button>
+      <button data-answer="B">B">B) It makes blood cells.</button>
+      <button data-answer="C">C) It digests proteins.</button>
+      <button data-answer="D">D) It filters waste.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q44"><div class="qhead">44) Why does choking happen when the epiglottis fails?</div>
+    <div class="options">
+      <button data-answer="A">A) Food enters the trachea instead of the esophagus.</button>
+      <button data-answer="B">B">B) Food moves faster through peristalsis.</button>
+      <button data-answer="C">C) Enzymes stop working.</button>
+      <button data-answer="D">D) The lungs expand too much.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q45"><div class="qhead">45) Why is the small intestine so long and folded?</div>
+    <div class="options">
+      <button data-answer="A">A) To maximize time and surface area for absorption.</button>
+      <button data-answer="B">B">B) To store undigested food.</button>
+      <button data-answer="C">C) To produce red blood cells.</button>
+      <button data-answer="D">D) To hold the liver.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q46"><div class="qhead">46) Why do sprinters breathe heavily after a race?</div>
+    <div class="options">
+      <button data-answer="A">A) To repay oxygen debt and remove carbon dioxide.</button>
+      <button data-answer="B">B">B) Because lungs stop working.</button>
+      <button data-answer="C">C) To digest more quickly.</button>
+      <button data-answer="D">D) To cool the stomach.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q47"><div class="qhead">47) Why are dendrites compared to “listeners” in a neuron?</div>
+    <div class="options">
+      <button data-answer="A">A) They receive incoming signals from other neurons.</button>
+      <button data-answer="B">B">B) They send signals away.</button>
+      <button data-answer="C">C) They insulate the axon.</button>
+      <button data-answer="D">D) They produce neurotransmitters only.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q48"><div class="qhead">48) Why does the pancreas aid digestion?</div>
+    <div class="options">
+      <button data-answer="A">A) It secretes digestive enzymes that act on carbs, proteins, and fats.</button>
+      <button data-answer="B">B">B) It stores bile.</button>
+      <button data-answer="C">C) It absorbs water.</button>
+      <button data-answer="D">D) It makes hemoglobin.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q49"><div class="qhead">49) Why do capillaries surround each alveolus?</div>
+    <div class="options">
+      <button data-answer="A">A) To quickly exchange oxygen and carbon dioxide between air and blood.</button>
+      <button data-answer="B">B">B) To store enzymes.</button>
+      <button data-answer="C">C) To support the ribs.</button>
+      <button data-answer="D">D) To pump air.</button>
+    </div><div class="feedback"></div></div>
+
+  <div class="question" id="q50"><div class="qhead">50) Why is the spinal cord crucial to reflex actions?</div>
+    <div class="options">
+      <button data-answer="A">A) It processes some responses quickly without the brain to protect the body.</button>
+      <button data-answer="B">B">B) It digests food.</button>
+      <button data-answer="C">C) It filters blood.</button>
+      <button data-answer="D">D) It produces antibodies.</button>
+    </div><div class="feedback"></div></div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key (MCQ/T-F/Best) --- */
+const answers={
+  q1:"B",q2:"B",q3:"B",q4:"C",q5:"B",q6:"A",q7:"C",q8:"C",q9:"B",q10:"B",
+  q21:"F",q22:"T",q23:"F",q24:"T",q25:"T",q26:"T",q27:"F",q28:"T",q29:"T",q30:"T",
+  q31:"B",q32:"B",q33:"B",q34:"B",q35:"A",q36:"A",q37:"A",q38:"A",q39:"A",q40:"A",
+  q41:"A",q42:"A",q43:"A",q44:"A",q45:"A",q46:"A",q47:"A",q48:"A",q49:"A",q50:"A"
+};
+
+/* --- Explanations --- */
+function explain(q){
+  const e={
+    q1:"Small intestine has villi and microvilli for maximal absorption.",
+    q2:"Salivary amylase begins starch digestion in the mouth.",
+    q3:"Teeth and tongue mechanically break food into smaller pieces.",
+    q4:"The liver produces bile; the gallbladder stores it.",
+    q5:"Left ventricle pumps to the body and has the thickest wall.",
+    q6:"Arteries carry blood away from the heart.",
+    q7:"Alveoli are tiny sacs where gas exchange occurs.",
+    q8:"Hemoglobin in RBCs binds and transports oxygen.",
+    q9:"Cerebellum coordinates balance and movement.",
+    q10:"Dendrites receive signals; axon sends them.",
+    q21:"Esophagus mainly moves food by peristalsis (no enzymes).",
+    q22:"Diaphragm contracts downward → thoracic volume ↑ → inhale.",
+    q23:"Capillaries have very thin walls, not thick.",
+    q24:"Cerebrum handles thinking, memory, voluntary actions.",
+    q25:"Brain stem controls involuntary actions (heartbeat, breathing).",
+    q26:"Peristalsis = wave-like contraction pushing food along.",
+    q27:"Right side pumps deoxygenated blood to lungs, not body.",
+    q28:"RBCs carry O2 with hemoglobin.",
+    q29:"Neurons are the basic functional units.",
+    q30:"Exhalation: diaphragm relaxes and moves up.",
+    q31:"Villi increase surface area for absorption.",
+    q32:"Thick muscular wall generates high pressure to the body.",
+    q33:"Epiglottis closes over trachea to prevent choking.",
+    q34:"Very thin walls and proximity to cells enable exchange.",
+    q35:"Higher O2 demand and CO2 removal during exercise.",
+    q36:"Amylase breaks starch into sugars.",
+    q37:"Valves prevent backflow in low-pressure return to heart.",
+    q38:"Brain stem maintains vital functions.",
+    q39:"Many alveoli provide huge surface area.",
+    q40:"Hemoglobin binds/release O2 where needed.",
+    q41:"More surface area speeds enzyme action.",
+    q42:"Higher pressure requires thicker walls.",
+    q43:"Cerebellum fine-tunes movement and balance.",
+    q44:"Without epiglottis action, food may enter trachea.",
+    q45:"Length/folds increase time and area for absorption.",
+    q46:"Post-exercise breathing repays O2 debt and removes CO2.",
+    q47:"Dendrites receive incoming signals.",
+    q48:"Pancreas secretes enzymes for carbs, proteins, fats.",
+    q49:"Capillaries around alveoli speed gas exchange.",
+    q50:"Spinal cord can process reflexes quickly for protection."
+  };
+  return e[q]||"";
+}
+
+/* --- Selection, grading, explanations, scorecard, dark mode --- */
+// Select options
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// Submit grading with confirm
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(!confirm('Are you sure you want to submit your answers? You can view explanations after submitting.')) return;
+  let score=0;
+  // Grade MCQ / T-F / Best
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q); if(!el) return; // skip matching sets
+    const fb=el.querySelector('.feedback'); if(!fb) return;
+    fb.innerHTML="";
+    let sel=el.dataset.selected;
+    let statusHTML="";
+    if(!sel) statusHTML=`<div class="unanswered">⚠️ Not answered</div>`;
+    else if(sel===answers[q]){ statusHTML=`<div class="correct">✅ Correct</div>`; score++; }
+    else statusHTML=`<div class="incorrect">❌ Incorrect (Correct: ${answers[q]})</div>`;
+    const expId=`${q}-exp`;
+    fb.innerHTML=`${statusHTML}<button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button><div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Grade matching sets (5 pts each)
+  function gradeMatch(id, keyStr){
+    const selects=document.querySelectorAll(`#${id} select`);
+    let ok=true; selects.forEach(sel=>{ if(Number(sel.value)!==Number(sel.dataset.correct)) ok=false; });
+    const fb=document.querySelector(`#${id} .feedback`);
+    if(ok){ fb.innerHTML=`<div class="correct">✅ Correct matching</div>`; score+=5; }
+    else{ fb.innerHTML=`<div class="incorrect">❌ Incorrect matching.<br><b>Correct:</b> ${keyStr}</div>`; }
+  }
+  gradeMatch('matchA','Stomach→1 • Villi→2 • Peristalsis→3 • Enzymes→4 • Epiglottis→5');
+  gradeMatch('matchB','Alveoli→1 • Arteries→2 • Veins→3 • Capillaries→4 • Diaphragm→5');
+
+  // Score UI
+  document.getElementById('totalScore').textContent=score;
+  let stars=Math.floor(score/10);
+  document.getElementById('starRow').textContent="★".repeat(stars)+"☆".repeat(5-stars);
+  let msg=score>=45?"🌟 Excellent!":score>=35?"👍 Great job!":score>=25?"🙂 Good effort!":"💪 Keep practicing!";
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display="block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Reset
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Retake the quiz?')) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+  });
+  document.querySelectorAll('select').forEach(s=>s.value="");
+  document.getElementById('scorecard').style.display="none";
+});
+
+function toggleExp(id,btn){ const exp=document.getElementById(id); if(exp.style.display==='block'){ exp.style.display='none'; btn.innerHTML='Show Explanation'; } else { exp.style.display='block'; btn.innerHTML='Hide Explanation'; } }
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+</script>
+</body>
+</html>
