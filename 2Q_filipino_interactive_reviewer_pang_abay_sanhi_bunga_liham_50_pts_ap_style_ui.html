@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="fil">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Filipino Interactive Reviewer – Pang‑abay • Sanhi/Bunga • Liham Pangangalakal</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{ --ink:#111827; --paper:#f9fafb; --card:#ffffff; --accent:#14b8a6; --accent-2:#0d9488; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card); }
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{ display:block; width:100%; text-align:left; border-radius:0; padding:.75rem; border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .match-item{ margin:.3rem 0; display:flex; align-items:center; gap:.5rem; }
+    .match-item select{ padding:.35rem; border:1px solid #d1d5db; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .choices-note{font-size:.9rem}
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-pencil"></i> Filipino Interactive Reviewer</h1>
+  <p class="text-center text-muted">Pang‑abay • Sanhi at Bunga • Liham Pangangalakal</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Kabuuang Iskor: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p><b>Paraan ng Pagsagot:</b></p>
+    <ul>
+      <li>I-tap ang pinakamainam na sagot para sa Multiple Choice at Tama/Mali.</li>
+      <li><b>Matching (11–20):</b> May limang PALIWANAG (1–5). Piliin sa dropdown ang numerong tumutugma sa bawat <em>bahagi ng liham</em>.</li>
+      <li>I-tap ang <b>Submit</b> kapag tapos na. Makakakita ka ng ✅/❌ at paliwanag.</li>
+      <li>I-tap ang <b>Show Explanation</b> para makita ang dahilan ng bawat sagot.</li>
+    </ul>
+  </div>
+
+  <!-- =========================== PART I – Multiple Choice (1–10) =========================== -->
+  <h2 class="section-title h5">Bahagi I – Multiple Choice (1–10)</h2>
+
+  <div class="question" id="q1"><div class="qhead">1) Alin ang <em>pang‑abay na pamanahon</em>?</div>
+    <div class="options"><button data-answer="A">A) Sa silid‑aklatan</button><button data-answer="B">B) Kahapon</button><button data-answer="C">C) Maingat</button><button data-answer="D">D) Matulin</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q2"><div class="qhead">2) “<u>Sa eskuwela</u> gaganapin ang pagpupulong.” Ano ang uri ng pang‑abay?</div>
+    <div class="options"><button data-answer="A">A) Pamanahon</button><button data-answer="B">B) Panlunan</button><button data-answer="C">C) Pamaraan</button><button data-answer="D">D) Panang‑ayon</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q3"><div class="qhead">3) Alin ang halimbawa ng <em>pang‑abay na pamaraan</em>?</div>
+    <div class="options"><button data-answer="A">A) Kanina</button><button data-answer="B">B) Dito</button><button data-answer="C">C) Maingat</button><button data-answer="D">D) Bukas</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q4"><div class="qhead">4) “Dahil sa malakas na ulan, naantala ang klase.” Ang salitang <em>dahil</em> ay nagpapakita ng—</div>
+    <div class="options"><button data-answer="A">A) Bunga</button><button data-answer="B">B) Sanhi</button><button data-answer="C">C) Panlunan</button><button data-answer="D">D) Pamaraan</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q5"><div class="qhead">5) “Nagkaroon ng pagbaha, <u>kaya</u> sinuspinde ang pasok.” Ang sinalungguhit ay—</div>
+    <div class="options"><button data-answer="A">A) Sanhi</button><button data-answer="B">B) Bunga</button><button data-answer="C">C) Pananggi</button><button data-answer="D">D) Panubali</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q6"><div class="qhead">6) “Mabilis tumakbo ang atleta.” Ang salitang <em>mabilis</em> ay—</div>
+    <div class="options"><button data-answer="A">A) Pamanahon</button><button data-answer="B">B) Panlunan</button><button data-answer="C">C) Pamaraan</button><button data-answer="D">D) Panukat</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q7"><div class="qhead">7) Alin ang <em>hindi</em> pamanahon?</div>
+    <div class="options"><button data-answer="A">A) Tuwing Linggo</button><button data-answer="B">B) Noong Mayo</button><button data-answer="C">C) Kaninang umaga</button><button data-answer="D">D) Sa parke</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q8"><div class="qhead">8) “Naglinis kami <u>kanina</u>.” Ang sinalungguhit ay—</div>
+    <div class="options"><button data-answer="A">A) Pamanahon</button><button data-answer="B">B) Panlunan</button><button data-answer="C">C) Pamaraan</button><button data-answer="D">D) Panggaano</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q9"><div class="qhead">9) Alin ang pangungusap na <em>tuwirang nagpapahayag ng sanhi</em>?</div>
+    <div class="options"><button data-answer="A">A) Nalusong sa baha kaya nabasa ang sapatos.</button><button data-answer="B">B) Nabasa ang sapatos dahil nalusong sa baha.</button><button data-answer="C">C) Nalusong sa baha; tuyo pa rin ang sapatos.</button><button data-answer="D">D) Tumaob ang bangka ngunit walang nabasa.</button></div>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q10"><div class="qhead">10) “Sumigla ang halaman <u>dahil</u> nadiligan.” Ano ang <em>bunga</em>?</div>
+    <div class="options"><button data-answer="A">A) Sumigla ang halaman</button><button data-answer="B">B) Nadiligan</button><button data-answer="C">C) Dahil</button><button data-answer="D">D) Wala</button></div>
+    <div class="feedback"></div></div>
+
+  <!-- =========================== PART II – Matching (11–20) =========================== -->
+  <h2 class="section-title h5">Bahagi II – Matching (11–20): Liham Pangangalakal</h2>
+  <div class="alert alert-secondary choices-note">
+    <strong>Paliwanag (1–5):</strong> 1) Petsa sa kanang itaas  • 2) Inside Address ng tatanggap  • 3) Paksa (Re:)  • 4) Bating Panimula  • 5) Katawan ng Liham
+  </div>
+
+  <div class="question" id="matchA">
+    <div class="qhead">Set A (11–15): Tukuyin ang numero (1–5) ng tamang paliwanag.</div>
+    <div class="match-item"><select data-correct="1"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Petsa / Heading</div>
+    <div class="match-item"><select data-correct="2"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Inside Address (Tumatanggap)</div>
+    <div class="match-item"><select data-correct="3"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Paksa (Re:)</div>
+    <div class="match-item"><select data-correct="4"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Bating Panimula</div>
+    <div class="match-item"><select data-correct="5"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Katawan ng Liham</div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="alert alert-secondary choices-note">
+    <strong>Paliwanag (1–5):</strong> 1) Bating Pangwakas  • 2) Lagda at Pangalan  • 3) Titulo/Posisyon  • 4) Kalakip (Enclosure)  • 5) Postscript (P.S.)
+  </div>
+  <div class="question" id="matchB">
+    <div class="qhead">Set B (16–20): Tukuyin ang numero (1–5) ng tamang paliwanag.</div>
+    <div class="match-item"><select data-correct="1"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Bating Pangwakas</div>
+    <div class="match-item"><select data-correct="2"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Lagda at Pangalan</div>
+    <div class="match-item"><select data-correct="3"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Titulo / Posisyon</div>
+    <div class="match-item"><select data-correct="4"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Kalakip (Enclosure)</div>
+    <div class="match-item"><select data-correct="5"><option value="">-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select> Postscript (P.S.)</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- =========================== PART III – True/False (21–30) =========================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border">Bahagi III – Tama o Mali (21–30)</h2>
+
+  <div class="question" id="q21"><div class="qhead">21) Ang “dahil sa” ay karaniwang pananda ng <em>sanhi</em>.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q22"><div class="qhead">22) Ang “kaya” ay karaniwang pananda ng <em>sanhi</em>.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q23"><div class="qhead">23) Sa “Nabasa ang kalsada dahil umulan,” ang sanhi ay “nabasa ang kalsada.”</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q24"><div class="qhead">24) Maaaring mauna ang bunga bago ang sanhi sa isang pangungusap.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q25"><div class="qhead">25) “Upang” ay nagpapakita ng layunin tungo sa bunga.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q26"><div class="qhead">26) Ang “sapagkat” ay panandang bunga.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q27"><div class="qhead">27) “Bunsod nito” ay panandang bunga.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q28"><div class="qhead">28) “Pagkat” at “sapagkat” ay pawang panandang sanhi.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q29"><div class="qhead">29) Laging nauuna ang sanhi bago ang bunga.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+  <div class="question" id="q30"><div class="qhead">30) “Dahil dito,” “kaya,” at “bunga nito” ay mga panandang bunga.</div>
+    <div class="options"><button data-answer="T">Tama</button><button data-answer="F">Mali</button></div><div class="feedback"></div></div>
+
+  <!-- =========================== PART IV – Best Explanation (31–50) =========================== -->
+  <h2 class="section-title h4 text-uppercase text-center py-2 bg-light border">Bahagi IV – Best Explanation (31–50)</h2>
+
+  <div class="question" id="q31"><div class="qhead">31) Bakit itinuturing na <em>pamanahon</em> ang salitang “tuwing” sa pariralang “tuwing Biyernes”?</div>
+    <div class="options"><button data-answer="A">A) Dahil tumutukoy sa lugar</button><button data-answer="B">B) Dahil tumutukoy sa dalas o oras</button><button data-answer="C">C) Dahil naglalarawan kung paano</button><button data-answer="D">D) Dahil ito ay pangngalan</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q32"><div class="qhead">32) Alin ang <em>pinakamainam</em> na paliwanag kung bakit “dahan‑dahan” ay pamaraan?</div>
+    <div class="options"><button data-answer="A">A) Nagpapakita ng panahon</button><button data-answer="B">B) Nagpapakita kung paano isinagawa ang kilos</button><button data-answer="C">C) Nagpapakita ng direksiyon</button><button data-answer="D">D) Nagpapakita ng dami</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q33"><div class="qhead">33) Bakit “sa paaralan” ay panlunan?</div>
+    <div class="options"><button data-answer="A">A) Tumutukoy sa pook/lugar ng kilos</button><button data-answer="B">B) Tumutukoy sa oras</button><button data-answer="C">C) Naglalarawan ng paraan</button><button data-answer="D">D) Nagpapakita ng sanhi</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q34"><div class="qhead">34) Aling paliwanag ang WASTO? “Dahil” = sanhi sapagkat…</div>
+    <div class="options"><button data-answer="A">A) Lagi itong nasa unahan ng pangungusap</button><button data-answer="B">B) Iniugnay nito ang dahilan sa resulta</button><button data-answer="C">C) Laging sinusundan ng “kaya”</button><button data-answer="D">D) Ginagamit lamang sa patalata</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q35"><div class="qhead">35) Bakit bunga ang “kinansela ang klase” sa “Kinansela ang klase dahil baha”?</div>
+    <div class="options"><button data-answer="A">A) Ito ang naging resulta ng dahilan</button><button data-answer="B">B) Ito ang pinagmulan</button><button data-answer="C">C) Ito ang panlunan</button><button data-answer="D">D) Ito ang pananggi</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q36"><div class="qhead">36) Bakit mahalaga ang <em>paksa (Re:)</em> sa liham pangangalakal?</div>
+    <div class="options"><button data-answer="A">A) Nagbibigay ng malinaw na layunin sa isang tingin</button><button data-answer="B">B) Upang maging magalang ang pamamaalam</button><button data-answer="C">C) Upang ilagay ang petsa</button><button data-answer="D">D) Upang isulat ang lagda</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q37"><div class="qhead">37) Bakit mahalaga ang <em>bating panimula</em>?</div>
+    <div class="options"><button data-answer="A">A) Nagtitiyak ng magalang na tono bago ang nilalaman</button><button data-answer="B">B) Nilalaman ng talata</button><button data-answer="C">C) Nagpapakita ng kalakip</button><button data-answer="D">D) Lagda ng sumulat</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q38"><div class="qhead">38) Bakit ang “magalang” sa “sumagot siyang magalang” ay pamaraan?</div>
+    <div class="options"><button data-answer="A">A) Nagpapakita kung paano isinagawa ang pagsagot</button><button data-answer="B">B) Nagsasaad ng araw</button><button data-answer="C">C) Nagtuturo ng pook</button><button data-answer="D">D) Nagpapakita ng dami</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q39"><div class="qhead">39) Ang “tuwing gabi” ay pamanahon sapagkat…</div>
+    <div class="options"><button data-answer="A">A) Nagsasaad ito ng dalas ng panahon</button><button data-answer="B">B) Nagsasaad ng paraan</button><button data-answer="C">C) Nagsasaad ng lugar</button><button data-answer="D">D) Nagsasaad ng sanhi</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q40"><div class="qhead">40) Ang “sa Tondo” ay panlunan sapagkat…</div>
+    <div class="options"><button data-answer="A">A) Tinutukoy nito ang pook kung saan naganap ang kilos</button><button data-answer="B">B) Naglalarawan ng paraan</button><button data-answer="C">C) Nagsasaad ng oras</button><button data-answer="D">D) Nagpapakita ng bunga</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q41"><div class="qhead">41) Bakit mahalaga ang <em>bating pangwakas</em> sa liham?</div>
+    <div class="options"><button data-answer="A">A) Nagbibigay ng magalang na pamamaalam bago ang lagda</button><button data-answer="B">B) Nilalaman ng liham</button><button data-answer="C">C) Naglalaman ng petsa</button><button data-answer="D">D) Titulo ng sumulat</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q42"><div class="qhead">42) Bakit mahalaga ang <em>lagda at pangalan</em>?</div>
+    <div class="options"><button data-answer="A">A) Nagpapatunay kung sino ang sumulat at nagbibigay ng pananagutan</button><button data-answer="B">B) Upang ilagay ang kalakip</button><button data-answer="C">C) Upang isulat ang paksa</button><button data-answer="D">D) Upang itala ang tirahan ng tatanggap</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q43"><div class="qhead">43) Kailan nagiging <em>bunga</em> ang isang pangyayari?</div>
+    <div class="options"><button data-answer="A">A) Kapag ito ang resulta ng isang dahilan</button><button data-answer="B">B) Kapag ito ang dahilan</button><button data-answer="C">C) Kapag ito ay lugar</button><button data-answer="D">D) Kapag ito ay paraan</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q44"><div class="qhead">44) Bakit mahalaga ang <em>inside address</em>?</div>
+    <div class="options"><button data-answer="A">A) Tiyak ang tatanggap at mas propesyonal ang liham</button><button data-answer="B">B) Para sa petsa</button><button data-answer="C">C) Para sa pamamaalam</button><button data-answer="D">D) Para sa lagda</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q45"><div class="qhead">45) Bakit hindi pamanahon ang “sa parke”?</div>
+    <div class="options"><button data-answer="A">A) Dahil ito ay lugar, kaya panlunan</button><button data-answer="B">B) Dahil ito ay paraan</button><button data-answer="C">C) Dahil ito ay sanhi</button><button data-answer="D">D) Dahil ito ay pamamaalam</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q46"><div class="qhead">46) Bakit mahalaga ang <em>kalakip (enclosure)</em>?</div>
+    <div class="options"><button data-answer="A">A) Nagbibigay abiso sa tumatanggap tungkol sa kasamang dokumento</button><button data-answer="B">B) Upang maging magalang ang pambungad</button><button data-answer="C">C) Upang tukuyin ang petsa</button><button data-answer="D">D) Upang tukuyin ang lugar</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q47"><div class="qhead">47) Bakit itinuturing na pamaraan ang “malinaw” sa “nagsalita siyang malinaw”?</div>
+    <div class="options"><button data-answer="A">A) Ipinakikita nito kung paano isinagawa ang kilos</button><button data-answer="B">B) Ipinakikita nito ang oras</button><button data-answer="C">C) Ipinakikita nito ang lugar</button><button data-answer="D">D) Ipinakikita nito ang sanhi</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q48"><div class="qhead">48) Bakit mahalaga ang <em>petsa/heading</em>?</div>
+    <div class="options"><button data-answer="A">A) Nagtatala kung kailan isinulat at kung saang lugar</button><button data-answer="B">B) Nilalaman ng liham</button><button data-answer="C">C) Lagda ng sumulat</button><button data-answer="D">D) Paksa ng liham</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q49"><div class="qhead">49) Bakit “kaninang umaga” ay pamanahon?</div>
+    <div class="options"><button data-answer="A">A) Tumutukoy sa tiyak na oras ng araw</button><button data-answer="B">B) Tumutukoy sa paraan</button><button data-answer="C">C) Tumutukoy sa lugar</button><button data-answer="D">D) Tumutukoy sa sanhi</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q50"><div class="qhead">50) Bakit mahalaga ang <em>titulo/posisyon</em> sa liham?</div>
+    <div class="options"><button data-answer="A">A) Nagbibigay ng propesyonal na konteksto sa lagda</button><button data-answer="B">B) Upang ilista ang paksa</button><button data-answer="C">C) Upang ilagay ang kalakip</button><button data-answer="D">D) Upang ilagay ang address</button></div><div class="feedback"></div></div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key (MCQ/T/F/Best) --- */
+const answers={
+  q1:"B",q2:"B",q3:"C",q4:"B",q5:"B",q6:"C",q7:"D",q8:"A",q9:"B",q10:"A",
+  q21:"T",q22:"F",q23:"F",q24:"T",q25:"T",q26:"F",q27:"T",q28:"T",q29:"F",q30:"T",
+  q31:"B",q32:"B",q33:"A",q34:"B",q35:"A",q36:"A",q37:"A",q38:"A",q39:"A",q40:"A",
+  q41:"A",q42:"A",q43:"A",q44:"A",q45:"A",q46:"A",q47:"A",q48:"A",q49:"A",q50:"A"
+};
+
+/* --- Explanations --- */
+function explain(q){
+  const e={
+    q1:"Pamanahon – nagsasaad ng kailan (hal. kahapon, mamaya, tuwing).",
+    q2:"Panlunan – tumutukoy sa pook/lugar (sa eskuwela).",
+    q3:"Pamaraan – nagpapakita kung paano isinagawa ang kilos (maingat).",
+    q4:"‘Dahil’ ay panandang SANHI (dahilan).",
+    q5:"‘Kaya’ ay panandang BUNGA (resulta).",
+    q6:"‘Mabilis’ ay naglalarawan kung paano – pamaraan.",
+    q7:"‘Sa parke’ ay panlunan, hindi pamanahon.",
+    q8:"‘Kanina’ – kailan naglinis → pamanahon.",
+    q9:"Ginagamit ang ‘dahil’ upang ipahayag ang SANHI.",
+    q10:"Bunga/Resulta: sumigla ang halaman; Sanhi: nadiligan.",
+    q21:"Oo, karaniwang pananda ng sanhi ang ‘dahil sa’.",
+    q22:"‘Kaya’ ay panandang bunga, hindi sanhi.",
+    q23:"Sanhi: umulan; bunga: nabasa ang kalsada.",
+    q24:"Maaaring mauna ang bunga bago ang sanhi sa ayos ng pangungusap.",
+    q25:"Ipinapakita ng ‘upang’ ang layunin na humahantong sa bunga.",
+    q26:"‘Sapagkat’ ay dahilan/sanhi, hindi bunga.",
+    q27:"‘Bunsod nito’ ay panandang bunga/risulta.",
+    q28:"Tama – pareho silang panandang sanhi.",
+    q29:"Hindi palagi – puwedeng magkabaligtad ang ayos.",
+    q30:"Lahat ng ito ay panandang bunga.",
+    q31:"Ang ‘tuwing’ ay pamanahon dahil nagsasaad ito ng dalas/oras.",
+    q32:"Pamaraan dahil ipinakikita kung paano ginawa ang kilos.",
+    q33:"Panlunan sapagkat tinutukoy ang pook ng kilos.",
+    q34:"Iniugnay ng ‘dahil’ ang dahilan sa naging resulta.",
+    q35:"Ang linya ay tumutukoy sa resulta (bunga) ng sanhi.",
+    q36:"Mahalaga ang paksa para makita agad ang layunin ng liham.",
+    q37:"Nagbibigay ng magalang na tono bago simulan ang nilalaman.",
+    q38:"Ipinapakita kung paano isinagawa ang kilos (pamaraan).",
+    q39:"Naglalarawan ng dalas/panahon (gabi) kaya pamanahon.",
+    q40:"Tinutukoy ang pook kaya panlunan.",
+    q41:"Pamamaalam bago ang lagda – etiketa sa liham.",
+    q42:"Nagpapatunay kung sino ang may‑akda at pananagutan.",
+    q43:"Bunga = resulta ng isang sanhi.",
+    q44:"Inside address → tiyak ang tatanggap, propesyonal tingnan.",
+    q45:"Lugar ito kaya panlunan, hindi pamanahon.",
+    q46:"Abiso na may kasamang dokumento (hal. Résumé).",
+    q47:"Inilalarawan kung paano nagsalita – pamaraan.",
+    q48:"Heading ay tala ng petsa at minsan lokasyon.",
+    q49:"Tiyak na oras ng araw → pamanahon.",
+    q50:"Nagbibigay ng konteksto (gampanin) sa lagda ng sumulat."
+  };
+  return e[q]||"";
+}
+
+/* --- Selection, grading, explanations, scorecard, dark mode --- */
+// select options
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// Submit grading
+document.getElementById('submitBtn').addEventListener('click',()=>{
+
+  if(!confirm('Sigurado ka bang isusumite na ang mga sagot? Maaari mong makita ang mga paliwanag pagkatapos.')) return;
+
+
+
+  let score=0;
+  // grade MCQ / TF / Best
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q); if(!el) return; // skip matching sets
+    const fb=el.querySelector('.feedback'); if(!fb) return;
+    fb.innerHTML="";
+    let sel=el.dataset.selected;
+    let statusHTML="";
+    if(!sel) statusHTML=`<div class="unanswered">⚠️ Walang sagot</div>`;
+    else if(sel===answers[q]){ statusHTML=`<div class="correct">✅ Tama</div>`; score++; }
+    else statusHTML=`<div class="incorrect">❌ Mali (Tama: ${answers[q]})</div>`;
+    const expId=`${q}-exp`;
+    fb.innerHTML=`${statusHTML}<button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button><div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // grade matching sets (5 pts each)
+  function gradeMatch(id, keyStr){
+    const selects=document.querySelectorAll(`#${id} select`);
+    let ok=true; selects.forEach(sel=>{ if(Number(sel.value)!==Number(sel.dataset.correct)) ok=false; });
+    const fb=document.querySelector(`#${id} .feedback`);
+    if(ok){ fb.innerHTML=`<div class="correct">✅ Tamang pagtutugma</div>`; score+=5; }
+    else{ fb.innerHTML=`<div class="incorrect">❌ Mali ang pagtutugma.<br><b>Tamang Ayos:</b> ${keyStr}</div>`; }
+  }
+  gradeMatch('matchA','Heading→1 • Inside Address→2 • Paksa→3 • Bating Panimula→4 • Katawan→5');
+  gradeMatch('matchB','Bating Pangwakas→1 • Lagda at Pangalan→2 • Titulo/Posisyon→3 • Kalakip→4 • P.S.→5');
+
+  // Score UI
+  document.getElementById('totalScore').textContent=score;
+  let stars=Math.floor(score/10);
+  document.getElementById('starRow').textContent="★".repeat(stars)+"☆".repeat(5-stars);
+  let msg=score>=45?"🌟 Napakahusay!":score>=35?"👍 Magaling!":score>=25?"🙂 Galing!":"💪 Ipagpatuloy ang pagsasanay!";
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display="block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Reset
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Ulitin ang quiz?')) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+  });
+  document.querySelectorAll('select').forEach(s=>s.value="");
+  document.getElementById('scorecard').style.display="none";
+});
+
+function toggleExp(id,btn){ const exp=document.getElementById(id); if(exp.style.display==='block'){ exp.style.display='none'; btn.innerHTML='Show Explanation'; } else { exp.style.display='block'; btn.innerHTML='Hide Explanation'; } }
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+</script>
+</body>
+</html>
