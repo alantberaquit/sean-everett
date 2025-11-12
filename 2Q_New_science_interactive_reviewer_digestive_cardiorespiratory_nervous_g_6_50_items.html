@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Science Interactive Reviewer – Digestive • Cardiorespiratory • Nervous (G6)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{ --ink:#111827; --paper:#f9fafb; --card:#ffffff; --accent:#0ea5e9; --accent-2:#0284c7; --ok:#10b981; --bad:#ef4444; --warn:#f59e0b; }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#0b1220; color:#e5eef8; }
+    .container{ max-width:980px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card); }
+    .dark-mode .question{ background:#0f172a; border-color:#1f2a44; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{ display:block; width:100%; text-align:left; border-radius:0; padding:.75rem; border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0; }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#1e293b; color:#e5eef8; border-color:#334155; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#05202a; border-color:#0b2e3b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    input[type="text"]{ width:100%; padding:.6rem .75rem; border:1px solid #d1d5db; background:#fff; }
+    .dark-mode input[type="text"]{ background:#0b1220; color:#e5eef8; border-color:#1f2a44; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> Science Interactive Reviewer</h1>
+  <p class="text-center text-muted">Digestive • Cardiorespiratory • Nervous Systems — Grade 6 — 50 Items</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border bg-white">
+    <p><b>How to Answer:</b></p>
+    <ul>
+      <li>Tap the best choice for <b>Multiple Choice</b> and <b>True/False</b>.</li>
+      <li>For <b>Matching</b>, choose the correct pair (A–E). For <b>Identification</b>, type the answer (short word/phrase).</li>
+      <li>Click <b>Submit</b> to grade. A confirmation window will appear. You’ll then see ✅/❌ plus explanations.</li>
+      <li>Use <b>Retake Quiz</b> to reset. Dark Mode available (🌙).</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – Multiple Choice (1–20)
+       =========================== -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–20)</h2>
+
+  <!-- Nervous System MCQs (drawn from slides) -->
+  <div class="question" id="q1"><div class="qhead">1) What is the basic unit of the nervous system?</div>
+    <div class="options"><button data-answer="A">A) Neuron</button><button data-answer="B">B) Alveolus</button><button data-answer="C">C) Capillary</button><button data-answer="D">D) Villus</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q2"><div class="qhead">2) Which part of a neuron receives messages from other neurons?</div>
+    <div class="options"><button data-answer="A">A) Axon</button><button data-answer="B">B) Dendrites</button><button data-answer="C">C) Myelin sheath</button><button data-answer="D">D) Axon terminals</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q3"><div class="qhead">3) Which brain part controls balance and coordination?</div>
+    <div class="options"><button data-answer="A">A) Cerebrum</button><button data-answer="B">B) Cerebellum</button><button data-answer="C">C) Medulla oblongata</button><button data-answer="D">D) Hypothalamus</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q4"><div class="qhead">4) The medulla oblongata mainly controls…</div>
+    <div class="options"><button data-answer="A">A) Memory and thinking</button><button data-answer="B">B) Breathing and heartbeat</button><button data-answer="C">C) Speaking and singing</button><button data-answer="D">D) Smell and taste</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q5"><div class="qhead">5) Which neuron carries information from sense organs to the brain or spinal cord?</div>
+    <div class="options"><button data-answer="A">A) Motor neuron</button><button data-answer="B">B) Sensory neuron</button><button data-answer="C">C) Interneuron</button><button data-answer="D">D) Mirror neuron</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q6"><div class="qhead">6) What speeds up impulse travel along the axon?</div>
+    <div class="options"><button data-answer="A">A) Synapse</button><button data-answer="B">B) Myelin sheath</button><button data-answer="C">C) Dendrites</button><button data-answer="D">D) Nucleus</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q7"><div class="qhead">7) Reflexes are quick because signals can travel up to about…</div>
+    <div class="options"><button data-answer="A">A) 12 m/s</button><button data-answer="B">B) 120 m/s</button><button data-answer="C">C) 1,200 m/s</button><button data-answer="D">D) 0.12 m/s</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q8"><div class="qhead">8) Which sequence best describes impulse transmission?</div>
+    <div class="options"><button data-answer="A">A) Motor → Sensory → Interneuron</button><button data-answer="B">B) Sensory → Interneuron → Motor</button><button data-answer="C">C) Interneuron → Sensory → Motor</button><button data-answer="D">D) Sensory → Motor → Interneuron</button></div><div class="feedback"></div></div>
+
+  <!-- Cardiorespiratory MCQs (from slides) -->
+  <div class="question" id="q9"><div class="qhead">9) The cardiorespiratory system combines which two systems?</div>
+    <div class="options"><button data-answer="A">A) Digestive and excretory</button><button data-answer="B">B) Circulatory and respiratory</button><button data-answer="C">C) Nervous and endocrine</button><button data-answer="D">D) Skeletal and muscular</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q10"><div class="qhead">10) Where does gas exchange occur in the lungs?</div>
+    <div class="options"><button data-answer="A">A) Trachea</button><button data-answer="B">B) Bronchi</button><button data-answer="C">C) Bronchioles</button><button data-answer="D">D) Alveoli</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q11"><div class="qhead">11) Which blood vessel carries blood <em>away</em> from the heart?</div>
+    <div class="options"><button data-answer="A">A) Vein</button><button data-answer="B">B) Artery</button><button data-answer="C">C) Capillary</button><button data-answer="D">D) Venule</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q12"><div class="qhead">12) Which is TRUE about pulmonary circulation?</div>
+    <div class="options"><button data-answer="A">A) It sends oxygen-rich blood to the body</button><button data-answer="B">B) It carries deoxygenated blood from heart to lungs and back oxygenated</button><button data-answer="C">C) It happens only during exercise</button><button data-answer="D">D) It occurs between left atrium and left ventricle only</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q13"><div class="qhead">13) Which structure keeps the trachea open?</div>
+    <div class="options"><button data-answer="A">A) Cartilage rings</button><button data-answer="B">B) Vocal cords</button><button data-answer="C">C) Epiglottis</button><button data-answer="D">D) Diaphragm</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q14"><div class="qhead">14) Which statement is correct?</div>
+    <div class="options"><button data-answer="A">A) Pulmonary artery carries oxygenated blood</button><button data-answer="B">B) Pulmonary vein carries deoxygenated blood</button><button data-answer="C">C) Pulmonary artery carries deoxygenated blood</button><button data-answer="D">D) All veins carry deoxygenated blood</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q15"><div class="qhead">15) Which chamber pumps oxygenated blood to the body?</div>
+    <div class="options"><button data-answer="A">A) Right atrium</button><button data-answer="B">B) Right ventricle</button><button data-answer="C">C) Left atrium</button><button data-answer="D">D) Left ventricle</button></div><div class="feedback"></div></div>
+
+  <!-- Digestive MCQs -->
+  <div class="question" id="q16"><div class="qhead">16) Which organ primarily absorbs nutrients using villi?</div>
+    <div class="options"><button data-answer="A">A) Stomach</button><button data-answer="B">B) Small intestine</button><button data-answer="C">C) Large intestine</button><button data-answer="D">D) Esophagus</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q17"><div class="qhead">17) Which enzyme in saliva begins starch digestion?</div>
+    <div class="options"><button data-answer="A">A) Pepsin</button><button data-answer="B">B) Amylase</button><button data-answer="C">C) Lipase</button><button data-answer="D">D) Trypsin</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q18"><div class="qhead">18) Bile is made by the ____ and helps digest ____.</div>
+    <div class="options"><button data-answer="A">A) Pancreas; proteins</button><button data-answer="B">B) Liver; fats</button><button data-answer="C">C) Gallbladder; carbohydrates</button><button data-answer="D">D) Stomach; fats</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q19"><div class="qhead">19) Which structure prevents food from entering the windpipe when swallowing?</div>
+    <div class="options"><button data-answer="A">A) Diaphragm</button><button data-answer="B">B) Epiglottis</button><button data-answer="C">C) Uvula</button><button data-answer="D">D) Trachea</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q20"><div class="qhead">20) Most water is absorbed in the…</div>
+    <div class="options"><button data-answer="A">A) Stomach</button><button data-answer="B">B) Small intestine</button><button data-answer="C">C) Large intestine</button><button data-answer="D">D) Mouth</button></div><div class="feedback"></div></div>
+
+  <!-- ===========================
+       PART II – Matching Type (21–30)
+       =========================== -->
+  <h2 class="section-title h5">Part II – Matching Type (21–30)</h2>
+  <p class="mb-2"><b>Directions:</b> Match the <b>part</b> to its <b>function</b>. Choose A–E.</p>
+  <div class="question" id="q21">
+    <div class="qhead">Set A — Respiratory</div>
+    <ol>
+      <li>Alveoli — <select data-answer="C"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Trachea — <select data-answer="A"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Pharynx — <select data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Larynx — <select data-answer="E"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Bronchi — <select data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+    </ol>
+    <div class="mt-2 small text-muted">Choices: A. windpipe kept open by cartilage rings • B. main branches to lungs • C. gas exchange sacs • D. shared air/food passage • E. voice box with vocal cords</div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">Set B — Nervous</div>
+    <ol>
+      <li>Cerebrum — <select data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Cerebellum — <select data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Medulla — <select data-answer="E"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Sensory neuron — <select data-answer="A"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+      <li>Motor neuron — <select data-answer="C"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></li>
+    </ol>
+    <div class="mt-2 small text-muted">Choices: A. carries info from senses • B. thinking/memory/decision • C. sends commands to muscles • D. balance/coordination • E. controls breathing/heartbeat</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART III – True/False (31–40)
+       =========================== -->
+  <h2 class="section-title h5">Part III – True/False (31–40)</h2>
+
+  <div class="question" id="q31"><div class="qhead">31) The nose filters, warms, and moistens incoming air.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q32"><div class="qhead">32) All veins carry deoxygenated blood and all arteries carry oxygenated blood.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q33"><div class="qhead">33) Capillaries are the tiny vessels where exchange of gases and nutrients occurs.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q34"><div class="qhead">34) The sympathetic nervous system helps the body rest and digest.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q35"><div class="qhead">35) The cerebrum is responsible for higher thinking and voluntary actions.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q36"><div class="qhead">36) The epiglottis prevents food from entering the trachea when swallowing.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q37"><div class="qhead">37) Systemic circulation delivers oxygen-rich blood from the left side of the heart to the body.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q38"><div class="qhead">38) Neurons in your skin can start a reflex that bypasses the brain via the spinal cord.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q39"><div class="qhead">39) The myelin sheath slows down impulse transmission along the axon.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <div class="question" id="q40"><div class="qhead">40) The average person breathes roughly 12–20 times per minute.</div>
+    <div class="options"><button data-answer="T">True</button><button data-answer="F">False</button></div><div class="feedback"></div></div>
+
+  <!-- ===========================
+       PART IV – Identification (41–50)
+       =========================== -->
+  <h2 class="section-title h5">Part IV – Identification (41–50)</h2>
+  <div class="question" id="q41"><div class="qhead">41) Term for the tiny air sacs where oxygen enters the blood and carbon dioxide leaves.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="alveoli,alveolus"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q42"><div class="qhead">42) The flap that covers the trachea during swallowing.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="epiglottis"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q43"><div class="qhead">43) The basic cell of the nervous system.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="neuron,nerve cell"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q44"><div class="qhead">44) Brain part that controls balance and coordination.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="cerebellum"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q45"><div class="qhead">45) Blood vessels where exchange between blood and body cells occurs.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="capillaries,capillary"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q46"><div class="qhead">46) Process that moves food through the esophagus by wave-like muscle contractions.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="peristalsis"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q47"><div class="qhead">47) Organ that produces bile.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="liver"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q48"><div class="qhead">48) Enzyme in saliva that begins the breakdown of starch.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="amylase,ptyalin"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q49"><div class="qhead">49) The part of the autonomic nervous system that prepares the body for 'fight or flight'.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="sympathetic"/>
+    <div class="feedback"></div></div>
+
+  <div class="question" id="q50"><div class="qhead">50) The lower chamber that pumps oxygenated blood to the body.</div>
+    <input type="text" placeholder="Type your answer here" data-accept="left ventricle"/>
+    <div class="feedback"></div></div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key --- */
+const answers={
+  q1:"A",q2:"B",q3:"B",q4:"B",q5:"B",q6:"B",q7:"B",q8:"B",
+  q9:"B",q10:"D",q11:"B",q12:"B",q13:"A",q14:"C",q15:"D",
+  q16:"B",q17:"B",q18:"B",q19:"B",q20:"C",
+  q31:"T",q32:"F",q33:"T",q34:"F",q35:"T",q36:"T",q37:"T",q38:"T",q39:"F",q40:"T"
+};
+
+/* --- Explanations (drawn from PowerPoints + fundamentals) --- */
+function explain(q){
+  const e={
+    q1:"Neuron is the basic unit that transmits impulses.",
+    q2:"Dendrites receive signals from other neurons.",
+    q3:"Cerebellum maintains balance and coordinates movement.",
+    q4:"Medulla oblongata controls involuntary actions like breathing and heartbeat.",
+    q5:"Sensory neurons carry info from sense organs to CNS.",
+    q6:"Myelin sheath speeds conduction along the axon.",
+    q7:"Slide fact: impulses can reach about 120 m/s, making reflexes fast.",
+    q8:"Typical pathway: Sensory → Interneuron → Motor.",
+    q9:"Cardiorespiratory = circulatory + respiratory working together.",
+    q10:"Gas exchange occurs in alveoli surrounded by capillaries.",
+    q11:"Arteries carry blood away from the heart.",
+    q12:"Pulmonary circuit: deoxygenated → lungs → oxygenated returns to heart.",
+    q13:"Trachea has cartilage rings to keep it open.",
+    q14:"Pulmonary artery uniquely carries deoxygenated blood; vein carries oxygenated.",
+    q15:"Left ventricle pumps oxygenated blood to the body.",
+    q16:"Small intestine absorbs nutrients via villi and microvilli.",
+    q17:"Salivary amylase (ptyalin) starts starch digestion.",
+    q18:"Liver makes bile; bile emulsifies fats.",
+    q19:"Epiglottis covers the windpipe during swallowing.",
+    q20:"Large intestine (colon) reabsorbs most water.",
+    q31:"Nasal cavity filters (hairs + mucus), warms, and moistens air.",
+    q32:"Exception: pulmonary artery/vein, so statement is false.",
+    q33:"Capillaries enable exchange between blood and tissues.",
+    q34:"Rest-and-digest is parasympathetic; sympathetic is fight-or-flight.",
+    q35:"Cerebrum manages higher functions and voluntary action.",
+    q36:"Epiglottis is a flap that closes the trachea during swallowing.",
+    q37:"Systemic circulation: left heart → body → returns deoxygenated.",
+    q38:"Spinal cord reflex arcs allow fast reactions without the brain first.",
+    q39:"Myelin speeds impulses; it doesn't slow them.",
+    q40:"Breathing rate fact from slides: about 12–20 per minute."
+  };
+  return e[q]||"";
+}
+
+/* --- Matching graders (each set worth 5 pts) --- */
+function gradeMatching(blockId){
+  const block=document.getElementById(blockId); let correct=true; let picked=0;
+  block.querySelectorAll('select').forEach(sel=>{ picked++; if(sel.value!==sel.dataset.answer) correct=false; });
+  const fb=block.querySelector('.feedback');
+  if(correct){ fb.innerHTML='<div class="correct">✅ All matches correct (+5)</div>'; return 5; }
+  else{
+    // Show correct map
+    const ans=[...block.querySelectorAll('select')].map(sel=>sel.dataset.answer).join(', ');
+    fb.innerHTML='<div class="incorrect">❌ Some matches are wrong. Correct pattern: '+ans+'</div>';
+    return 0;
+  }
+}
+
+/* --- Interaction Logic --- */
+// Choice selection
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// Submit
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(!confirm('Submit answers now? You will see your score and explanations.')) return;
+  let score=0;
+  // Auto-graded items
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q); if(!el) return;
+    const fb=el.querySelector('.feedback'); fb.innerHTML="";
+    const sel=el.dataset.selected; let statusHTML="";
+    if(!sel) statusHTML='<div class="unanswered">⚠️ Not answered</div>';
+    else if(sel===answers[q]){ statusHTML='<div class="correct">✅ Correct</div>'; score++; }
+    else statusHTML='<div class="incorrect">❌ Incorrect (Correct: '+answers[q]+')</div>';
+    const expId=q+'-exp';
+    fb.innerHTML=statusHTML + '\n      <button class="exp-toggle" onclick="toggleExp(\''+expId+'\',this)">Show Explanation</button>\n      <div class="exp" id="'+expId+'">'+explain(q)+'</div>';
+  });
+
+  // Matching sets (q21=Set A, q22=Set B) 5 pts each
+  score += gradeMatching('q21');
+  score += gradeMatching('q22');
+
+  // Identification (q41–q50): 1 pt each, case-insensitive, accept multiple variants
+  for(let i=41;i<=50;i++){
+    const el=document.getElementById('q'+i); const fb=el.querySelector('.feedback');
+    const input=el.querySelector('input'); const raw=(input.value||'').trim().toLowerCase();
+    const accepts=(input.dataset.accept||'').split(',').map(s=>s.trim().toLowerCase());
+    let correct=false; for(const a of accepts){ if(a && raw===a) { correct=true; break; } }
+    const key=accepts[0]||'';
+    if(correct){ fb.innerHTML='<div class="correct">✅ Correct</div>'; score++; }
+    else if(!raw){ fb.innerHTML='<div class="unanswered">⚠️ Not answered (Expected: '+key+')</div>'; }
+    else{ fb.innerHTML='<div class="incorrect">❌ Incorrect (Acceptable: '+accepts.join(' / ')+')</div>'; }
+  }
+
+  // Show score
+  document.getElementById('totalScore').textContent=score;
+  const stars=Math.floor(score/10); document.getElementById('starRow').textContent='★'.repeat(stars)+'☆'.repeat(5-stars);
+  const msg= score>=45? '🌟 Excellent!' : score>=35? '👍 Great job!' : score>=25? '🙂 Good effort!' : '💪 Keep practicing!';
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// Reset
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Retake the quiz and clear all answers?')) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected; q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback'); if(fb) fb.innerHTML='';
+  });
+  document.querySelectorAll('input[type="text"]').forEach(i=>i.value='');
+  document.querySelectorAll('select').forEach(s=>s.value='');
+  document.getElementById('scorecard').style.display='none';
+});
+
+function toggleExp(id,btn){ const exp=document.getElementById(id); if(exp.style.display==='block'){ exp.style.display='none'; btn.innerHTML='Show Explanation'; } else { exp.style.display='block'; btn.innerHTML='Hide Explanation'; } }
+function toggleDark(){ document.body.classList.toggle('dark-mode'); }
+</script>
+</body>
+</html>
