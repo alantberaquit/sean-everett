@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Math Interactive Reviewer – Percent & Algebra (G6)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.5rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.5rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.5rem; border-top:1px dashed #d1d5db; padding-top:.5rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:600; }
+    .scorecard{ display:none; border:1px solid #e5e7eb; background:#ecfeff; border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem; }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.8rem; font-weight:700; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-calculator"></i> Math Interactive Reviewer – Grade 6</h1>
+  <p class="text-center text-muted">Percentage • Base & Rate • Translating Algebraic Expressions • Evaluating Algebraic Expressions</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p><b>How to Answer:</b></p>
+    <ul>
+      <li>Tap the best choice for each question.</li>
+      <li>Topics: Percent, Base, Rate • Translating Algebraic Expressions • Evaluating Algebraic Expressions.</li>
+      <li>Tap <b>Submit</b> when done. A confirm message will appear. After submitting, you’ll see ✅/❌ plus explanations.</li>
+      <li>Tap <b>Show Explanation</b> to understand each solution.</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – Percentage, Base & Rate (1–20)
+       =========================== -->
+  <h2 class="section-title h5">Part I – Percentage, Base, and Rate (1–20)</h2>
+
+  <div class="question" id="q1">
+    <div class="qhead">1) What is 25% of 80?</div>
+    <div class="options">
+      <button data-answer="A">A) 10</button>
+      <button data-answer="B">B) 15</button>
+      <button data-answer="C">C) 20</button>
+      <button data-answer="D">D) 25</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <div class="qhead">2) What is 15% of 200?</div>
+    <div class="options">
+      <button data-answer="A">A) 25</button>
+      <button data-answer="B">B) 30</button>
+      <button data-answer="C">C) 35</button>
+      <button data-answer="D">D) 40</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) 60 is 20% of what number?</div>
+    <div class="options">
+      <button data-answer="A">A) 12</button>
+      <button data-answer="B">B) 80</button>
+      <button data-answer="C">C) 200</button>
+      <button data-answer="D">D) 300</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) 90 is what percent of 150?</div>
+    <div class="options">
+      <button data-answer="A">A) 40%</button>
+      <button data-answer="B">B) 50%</button>
+      <button data-answer="C">C) 60%</button>
+      <button data-answer="D">D) 75%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) 35 is 5% of a number. What is the base (the number)?</div>
+    <div class="options">
+      <button data-answer="A">A) 70</button>
+      <button data-answer="B">B) 350</button>
+      <button data-answer="C">C) 700</button>
+      <button data-answer="D">D) 3,500</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) A test has 40 items. You answered 34 correctly. What is your percent score?</div>
+    <div class="options">
+      <button data-answer="A">A) 75%</button>
+      <button data-answer="B">B) 80%</button>
+      <button data-answer="C">C) 85%</button>
+      <button data-answer="D">D) 90%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) A shirt costs ₱500. It is on sale with a 20% discount. What is the discount amount?</div>
+    <div class="options">
+      <button data-answer="A">A) ₱80</button>
+      <button data-answer="B">B) ₱100</button>
+      <button data-answer="C">C) ₱150</button>
+      <button data-answer="D">D) ₱200</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) For the same shirt (₱500, 20% discount), what is the sale price?</div>
+    <div class="options">
+      <button data-answer="A">A) ₱300</button>
+      <button data-answer="B">B) ₱350</button>
+      <button data-answer="C">C) ₱380</button>
+      <button data-answer="D">D) ₱400</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) A bicycle originally costs ₱1,200. Its price increased by 10%. What is the new price?</div>
+    <div class="options">
+      <button data-answer="A">A) ₱1,200</button>
+      <button data-answer="B">B) ₱1,260</button>
+      <button data-answer="C">C) ₱1,320</button>
+      <button data-answer="D">D) ₱1,400</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) A jacket costs ₱900. It is marked down by 15%. What is the sale price?</div>
+    <div class="options">
+      <button data-answer="A">A) ₱750</button>
+      <button data-answer="B">B) ₱760</button>
+      <button data-answer="C">C) ₱765</button>
+      <button data-answer="D">D) ₱780</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q11">
+    <div class="qhead">11) In the statement “20% of 150 is 30,” which is the <b>rate</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) 20%</button>
+      <button data-answer="B">B) 150</button>
+      <button data-answer="C">C) 30</button>
+      <button data-answer="D">D) 170</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) In the same statement, which is the <b>base</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) 20</button>
+      <button data-answer="B">B) 30</button>
+      <button data-answer="C">C) 150</button>
+      <button data-answer="D">D) 170</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) In the same statement, which is the <b>percentage</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) 20</button>
+      <button data-answer="B">B) 30</button>
+      <button data-answer="C">C) 150</button>
+      <button data-answer="D">D) 170</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) What is 65% of 200?</div>
+    <div class="options">
+      <button data-answer="A">A) 65</button>
+      <button data-answer="B">B) 100</button>
+      <button data-answer="C">C) 120</button>
+      <button data-answer="D">D) 130</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) 48 is 80% of what number?</div>
+    <div class="options">
+      <button data-answer="A">A) 38</button>
+      <button data-answer="B">B) 48</button>
+      <button data-answer="C">C) 60</button>
+      <button data-answer="D">D) 64</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead">16) A quiz has 25 items. You answer 20 correctly. What is your percent score?</div>
+    <div class="options">
+      <button data-answer="A">A) 75%</button>
+      <button data-answer="B">B) 80%</button>
+      <button data-answer="C">C) 85%</button>
+      <button data-answer="D">D) 90%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) A class has 40 students. 18 of them are boys. What percent of the class are boys?</div>
+    <div class="options">
+      <button data-answer="A">A) 36%</button>
+      <button data-answer="B">B) 40%</button>
+      <button data-answer="C">C) 45%</button>
+      <button data-answer="D">D) 50%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) A plant grew from 50 cm to 65 cm. What is the percent increase in its height?</div>
+    <div class="options">
+      <button data-answer="A">A) 25%</button>
+      <button data-answer="B">B) 30%</button>
+      <button data-answer="C">C) 35%</button>
+      <button data-answer="D">D) 40%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) A phone’s price changed from ₱8,000 to ₱6,400. What percent discount was given?</div>
+    <div class="options">
+      <button data-answer="A">A) 10%</button>
+      <button data-answer="B">B) 15%</button>
+      <button data-answer="C">C) 20%</button>
+      <button data-answer="D">D) 25%</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) A savings account earns 4% simple interest per year. How much interest will ₱5,000 earn in one year?</div>
+    <div class="options">
+      <button data-answer="A">A) ₱20</button>
+      <button data-answer="B">B) ₱50</button>
+      <button data-answer="C">C) ₱200</button>
+      <button data-answer="D">D) ₱400</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART II – Translating Algebraic Expressions (21–35)
+       =========================== -->
+  <h2 class="section-title h5">Part II – Translating Algebraic Expressions (21–35)</h2>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) Which expression matches: “the sum of a number x and 7”?</div>
+    <div class="options">
+      <button data-answer="A">A) 7 − x</button>
+      <button data-answer="B">B) x + 7</button>
+      <button data-answer="C">C) 7x</button>
+      <button data-answer="D">D) x − 7</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) Which expression matches: “the difference of a number y and 4”?</div>
+    <div class="options">
+      <button data-answer="A">A) y + 4</button>
+      <button data-answer="B">B) y − 4</button>
+      <button data-answer="C">C) 4 − y</button>
+      <button data-answer="D">D) 4y</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) Which expression matches: “twice a number n”?</div>
+    <div class="options">
+      <button data-answer="A">A) n + 2</button>
+      <button data-answer="B">B) 2n</button>
+      <button data-answer="C">C) n/2</button>
+      <button data-answer="D">D) n − 2</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) Which expression matches: “three more than a number k”?</div>
+    <div class="options">
+      <button data-answer="A">A) k + 3</button>
+      <button data-answer="B">B) 3k</button>
+      <button data-answer="C">C) k − 3</button>
+      <button data-answer="D">D) k/3</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) Which expression matches: “five less than a number p”?</div>
+    <div class="options">
+      <button data-answer="A">A) 5 − p</button>
+      <button data-answer="B">B) p − 5</button>
+      <button data-answer="C">C) 5p</button>
+      <button data-answer="D">D) p + 5</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) Which expression matches: “the product of 4 and a number m”?</div>
+    <div class="options">
+      <button data-answer="A">A) m/4</button>
+      <button data-answer="B">B) 4 + m</button>
+      <button data-answer="C">C) 4m</button>
+      <button data-answer="D">D) m − 4</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) Which expression matches: “a number t divided by 6”?</div>
+    <div class="options">
+      <button data-answer="A">A) 6/t</button>
+      <button data-answer="B">B) t − 6</button>
+      <button data-answer="C">C) t/6</button>
+      <button data-answer="D">D) 6t</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Which expression matches: “one-half of a number a”?</div>
+    <div class="options">
+      <button data-answer="A">A) 2a</button>
+      <button data-answer="B">B) a/2</button>
+      <button data-answer="C">C) a + 2</button>
+      <button data-answer="D">D) a − 1/2</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Which expression matches: “the sum of x and 3, then doubled”?</div>
+    <div class="options">
+      <button data-answer="A">A) x + 3/2</button>
+      <button data-answer="B">B) 2x + 3</button>
+      <button data-answer="C">C) 2(x + 3)</button>
+      <button data-answer="D">D) x − 3</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) Which expression matches: “three times the difference of y and 2”?</div>
+    <div class="options">
+      <button data-answer="A">A) 3y − 2</button>
+      <button data-answer="B">B) (y − 2)/3</button>
+      <button data-answer="C">C) 3(y − 2)</button>
+      <button data-answer="D">D) y + 2/3</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Which expression matches: “the quotient of a number z and 5”?</div>
+    <div class="options">
+      <button data-answer="A">A) 5/z</button>
+      <button data-answer="B">B) z + 5</button>
+      <button data-answer="C">C) z − 5</button>
+      <button data-answer="D">D) z/5</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Which expression matches: “nine decreased by a number r”?</div>
+    <div class="options">
+      <button data-answer="A">A) r − 9</button>
+      <button data-answer="B">B) 9 − r</button>
+      <button data-answer="C">C) 9r</button>
+      <button data-answer="D">D) r/9</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) The perimeter P of a square with side length s is…</div>
+    <div class="options">
+      <button data-answer="A">A) s²</button>
+      <button data-answer="B">B) 2s</button>
+      <button data-answer="C">C) 4s</button>
+      <button data-answer="D">D) s + 4</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) The area A of a rectangle with length l and width w is…</div>
+    <div class="options">
+      <button data-answer="A">A) l + w</button>
+      <button data-answer="B">B) 2l + 2w</button>
+      <button data-answer="C">C) lw</button>
+      <button data-answer="D">D) l − w</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) The average of two numbers a and b is…</div>
+    <div class="options">
+      <button data-answer="A">A) a + b</button>
+      <button data-answer="B">B) a − b</button>
+      <button data-answer="C">C) (a + b)/2</button>
+      <button data-answer="D">D) 2(a + b)</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART III – Evaluating Algebraic Expressions (36–50)
+       =========================== -->
+  <h2 class="section-title h5">Part III – Evaluating Algebraic Expressions (36–50)</h2>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) If x = 3, what is 2x + 5?</div>
+    <div class="options">
+      <button data-answer="A">A) 8</button>
+      <button data-answer="B">B) 11</button>
+      <button data-answer="C">C) 13</button>
+      <button data-answer="D">D) 15</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) If x = 4 and y = 2, what is 3x − y?</div>
+    <div class="options">
+      <button data-answer="A">A) 6</button>
+      <button data-answer="B">B) 8</button>
+      <button data-answer="C">C) 10</button>
+      <button data-answer="D">D) 12</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) If a = 5 and b = 3, what is a² − b?</div>
+    <div class="options">
+      <button data-answer="A">A) 8</button>
+      <button data-answer="B">B) 20</button>
+      <button data-answer="C">C) 22</button>
+      <button data-answer="D">D) 28</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) If m = 6, what is m/2 + 4?</div>
+    <div class="options">
+      <button data-answer="A">A) 5</button>
+      <button data-answer="B">B) 6</button>
+      <button data-answer="C">C) 7</button>
+      <button data-answer="D">D) 8</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) If p = 10 and q = 4, what is p − 2q?</div>
+    <div class="options">
+      <button data-answer="A">A) 2</button>
+      <button data-answer="B">B) 4</button>
+      <button data-answer="C">C) 8</button>
+      <button data-answer="D">D) 18</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q41">
+    <div class="qhead">41) If k = 7, what is 5k?</div>
+    <div class="options">
+      <button data-answer="A">A) 12</button>
+      <button data-answer="B">B) 30</button>
+      <button data-answer="C">C) 35</button>
+      <button data-answer="D">D) 40</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) If x = 2 and y = 3, what is 2x + 3y?</div>
+    <div class="options">
+      <button data-answer="A">A) 10</button>
+      <button data-answer="B">B) 11</button>
+      <button data-answer="C">C) 12</button>
+      <button data-answer="D">D) 13</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) If n = 4, what is (n + 3)²?</div>
+    <div class="options">
+      <button data-answer="A">A) 25</button>
+      <button data-answer="B">B) 36</button>
+      <button data-answer="C">C) 49</button>
+      <button data-answer="D">D) 64</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) If t = 8, what is t/4 − 1?</div>
+    <div class="options">
+      <button data-answer="A">A) 1</button>
+      <button data-answer="B">B) 2</button>
+      <button data-answer="C">C) 3</button>
+      <button data-answer="D">D) 4</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) If a = 3 and b = 5, what is ab?</div>
+    <div class="options">
+      <button data-answer="A">A) 8</button>
+      <button data-answer="B">B) 10</button>
+      <button data-answer="C">C) 12</button>
+      <button data-answer="D">D) 15</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q46">
+    <div class="qhead">46) If x = 5, what is (x − 1)(x + 1)?</div>
+    <div class="options">
+      <button data-answer="A">A) 20</button>
+      <button data-answer="B">B) 21</button>
+      <button data-answer="C">C) 24</button>
+      <button data-answer="D">D) 25</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q47">
+    <div class="qhead">47) If y = 6, what is y²/3?</div>
+    <div class="options">
+      <button data-answer="A">A) 6</button>
+      <button data-answer="B">B) 10</button>
+      <button data-answer="C">C) 12</button>
+      <button data-answer="D">D) 18</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q48">
+    <div class="qhead">48) If p = 2 and q = 5, what is 3q − p²?</div>
+    <div class="options">
+      <button data-answer="A">A) 7</button>
+      <button data-answer="B">B) 9</button>
+      <button data-answer="C">C) 10</button>
+      <button data-answer="D">D) 11</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q49">
+    <div class="qhead">49) If r = 9, what is r/3 + r/9?</div>
+    <div class="options">
+      <button data-answer="A">A) 2</button>
+      <button data-answer="B">B) 3</button>
+      <button data-answer="C">C) 4</button>
+      <button data-answer="D">D) 5</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q50">
+    <div class="qhead">50) If s = 10, what is 0.5s + 2?</div>
+    <div class="options">
+      <button data-answer="A">A) 5</button>
+      <button data-answer="B">B) 6</button>
+      <button data-answer="C">C) 7</button>
+      <button data-answer="D">D) 8</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* --- Answer Key --- */
+const answers={
+  q1:"C",q2:"B",q3:"D",q4:"C",q5:"C",
+  q6:"C",q7:"B",q8:"D",q9:"C",q10:"C",
+  q11:"A",q12:"C",q13:"B",q14:"D",q15:"C",
+  q16:"B",q17:"C",q18:"B",q19:"C",q20:"C",
+  q21:"B",q22:"B",q23:"B",q24:"A",q25:"B",
+  q26:"C",q27:"C",q28:"B",q29:"C",q30:"C",
+  q31:"D",q32:"B",q33:"C",q34:"C",q35:"C",
+  q36:"B",q37:"C",q38:"C",q39:"C",q40:"A",
+  q41:"C",q42:"D",q43:"C",q44:"A",q45:"D",
+  q46:"C",q47:"C",q48:"D",q49:"C",q50:"C"
+};
+
+/* --- Explanations --- */
+function explain(q){
+  const e={
+    q1:"25% of 80 = 0.25 × 80 = 20.",
+    q2:"15% of 200 = 0.15 × 200 = 30.",
+    q3:"60 is 20% of B → 60 = 0.20B → B = 60 ÷ 0.20 = 300.",
+    q4:"90 ÷ 150 = 0.6 = 60%.",
+    q5:"35 = 5% of B → 35 = 0.05B → B = 35 ÷ 0.05 = 700.",
+    q6:"34/40 = 0.85 = 85%.",
+    q7:"20% of 500 = 0.20 × 500 = 100 pesos discount.",
+    q8:"Sale price = 500 − 100 = 400 pesos.",
+    q9:"10% of 1,200 = 120, so new price = 1,200 + 120 = 1,320.",
+    q10:"15% of 900 = 0.15 × 900 = 135; 900 − 135 = 765.",
+    q11:"Rate is the percent; here it is 20%.",
+    q12:"Base is the whole amount: 150.",
+    q13:"Percentage is the part: 30.",
+    q14:"65% of 200 = 0.65 × 200 = 130.",
+    q15:"48 = 80% of B → B = 48 ÷ 0.8 = 60.",
+    q16:"20/25 = 0.8 = 80%.",
+    q17:"18/40 = 0.45 = 45%.",
+    q18:"Increase = 65 − 50 = 15; 15/50 = 0.3 = 30%.",
+    q19:"Discount = 8,000 − 6,400 = 1,600; 1,600/8,000 = 0.2 = 20%.",
+    q20:"4% of 5,000 = 0.04 × 5,000 = 200 pesos interest.",
+    q21:"“Sum of x and 7” means x + 7.",
+    q22:"“Difference of y and 4” means y − 4 (order matters).",
+    q23:"“Twice a number n” is 2n.",
+    q24:"“Three more than k” means k + 3.",
+    q25:"“Five less than p” means p − 5 (start with p, subtract 5).",
+    q26:"“Product of 4 and m” is 4m.",
+    q27:"“t divided by 6” is t/6.",
+    q28:"“One-half of a” is a/2.",
+    q29:"Add first (x + 3) then double → 2(x + 3).",
+    q30:"“Three times the difference of y and 2” → 3(y − 2).",
+    q31:"“Quotient of z and 5” is z/5.",
+    q32:"“Nine decreased by r” means 9 − r.",
+    q33:"A square has 4 equal sides; perimeter = 4s.",
+    q34:"Area of rectangle = length × width = lw.",
+    q35:"Average of a and b = (a + b) ÷ 2.",
+    q36:"2x + 5 = 2(3) + 5 = 6 + 5 = 11.",
+    q37:"3x − y = 3(4) − 2 = 12 − 2 = 10.",
+    q38:"a² − b = 5² − 3 = 25 − 3 = 22.",
+    q39:"m/2 + 4 = 6/2 + 4 = 3 + 4 = 7.",
+    q40:"p − 2q = 10 − 2(4) = 10 − 8 = 2.",
+    q41:"5k = 5 × 7 = 35.",
+    q42:"2x + 3y = 2(2) + 3(3) = 4 + 9 = 13.",
+    q43:"(n + 3)² = (4 + 3)² = 7² = 49.",
+    q44:"t/4 − 1 = 8/4 − 1 = 2 − 1 = 1.",
+    q45:"ab = 3 × 5 = 15.",
+    q46:"(x − 1)(x + 1) with x = 5 → 4 × 6 = 24.",
+    q47:"y²/3 = 6²/3 = 36/3 = 12.",
+    q48:"3q − p² = 3(5) − 2² = 15 − 4 = 11.",
+    q49:"r/3 + r/9 = 9/3 + 9/9 = 3 + 1 = 4.",
+    q50:"0.5s + 2 = 0.5(10) + 2 = 5 + 2 = 7."
+  };
+  return e[q] || "";
+}
+
+/* --- Interaction Logic --- */
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent=btn.closest('.question');
+    parent.dataset.selected=btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(!confirm("Are you sure you want to submit your answers? You will see your score and explanations after this.")){
+    return;
+  }
+  let score=0;
+  Object.keys(answers).forEach(q=>{
+    const el=document.getElementById(q);
+    if(!el) return;
+    const fb=el.querySelector('.feedback');
+    fb.innerHTML="";
+    let sel=el.dataset.selected;
+    let statusHTML="";
+    if(!sel){
+      statusHTML=`<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(sel===answers[q]){
+      statusHTML=`<div class="correct">✅ Correct</div>`;
+      score++;
+    }else{
+      statusHTML=`<div class="incorrect">❌ Incorrect (Correct: ${answers[q]})</div>`;
+    }
+    const expId=`${q}-exp`;
+    fb.innerHTML=`${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  document.getElementById('totalScore').textContent=score;
+  let stars=Math.floor(score/10);
+  document.getElementById('starRow').textContent="★".repeat(stars)+"☆".repeat(5-stars);
+  let msg=score>=45?"🌟 Excellent!":score>=35?"👍 Great job!":score>=25?"🙂 Good effort!":"💪 Keep practicing!";
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scorecard').style.display="block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz and clear all answers?")) return;
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb=q.querySelector('.feedback');
+    if(fb) fb.innerHTML="";
+  });
+  document.getElementById('scorecard').style.display="none";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+function toggleExp(id,btn){
+  const exp=document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display==="block"){
+    exp.style.display="none";
+    btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block";
+    btn.innerHTML="Hide Explanation";
+  }
+}
+
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+</body>
+</html>
