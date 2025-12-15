@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>CLVE/GMRC Reviewer – 4th & 5th Commandments (Q3 Day 1)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .id-input{
+      width:100%;
+      border-radius:0;
+      padding:.7rem .75rem;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    .dark-mode .id-input{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .tag{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> CLVE/GMRC Interactive Reviewer</h1>
+  <p class="text-center text-muted">3rd Quarter • Day 1 • 4th & 5th Commandments • For Sean Everett Beraquit</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p class="mb-2"><b>How to Answer:</b></p>
+    <ul class="mb-0">
+      <li>Tap the best choice for <b>Multiple Choice</b>.</li>
+      <li>Type your answer for <b>Identification</b> (spelling matters — but minor spaces/case are OK).</li>
+      <li>Click <b>Submit</b> to see score and explanations (you’ll be asked to confirm).</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – Multiple Choice (1–30)
+       =========================== -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–30) <span class="tag">30 pts</span></h2>
+
+  <!-- 4th Commandment -->
+  <div class="question" id="q1">
+    <div class="qhead">1) What is the 4th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) You shall not steal</button>
+      <button data-answer="B">B) Honor your father and your mother</button>
+      <button data-answer="C">C) You shall not take God’s name in vain</button>
+      <button data-answer="D">D) Remember to keep holy the Sabbath</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <div class="qhead">2) The 4th Commandment teaches us to respect…</div>
+    <div class="options">
+      <button data-answer="A">A) Only our friends</button>
+      <button data-answer="B">B) Only teachers</button>
+      <button data-answer="C">C) Parents, family, and rightful authority</button>
+      <button data-answer="D">D) Only people who agree with us</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) Which action best shows “honor” to parents?</div>
+    <div class="options">
+      <button data-answer="A">A) Talking back when corrected</button>
+      <button data-answer="B">B) Obeying, speaking respectfully, and helping at home</button>
+      <button data-answer="C">C) Ignoring instructions</button>
+      <button data-answer="D">D) Making excuses to avoid chores</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) If you disagree with your parents, what is the most respectful way?</div>
+    <div class="options">
+      <button data-answer="A">A) Shout so they listen</button>
+      <button data-answer="B">B) Say “Whatever” and leave</button>
+      <button data-answer="C">C) Explain calmly and listen to their reasons</button>
+      <button data-answer="D">D) Post about them online</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) The 4th Commandment also includes respecting which of these?</div>
+    <div class="options">
+      <button data-answer="A">A) Legitimate leaders and laws that protect the common good</button>
+      <button data-answer="B">B) People who bully others</button>
+      <button data-answer="C">C) Anyone who lies</button>
+      <button data-answer="D">D) Rules that harm others</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) Which is a duty of children under the 4th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) Disrespect teachers</button>
+      <button data-answer="B">B) Be grateful and obey what is right</button>
+      <button data-answer="C">C) Lie to avoid punishment</button>
+      <button data-answer="D">D) Refuse to help at home</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) Which situation best shows “care for parents” as we grow?</div>
+    <div class="options">
+      <button data-answer="A">A) Leaving them alone when sick</button>
+      <button data-answer="B">B) Supporting and helping them especially in old age or need</button>
+      <button data-answer="C">C) Forgetting them after success</button>
+      <button data-answer="D">D) Blaming them for everything</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- 5th Commandment -->
+  <div class="question" id="q8">
+    <div class="qhead">8) What is the 5th Commandment about?</div>
+    <div class="options">
+      <button data-answer="A">A) Respecting and protecting human life</button>
+      <button data-answer="B">B) Buying and selling fairly</button>
+      <button data-answer="C">C) Keeping Sunday holy</button>
+      <button data-answer="D">D) Not taking God’s name in vain</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) Which is the correct wording of the 5th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) You shall not steal</button>
+      <button data-answer="B">B) You shall not kill</button>
+      <button data-answer="C">C) You shall not covet</button>
+      <button data-answer="D">D) Honor your father and mother</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Which is an offense against the 5th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) Helping a classmate</button>
+      <button data-answer="B">B) Physical abuse</button>
+      <button data-answer="C">C) Sharing food</button>
+      <button data-answer="D">D) Visiting the sick</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q11">
+    <div class="qhead">11) What best describes <b>physical abuse</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) Encouraging someone</button>
+      <button data-answer="B">B) Hurting someone’s body (hitting, kicking, harming)</button>
+      <button data-answer="C">C) Reading quietly</button>
+      <button data-answer="D">D) Sharing toys</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) What is <b>spiritual abuse</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) Forcing or manipulating someone using religion to control or harm them</button>
+      <button data-answer="B">B) Praying for someone</button>
+      <button data-answer="C">C) Teaching Bible stories</button>
+      <button data-answer="D">D) Going to Mass</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) Which is the best example of <b>spiritual abuse</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) “Let’s pray together.”</button>
+      <button data-answer="B">B) “If you don’t obey me, God will hate you.”</button>
+      <button data-answer="C">C) Reading Scripture respectfully</button>
+      <button data-answer="D">D) Asking questions to learn</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) What is <b>murder</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) Accidentally dropping something</button>
+      <button data-answer="B">B) Taking an innocent human life on purpose</button>
+      <button data-answer="C">C) Forgetting homework</button>
+      <button data-answer="D">D) Getting angry but calming down</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) <b>Abortion</b> is…</div>
+    <div class="options">
+      <button data-answer="A">A) Caring for a baby</button>
+      <button data-answer="B">B) Ending the life of an unborn child</button>
+      <button data-answer="C">C) Helping a pregnant mother</button>
+      <button data-answer="D">D) A medical checkup</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead">16) <b>Euthanasia</b> (mercy killing) means…</div>
+    <div class="options">
+      <button data-answer="A">A) Caring for the sick with love</button>
+      <button data-answer="B">B) Intentionally ending a sick person’s life to stop suffering</button>
+      <button data-answer="C">C) Praying for healing</button>
+      <button data-answer="D">D) Bringing food to a patient</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) Which is a correct Christian response to suffering?</div>
+    <div class="options">
+      <button data-answer="A">A) Hurt the person to end pain</button>
+      <button data-answer="B">B) Care, comfort, and support the person with love</button>
+      <button data-answer="C">C) Abandon the person</button>
+      <button data-answer="D">D) Make fun of the person</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) Which statement about <b>war</b> best fits the 5th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) War is always fun and good</button>
+      <button data-answer="B">B) War brings suffering; peace should be pursued and innocent life protected</button>
+      <button data-answer="C">C) War never affects children</button>
+      <button data-answer="D">D) War is the best solution to every problem</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) What are <b>common vices</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) Good habits that help health</button>
+      <button data-answer="B">B) Bad habits that harm the person and others (e.g., drunkenness, drugs)</button>
+      <button data-answer="C">C) Sports activities</button>
+      <button data-answer="D">D) Study habits</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) Which is the best example of a <b>vice</b> that can harm life?</div>
+    <div class="options">
+      <button data-answer="A">A) Eating vegetables</button>
+      <button data-answer="B">B) Using illegal drugs</button>
+      <button data-answer="C">C) Reading books</button>
+      <button data-answer="D">D) Helping at home</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) Bullying and threats are against the 5th Commandment because they…</div>
+    <div class="options">
+      <button data-answer="A">A) Make people laugh</button>
+      <button data-answer="B">B) Harm dignity, safety, and peace</button>
+      <button data-answer="C">C) Help friendships</button>
+      <button data-answer="D">D) Improve learning</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) What should you do if you see someone being abused?</div>
+    <div class="options">
+      <button data-answer="A">A) Join in so you won’t be targeted</button>
+      <button data-answer="B">B) Report to a trusted adult and help keep the person safe</button>
+      <button data-answer="C">C) Share it online for fun</button>
+      <button data-answer="D">D) Ignore it always</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) The 5th Commandment also encourages us to take care of our…</div>
+    <div class="options">
+      <button data-answer="A">A) Health and safety</button>
+      <button data-answer="B">B) Laziness only</button>
+      <button data-answer="C">C) Anger only</button>
+      <button data-answer="D">D) Pride only</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) Which action best protects life and peace?</div>
+    <div class="options">
+      <button data-answer="A">A) Start fights</button>
+      <button data-answer="B">B) Forgive, avoid violence, and seek peace</button>
+      <button data-answer="C">C) Encourage revenge</button>
+      <button data-answer="D">D) Spread hate</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) Which is the best meaning of “respect for life”?</div>
+    <div class="options">
+      <button data-answer="A">A) Life is valuable, so we must not harm or destroy it</button>
+      <button data-answer="B">B) Only strong people matter</button>
+      <button data-answer="C">C) Life matters only when convenient</button>
+      <button data-answer="D">D) Life has no purpose</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) Which behavior breaks BOTH 4th and 5th Commandments?</div>
+    <div class="options">
+      <button data-answer="A">A) Helping parents do chores</button>
+      <button data-answer="B">B) Hitting your parents in anger</button>
+      <button data-answer="C">C) Thanking your teacher</button>
+      <button data-answer="D">D) Listening politely</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) What is the best way to avoid vices?</div>
+    <div class="options">
+      <button data-answer="A">A) Choose good friends and good habits</button>
+      <button data-answer="B">B) Hide bad habits</button>
+      <button data-answer="C">C) Blame others</button>
+      <button data-answer="D">D) Do whatever feels good always</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Capital punishment refers to…</div>
+    <div class="options">
+      <button data-answer="A">A) A fine payment only</button>
+      <button data-answer="B">B) The death penalty given by the state</button>
+      <button data-answer="C">C) Community service only</button>
+      <button data-answer="D">D) A school suspension</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Why do many Christian teachings call for mercy and protection of life?</div>
+    <div class="options">
+      <button data-answer="A">A) Because life is a gift from God</button>
+      <button data-answer="B">B) Because rules do not matter</button>
+      <button data-answer="C">C) Because bullying is normal</button>
+      <button data-answer="D">D) Because anger is always right</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) Which choice best shows obedience that is “right” under the 4th Commandment?</div>
+    <div class="options">
+      <button data-answer="A">A) Obeying a command to harm someone</button>
+      <button data-answer="B">B) Obeying rules that protect people and doing what is good</button>
+      <button data-answer="C">C) Cheating because a friend asked</button>
+      <button data-answer="D">D) Lying because someone older told you</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART II – Identification (31–50)
+       =========================== -->
+  <h2 class="section-title h5">Part II – Identification (31–50) <span class="tag">20 pts</span></h2>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Fill in: The 4th Commandment says “Honor your ______ and your ______.”</div>
+    <input class="id-input" type="text" placeholder="Type your answer (example: father and mother)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Fill in: The 5th Commandment says “You shall not ______.”</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) Term: Using religion to control or harm someone is called ______ abuse.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) Term: Hurting someone’s body (hitting/kicking) is ______ abuse.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) Term: Ending the life of an unborn child is called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) Term: Intentionally ending a sick person’s life to stop suffering is called ______ (also called mercy killing).</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) Term: The death penalty given by the state is called ______ punishment.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) Term: Bad habits that harm the person and others are called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) Term: Taking an innocent human life on purpose is called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) Offense: Large armed conflict that brings suffering and death is ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Situational Identification -->
+  <div class="question" id="q41">
+    <div class="qhead">41) Situation: You talk back and insult your mother. Which commandment is directly violated? (Answer: 4th or 5th)</div>
+    <input class="id-input" type="text" placeholder="Type your answer (4th / 5th)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) Situation: Someone forces a person to follow “religious rules” using threats to control them. What offense is this?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) Situation: A teen becomes addicted to drugs and harms health. This is an example of a ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) Situation: You see a classmate being hurt at home. Name ONE correct action (2–6 words).</div>
+    <input class="id-input" type="text" placeholder="Type your answer (example: tell a trusted adult)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) Situation: A person is very sick. Instead of ending life, the loving response is to give ______ care.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q46">
+    <div class="qhead">46) Identification: Give ONE example of a “common vice” (one word or short phrase).</div>
+    <input class="id-input" type="text" placeholder="Type your answer (example: illegal drugs)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q47">
+    <div class="qhead">47) Identification: Name ONE way to honor parents at home (2–6 words).</div>
+    <input class="id-input" type="text" placeholder="Type your answer (example: help with chores)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q48">
+    <div class="qhead">48) Identification: The commandment that protects life is the ______ Commandment. (Answer: 5th)</div>
+    <input class="id-input" type="text" placeholder="Type your answer (5th)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q49">
+    <div class="qhead">49) Identification: The commandment about respect for parents and authority is the ______ Commandment. (Answer: 4th)</div>
+    <input class="id-input" type="text" placeholder="Type your answer (4th)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q50">
+    <div class="qhead">50) Identification: The overall value taught by the 5th Commandment is respect for ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* ----------------------------
+   Answer Key
+-----------------------------*/
+const answers = {
+  // MCQ 1–30
+  q1:"B", q2:"C", q3:"B", q4:"C", q5:"A",
+  q6:"B", q7:"B", q8:"A", q9:"B", q10:"B",
+  q11:"B", q12:"A", q13:"B", q14:"B", q15:"B",
+  q16:"B", q17:"B", q18:"B", q19:"B", q20:"B",
+  q21:"B", q22:"B", q23:"A", q24:"B", q25:"A",
+  q26:"B", q27:"A", q28:"B", q29:"A", q30:"B",
+};
+
+// Identification answers with acceptable alternatives
+const idAnswers = {
+  q31: ["father and mother", "father & mother", "father, mother"],
+  q32: ["kill"],
+  q33: ["spiritual"],
+  q34: ["physical"],
+  q35: ["abortion"],
+  q36: ["euthanasia", "mercy killing"],
+  q37: ["capital"],
+  q38: ["vices", "vice"],
+  q39: ["murder"],
+  q40: ["war"],
+  q41: ["4th", "fourth"],
+  q42: ["spiritual abuse"],
+  q43: ["vice", "common vice", "vices"],
+  q44: ["tell a trusted adult", "report to a trusted adult", "tell an adult", "report it", "ask for help"],
+  q45: ["palliative", "loving", "proper"],
+  q46: ["drugs", "illegal drugs", "drunkenness", "alcohol abuse", "smoking", "gambling"],
+  q47: ["help with chores", "obey", "listen", "respectfully speak", "help at home", "say thank you"],
+  q48: ["5th", "fifth"],
+  q49: ["4th", "fourth"],
+  q50: ["life", "human life"]
+};
+
+/* ----------------------------
+   Explanations
+-----------------------------*/
+function explain(q){
+  const e = {
+    q1:"The 4th Commandment is “Honor your father and your mother.”",
+    q2:"It teaches respect for parents, family, and rightful authority (teachers/leaders).",
+    q3:"Honor includes obedience, respect in words, and helpful actions at home.",
+    q4:"Respect means speaking calmly, explaining your side, and listening too.",
+    q5:"We respect laws/leaders that protect the common good (what is good for everyone).",
+    q6:"Children are called to obey what is right, be thankful, and help at home.",
+    q7:"As we grow, we honor parents by caring for them—especially in sickness/old age.",
+    q8:"The 5th Commandment teaches respect and protection for human life.",
+    q9:"The usual wording is “You shall not kill.”",
+    q10:"Physical abuse harms life and dignity, so it violates the 5th Commandment.",
+    q11:"Physical abuse means harming the body (hitting, kicking, hurting).",
+    q12:"Spiritual abuse uses religion to manipulate, threaten, or control someone.",
+    q13:"Threatening someone with God to control them is spiritual abuse.",
+    q14:"Murder is intentionally taking an innocent human life.",
+    q15:"Abortion is ending the life of an unborn child.",
+    q16:"Euthanasia/mercy killing is intentionally ending a sick person’s life to stop suffering.",
+    q17:"The Christian response is love: care, comfort, support, and prayer—not killing.",
+    q18:"War causes suffering; we should seek peace and protect innocent life.",
+    q19:"Common vices are harmful habits (e.g., drugs, drunkenness) that damage life.",
+    q20:"Illegal drugs can destroy health and safety—harmful to life.",
+    q21:"Bullying harms dignity, safety, peace, and can lead to serious harm.",
+    q22:"Report to a trusted adult and help keep the person safe.",
+    q23:"The commandment also encourages care for health and safety (our life is a gift).",
+    q24:"Forgiveness and peace protect life and reduce violence.",
+    q25:"Respect for life means life is valuable and must not be harmed or destroyed.",
+    q26:"Hitting parents violates respect (4th) and harms life (5th).",
+    q27:"Good friends and healthy habits protect you from harmful vices.",
+    q28:"Capital punishment means death penalty imposed by the state.",
+    q29:"Life is a gift from God; we are called to protect it and show mercy.",
+    q30:"We obey rules that are good and protect people—not commands that cause harm.",
+
+    q31:"The 4th Commandment: “Honor your father and your mother.”",
+    q32:"The 5th Commandment: “You shall not kill.”",
+    q33:"Spiritual abuse is using religion to control or harm someone.",
+    q34:"Physical abuse harms the body.",
+    q35:"Ending unborn life is abortion.",
+    q36:"Ending a sick person’s life intentionally is euthanasia (mercy killing).",
+    q37:"Capital punishment refers to the death penalty.",
+    q38:"Vices are harmful habits that can destroy health and relationships.",
+    q39:"Murder is intentional killing of an innocent person.",
+    q40:"War is armed conflict that causes suffering and death.",
+    q41:"Insulting and disrespecting parents violates the 4th Commandment.",
+    q42:"That is spiritual abuse (religion used as a weapon).",
+    q43:"Drug addiction is a vice that harms life.",
+    q44:"Correct actions include telling/reporting to a trusted adult and seeking help.",
+    q45:"Palliative care means caring for comfort and dignity without killing.",
+    q46:"Examples: drugs, drunkenness, gambling, smoking—habits that harm life.",
+    q47:"Examples: help with chores, obey respectfully, listen, say thank you.",
+    q48:"The 5th Commandment protects life.",
+    q49:"The 4th Commandment teaches respect for parents/authority.",
+    q50:"The key value is respect for life (human life)."
+  };
+  return e[q] || "";
+}
+
+/* ----------------------------
+   Helpers
+-----------------------------*/
+function norm(s){
+  return (s||"")
+    .toLowerCase()
+    .replace(/\s+/g," ")
+    .replace(/[.,!?;:()"']/g,"")
+    .trim();
+}
+function isMatch(user, acceptedList){
+  const u = norm(user);
+  return acceptedList.some(a => norm(a) === u);
+}
+
+/* ----------------------------
+   Selection logic (MCQ buttons)
+-----------------------------*/
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent = btn.closest('.question');
+    parent.dataset.selected = btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ----------------------------
+   Submit (with confirm)
+-----------------------------*/
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const ok = confirm("Submit your answers now? You will see your score and explanations.");
+  if(!ok) return;
+
+  let score = 0;
+
+  // Grade MCQ
+  Object.keys(answers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const sel = el.dataset.selected;
+
+    let statusHTML="";
+    if(!sel) statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    else if(sel === answers[q]){ statusHTML = `<div class="correct">✅ Correct</div>`; score++; }
+    else statusHTML = `<div class="incorrect">❌ Incorrect (Correct: ${answers[q]})</div>`;
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Grade Identification
+  Object.keys(idAnswers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const input = el.querySelector('input');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const user = input ? input.value : "";
+
+    let statusHTML="";
+    if(!user || !user.trim()){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(isMatch(user, idAnswers[q])){
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+      score++;
+    }else{
+      const showOne = idAnswers[q][0];
+      statusHTML = `<div class="incorrect">❌ Incorrect (Possible answer: <b>${showOne}</b>)</div>`;
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Scorecard
+  document.getElementById('totalScore').textContent = score;
+
+  let stars = Math.floor(score/10);
+  document.getElementById('starRow').textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  let msg = score>=45 ? "🌟 Excellent! Very strong understanding."
+          : score>=35 ? "👍 Great job! Just review a few items."
+          : score>=25 ? "🙂 Good effort! Practice more for mastery."
+          : "💪 Keep practicing! Read explanations and try again.";
+  document.getElementById('scoreMsg').textContent = msg;
+
+  document.getElementById('scorecard').style.display = "block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ----------------------------
+   Reset
+-----------------------------*/
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz? This will clear your answers.")) return;
+
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb = q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    const inp = q.querySelector('input'); if(inp) inp.value="";
+  });
+
+  document.getElementById('scorecard').style.display = "none";
+});
+
+/* ----------------------------
+   Toggles
+-----------------------------*/
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none"; btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block"; btn.innerHTML="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
