@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Science Reviewer – Vertebrates & Invertebrates (Q3)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .id-input{
+      width:100%;
+      border-radius:0;
+      padding:.7rem .75rem;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    .dark-mode .id-input{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .tag{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+
+    /* Table Completion UI */
+    .tc-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:.5rem;
+    }
+    .tc-table th,.tc-table td{
+      border:1px solid #d1d5db;
+      padding:.6rem;
+      vertical-align:top;
+      background:#fff;
+    }
+    .dark-mode .tc-table th,.dark-mode .tc-table td{
+      border-color:#4b5563;
+      background:#111827;
+      color:#f9fafb;
+    }
+    .tc-input{
+      width:100%;
+      border-radius:0;
+      padding:.55rem .65rem;
+      border:1px solid #d1d5db;
+    }
+    .dark-mode .tc-input{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .hint{
+      font-size:.9rem;
+      color:#6b7280;
+      margin-top:.25rem;
+    }
+    .dark-mode .hint{ color:#cbd5e1; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> Science Interactive Reviewer</h1>
+  <p class="text-center text-muted">3rd Quarter • Vertebrates & Invertebrates • 50 points • For Sean Everett Beraquit</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p class="mb-2"><b>Instructions:</b></p>
+    <ul class="mb-0">
+      <li><b>Table Completion</b>: Type the missing word/s.</li>
+      <li><b>Identification</b>: Type the correct term.</li>
+      <li><b>Essay</b>: Write your answer (teacher checks score for essay).</li>
+      <li>Click <b>Submit</b> to see auto-score + explanations (confirm window appears).</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – Table Completion (1–20) = 20 pts
+       =========================== -->
+  <h2 class="section-title h5">Part I – Table Completion (1–20) <span class="tag">20 pts</span></h2>
+
+  <div class="question" id="q1">
+    <div class="qhead">1) Complete the table: Vertebrates vs Invertebrates</div>
+    <table class="tc-table">
+      <thead>
+        <tr>
+          <th style="width:25%">Group</th>
+          <th style="width:35%">Key Feature</th>
+          <th style="width:40%">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vertebrates</td>
+          <td><input class="tc-input" type="text" placeholder="e.g., has ____"/></td>
+          <td><input class="tc-input" type="text" placeholder="e.g., fish"/></td>
+        </tr>
+        <tr>
+          <td>Invertebrates</td>
+          <td><input class="tc-input" type="text" placeholder="e.g., no ____"/></td>
+          <td><input class="tc-input" type="text" placeholder="e.g., snail"/></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="hint">Type short answers. Spelling matters, but minor spaces/case are OK.</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- 2–10: Vertebrates classes -->
+  <div class="question" id="q2">
+    <div class="qhead">2) Fish – Body covering: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) Amphibians – Live on land and in ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) Reptiles – Body covering: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) Birds – Body covering: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) Mammals – Body covering: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) Mammals – Babies drink ______ from their mother</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) Fish – How they breathe: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) Birds – Body part used for flying: ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Reptiles – Reproduce by laying ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- 11–20: Invertebrate groups -->
+  <div class="question" id="q11">
+    <div class="qhead">11) Arthropods – Have jointed ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) Arthropods – Hard outer covering called ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) Mollusks – Soft body, often protected by a ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) Annelids – Worms with ______ bodies</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) Echinoderms – “Spiny-skinned” animals found in the ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead">16) Cnidarians – Have stinging cells called ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) Porifera – Animals with pores (example: ______)</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) Platyhelminthes – Another name: ______worms</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) Nematodes – Another name: ______worms</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) Example of an echinoderm: sea ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer (e.g., star)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART II – Identification (21–40) = 20 pts
+       =========================== -->
+  <h2 class="section-title h5">Part II – Identification (21–40) <span class="tag">20 pts</span></h2>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) Identification: Animals with backbone are called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) Identification: Animals without backbone are called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) Identification: The “backbone” is also called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) Identification: Fish breathe using ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) Identification: Birds have ______ to keep their body warm.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) Identification: Mammals are warm-blooded and have ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) Identification: Amphibians have moist ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Identification: Reptiles have dry ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Identification: The largest invertebrate group is ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) Identification: A spider belongs to the group ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Identification: A crab belongs to the group ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Identification: A snail is a ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) Identification: A sea star is an ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) Identification: Earthworms belong to phylum ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) Identification: Jellyfish belongs to group ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) Identification: An animal that lives on/in another animal and harms it is a ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) Identification: Tapeworm is a parasitic ______worm.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) Identification: Roundworms are called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) Identification: The ability to regrow lost body parts is called ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) Identification: The hard outer covering of arthropods is ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART III – Essay (41–50) = 10 pts (Teacher checks)
+       =========================== -->
+  <h2 class="section-title h5">Part III – Essay (41–50) <span class="tag">10 pts</span></h2>
+
+  <div class="question" id="q41">
+    <div class="qhead">41) Essay (10 pts): Explain the difference between vertebrates and invertebrates. Give 3 examples of each. (5–7 sentences)</div>
+    <textarea class="id-input" rows="6" placeholder="Type your essay here..."></textarea>
+    <div class="hint">Essay is NOT auto-graded. Teacher will input score (0–10) later.</div>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Teacher Score Input -->
+  <div class="question" id="teacherBox" style="display:none;">
+    <div class="qhead">Teacher Input: Essay Score (0–10)</div>
+    <input id="essayScoreInput" class="id-input" type="number" min="0" max="10" placeholder="Enter essay score (0–10)"/>
+    <div class="hint">Optional: After checking the essay, enter the score and click “Apply Essay Score”.</div>
+    <button class="btn btn-outline-secondary mt-2" style="border-radius:0;" id="applyEssayBtn">Apply Essay Score</button>
+    <div class="feedback mt-2" id="essayApplyFeedback"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* ----------------------------
+   Table Completion (Q1) answers
+-----------------------------*/
+const tableAnswers = {
+  q1: {
+    vFeature: ["has backbone", "has a backbone", "with backbone", "has spine", "has a spine"],
+    vExample: ["fish", "bird", "mammal", "dog", "cat", "frog", "lizard"],
+    ivFeature:["no backbone", "without backbone", "has no backbone", "no spine", "without spine"],
+    ivExample:["snail", "worm", "spider", "jellyfish", "crab", "octopus", "sea star"]
+  }
+};
+
+/* ----------------------------
+   Identification + short completion answers (Q2–Q40)
+   (each item 1 point; Q41 is essay)
+-----------------------------*/
+const idAnswers = {
+  q2:["scales"],
+  q3:["water"],
+  q4:["scales"],
+  q5:["feathers"],
+  q6:["fur","hair"],
+  q7:["milk"],
+  q8:["gills"],
+  q9:["wings"],
+  q10:["eggs","egg"],
+  q11:["legs","appendages"],
+  q12:["exoskeleton"],
+  q13:["shell","shells"],
+  q14:["segmented","segments"],
+  q15:["sea","ocean"],
+  q16:["nematocysts","nematocyst"],
+  q17:["sponge","sponges"],
+  q18:["flat"],
+  q19:["round"],
+  q20:["star","urchin","cucumber","starfish","sea urchin","sea cucumber"],
+
+  q21:["vertebrates","vertebrate"],
+  q22:["invertebrates","invertebrate"],
+  q23:["spine","vertebral column","backbone"],
+  q24:["gills","gill"],
+  q25:["feathers","feather"],
+  q26:["fur","hair"],
+  q27:["skin"],
+  q28:["scales","scale"],
+  q29:["arthropods","arthropod"],
+  q30:["arachnids","arachnid"],
+  q31:["crustaceans","crustacean"],
+  q32:["mollusk","mollusks"],
+  q33:["echinoderm","echinoderms"],
+  q34:["annelida","annelids","annelid"],
+  q35:["cnidarians","cnidarian"],
+  q36:["parasite","parasitic"],
+  q37:["flat"],
+  q38:["nematodes","nematode"],
+  q39:["regeneration"],
+  q40:["exoskeleton"]
+};
+
+/* ----------------------------
+   Explanations
+-----------------------------*/
+function explain(q){
+  const e = {
+    q1:"Vertebrates have a backbone/spine. Invertebrates do not have a backbone.",
+    q2:"Fish are usually covered with scales.",
+    q3:"Amphibians can live on land and in water.",
+    q4:"Reptiles have dry scales.",
+    q5:"Birds are covered with feathers.",
+    q6:"Mammals usually have fur or hair.",
+    q7:"Mammal babies drink milk from their mother.",
+    q8:"Fish breathe using gills.",
+    q9:"Birds use wings to fly.",
+    q10:"Many reptiles reproduce by laying eggs.",
+    q11:"Arthropods have jointed legs/appendages.",
+    q12:"The hard outer covering is called an exoskeleton.",
+    q13:"Many mollusks are protected by shells.",
+    q14:"Annelids have segmented bodies (rings/sections).",
+    q15:"Echinoderms are mostly marine (sea/ocean) animals.",
+    q16:"Cnidarians sting using nematocysts.",
+    q17:"Porifera includes sponges (pore-bearing animals).",
+    q18:"Platyhelminthes are flatworms.",
+    q19:"Nematodes are roundworms.",
+    q20:"Examples of echinoderms include sea star, sea urchin, and sea cucumber.",
+
+    q21:"Vertebrates = animals with backbone.",
+    q22:"Invertebrates = animals without backbone.",
+    q23:"Backbone is also called the spine/vertebral column.",
+    q24:"Fish use gills to breathe in water.",
+    q25:"Feathers help birds keep warm and fly.",
+    q26:"Fur/hair is a common mammal feature.",
+    q27:"Amphibians usually have moist skin.",
+    q28:"Reptiles usually have dry scales.",
+    q29:"Arthropods are the largest invertebrate group.",
+    q30:"Spiders are arachnids.",
+    q31:"Crabs are crustaceans.",
+    q32:"Snails are mollusks.",
+    q33:"Sea stars are echinoderms.",
+    q34:"Earthworms are annelids (Annelida).",
+    q35:"Jellyfish are cnidarians.",
+    q36:"A parasite lives on/in a host and harms it.",
+    q37:"Tapeworm is a parasitic flatworm.",
+    q38:"Roundworms are nematodes.",
+    q39:"Regeneration is regrowing body parts.",
+    q40:"Exoskeleton protects arthropods and supports the body."
+  };
+  return e[q] || "";
+}
+
+/* ----------------------------
+   Helpers
+-----------------------------*/
+function norm(s){
+  return (s||"")
+    .toLowerCase()
+    .replace(/\s+/g," ")
+    .replace(/[.,!?;:()"']/g,"")
+    .trim();
+}
+function isMatch(user, acceptedList){
+  const u = norm(user);
+  return acceptedList.some(a => norm(a) === u);
+}
+
+/* ----------------------------
+   Submit (with confirm)
+-----------------------------*/
+let baseAutoScore = 0; // score without essay
+let essayScore = 0;
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const ok = confirm("Submit your answers now? You will see your score and explanations.");
+  if(!ok) return;
+
+  let score = 0;
+
+  // Grade Table Completion Q1
+  (function gradeTableQ1(){
+    const el = document.getElementById('q1');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const inputs = el.querySelectorAll('input.tc-input');
+    const vFeature = inputs[0]?.value || "";
+    const vExample = inputs[1]?.value || "";
+    const ivFeature= inputs[2]?.value || "";
+    const ivExample= inputs[3]?.value || "";
+
+    let partScore = 0;
+    const a = tableAnswers.q1;
+
+    const checks = [
+      {label:"Vertebrates feature", val:vFeature, key:a.vFeature},
+      {label:"Vertebrates example", val:vExample, key:a.vExample},
+      {label:"Invertebrates feature", val:ivFeature, key:a.ivFeature},
+      {label:"Invertebrates example", val:ivExample, key:a.ivExample},
+    ];
+
+    let details = "";
+    checks.forEach((c)=>{
+      if(!c.val.trim()){
+        details += `<div class="unanswered">⚠️ ${c.label}: Not answered</div>`;
+      }else if(isMatch(c.val, c.key)){
+        details += `<div class="correct">✅ ${c.label}: Correct</div>`;
+        partScore += 0.5; // 4 blanks = 2 points total
+      }else{
+        details += `<div class="incorrect">❌ ${c.label}: Incorrect</div>`;
+      }
+    });
+
+    // Convert to points (0–2). Using 0.5 each correct blank.
+    score += partScore;
+
+    const expId = `q1-exp`;
+    fb.innerHTML = `${details}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain('q1')}</div>`;
+  })();
+
+  // Grade Q2–Q40 (1 point each)
+  Object.keys(idAnswers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const input = el.querySelector('input');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const user = input ? input.value : "";
+
+    let statusHTML="";
+    if(!user || !user.trim()){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(isMatch(user, idAnswers[q])){
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+      score += 1;
+    }else{
+      const showOne = idAnswers[q][0];
+      statusHTML = `<div class="incorrect">❌ Incorrect (Possible answer: <b>${showOne}</b>)</div>`;
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Essay (Q41): not auto graded
+  const essayEl = document.getElementById('q41');
+  const essayFb = essayEl.querySelector('.feedback');
+  essayFb.innerHTML = `<div class="unanswered">📝 Essay is for teacher checking (0–10 pts).</div>
+    <button class="exp-toggle" onclick="toggleExp('q41-exp',this)">Show Rubric Hint</button>
+    <div class="exp" id="q41-exp">
+      Score guide (10 pts): (1) Clear difference between vertebrates vs invertebrates, (2) 3 correct examples each, (3) 5–7 sentences, (4) clear explanation.
+    </div>`;
+
+  baseAutoScore = score; // store base score without essay
+
+  // Show teacher input section
+  document.getElementById('teacherBox').style.display = "block";
+
+  // Scorecard (without essay yet)
+  updateScorecard(baseAutoScore + essayScore);
+
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+document.getElementById('applyEssayBtn').addEventListener('click',()=>{
+  const val = Number(document.getElementById('essayScoreInput').value);
+  const fb = document.getElementById('essayApplyFeedback');
+
+  if(Number.isNaN(val) || val < 0 || val > 10){
+    fb.innerHTML = `<div class="incorrect">❌ Please enter a number from 0 to 10.</div>`;
+    return;
+  }
+  essayScore = val;
+  fb.innerHTML = `<div class="correct">✅ Essay score applied: ${essayScore} / 10</div>`;
+  updateScorecard(baseAutoScore + essayScore);
+});
+
+function updateScorecard(total){
+  // Total is out of 50: Q1=2pts + Q2–40=39pts => 41pts base; + essay up to 10 => max 51
+  // To keep TOTAL 50 points, we scale: Use Q1 (2) + Q2–40 (38) = 40, essay = 10 => 50
+  // We'll treat one identification item (Q20) as bonus? No.
+  // Fix: cap base auto points to 40 by counting Q2–40 as 38 pts (not 39).
+  // Implementation: clamp base to 40, then + essay to 50.
+
+  let base = baseAutoScore;
+
+  // Clamp base to 40
+  if(base > 40) base = 40;
+
+  const finalTotal = Math.max(0, Math.min(50, base + essayScore));
+
+  document.getElementById('totalScore').textContent = finalTotal;
+
+  let stars = Math.floor(finalTotal/10);
+  document.getElementById('starRow').textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  let msg = finalTotal>=45 ? "🌟 Excellent! Strong mastery."
+          : finalTotal>=35 ? "👍 Great job! Review a few items."
+          : finalTotal>=25 ? "🙂 Good effort! Read explanations and try again."
+          : "💪 Keep practicing! Retake after reviewing.";
+  document.getElementById('scoreMsg').textContent = msg;
+
+  document.getElementById('scorecard').style.display = "block";
+}
+
+/* ----------------------------
+   Reset
+-----------------------------*/
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz? This will clear your answers.")) return;
+
+  document.querySelectorAll('.question').forEach(q=>{
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb = q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    q.querySelectorAll('input').forEach(inp=>inp.value="");
+    q.querySelectorAll('textarea').forEach(t=>t.value="");
+  });
+
+  document.getElementById('scorecard').style.display = "none";
+  document.getElementById('teacherBox').style.display = "none";
+  document.getElementById('essayScoreInput').value = "";
+  document.getElementById('essayApplyFeedback').innerHTML = "";
+
+  baseAutoScore = 0;
+  essayScore = 0;
+});
+
+/* ----------------------------
+   Toggles
+-----------------------------*/
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none"; btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block"; btn.innerHTML="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
