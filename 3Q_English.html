@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>English Reviewer – Spelling, Vocabulary, Media (Grade 6 • Q3)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+
+    .id-input, .cm-input, textarea{
+      width:100%;
+      border-radius:0;
+      padding:.7rem .75rem;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    textarea{ min-height:120px; }
+    .dark-mode .id-input, .dark-mode .cm-input, .dark-mode textarea{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .tag{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+
+    .note{
+      font-size:.92rem; color:#6b7280;
+    }
+    .dark-mode .note{ color:#cbd5e1; }
+
+    .rubric{
+      border:1px dashed #d1d5db;
+      padding:.75rem;
+      background:#fff;
+    }
+    .dark-mode .rubric{
+      background:#111827;
+      border-color:#4b5563;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> English Interactive Reviewer</h1>
+  <p class="text-center text-muted">Grade 6 • 3rd Quarter • Spelling • Vocabulary • Print/Media & Viewing • For Sean Everett Beraquit</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Auto-Score: <span id="autoScore">0</span> / 45</div>
+        <div class="note">Essay is teacher-scored (5 pts). Total: 50 pts.</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p class="mb-2"><b>How to Answer:</b></p>
+    <ul class="mb-0">
+      <li>Tap the best choice for <b>Multiple Choice</b>.</li>
+      <li>Type your answer for <b>Identification</b> and <b>Concept Mapping</b> (minor spaces/case are OK).</li>
+      <li>Write your answer for the <b>Essay</b> (teacher will score this part).</li>
+      <li>Click <b>Submit</b> to see auto-score and explanations (you’ll be asked to confirm).</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – Multiple Choice (1–25) = 25 pts
+       =========================== -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–25) <span class="tag">25 pts</span></h2>
+
+  <div class="question" id="q1">
+    <div class="qhead">1) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) enviroment</button>
+      <button data-answer="B">B) environment</button>
+      <button data-answer="C">C) enviornment</button>
+      <button data-answer="D">D) environmant</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <div class="qhead">2) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) becuase</button>
+      <button data-answer="B">B) because</button>
+      <button data-answer="C">C) beacause</button>
+      <button data-answer="D">D) becouse</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) different</button>
+      <button data-answer="B">B) diffrent</button>
+      <button data-answer="C">C) differant</button>
+      <button data-answer="D">D) diferent</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) necessary</button>
+      <button data-answer="B">B) neccesary</button>
+      <button data-answer="C">C) necesary</button>
+      <button data-answer="D">D) necessery</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) beautiful</button>
+      <button data-answer="B">B) beatiful</button>
+      <button data-answer="C">C) beautifull</button>
+      <button data-answer="D">D) beutiful</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) library</button>
+      <button data-answer="B">B) libary</button>
+      <button data-answer="C">C) librarry</button>
+      <button data-answer="D">D) librery</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) February</button>
+      <button data-answer="B">B) Febuary</button>
+      <button data-answer="C">C) Febraury</button>
+      <button data-answer="D">D) Febreuary</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) surprise</button>
+      <button data-answer="B">B) suprize</button>
+      <button data-answer="C">C) surprize</button>
+      <button data-answer="D">D) surprice</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) definitely</button>
+      <button data-answer="B">B) definately</button>
+      <button data-answer="C">C) definatly</button>
+      <button data-answer="D">D) definitly</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Choose the correct spelling:</div>
+    <div class="options">
+      <button data-answer="A">A) receive</button>
+      <button data-answer="B">B) recieve</button>
+      <button data-answer="C">C) receeve</button>
+      <button data-answer="D">D) recive</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- Vocabulary (context) -->
+  <div class="question" id="q11">
+    <div class="qhead">11) “The kitten is <b>timid</b>.” Timid means:</div>
+    <div class="options">
+      <button data-answer="A">A) brave</button>
+      <button data-answer="B">B) shy or easily scared</button>
+      <button data-answer="C">C) noisy</button>
+      <button data-answer="D">D) angry</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) “Please <b>assist</b> me.” Assist means:</div>
+    <div class="options">
+      <button data-answer="A">A) help</button>
+      <button data-answer="B">B) ignore</button>
+      <button data-answer="C">C) punish</button>
+      <button data-answer="D">D) confuse</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) “The food was <b>delicious</b>.” Delicious means:</div>
+    <div class="options">
+      <button data-answer="A">A) very tasty</button>
+      <button data-answer="B">B) very loud</button>
+      <button data-answer="C">C) very late</button>
+      <button data-answer="D">D) very small</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) “The class was <b>silent</b>.” Silent means:</div>
+    <div class="options">
+      <button data-answer="A">A) noisy</button>
+      <button data-answer="B">B) without sound</button>
+      <button data-answer="C">C) very fast</button>
+      <button data-answer="D">D) very hot</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) “The movie was <b>thrilling</b>.” Thrilling means:</div>
+    <div class="options">
+      <button data-answer="A">A) boring</button>
+      <button data-answer="B">B) exciting</button>
+      <button data-answer="C">C) sleepy</button>
+      <button data-answer="D">D) gentle</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- Print/Media & Viewing -->
+  <div class="question" id="q16">
+    <div class="qhead">16) A poster that says “Wear a Helmet!” is mostly trying to:</div>
+    <div class="options">
+      <button data-answer="A">A) entertain</button>
+      <button data-answer="B">B) persuade / encourage</button>
+      <button data-answer="C">C) tell a joke</button>
+      <button data-answer="D">D) show a recipe</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) A news report is mainly for:</div>
+    <div class="options">
+      <button data-answer="A">A) informing</button>
+      <button data-answer="B">B) scaring</button>
+      <button data-answer="C">C) selling</button>
+      <button data-answer="D">D) confusing</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) Which is an example of a <b>digital media</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) printed textbook</button>
+      <button data-answer="B">B) website article</button>
+      <button data-answer="C">C) chalkboard</button>
+      <button data-answer="D">D) notebook</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) A TV commercial that shows a product and price is mostly trying to:</div>
+    <div class="options">
+      <button data-answer="A">A) persuade you to buy</button>
+      <button data-answer="B">B) teach you to dance</button>
+      <button data-answer="C">C) punish viewers</button>
+      <button data-answer="D">D) stop people from learning</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) Which is the best meaning of <b>credible</b> information?</div>
+    <div class="options">
+      <button data-answer="A">A) easy to draw</button>
+      <button data-answer="B">B) trustworthy and reliable</button>
+      <button data-answer="C">C) very loud</button>
+      <button data-answer="D">D) always funny</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) A chart or graph is useful because it:</div>
+    <div class="options">
+      <button data-answer="A">A) hides information</button>
+      <button data-answer="B">B) shows data clearly using visuals</button>
+      <button data-answer="C">C) is always fictional</button>
+      <button data-answer="D">D) is a long story</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) Which is a <b>warning sign</b>?</div>
+    <div class="options">
+      <button data-answer="A">A) “Happy Birthday!”</button>
+      <button data-answer="B">B) “Danger: Wet Floor”</button>
+      <button data-answer="C">C) “Once upon a time…”</button>
+      <button data-answer="D">D) “My favorite color is…”</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) Which word is an <b>evaluative</b> word choice?</div>
+    <div class="options">
+      <button data-answer="A">A) table</button>
+      <button data-answer="B">B) amazing</button>
+      <button data-answer="C">C) pencil</button>
+      <button data-answer="D">D) window</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) The <b>main idea</b> of a poster is the:</div>
+    <div class="options">
+      <button data-answer="A">A) biggest/most important message</button>
+      <button data-answer="B">B) smallest word</button>
+      <button data-answer="C">C) background color only</button>
+      <button data-answer="D">D) joke at the bottom</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) When you check the author and source of an article, you are checking its:</div>
+    <div class="options">
+      <button data-answer="A">A) title design</button>
+      <button data-answer="B">B) credibility</button>
+      <button data-answer="C">C) font size</button>
+      <button data-answer="D">D) rhyme</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART II – Identification (26–40) = 15 pts
+       =========================== -->
+  <h2 class="section-title h5">Part II – Identification (26–40) <span class="tag">15 pts</span></h2>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) Write the correct spelling: “definately” should be ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) Write the correct spelling: “recieve” should be ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Meaning: “assist” means ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Meaning: “timid” means ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (1–3 words)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) Meaning: “credible” means ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (1–3 words)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) What do we call a message that tries to convince you to buy something? (one word)</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) A <b>poster</b> can inform or persuade. Give one purpose: ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (inform/persuade)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) What do we call words that show opinion (e.g., amazing, terrible)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (2 words)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) What do we call a visual that shows numbers/data (bars/lines/pie)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (graph/chart)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) The biggest message of a text/poster is called the ______ idea.</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) Write a synonym (same meaning): “happy” → ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) Write an antonym (opposite): “silent” → ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) Identify: A short message on TV/YouTube that sells a product is a ______.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (1–2 words)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) Identify: A printed message that warns people is called a ______ sign.</div>
+    <input class="id-input" type="text" placeholder="Type your answer (one word)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) One way to check if information is true is to ______ sources. (one verb)</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART III – Concept Mapping (41–45) = 5 pts
+       (short answers / keywords)
+       =========================== -->
+  <h2 class="section-title h5">Part III – Concept Mapping (41–45) <span class="tag">5 pts</span></h2>
+  <p class="note mb-2">Write short keywords. Example: “Advertisement → persuade → buyers”.</p>
+
+  <div class="question" id="q41">
+    <div class="qhead">41) Vocabulary Map: <b>credible</b> → meaning: ______ → example source: ______</div>
+    <input class="cm-input" type="text" placeholder="Example: trustworthy → school website"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) Media Map: <b>poster</b> → purpose: ______ → audience: ______</div>
+    <input class="cm-input" type="text" placeholder="Example: persuade → students"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) Print Map: <b>graph/chart</b> → shows: ______ → helps readers: ______</div>
+    <input class="cm-input" type="text" placeholder="Example: data → understand quickly"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) Spelling Strategy Map: <b>receive</b> → rule: “i before e except after ____”</div>
+    <input class="cm-input" type="text" placeholder="Type your answer (one letter)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) Evaluative Words Map: give 1 positive word and 1 negative word (format: positive, negative)</div>
+    <input class="cm-input" type="text" placeholder="Example: excellent, terrible"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART IV – Essay (Teacher-scored) = 5 pts
+       =========================== -->
+  <h2 class="section-title h5">Part IV – Essay (Teacher-Scored) <span class="tag">5 pts</span></h2>
+
+  <div class="question" id="q46">
+    <div class="qhead">46) Essay (5 pts): In 4–6 sentences, explain why checking sources is important when viewing information online. Give one example.</div>
+    <textarea placeholder="Write your answer here (4–6 sentences)..."></textarea>
+
+    <div class="rubric mt-2">
+      <b>Rubric (5 pts):</b>
+      <ul class="mb-0">
+        <li><b>Content (2)</b> – clear explanation + correct idea</li>
+        <li><b>Example (1)</b> – gives a relevant example</li>
+        <li><b>Organization (1)</b> – clear flow</li>
+        <li><b>Grammar/Mechanics (1)</b> – readable and correct</li>
+      </ul>
+    </div>
+
+    <div class="feedback">
+      <div class="unanswered">✍️ Teacher will score this part (0–5).</div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* ----------------------------
+   Answer Key (MCQ)
+-----------------------------*/
+const answers = {
+  q1:"B", q2:"B", q3:"A", q4:"A", q5:"A",
+  q6:"A", q7:"A", q8:"A", q9:"A", q10:"A",
+  q11:"B", q12:"A", q13:"A", q14:"B", q15:"B",
+  q16:"B", q17:"A", q18:"B", q19:"A", q20:"B",
+  q21:"B", q22:"B", q23:"B", q24:"A", q25:"B"
+};
+
+/* ----------------------------
+   Identification + Concept Map Answers
+   (keywords / acceptable alternatives)
+-----------------------------*/
+const idAnswers = {
+  // Identification 26–40
+  q26:["definitely"],
+  q27:["receive"],
+  q28:["help","assist"],
+  q29:["shy","easily scared","scared","bashful"],
+  q30:["trustworthy","reliable","believable"],
+  q31:["advertisement","ad","commercial"],
+  q32:["inform","persuade","encourage"],
+  q33:["evaluative words","opinion words"],
+  q34:["graph","chart"],
+  q35:["main"],
+  q36:["glad","joyful","cheerful"],
+  q37:["noisy","loud"],
+  q38:["commercial","tv commercial","ad","advertisement"],
+  q39:["warning"],
+  q40:["compare","check","verify","cross-check","crosscheck"],
+
+  // Concept mapping 41–45 (we accept keywords)
+  q41:["trustworthy","reliable","believable"], // we will keyword-check (contains)
+  q42:["inform","persuade","encourage"],       // contains
+  q43:["data","numbers","information"],        // contains
+  q44:["c"],                                   // exact
+  q45:["excellent, terrible","amazing, terrible","great, awful","awesome, horrible","good, bad"]
+};
+
+/* ----------------------------
+   Explanations
+-----------------------------*/
+function explain(q){
+  const e = {
+    q1:"Environment is spelled with “n” after “e”: en-vi-ron-ment.",
+    q2:"Because is spelled b-e-c-a-u-s-e.",
+    q3:"Different has two f’s and ends with -ent.",
+    q4:"Necessary has one c and double s: ne-ces-sary.",
+    q5:"Beautiful has “eau” in the middle.",
+    q6:"Library is spelled l-i-b-r-a-r-y.",
+    q7:"February has the “r”: Feb-ru-ary.",
+    q8:"Surprise is spelled s-u-r-p-r-i-s-e.",
+    q9:"Definitely has -nite-: def-i-nite-ly.",
+    q10:"Receive follows “i before e except after c.”",
+    q11:"Timid means shy or easily scared.",
+    q12:"Assist means help.",
+    q13:"Delicious means very tasty.",
+    q14:"Silent means without sound.",
+    q15:"Thrilling means exciting.",
+    q16:"A safety poster encourages people to do something (persuade).",
+    q17:"News reports give facts to inform the public.",
+    q18:"A website is digital media because it is online/electronic.",
+    q19:"Commercials are designed to persuade people to buy.",
+    q20:"Credible information is reliable and trustworthy.",
+    q21:"Graphs/charts show data clearly in visual form.",
+    q22:"“Danger: Wet Floor” warns people to be careful.",
+    q23:"Evaluative words show opinion or judgment (amazing, terrible).",
+    q24:"Main idea is the most important message of a text.",
+    q25:"Checking the author/source helps you judge credibility.",
+
+    q26:"The correct spelling is definitely.",
+    q27:"The correct spelling is receive.",
+    q28:"Assist means help.",
+    q29:"Timid means shy/easily scared.",
+    q30:"Credible means trustworthy/reliable.",
+    q31:"An advertisement (ad/commercial) persuades buyers.",
+    q32:"Posters can inform or persuade depending on the message.",
+    q33:"Evaluative/opinion words show judgment (good/bad).",
+    q34:"A graph or chart shows information using visuals.",
+    q35:"Main idea = biggest/most important idea.",
+    q36:"Happy synonyms: glad/joyful/cheerful.",
+    q37:"Silent antonym: noisy/loud.",
+    q38:"A TV/YouTube selling message is a commercial/ad.",
+    q39:"Warning sign gives caution or danger.",
+    q40:"Compare/check/verify sources to confirm truth.",
+
+    q41:"A credible source is trustworthy (e.g., school/government site).",
+    q42:"Posters usually inform or persuade a specific audience.",
+    q43:"Graphs show data and help readers understand quickly.",
+    q44:"Rule: i before e except after C (receive).",
+    q45:"Evaluative words: positive (excellent) and negative (terrible)."
+  };
+  return e[q] || "";
+}
+
+/* ----------------------------
+   Helpers
+-----------------------------*/
+function norm(s){
+  return (s||"")
+    .toLowerCase()
+    .replace(/\s+/g," ")
+    .replace(/[.,!?;:()"']/g,"")
+    .trim();
+}
+function isMatch(user, acceptedList){
+  const u = norm(user);
+  return acceptedList.some(a => norm(a) === u);
+}
+function containsAny(user, list){
+  const u = norm(user);
+  return list.some(k => u.includes(norm(k)));
+}
+
+/* ----------------------------
+   Selection logic (MCQ buttons)
+-----------------------------*/
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent = btn.closest('.question');
+    parent.dataset.selected = btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ----------------------------
+   Submit (with confirm)
+-----------------------------*/
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const ok = confirm("Submit your answers now? You will see your auto-score and explanations.");
+  if(!ok) return;
+
+  let score = 0;
+
+  // Grade MCQ (1 pt each)
+  Object.keys(answers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const sel = el.dataset.selected;
+
+    let statusHTML="";
+    if(!sel) statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    else if(sel === answers[q]){ statusHTML = `<div class="correct">✅ Correct</div>`; score++; }
+    else statusHTML = `<div class="incorrect">❌ Incorrect (Correct: ${answers[q]})</div>`;
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Grade Identification + Concept Mapping (1 pt each for 26–45)
+  const gradeThese = Array.from({length:20},(_,i)=>`q${26+i}`); // q26..q45
+
+  gradeThese.forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const input = el.querySelector('input');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const user = input ? input.value : "";
+
+    let statusHTML="";
+    if(!user || !user.trim()){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else{
+      // Concept mapping checks (41–43) use keyword "contains"
+      if(q==="q41"){
+        const ok = containsAny(user, ["trustworthy","reliable","believable"]) && (containsAny(user, ["website","school","government","gov","news","book"]) || user.length>=10);
+        if(ok){ statusHTML = `<div class="correct">✅ Correct (keywords found)</div>`; score++; }
+        else statusHTML = `<div class="incorrect">❌ Needs keywords like “trustworthy” + an example source</div>`;
+      }else if(q==="q42"){
+        if(containsAny(user, ["inform","persuade","encourage"]) && user.includes("→") || user.includes("-") || user.length>=8){
+          statusHTML = `<div class="correct">✅ Correct (keywords found)</div>`; score++;
+        }else{
+          statusHTML = `<div class="incorrect">❌ Include purpose (inform/persuade) + audience (students, people, etc.)</div>`;
+        }
+      }else if(q==="q43"){
+        const ok = containsAny(user, ["data","numbers","information"]) && containsAny(user, ["understand","read","quick","easily","clear"]);
+        if(ok){ statusHTML = `<div class="correct">✅ Correct (keywords found)</div>`; score++; }
+        else statusHTML = `<div class="incorrect">❌ Include “data/numbers” + how it helps (understand quickly)</div>`;
+      }else if(q==="q45"){
+        // accept many pairs
+        if(isMatch(user, idAnswers[q]) || (user.includes(",") && user.split(",").length>=2)){
+          statusHTML = `<div class="correct">✅ Correct</div>`; score++;
+        }else{
+          statusHTML = `<div class="incorrect">❌ Provide one positive and one negative word (e.g., excellent, terrible)</div>`;
+        }
+      }else{
+        // normal exact match list
+        if(isMatch(user, idAnswers[q])){
+          statusHTML = `<div class="correct">✅ Correct</div>`;
+          score++;
+        }else{
+          const showOne = (idAnswers[q] && idAnswers[q][0]) ? idAnswers[q][0] : "";
+          statusHTML = `<div class="incorrect">❌ Incorrect (Possible answer: <b>${showOne}</b>)</div>`;
+        }
+      }
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Scorecard (Auto score out of 45)
+  document.getElementById('autoScore').textContent = score;
+
+  let stars = Math.floor(score/9); // 0–5 stars (45 max)
+  if(stars>5) stars=5;
+  document.getElementById('starRow').textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  let msg = score>=41 ? "🌟 Excellent! Very strong skills in spelling, vocab, and media."
+          : score>=32 ? "👍 Great job! Review a few spelling and media items."
+          : score>=23 ? "🙂 Good effort! Practice spelling + meaning in context."
+          : "💪 Keep practicing! Read explanations and try again.";
+  document.getElementById('scoreMsg').textContent = msg;
+
+  document.getElementById('scorecard').style.display = "block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ----------------------------
+   Reset
+-----------------------------*/
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz? This will clear your answers.")) return;
+
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb = q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    const inp = q.querySelector('input'); if(inp) inp.value="";
+    const ta = q.querySelector('textarea'); if(ta) ta.value="";
+  });
+
+  document.getElementById('scorecard').style.display = "none";
+});
+
+/* ----------------------------
+   Toggles
+-----------------------------*/
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none"; btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block"; btn.innerHTML="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
