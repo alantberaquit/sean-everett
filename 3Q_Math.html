@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Math Reviewer – Area, Composite Area, Surface Area (Grade 6 • Q3)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .id-input{
+      width:100%;
+      border-radius:0;
+      padding:.7rem .75rem;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    .dark-mode .id-input{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .tag{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+    .formula{
+      font-size:.95rem;
+      padding:.5rem .75rem;
+      border:1px dashed #d1d5db;
+      background:#fff;
+      margin:.75rem 0 1rem;
+    }
+    .dark-mode .formula{
+      background:#111827;
+      border-color:#4b5563;
+    }
+    .muted{ color:#6b7280; }
+    .dark-mode .muted{ color:#cbd5e1; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-graduation"></i> Math Interactive Reviewer</h1>
+  <p class="text-center text-muted">Grade 6 • 3rd Quarter • Area • Composite Area • Surface Area • For Sean Everett Beraquit</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Total Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p class="mb-2"><b>How to Answer:</b></p>
+    <ul class="mb-0">
+      <li>Tap the best choice for <b>Multiple Choice</b>.</li>
+      <li>Type your final answer for <b>Solving</b> and <b>Problem Solving</b> (numbers only).</li>
+      <li>Units are shown (cm², m², cm³ not needed today). Use <b>π ≈ 3.14</b> if needed.</li>
+      <li>Click <b>Submit</b> to see score and explanations (you’ll be asked to confirm).</li>
+    </ul>
+  </div>
+
+  <div class="formula">
+    <b>Quick Formulas (Area):</b>
+    <div>Square: A = s²</div>
+    <div>Rectangle: A = l × w</div>
+    <div>Parallelogram: A = b × h</div>
+    <div>Triangle: A = ½ × b × h</div>
+    <div>Circle: A = πr² (use π ≈ 3.14)</div>
+    <hr class="my-2">
+    <b>Surface Area:</b>
+    <div>Cube: SA = 6a²</div>
+    <div>Rectangular Prism: SA = 2(lw + lh + wh)</div>
+    <div>Cylinder: SA = 2πr² + 2πrh</div>
+  </div>
+
+  <!-- ===========================
+       PART I – Multiple Choice (1–20)
+       =========================== -->
+  <h2 class="section-title h5">Part I – Multiple Choice (1–20) <span class="tag">20 pts</span></h2>
+
+  <div class="question" id="q1">
+    <div class="qhead">1) What is the area formula of a rectangle?</div>
+    <div class="options">
+      <button data-answer="A">A) A = s²</button>
+      <button data-answer="B">B) A = l × w</button>
+      <button data-answer="C">C) A = ½bh</button>
+      <button data-answer="D">D) A = πr²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <div class="qhead">2) A square has side 9 cm. What is its area?</div>
+    <div class="options">
+      <button data-answer="A">A) 18 cm²</button>
+      <button data-answer="B">B) 81 cm²</button>
+      <button data-answer="C">C) 36 cm²</button>
+      <button data-answer="D">D) 27 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) A triangle has base 10 cm and height 8 cm. Its area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 80 cm²</button>
+      <button data-answer="B">B) 40 cm²</button>
+      <button data-answer="C">C) 18 cm²</button>
+      <button data-answer="D">D) 20 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) A parallelogram has base 12 cm and height 5 cm. Area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 17 cm²</button>
+      <button data-answer="B">B) 30 cm²</button>
+      <button data-answer="C">C) 60 cm²</button>
+      <button data-answer="D">D) 120 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) Circle radius is 7 cm. Using π=3.14, area is closest to:</div>
+    <div class="options">
+      <button data-answer="A">A) 153.86 cm²</button>
+      <button data-answer="B">B) 43.96 cm²</button>
+      <button data-answer="C">C) 98.00 cm²</button>
+      <button data-answer="D">D) 314.00 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) Which figure uses the formula A = b × h?</div>
+    <div class="options">
+      <button data-answer="A">A) Circle</button>
+      <button data-answer="B">B) Parallelogram</button>
+      <button data-answer="C">C) Triangle</button>
+      <button data-answer="D">D) Square</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) A rectangle is 15 cm by 6 cm. Area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 21 cm²</button>
+      <button data-answer="B">B) 90 cm²</button>
+      <button data-answer="C">C) 45 cm²</button>
+      <button data-answer="D">D) 60 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) A triangle has base 14 m and height 9 m. Area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 63 m²</button>
+      <button data-answer="B">B) 126 m²</button>
+      <button data-answer="C">C) 23 m²</button>
+      <button data-answer="D">D) 81 m²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) A circle’s diameter is 10 cm. Radius is:</div>
+    <div class="options">
+      <button data-answer="A">A) 20 cm</button>
+      <button data-answer="B">B) 10 cm</button>
+      <button data-answer="C">C) 5 cm</button>
+      <button data-answer="D">D) 2 cm</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Which is the correct surface area formula of a cube?</div>
+    <div class="options">
+      <button data-answer="A">A) SA = 4a²</button>
+      <button data-answer="B">B) SA = 6a²</button>
+      <button data-answer="C">C) SA = 2(lw)</button>
+      <button data-answer="D">D) SA = πr²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q11">
+    <div class="qhead">11) A cube has edge 5 cm. Surface area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 25 cm²</button>
+      <button data-answer="B">B) 150 cm²</button>
+      <button data-answer="C">C) 125 cm²</button>
+      <button data-answer="D">D) 30 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) Rectangular prism: l=8 cm, w=3 cm, h=2 cm. Surface area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 52 cm²</button>
+      <button data-answer="B">B) 100 cm²</button>
+      <button data-answer="C">C) 124 cm²</button>
+      <button data-answer="D">D) 148 cm²</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) A cylinder has r=3 cm, h=10 cm. Which expression is its total surface area?</div>
+    <div class="options">
+      <button data-answer="A">A) 2πr² + 2πrh</button>
+      <button data-answer="B">B) πr²h</button>
+      <button data-answer="C">C) 6a²</button>
+      <button data-answer="D">D) 2(lw + lh + wh)</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) Composite area is usually found by:</div>
+    <div class="options">
+      <button data-answer="A">A) Adding areas of parts (and subtracting cut-outs)</button>
+      <button data-answer="B">B) Always multiplying by 2</button>
+      <button data-answer="C">C) Using only circle formula</button>
+      <button data-answer="D">D) Dividing by 10</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) A rectangle 10×6 has a square cut-out 2×2. Composite area is:</div>
+    <div class="options">
+      <button data-answer="A">A) 64</button>
+      <button data-answer="B">B) 60</button>
+      <button data-answer="C">C) 56</button>
+      <button data-answer="D">D) 52</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead">16) A square with side 12 cm has perimeter:</div>
+    <div class="options">
+      <button data-answer="A">A) 24 cm</button>
+      <button data-answer="B">B) 36 cm</button>
+      <button data-answer="C">C) 48 cm</button>
+      <button data-answer="D">D) 144 cm</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) If the radius doubles, the circle area becomes:</div>
+    <div class="options">
+      <button data-answer="A">A) double</button>
+      <button data-answer="B">B) triple</button>
+      <button data-answer="C">C) 4 times</button>
+      <button data-answer="D">D) half</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) A triangle area is 36 cm² and base is 12 cm. Height is:</div>
+    <div class="options">
+      <button data-answer="A">A) 3 cm</button>
+      <button data-answer="B">B) 6 cm</button>
+      <button data-answer="C">C) 12 cm</button>
+      <button data-answer="D">D) 18 cm</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) A parallelogram area is 72 cm² and base is 9 cm. Height is:</div>
+    <div class="options">
+      <button data-answer="A">A) 7 cm</button>
+      <button data-answer="B">B) 8 cm</button>
+      <button data-answer="C">C) 9 cm</button>
+      <button data-answer="D">D) 10 cm</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) Which unit is correct for area?</div>
+    <div class="options">
+      <button data-answer="A">A) cm</button>
+      <button data-answer="B">B) cm²</button>
+      <button data-answer="C">C) cm³</button>
+      <button data-answer="D">D) kg</button>
+    </div><div class="feedback"></div>
+  </div>
+
+
+  <!-- ===========================
+       PART II – Solving (21–35)
+       =========================== -->
+  <h2 class="section-title h5">Part II – Solving / Computation (21–35) <span class="tag">15 pts</span></h2>
+  <p class="muted mb-2">Type the final answer only (numbers). Use π=3.14 where needed.</p>
+
+  <div class="question" id="q21">
+    <div class="qhead">21) Rectangle: l=18 cm, w=7 cm. Area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q22">
+    <div class="qhead">22) Square: side = 14 cm. Area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q23">
+    <div class="qhead">23) Triangle: base=20 cm, height=9 cm. Area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q24">
+    <div class="qhead">24) Parallelogram: base=16 cm, height=11 cm. Area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q25">
+    <div class="qhead">25) Circle: r=6 cm. Area = ______ cm² (π=3.14)</div>
+    <input class="id-input" type="text" placeholder="Type your answer (example: 113.04)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q26">
+    <div class="qhead">26) Circle: diameter=12 cm. Area = ______ cm² (π=3.14)</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q27">
+    <div class="qhead">27) Cube edge=9 cm. Surface area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q28">
+    <div class="qhead">28) Rectangular prism: l=10 cm, w=4 cm, h=6 cm. Surface area = ______ cm²</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q29">
+    <div class="qhead">29) Cylinder: r=4 cm, h=9 cm. Total surface area = ______ cm² (π=3.14)</div>
+    <input class="id-input" type="text" placeholder="Type your answer (round to 2 decimals if needed)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q30">
+    <div class="qhead">30) Triangle: area=48 cm², base=12 cm. Height = ______ cm</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Parallelogram: area=96 cm², height=12 cm. Base = ______ cm</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Composite: A rectangle 20×10 and a rectangle 8×5 are attached (add areas). Total area = ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) Composite: Big rectangle 18×12 with a cut-out rectangle 6×4. Remaining area = ______</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) Square: area=169 cm². Side length = ______ cm</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) Rectangle: area=180 cm², length=15 cm. Width = ______ cm</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+
+  <!-- ===========================
+       PART III – Problem Solving (36–50)
+       =========================== -->
+  <h2 class="section-title h5">Part III – Problem Solving (36–50) <span class="tag">15 pts</span></h2>
+  <p class="muted mb-2">Read carefully. Type the final numerical answer only.</p>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) A garden is a rectangle 12 m by 8 m. What is its area (m²)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) A sign is a triangle with base 16 cm and height 10 cm. Area (cm²)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) A circular plate has radius 5 cm. Using π=3.14, area (cm²)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (78.5)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) A parallelogram mat has base 14 cm and height 9 cm. Area (cm²)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) A composite shape is made of 2 rectangles: 10×6 and 4×6 (like a “step”). Total area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q41">
+    <div class="qhead">41) A 15×10 rectangle has a circular hole of radius 3 (subtract). Using π=3.14, remaining area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (round to 2 decimals if needed)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) A cube box has edge 7 cm. How much cardboard to cover all faces (surface area)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) A rectangular prism has l=9, w=5, h=4 (cm). Surface area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) A cylinder can has r=3 cm and h=12 cm. Total surface area (π=3.14)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (round to 2 decimals)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) A square tile has side 20 cm. Area (cm²)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q46">
+    <div class="qhead">46) A triangle flag has area 54 cm² and base 18 cm. Height?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q47">
+    <div class="qhead">47) A circle has diameter 14 cm. Using π=3.14, area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (153.86)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q48">
+    <div class="qhead">48) Composite: Big rectangle 25×12 with a cut-out 5×6. Remaining area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q49">
+    <div class="qhead">49) A prism has l=12, w=7, h=3 (cm). Surface area?</div>
+    <input class="id-input" type="text" placeholder="Type your answer"/>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q50">
+    <div class="qhead">50) A cylinder has r=5 cm and h=7 cm. Total surface area (π=3.14)?</div>
+    <input class="id-input" type="text" placeholder="Type your answer (round to 2 decimals)"/>
+    <div class="feedback"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* ----------------------------
+   Answer Key – MCQ (1–20)
+-----------------------------*/
+const answers = {
+  q1:"B", q2:"B", q3:"B", q4:"C", q5:"A",
+  q6:"B", q7:"B", q8:"A", q9:"C", q10:"B",
+  q11:"B", q12:"C", q13:"A", q14:"A", q15:"C",
+  q16:"C", q17:"C", q18:"B", q19:"B", q20:"B"
+};
+
+/* ----------------------------
+   Numeric Answer Key (21–50)
+   Tolerance: accept small rounding differences
+-----------------------------*/
+const numAnswers = {
+  // Part II
+  q21:126,
+  q22:196,
+  q23:90,
+  q24:176,
+  q25:113.04,
+  q26:113.04,     // r=6
+  q27:486,
+  q28:208,        // 2(lw+lh+wh)=2(40+60+24)=248? wait check: l=10 w=4 h=6 => lw40 lh60 wh24 sum124 => *2=248
+  q29:326.56,     // 2πr^2 + 2πrh = 2*3.14*16 + 2*3.14*4*9 = 100.48 + 226.08 = 326.56
+  q30:8,
+  q31:8,
+  q32: (20*10) + (8*5), //200+40=240
+  q33: (18*12) - (6*4), //216-24=192
+  q34:13,
+  q35:12,
+
+  // Part III
+  q36:96,
+  q37:80,
+  q38:78.5,
+  q39:126,
+  q40: (10*6)+(4*6), //84
+  q41: (15*10) - (3.14*9), //150 - 28.26 = 121.74
+  q42: 6*(7*7), //294
+  q43: 2*((9*5)+(9*4)+(5*4)), //2*(45+36+20)=202
+  q44: (2*3.14*9) + (2*3.14*3*12), //56.52 + 226.08=282.6
+  q45:400,
+  q46:6,
+  q47:153.86,
+  q48: (25*12) - (5*6), //300-30=270
+  q49: 2*((12*7)+(12*3)+(7*3)), //2*(84+36+21)=282
+  q50: (2*3.14*25) + (2*3.14*5*7) //157 + 219.8 = 376.8
+};
+
+// Fix q28 based on correct computation
+numAnswers.q28 = 248;
+
+/* ----------------------------
+   Explanations
+-----------------------------*/
+function explain(q){
+  const e = {
+    q1:"Rectangle area is length × width.",
+    q2:"Square area is s² = 9×9 = 81.",
+    q3:"Triangle area is ½bh = ½(10)(8)=40.",
+    q4:"Parallelogram area is b×h = 12×5 = 60.",
+    q5:"Circle area = πr² = 3.14×49 = 153.86.",
+    q6:"Parallelogram uses A=b×h.",
+    q7:"15×6 = 90.",
+    q8:"½(14)(9)=63.",
+    q9:"Radius is half the diameter: 10÷2=5.",
+    q10:"Cube has 6 equal faces: SA=6a².",
+    q11:"6×5²=6×25=150.",
+    q12:"SA=2(lw+lh+wh)=2(24+16+6)=92? (Wait: l=8,w=3,h=2 => lw=24, lh=16, wh=6 => sum=46 => *2=92.)",
+    q13:"Cylinder total SA uses 2πr² + 2πrh.",
+    q14:"Composite area: add parts, subtract holes.",
+    q15:"10×6=60 then subtract 2×2=4 => 56.",
+    q16:"Perimeter of square = 4s = 48.",
+    q17:"Area uses r²; doubling r makes area 4 times.",
+    q18:"½bh=36 => bh=72 => h=72/12=6.",
+    q19:"A=bh=72 => h=72/9=8.",
+    q20:"Area uses square units (cm², m²).",
+
+    q21:"A=lw=18×7=126.",
+    q22:"A=s²=14×14=196.",
+    q23:"A=½bh=½(20)(9)=90.",
+    q24:"A=bh=16×11=176.",
+    q25:"A=πr²=3.14×36=113.04.",
+    q26:"Diameter 12 ⇒ r=6; A=3.14×36=113.04.",
+    q27:"SA=6a²=6×81=486.",
+    q28:"SA=2(lw+lh+wh)=2(40+60+24)=248.",
+    q29:"SA=2πr²+2πrh=100.48+226.08=326.56.",
+    q30:"48=½(12)h ⇒ 48=6h ⇒ h=8.",
+    q31:"A=bh ⇒ 96= b(12) ⇒ b=8.",
+    q32:"Add areas: 200+40=240.",
+    q33:"Subtract cut-out: 216−24=192.",
+    q34:"If s²=169 then s=13.",
+    q35:"180=15w ⇒ w=12.",
+
+    q36:"A=12×8=96 m².",
+    q37:"A=½(16)(10)=80.",
+    q38:"A=πr²=3.14×25=78.5.",
+    q39:"A=14×9=126.",
+    q40:"Total=60+24=84.",
+    q41:"150 − (3.14×9)=150−28.26=121.74.",
+    q42:"SA=6×7²=6×49=294.",
+    q43:"SA=2(45+36+20)=202.",
+    q44:"2πr²=56.52 and 2πrh=226.08 → total 282.60.",
+    q45:"20²=400.",
+    q46:"54=½(18)h ⇒ 54=9h ⇒ h=6.",
+    q47:"r=7 → A=3.14×49=153.86.",
+    q48:"300−30=270.",
+    q49:"SA=2(84+36+21)=282.",
+    q50:"2πr²=157 and 2πrh=219.8 → 376.8."
+  };
+  return e[q] || "";
+}
+
+/* ----------------------------
+   Helpers
+-----------------------------*/
+function normNum(s){
+  if(!s) return null;
+  const cleaned = (s+"").replace(/,/g,"").trim();
+  if(cleaned === "") return null;
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : null;
+}
+function closeEnough(user, correct, tol=0.02){
+  // relative-ish tolerance for decimals, plus small absolute tolerance
+  const diff = Math.abs(user - correct);
+  const absTol = 0.05; // allow 0.05
+  const relTol = Math.abs(correct)*tol;
+  return diff <= Math.max(absTol, relTol);
+}
+
+/* ----------------------------
+   Selection logic (MCQ buttons)
+-----------------------------*/
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent = btn.closest('.question');
+    parent.dataset.selected = btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ----------------------------
+   Submit (with confirm)
+-----------------------------*/
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const ok = confirm("Submit your answers now? You will see your score and explanations.");
+  if(!ok) return;
+
+  let score = 0;
+
+  // Grade MCQ 1–20
+  Object.keys(answers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const sel = el.dataset.selected;
+
+    let statusHTML="";
+    if(!sel) statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    else if(sel === answers[q]){ statusHTML = `<div class="correct">✅ Correct</div>`; score++; }
+    else statusHTML = `<div class="incorrect">❌ Incorrect (Correct: ${answers[q]})</div>`;
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Grade Numeric 21–50
+  Object.keys(numAnswers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const input = el.querySelector('input');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const user = input ? normNum(input.value) : null;
+
+    let statusHTML="";
+    if(user === null){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(closeEnough(user, numAnswers[q])){
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+      score++;
+    }else{
+      statusHTML = `<div class="incorrect">❌ Incorrect (Correct: <b>${numAnswers[q]}</b>)</div>`;
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Scorecard
+  document.getElementById('totalScore').textContent = score;
+
+  let stars = Math.floor(score/10);
+  document.getElementById('starRow').textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  let msg = score>=45 ? "🌟 Excellent! Mastery level."
+          : score>=35 ? "👍 Great job! Review a few items."
+          : score>=25 ? "🙂 Good effort! Practice more for mastery."
+          : "💪 Keep practicing! Read explanations and try again.";
+  document.getElementById('scoreMsg').textContent = msg;
+
+  document.getElementById('scorecard').style.display = "block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ----------------------------
+   Reset
+-----------------------------*/
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz? This will clear your answers.")) return;
+
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb = q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    const inp = q.querySelector('input'); if(inp) inp.value="";
+  });
+
+  document.getElementById('scorecard').style.display = "none";
+});
+
+/* ----------------------------
+   Toggles
+-----------------------------*/
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none"; btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block"; btn.innerHTML="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
