@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="tl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>HELE Reviewer - Managing Family Resources (Grade 6)</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .id-input{
+      width:100%;
+      border-radius:0;
+      padding:.7rem .75rem;
+      border:1px solid #d1d5db;
+      background:#fff;
+    }
+    .dark-mode .id-input{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .tag{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .tag{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+    .small-note{ font-size:.92rem; color:#6b7280; }
+    .dark-mode .small-note{ color:#cbd5e1; }
+    .essay-box{
+      width:100%;
+      border-radius:0;
+      padding:.75rem;
+      border:1px solid #d1d5db;
+      min-height:140px;
+      background:#fff;
+    }
+    .dark-mode .essay-box{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#4b5563;
+    }
+    .rubric{
+      font-size:.92rem;
+      margin-top:.6rem;
+      padding:.6rem .75rem;
+      border:1px dashed #d1d5db;
+      background:#f8fafc;
+    }
+    .dark-mode .rubric{ background:#0b1220; border-color:#334155; }
+    .pill{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#f1f5f9;
+      border:1px solid #e2e8f0;
+      margin-left:.35rem;
+    }
+    .dark-mode .pill{ background:#0b1220; border-color:#334155; color:#e2e8f0; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-home"></i> HELE Interactive Reviewer</h1>
+  <p class="text-center text-muted">Grade 6 • Managing Family Resources / Income / Time & Energy • For Sean Everett Beraquit</p>
+
+  <!-- Scorecard -->
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Auto Score: <span id="totalScore">0</span> / 40</div>
+        <div id="scoreMsg" class="text-muted"></div>
+        <div class="small-note mt-1">
+          Note: Essay items (41–50) are <b>not auto-scored</b>. They are worth <b>10 points total</b> (manual checking).
+        </div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions p-3 mb-4 border">
+    <p class="mb-2"><b>Paano Sagutan:</b></p>
+    <ul class="mb-0">
+      <li><b>1–20</b> True or False (20 pts)</li>
+      <li><b>21–30</b> Matching Type (10 pts) – isulat ang letra A–J</li>
+      <li><b>31–40</b> Identification (10 pts) – isulat ang tamang sagot</li>
+      <li><b>41–50</b> Essay (10 pts) – manual scoring (41–45 = 5 pts, 46–50 = 5 pts)</li>
+      <li>Click <b>Submit</b> para makita ang score at explanations (may confirmation).</li>
+    </ul>
+  </div>
+
+  <!-- ===========================
+       PART I – TRUE OR FALSE (1–20)
+       =========================== -->
+  <h2 class="section-title h5">Part I – True or False (1–20) <span class="tag">20 pts</span></h2>
+
+  <div class="question" id="q1">
+    <div class="qhead">1) Ang pamilya ay may limitadong pinagkukunang-yaman kaya kailangan itong planuhin at paglaanan.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <div class="qhead">2) Ang “resources” ng pamilya ay pera lamang.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q3">
+    <div class="qhead">3) Ang “family income” ay kabuuang perang pumapasok sa pamilya mula sa iba’t ibang pinagkukunan.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q4">
+    <div class="qhead">4) Mas mainam na unahin ang luho kaysa pangangailangan kapag nagba-budget.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q5">
+    <div class="qhead">5) Ang “budget” ay plano kung paano gagastusin at iipunin ang pera ng pamilya.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q6">
+    <div class="qhead">6) Ang pagtatala ng gastusin ay nakatutulong para makita kung saan napupunta ang pera.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q7">
+    <div class="qhead">7) Ang pag-iimpok (saving) ay mahalaga lamang kapag marami na ang pera.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q8">
+    <div class="qhead">8) Ang emergency fund ay ipon na nakalaan para sa biglaang pangangailangan (hal. pagkakasakit).</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q9">
+    <div class="qhead">9) Ang “time and energy management” ay paraan para magawa ang mga gawain nang mas maayos at hindi sayang ang oras.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q10">
+    <div class="qhead">10) Ang paggawa ng iskedyul ay hindi mahalaga kung masipag ka naman.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q11">
+    <div class="qhead">11) Ang “needs” ay mga bagay na kailangan para mabuhay at maging ligtas (hal. pagkain, tirahan, edukasyon).</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q12">
+    <div class="qhead">12) Ang “wants” ay mga luho o bagay na gusto ngunit hindi kinakailangan.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q13">
+    <div class="qhead">13) Ang pagplano ng menu at listahan ng bibilhin ay nakatutulong makaiwas sa sobrang gastos.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q14">
+    <div class="qhead">14) Ang pag-aaksaya ng kuryente at tubig ay hindi nakaaapekto sa badyet ng pamilya.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q15">
+    <div class="qhead">15) Ang pagbili ng “sale” items ay laging matipid kahit hindi mo naman kailangan.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q16">
+    <div class="qhead">16) Ang paghahati ng gawain sa bahay ay nakatutulong sa pamamahala ng oras at lakas ng pamilya.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q17">
+    <div class="qhead">17) Ang “opportunity cost” ay ang kapalit kapag pinili mo ang isang bagay at hindi ang iba.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q18">
+    <div class="qhead">18) Ang paglalaan ng oras sa pahinga at tulog ay bahagi rin ng pamamahala ng enerhiya.</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q19">
+    <div class="qhead">19) Ang “fixed expenses” ay gastusing pare-pareho o halos pareho buwan-buwan (hal. upa, internet).</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q20">
+    <div class="qhead">20) Ang “variable expenses” ay gastusing pabago-bago depende sa paggamit (hal. kuryente, pamasahe).</div>
+    <div class="options">
+      <button data-answer="T">T) True</button>
+      <button data-answer="F">F) False</button>
+    </div><div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART II – MATCHING TYPE (21–30)
+       =========================== -->
+  <h2 class="section-title h5">Part II – Matching Type (21–30) <span class="tag">10 pts</span></h2>
+
+  <div class="question">
+    <div class="qhead">Panuto: Itugma ang nasa Column A sa tamang sagot sa Column B. Isulat ang <b>letra</b> (A–J).</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="p-3 border">
+          <div class="fw-bold mb-2">Column A (Mga Terminolohiya)</div>
+          <ol class="mb-0">
+            <li>Budget</li>
+            <li>Income</li>
+            <li>Needs</li>
+            <li>Wants</li>
+            <li>Saving</li>
+            <li>Emergency Fund</li>
+            <li>Fixed Expenses</li>
+            <li>Variable Expenses</li>
+            <li>Schedule</li>
+            <li>Opportunity Cost</li>
+          </ol>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 border">
+          <div class="fw-bold mb-2">Column B (Paglalarawan)</div>
+          <ul class="mb-0">
+            <li><b>A</b> – Ipon para sa biglaang pangangailangan</li>
+            <li><b>B</b> – Plano kung paano gagastusin ang pera</li>
+            <li><b>C</b> – Kabuuang perang pumapasok sa pamilya</li>
+            <li><b>D</b> – Mga bagay na kailangan para mabuhay at maging ligtas</li>
+            <li><b>E</b> – Mga gusto/luho na hindi kailangan</li>
+            <li><b>F</b> – Paglalaan ng bahagi ng pera para ipunin</li>
+            <li><b>G</b> – Gastusing halos pareho buwan-buwan</li>
+            <li><b>H</b> – Gastusing nagbabago depende sa paggamit</li>
+            <li><b>I</b> – Plano ng oras ng gawain sa isang araw/linggo</li>
+            <li><b>J</b> – Kapalit kapag pinili ang isang bagay at hindi ang iba</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="small-note mt-2">Tip: I-type lang ang letra (hal. B).</div>
+  </div>
+
+  <div class="question" id="q21"><div class="qhead">21) Budget</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q22"><div class="qhead">22) Income</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q23"><div class="qhead">23) Needs</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q24"><div class="qhead">24) Wants</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q25"><div class="qhead">25) Saving</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q26"><div class="qhead">26) Emergency Fund</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q27"><div class="qhead">27) Fixed Expenses</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q28"><div class="qhead">28) Variable Expenses</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q29"><div class="qhead">29) Schedule</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+  <div class="question" id="q30"><div class="qhead">30) Opportunity Cost</div><input class="id-input" type="text" placeholder="Type letter (A–J)"/><div class="feedback"></div></div>
+
+  <!-- ===========================
+       PART III – IDENTIFICATION (31–40)
+       =========================== -->
+  <h2 class="section-title h5">Part III – Identification (31–40) <span class="tag">10 pts</span></h2>
+
+  <div class="question" id="q31">
+    <div class="qhead">31) Tawag sa planong paggastos at pag-iimpok ng pera ng pamilya.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q32">
+    <div class="qhead">32) Kabuuang perang pumapasok sa pamilya mula sa trabaho o negosyo.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q33">
+    <div class="qhead">33) Mga bagay na kailangan para mabuhay at maging ligtas (hal. pagkain, tirahan).</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q34">
+    <div class="qhead">34) Mga bagay na gusto lamang o luho, hindi kailangan.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q35">
+    <div class="qhead">35) Ipon na nakalaan para sa biglaang pangangailangan o sakuna.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q36">
+    <div class="qhead">36) Gastusing halos pareho buwan-buwan (hal. upa, internet). Tawag dito ay ______ expenses.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot (one word)"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q37">
+    <div class="qhead">37) Gastusing nagbabago depende sa paggamit (hal. kuryente, pamasahe). Tawag dito ay ______ expenses.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot (one word)"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q38">
+    <div class="qhead">38) Tawag sa plano ng oras ng mga gawain sa isang araw o linggo.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q39">
+    <div class="qhead">39) Kapalit kapag pinili mo ang isang bagay at hindi ang iba.</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <div class="question" id="q40">
+    <div class="qhead">40) Paglalaan ng bahagi ng pera para ipunin (para sa future goals).</div>
+    <input class="id-input" type="text" placeholder="Isulat ang sagot"/><div class="feedback"></div>
+  </div>
+
+  <!-- ===========================
+       PART IV – ESSAY (41–50)
+       =========================== -->
+  <h2 class="section-title h5">Part IV – Essay (41–50) <span class="tag">10 pts</span></h2>
+  <div class="small-note mb-2">
+    <span class="pill">41–45 = 5 pts</span>
+    <span class="pill">46–50 = 5 pts</span>
+    • Manual checking (not auto-scored)
+  </div>
+
+  <!-- 41–45 (5 points total) -->
+  <div class="question" id="q41">
+    <div class="qhead">41) Bakit mahalaga ang paggawa ng badyet sa pamilya? (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Nilalaman (2) • Organisasyon (1) • Wika/Gramatika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q42">
+    <div class="qhead">42) Magbigay ng 3 paraan kung paano makakatipid sa pagkain at pamimili. Ipaliwanag. (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> 3 paraan (2) • Paliwanag (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q43">
+    <div class="qhead">43) Ano ang maaaring mangyari kapag puro luho ang inuuna sa paggastos? (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Sanhi-bunga (2) • Organisasyon (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q44">
+    <div class="qhead">44) Paano nakatutulong ang pagtatala ng gastusin sa pamilya? (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Nilalaman (2) • Organisasyon (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q45">
+    <div class="qhead">45) Bakit mahalaga ang emergency fund? Magbigay ng isang halimbawa. (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Paliwanag (2) • Halimbawa (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <!-- 46–50 (5 points total) -->
+  <div class="question" id="q46">
+    <div class="qhead">46) Gumawa ng simple schedule (umaga–gabi) para sa pag-aaral at gawaing-bahay. (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Realistic schedule (2) • Ayos/linaw (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q47">
+    <div class="qhead">47) Paano mo mapapamahalaan ang oras at enerhiya para hindi ka mapagod agad? (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Mga estratehiya (2) • Organisasyon (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q48">
+    <div class="qhead">48) Ipaliwanag ang “opportunity cost” gamit ang halimbawa sa pang-araw-araw. (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Tamang konsepto (2) • Halimbawa (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q49">
+    <div class="qhead">49) Paano nakatutulong ang paghahati ng gawain sa bahay sa buong pamilya? (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> Nilalaman (2) • Organisasyon (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <div class="question" id="q50">
+    <div class="qhead">50) Ano ang iyong 2 personal na pangako para maging responsable sa pera at oras? Ipaliwanag. (5–8 pangungusap)</div>
+    <textarea class="essay-box" placeholder="Isulat ang sagot..."></textarea>
+    <div class="rubric"><b>Rubric:</b> 2 pangako (2) • Paliwanag (1) • Wika (1) • Kumpleto (1)</div>
+  </div>
+
+  <!-- Actions -->
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake Quiz</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* ----------------------------
+   Answer Key
+   Auto-scored items: 1–40 (40 pts)
+   Essay items: 41–50 (10 pts manual)
+-----------------------------*/
+const answers = {
+  // True/False (1–20)
+  q1:"T", q2:"F", q3:"T", q4:"F", q5:"T",
+  q6:"T", q7:"F", q8:"T", q9:"T", q10:"F",
+  q11:"T", q12:"T", q13:"T", q14:"F", q15:"F",
+  q16:"T", q17:"T", q18:"T", q19:"T", q20:"T",
+
+  // Matching (21–30)
+  q21:"B", q22:"C", q23:"D", q24:"E", q25:"F",
+  q26:"A", q27:"G", q28:"H", q29:"I", q30:"J"
+};
+
+const idAnswers = {
+  // Identification (31–40) with acceptable alternatives
+  q31: ["budget", "badyet"],
+  q32: ["income", "kita", "kabuuang kita"],
+  q33: ["needs", "pangangailangan"],
+  q34: ["wants", "luho", "gusto"],
+  q35: ["emergency fund", "pondo para sa emergency", "pondo sa biglaang pangangailangan"],
+  q36: ["fixed"],
+  q37: ["variable"],
+  q38: ["schedule", "iskedyul"],
+  q39: ["opportunity cost", "kapatid na kapalit", "kapalit", "oportunidad na kapalit"],
+  q40: ["saving", "pag-iimpok", "ipon", "pagtitipid"]
+};
+
+/* ----------------------------
+   Explanations
+-----------------------------*/
+function explain(q){
+  const e = {
+    // TF
+    q1:"Tama: Limitado ang yaman kaya kailangan ng pagpaplano at wastong paggamit.",
+    q2:"Mali: Resources ay hindi lang pera; kasama ang oras, lakas, kaalaman, kagamitan, atbp.",
+    q3:"Tama: Income = kabuuang perang pumapasok sa pamilya.",
+    q4:"Mali: Dapat unahin ang pangangailangan bago ang luho.",
+    q5:"Tama: Budget = planong paggastos at pag-iimpok.",
+    q6:"Tama: Talaan ng gastusin = paraan para makita kung saan napupunta ang pera.",
+    q7:"Mali: Kahit maliit ang pera, mahalaga ang pag-iimpok (kahit paunti-unti).",
+    q8:"Tama: Emergency fund = ipon para sa biglaang pangangailangan.",
+    q9:"Tama: Time/energy management = mas maayos at produktibong paggawa ng gawain.",
+    q10:"Mali: Kahit masipag, kailangan pa rin ng iskedyul para maiwasan ang sayang na oras.",
+    q11:"Tama: Needs = kailangan para mabuhay at maging ligtas.",
+    q12:"Tama: Wants = gusto/luho, hindi kailangan.",
+    q13:"Tama: Menu at listahan = iwas impulse buying at sobrang gastos.",
+    q14:"Mali: Aksaya sa tubig/kuryente = mas mataas na bayarin.",
+    q15:"Mali: Sale ay matipid lang kung kailangan mo talaga.",
+    q16:"Tama: Hati-hating gawain = mas mabilis, mas kaunting pagod, mas maayos ang oras.",
+    q17:"Tama: Opportunity cost = kapalit ng pinili mong desisyon.",
+    q18:"Tama: Pahinga/tulog = mahalaga para may enerhiya.",
+    q19:"Tama: Fixed expenses = halos pareho buwan-buwan.",
+    q20:"Tama: Variable expenses = pabago-bago depende sa paggamit.",
+
+    // Matching
+    q21:"Budget → B: Plano kung paano gagastusin ang pera.",
+    q22:"Income → C: Kabuuang perang pumapasok.",
+    q23:"Needs → D: Kailangan para mabuhay at ligtas.",
+    q24:"Wants → E: Gusto/luho, hindi kailangan.",
+    q25:"Saving → F: Paglalaan ng pera para ipunin.",
+    q26:"Emergency Fund → A: Ipon para sa biglaang pangangailangan.",
+    q27:"Fixed Expenses → G: Gastusing halos pareho buwan-buwan.",
+    q28:"Variable Expenses → H: Gastusing nagbabago depende sa paggamit.",
+    q29:"Schedule → I: Plano ng oras ng gawain.",
+    q30:"Opportunity Cost → J: Kapalit kapag pinili ang isa at hindi ang iba.",
+
+    // Identification
+    q31:"Ang sagot ay Badyet/Budget: ito ang planong paggastos at pag-iimpok.",
+    q32:"Kita/Income: kabuuang perang pumapasok sa pamilya.",
+    q33:"Pangangailangan/Needs: mga bagay na kailangan para mabuhay at maging ligtas.",
+    q34:"Luho/Wants: mga gusto lamang o hindi kinakailangan.",
+    q35:"Emergency Fund: ipon/pondo para sa biglaang pangangailangan.",
+    q36:"Fixed expenses: gastusing pare-pareho o halos pareho buwan-buwan.",
+    q37:"Variable expenses: gastusing pabago-bago depende sa paggamit.",
+    q38:"Iskedyul/Schedule: plano kung kailan gagawin ang mga gawain.",
+    q39:"Opportunity cost: ang kapalit o isinakripisyo kapag pumili ka ng isang bagay.",
+    q40:"Pag-iimpok/Saving: paglalaan ng pera para ipunin at magamit sa hinaharap."
+  };
+  return e[q] || "";
+}
+
+/* ----------------------------
+   Helpers
+-----------------------------*/
+function norm(s){
+  return (s||"")
+    .toLowerCase()
+    .replace(/\s+/g," ")
+    .replace(/[.,!?;:()"']/g,"")
+    .trim();
+}
+function isMatch(user, acceptedList){
+  const u = norm(user);
+  return acceptedList.some(a => norm(a) === u);
+}
+
+/* ----------------------------
+   Selection logic (TF buttons)
+-----------------------------*/
+document.querySelectorAll('.options button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const parent = btn.closest('.question');
+    parent.dataset.selected = btn.dataset.answer;
+    parent.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+/* ----------------------------
+   Submit (with confirm)
+-----------------------------*/
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const ok = confirm("Submit your answers now? You will see your score and explanations.");
+  if(!ok) return;
+
+  let score = 0;
+
+  // Grade TF + Matching (q1–q30)
+  Object.keys(answers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+
+    let user = el.dataset.selected || "";
+    const input = el.querySelector('input');
+    if(input) user = input.value || "";
+    user = (user||"").trim().toUpperCase();
+
+    let statusHTML="";
+    if(!user){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(user === answers[q]){
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+      score++;
+    }else{
+      statusHTML = `<div class="incorrect">❌ Incorrect (Answer Key: <b>${answers[q]}</b>)</div>`;
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Grade Identification (q31–q40)
+  Object.keys(idAnswers).forEach(q=>{
+    const el = document.getElementById(q); if(!el) return;
+    const input = el.querySelector('input');
+    const fb = el.querySelector('.feedback'); fb.innerHTML="";
+    const user = input ? input.value : "";
+
+    let statusHTML="";
+    if(!user || !user.trim()){
+      statusHTML = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(isMatch(user, idAnswers[q])){
+      statusHTML = `<div class="correct">✅ Correct</div>`;
+      score++;
+    }else{
+      const showOne = idAnswers[q][0];
+      statusHTML = `<div class="incorrect">❌ Incorrect (Possible answer: <b>${showOne}</b>)</div>`;
+    }
+
+    const expId = `${q}-exp`;
+    fb.innerHTML = `${statusHTML}
+      <button class="exp-toggle" onclick="toggleExp('${expId}',this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${explain(q)}</div>`;
+  });
+
+  // Scorecard (auto-scored out of 40)
+  document.getElementById('totalScore').textContent = score;
+
+  let stars = Math.floor(score/8); // 0–5 stars
+  document.getElementById('starRow').textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  let msg = score>=36 ? "🌟 Excellent! Very strong understanding."
+          : score>=28 ? "👍 Great job! Review a few parts."
+          : score>=20 ? "🙂 Good effort! Practice more."
+          : "💪 Keep practicing! Read explanations and try again.";
+  document.getElementById('scoreMsg').textContent = msg;
+
+  document.getElementById('scorecard').style.display = "block";
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ----------------------------
+   Reset
+-----------------------------*/
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm("Retake quiz? This will clear your answers.")) return;
+
+  document.querySelectorAll('.question').forEach(q=>{
+    delete q.dataset.selected;
+    q.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+    const fb = q.querySelector('.feedback'); if(fb) fb.innerHTML="";
+    const inp = q.querySelector('input'); if(inp) inp.value="";
+    const ta = q.querySelector('textarea'); if(ta) ta.value="";
+  });
+
+  document.getElementById('scorecard').style.display = "none";
+});
+
+/* ----------------------------
+   Toggles
+-----------------------------*/
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none"; btn.innerHTML="Show Explanation";
+  }else{
+    exp.style.display="block"; btn.innerHTML="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
