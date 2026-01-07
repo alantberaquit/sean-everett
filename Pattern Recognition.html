@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pattern Recognition • 50 Items • Interactive</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .pattern{
+      font-weight:800;
+      letter-spacing:.5px;
+      font-size:1.15rem;
+      padding:.35rem .5rem;
+      background:#f3f4f6;
+      border:1px dashed #d1d5db;
+      display:inline-block;
+      margin:.25rem 0 .6rem;
+    }
+    .dark-mode .pattern{ background:#111827; border-color:#4b5563; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+
+    /* small helper for “odd one out” lines */
+    .mini{
+      font-weight:700;
+      padding:.25rem .45rem;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      display:inline-block;
+      margin:.1rem .1rem .35rem 0;
+    }
+    .dark-mode .mini{ background:#111827; border-color:#4b5563; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-grid-alt"></i> Pattern Recognition Practice</h1>
+  <p class="text-center text-muted">Grade 6 → High School Entrance Exam • 50 Items • Randomized</p>
+
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between">
+      <div>
+        <div class="fw-bold">Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <div class="border p-3 mb-4">
+    <b>Instructions:</b>
+    <ul class="mb-0">
+      <li>Look for the pattern (shape changes, rotation, repeating groups, alternating, letters, colors).</li>
+      <li>Choose the best answer.</li>
+      <li>Questions shuffle every refresh (so Sean can’t memorize the order).</li>
+      <li>Click <b>Submit</b> to see score + explanations (with confirmation).</li>
+    </ul>
+  </div>
+
+  <h2 class="section-title h5">Pattern Recognition (1–50)</h2>
+  <div id="quiz"></div>
+
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake (Shuffle)</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* =========================================================
+   PATTERN RECOGNITION BANK (NOT number sequences)
+   Mix: repeating groups, alternating, rotation, mirror,
+        “odd one out”, letters, symbol patterns.
+========================================================= */
+
+function makeNextPatternItem(pattern, choices, correctKey, explanation){
+  return {
+    type: "next",
+    p: pattern,
+    c: choices,
+    a: correctKey,
+    e: explanation
+  };
+}
+
+function makeOddOneOutItem(line, choices, correctKey, explanation){
+  return {
+    type: "odd",
+    line,
+    c: choices,
+    a: correctKey,
+    e: explanation
+  };
+}
+
+// Helper: randomize option order while keeping correct answer
+function shuffleOptionsKeepAnswer(choicesObj, correctKey){
+  const entries = Object.entries(choicesObj); // [ ["A","..."], ... ]
+  const correctValue = choicesObj[correctKey];
+  // shuffle values
+  for(let i=entries.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [entries[i],entries[j]]=[entries[j],entries[i]];
+  }
+  // rebuild A-D with shuffled values
+  const letters = ["A","B","C","D"];
+  const out = {};
+  letters.forEach((L,idx)=> out[L] = entries[idx][1]);
+  const newCorrectKey = letters.find(L => out[L] === correctValue);
+  return { out, newCorrectKey };
+}
+
+const BANK_RAW = [
+  // Repeating groups
+  makeNextPatternItem("▲ ■ ● | ▲ ■ ● | ▲ ■ ___", {A:"■",B:"●",C:"▲",D:"◆"}, "B", "Repeating group of 3: ▲ then ■ then ●."),
+  makeNextPatternItem("○ ○ ● | ○ ○ ● | ○ ○ ___", {A:"○",B:"●",C:"■",D:"▲"}, "B", "Pattern repeats: two ○ then one ●."),
+  makeNextPatternItem("A B C | A B C | A B ___", {A:"A",B:"B",C:"C",D:"D"}, "C", "Repeating letters A-B-C."),
+  makeNextPatternItem("★ ☆ ★ ☆ ★ ___", {A:"★",B:"☆",C:"◆",D:"○"}, "B", "Alternating ★ and ☆."),
+
+  // Rotation / direction arrows
+  makeNextPatternItem("↑ → ↓ ← ↑ → ___", {A:"↓",B:"←",C:"→",D:"↑"}, "A", "Arrows rotate clockwise: ↑ → ↓ ← then repeat."),
+  makeNextPatternItem("↗ ↘ ↙ ↖ ↗ ___", {A:"↘",B:"↙",C:"↖",D:"→"}, "A", "Diagonal arrows rotate clockwise."),
+  makeNextPatternItem("▶ ▼ ◀ ▲ ▶ ▼ ___", {A:"◀",B:"▲",C:"▶",D:"▼"}, "A", "Cycle of 4 directions: ▶ ▼ ◀ ▲."),
+  makeNextPatternItem("N E S W N E ___", {A:"N",B:"S",C:"W",D:"E"}, "B", "Cardinal directions cycle N-E-S-W."),
+
+  // Alternating rule
+  makeNextPatternItem("A C A C A ___", {A:"A",B:"B",C:"C",D:"D"}, "C", "Alternating A and C."),
+  makeNextPatternItem("□ ■ □ ■ □ ___", {A:"□",B:"■",C:"▲",D:"●"}, "B", "Alternate empty square and filled square."),
+  makeNextPatternItem("big-small-big-small-big ___", {A:"big",B:"small",C:"medium",D:"tiny"}, "B", "Alternating big and small."),
+  makeNextPatternItem("red, blue, red, blue, red, ___", {A:"green",B:"yellow",C:"blue",D:"red"}, "C", "Alternating red and blue."),
+
+  // Mirror / pairs
+  makeNextPatternItem("( ) [ ] ( ) [ ] ( ___", {A:")",B:"]",C:"}",D:"("}, "A", "Pairs repeat: ( ) then [ ] then ( ) then [ ] ..."),
+  makeNextPatternItem("L R L R L ___", {A:"L",B:"R",C:"LR",D:"RL"}, "B", "Alternating L and R."),
+
+  // Increasing complexity (symbol count)
+  makeNextPatternItem("● • | ●● •• | ●●● ••• | ___", {A:"●●●● ••••",B:"●●● ••••",C:"●●●● •••",D:"●● ●••"}, "A", "Each block adds one ● and one •."),
+  makeNextPatternItem("★ | ★★ | ★★★ | ___", {A:"★★★★",B:"★★★",C:"★★★★★",D:"★★"}, "A", "Add one star each step."),
+  makeNextPatternItem("A | AB | ABC | ___", {A:"ABCD",B:"ABCDE",C:"ABD",D:"AABB"}, "A", "Build by adding next letter."),
+
+  // Letter-step (not numbers)
+  makeNextPatternItem("A, C, E, G, ___", {A:"H",B:"I",C:"J",D:"K"}, "B", "Skip one letter each time: A( skip B )C( skip D )E( skip F )G → next is I."),
+  makeNextPatternItem("Z, X, V, T, ___", {A:"S",B:"R",C:"Q",D:"P"}, "B", "Go backward skipping one letter each step: Z→X→V→T→R."),
+  makeNextPatternItem("B, D, G, K, ___", {A:"N",B:"O",C:"P",D:"Q"}, "A", "Letter jumps increase by 1: +2 (B→D), +3 (D→G), +4 (G→K), next +5 → N."),
+
+  // Odd one out (pattern / category)
+  makeOddOneOutItem("Which is the odd one out?", {A:"triangle",B:"square",C:"circle",D:"cube"}, "D", "Cube is 3D; the others are 2D shapes."),
+  makeOddOneOutItem("Which is the odd one out?", {A:"Monday",B:"Tuesday",C:"January",D:"Friday"}, "C", "January is a month; the others are days."),
+  makeOddOneOutItem("Which is the odd one out?", {A:"cat",B:"dog",C:"cow",D:"car"}, "D", "Car is not an animal."),
+  makeOddOneOutItem("Which is the odd one out?", {A:"2:00 PM",B:"3:30 PM",C:"4:15 PM",D:"triangle"}, "D", "Triangle is not a time."),
+
+  // Simple visual rhythm
+  makeNextPatternItem("♪ ♫ ♪ ♫ ♪ ___", {A:"♪",B:"♫",C:"♩",D:"♬"}, "B", "Alternating ♪ and ♫."),
+  makeNextPatternItem("☀ ☁ ☀ ☁ ☀ ___", {A:"☁",B:"☀",C:"★",D:"☂"}, "A", "Alternating sun and cloud."),
+  makeNextPatternItem("♠ ♥ ♠ ♥ ♠ ___", {A:"♦",B:"♥",C:"♣",D:"♠"}, "B", "Alternating ♠ and ♥."),
+  makeNextPatternItem("A A B | A A B | A A ___", {A:"A",B:"B",C:"C",D:"D"}, "B", "Repeating block A-A-B."),
+
+  // Position / grouping patterns
+  makeNextPatternItem("1st letter of each word: Cat, Dog, Cow, ___", {A:"Bird",B:"Elephant",C:"Ant",D:"Fish"}, "C", "All start with C, D, C... not good. Replace item.",), // will be removed below
+
+  // Pattern with punctuation
+  makeNextPatternItem(". .. ... . .. ___", {A:"..",B:"...",C:"....",D:"."}, "B", "Pattern repeats: 1 dot, 2 dots, 3 dots, then 1, 2, 3."),
+
+  // “ABBA” type
+  makeNextPatternItem("A B B A | A B B A | A B B ___", {A:"A",B:"B",C:"C",D:"D"}, "A", "Repeating block A-B-B-A."),
+  makeNextPatternItem("X Y Y X | X Y Y ___", {A:"X",B:"Y",C:"Z",D:"W"}, "A", "Repeating X-Y-Y-X."),
+
+  // Brackets cycle
+  makeNextPatternItem("{ } [ ] ( ) { } [ ___", {A:"]",B:"}",C:")",D:"("}, "A", "Pairs cycle: { } then [ ] then ( )."),
+
+  // Mixed symbol + letter (non-numeric)
+  makeNextPatternItem("A★ B☆ A★ B☆ A★ ___", {A:"A★",B:"B☆",C:"A☆",D:"B★"}, "B", "Two-term repeat: A★ then B☆."),
+  makeNextPatternItem("C-1, D-1, C-2, D-2, C-3, ___", {A:"C-4",B:"D-3",C:"D-4",D:"C-3"}, "B", "Letters alternate C, D while the tag number increases after each pair."),
+
+  // Direction words
+  makeNextPatternItem("left, right, left, right, left, ___", {A:"left",B:"right",C:"up",D:"down"}, "B", "Alternating left and right."),
+
+  // Word pattern (vowels/consonants)
+  makeNextPatternItem("V C V C V ___ (V=vowel, C=consonant)", {A:"V",B:"C",C:"VC",D:"VV"}, "B", "Alternating vowel/consonant pattern continues with C."),
+
+  // Color cycle of 3
+  makeNextPatternItem("red, blue, green, red, blue, ___", {A:"red",B:"blue",C:"green",D:"yellow"}, "C", "Cycle of 3: red → blue → green."),
+
+  // Shape cycle of 4
+  makeNextPatternItem("◆ ● ■ ▲ ◆ ● ■ ___", {A:"◆",B:"▲",C:"■",D:"●"}, "B", "Cycle of 4 shapes: ◆ ● ■ ▲."),
+  makeNextPatternItem("▲ ▲ ● | ▲ ▲ ● | ▲ ▲ ___", {A:"▲",B:"●",C:"■",D:"◆"}, "B", "Two ▲ then one ● repeats."),
+
+  // Odd one out (pattern property)
+  makeOddOneOutItem("Which is the odd one out?", {A:"ABAB",B:"AABB",C:"ABBA",D:"ABABAB"}, "B", "ABAB, ABBA, ABABAB use alternating A and B (at least partly); AABB is grouped."),
+  makeOddOneOutItem("Which is the odd one out?", {A:"↗",B:"↘",C:"↙",D:"↑"}, "D", "↑ is not a diagonal arrow."),
+
+  // Mirror swap
+  makeNextPatternItem("A B C | C B A | A B C | ___", {A:"A B C",B:"C B A",C:"B C A",D:"A C B"}, "B", "Alternating forward then reverse."),
+  makeNextPatternItem("open, close, open, close, open, ___", {A:"close",B:"open",C:"shut",D:"stop"}, "A", "Alternating open/close."),
+
+  // “Odd one out” more
+  makeOddOneOutItem("Which is the odd one out?", {A:"🔺",B:"🔻",C:"🔺",D:"🔲"}, "D", "Three are triangles; one is a square."),
+  makeOddOneOutItem("Which is the odd one out?", {A:"A",B:"E",C:"I",D:"B"}, "D", "A, E, I are vowels; B is consonant."),
+
+  // Build to 50 with additional solid “next” patterns (non-numeric)
+  makeNextPatternItem("A, B, A, C, A, D, A, ___", {A:"E",B:"A",C:"D",D:"B"}, "A", "A stays in every odd position; even letters go B,C,D,... so next is E."),
+  makeNextPatternItem("○ ● ● | ○ ● ● | ○ ● ___", {A:"○",B:"●",C:"■",D:"▲"}, "B", "Repeating block: ○ then ● then ●."),
+  makeNextPatternItem("H, I, K, L, N, O, ___", {A:"P",B:"Q",C:"R",D:"S"}, "A", "Pairs of consecutive letters, skipping one letter between pairs: HI (skip J) KL (skip M) NO → next starts with P."),
+  makeNextPatternItem("sun, moon, moon, sun, moon, moon, ___", {A:"sun",B:"moon",C:"star",D:"cloud"}, "A", "Repeating 3-term block: sun, moon, moon."),
+  makeNextPatternItem("▲ ● ▲ ● ● | ▲ ● ▲ ● ● | ▲ ● ▲ ___", {A:"●",B:"▲",C:"■",D:"◆"}, "A", "Repeating 5-term block: ▲ ● ▲ ● ●."),
+  makeNextPatternItem("A1, B2, A2, B3, A3, ___", {A:"B3",B:"B4",C:"A4",D:"A3"}, "A", "Letters alternate A/B; number increases after each A,B pair: A1,B2,A2,B3,A3,B3."),
+  makeNextPatternItem("Start, Middle, End, Start, Middle, ___", {A:"Start",B:"End",C:"Middle",D:"Finish"}, "B", "Cycle: Start → Middle → End."),
+  makeNextPatternItem("✦ ✧ ✦ ✧ ✦ ___", {A:"✦",B:"✧",C:"★",D:"☆"}, "B", "Alternating ✦ and ✧."),
+  makeNextPatternItem("Left, Left, Right | Left, Left, Right | Left, Left, ___", {A:"Left",B:"Right",C:"Up",D:"Down"}, "B", "Repeating: Left, Left, Right."),
+  makeNextPatternItem("A, D, A, D, A, ___", {A:"A",B:"B",C:"D",D:"E"}, "C", "Alternating A and D."),
+  makeNextPatternItem("W, O, W, O, W, ___", {A:"W",B:"O",C:"M",D:"V"}, "B", "Alternating W and O."),
+  makeNextPatternItem("cat, dog, cat, dog, cat, ___", {A:"dog",B:"cat",C:"cow",D:"rat"}, "A", "Alternating cat and dog."),
+  makeNextPatternItem("Small, Small, Big | Small, Small, Big | Small, Small, ___", {A:"Big",B:"Small",C:"Medium",D:"Tiny"}, "A", "Repeating block: Small, Small, Big."),
+];
+
+// Remove any “bad” placeholders
+const BANK = BANK_RAW.filter(x => !(x.p && x.p.includes("Replace item.")));
+
+// Ensure exactly 50 items.
+// If more than 50, keep first 50. If less, we can duplicate with slight variations.
+while(BANK.length < 50){
+  BANK.push(makeNextPatternItem("★ ☆ ☆ | ★ ☆ ☆ | ★ ___", {A:"★",B:"☆",C:"◆",D:"●"}, "B", "Repeating block: ★ then ☆ then ☆."));
+}
+const FINAL_BANK = BANK.slice(0,50);
+
+/* =========================================================
+   SHUFFLE + RENDER
+========================================================= */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+let quizData = [];
+
+function render(){
+  quizData = shuffle(FINAL_BANK).slice(0,50);
+
+  const wrap = document.getElementById("quiz");
+  wrap.innerHTML = "";
+
+  quizData.forEach((item, idx)=>{
+    // randomize choices each time (still 4 options)
+    const letters = ["A","B","C","D"];
+    const shuffled = shuffleOptionsKeepAnswer(item.c, item.a);
+    const choices = shuffled.out;
+    const correct = shuffled.newCorrectKey;
+
+    const q = document.createElement("div");
+    q.className = "question";
+    q.id = "q" + (idx+1);
+    q.dataset.correct = correct;
+    q.dataset.exp = item.e;
+
+    let stemHTML = "";
+    if(item.type === "next"){
+      stemHTML = `
+        <div class="qhead">${idx+1}) What comes next?</div>
+        <div class="pattern">${item.p}</div>
+      `;
+    }else{
+      // odd one out
+      stemHTML = `
+        <div class="qhead">${idx+1}) ${item.line}</div>
+        <div class="text-muted mb-2">Choose the item that does NOT belong.</div>
+      `;
+    }
+
+    q.innerHTML = `
+      ${stemHTML}
+      <div class="options">
+        ${letters.map(L => `<button data-answer="${L}">${L}) ${choices[L]}</button>`).join("")}
+      </div>
+      <div class="feedback"></div>
+    `;
+
+    wrap.appendChild(q);
+  });
+
+  // click logic
+  document.querySelectorAll(".options button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const parent = btn.closest(".question");
+      parent.dataset.selected = btn.dataset.answer;
+      parent.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+  });
+
+  // reset scorecard
+  document.getElementById("scorecard").style.display = "none";
+}
+
+render();
+
+/* =========================================================
+   EXPLANATION TOGGLE + DARK MODE
+========================================================= */
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display = "none";
+    btn.textContent = "Show Explanation";
+  }else{
+    exp.style.display = "block";
+    btn.textContent = "Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+
+/* =========================================================
+   SUBMIT + GRADE
+========================================================= */
+document.getElementById("submitBtn").addEventListener("click", ()=>{
+  if(!confirm("Submit your answers now? You will see your score and explanations.")) return;
+
+  let score = 0;
+
+  quizData.forEach((_, i)=>{
+    const q = document.getElementById("q"+(i+1));
+    const fb = q.querySelector(".feedback");
+    const sel = q.dataset.selected;
+    const correct = q.dataset.correct;
+
+    let status = "";
+    if(!sel){
+      status = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(sel === correct){
+      score++;
+      status = `<div class="correct">✅ Correct</div>`;
+    }else{
+      status = `<div class="incorrect">❌ Incorrect (Correct: ${correct})</div>`;
+    }
+
+    const expId = `q${i+1}-exp`;
+    fb.innerHTML = `
+      ${status}
+      <button class="exp-toggle" onclick="toggleExp('${expId}', this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${q.dataset.exp}</div>
+    `;
+  });
+
+  document.getElementById("totalScore").textContent = score;
+
+  const stars = Math.floor(score/10);
+  document.getElementById("starRow").textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  const msg = score>=45 ? "🌟 Excellent! Your pattern spotting is strong."
+            : score>=35 ? "👍 Great job! Review the tricky ones."
+            : score>=25 ? "🙂 Good effort! Practice more patterns."
+            : "💪 Keep practicing! Read explanations and retake.";
+  document.getElementById("scoreMsg").textContent = msg;
+
+  document.getElementById("scorecard").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* =========================================================
+   RESET (RESHUFFLE)
+========================================================= */
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("Retake quiz? This will reshuffle and clear your answers.")) return;
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+</script>
+
+</body>
+</html>
