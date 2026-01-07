@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Word / Verbal Logic • 50 Items • Interactive</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- LineIcons -->
+  <link rel="stylesheet" href="https://cdn.lineicons.com/4.0/lineicons.css">
+
+  <style>
+    :root{
+      --ink:#111827; --paper:#f9fafb; --card:#ffffff;
+      --accent:#14b8a6; --accent-2:#0d9488;
+      --ok:#10b981; --bad:#ef4444; --warn:#f59e0b;
+    }
+    body{ background:var(--paper); color:var(--ink); font-family:'Poppins',sans-serif; }
+    .dark-mode{ background:#111827; color:#f9fafb; }
+    .container{ max-width:960px; }
+    h1,h2{ font-weight:700; }
+    .section-title{ margin-top:2rem; border-left:6px solid var(--accent); padding-left:.6rem; }
+    .question{ margin-bottom:1rem; padding:1rem; border:1px solid #e5e7eb; background:var(--card);}
+    .dark-mode .question{ background:#1f2937; border-color:#374151; }
+    .qhead{ font-weight:600; margin-bottom:.5rem; }
+    .stem{
+      font-weight:700;
+      padding:.5rem .6rem;
+      background:#f3f4f6;
+      border:1px dashed #d1d5db;
+      margin:.25rem 0 .75rem;
+      white-space:pre-wrap;
+    }
+    .dark-mode .stem{ background:#111827; border-color:#4b5563; }
+    .options button{
+      display:block; width:100%; text-align:left; border-radius:0; padding:.75rem;
+      border:1px solid #d1d5db; background:#f9fafb; color:var(--ink); margin:.35rem 0;
+    }
+    .options button.selected{ background:var(--accent) !important; color:#fff !important; font-weight:600; }
+    .dark-mode .options button{ background:#374151; color:#f9fafb; border-color:#4b5563; }
+    .dark-mode .options button.selected{ background:var(--accent-2) !important; }
+    .feedback{ margin-top:.6rem; padding:.6rem .75rem; font-size:.95rem; }
+    .correct{ background:#ecfdf5; border-left:4px solid var(--ok); }
+    .incorrect{ background:#fef2f2; border-left:4px solid var(--bad); }
+    .unanswered{ background:#fffbeb; border-left:4px solid var(--warn); }
+    .exp{ display:none; margin-top:.55rem; border-top:1px dashed #d1d5db; padding-top:.55rem; }
+    .exp-toggle{ margin-top:.35rem; border:none; background:transparent; color:var(--accent-2); font-weight:700; }
+    .scorecard{
+      display:none; border:1px solid #e5e7eb; background:#ecfeff;
+      border-left:6px solid var(--accent); padding:1rem; margin-bottom:1rem;
+    }
+    .dark-mode .scorecard{ background:#04383a; border-color:#11484b; }
+    .score-stars{ font-size:1.5rem; }
+    .submit-btn,.reset-btn{ width:100%; border-radius:0; padding:.85rem; font-weight:800; }
+    .submit-btn{ background:var(--accent); border:1px solid var(--accent-2); color:#fff; }
+    .reset-btn{ background:#111827; color:#fff; }
+    .dark-toggle{ position:fixed; bottom:1rem; right:1rem; border-radius:0; }
+    .badge-mini{
+      display:inline-block;
+      font-size:.85rem;
+      padding:.15rem .55rem;
+      border-radius:999px;
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      margin-left:.35rem;
+    }
+    .dark-mode .badge-mini{ background:#0b2a3a; border-color:#1b4156; color:#dbeafe; }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+  <h1 class="text-center"><i class="lni lni-bulb"></i> Word / Verbal Logic Practice</h1>
+  <p class="text-center text-muted">Grade 6 → High School Entrance Exam • 50 Items • Randomized</p>
+
+  <div id="scorecard" class="scorecard">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="fw-bold">Score: <span id="totalScore">0</span> / 50</div>
+        <div id="scoreMsg" class="text-muted"></div>
+      </div>
+      <div id="starRow" class="score-stars"></div>
+    </div>
+  </div>
+
+  <div class="border p-3 mb-4">
+    <b>Instructions:</b>
+    <ul class="mb-0">
+      <li>These are word-based logic questions (analogies, classification, cause/effect, inference, synonyms/antonyms, sentence logic).</li>
+      <li>Questions shuffle every refresh.</li>
+      <li>Tap an answer. Click <b>Submit</b> to see score + explanations (with confirmation).</li>
+    </ul>
+  </div>
+
+  <h2 class="section-title h5">Word / Verbal Logic (1–50) <span class="badge-mini">50 pts</span></h2>
+  <div id="quiz"></div>
+
+  <div class="my-4">
+    <button class="submit-btn btn" id="submitBtn">Submit</button>
+    <div class="mt-2"></div>
+    <button class="reset-btn btn" id="resetBtn">Retake (Shuffle)</button>
+  </div>
+</div>
+
+<button class="btn btn-dark dark-toggle" onclick="toggleDark()">🌙</button>
+
+<script>
+/* =========================================================
+   WORD / VERBAL LOGIC QUESTION BANK (50)
+   Types included:
+   - Analogies
+   - Odd one out / classification
+   - Synonym / antonym logic
+   - Inference / conclusion
+   - Cause & effect
+   - Best word to complete sentence
+   - Word relationships (part/whole, tool/user, place/thing)
+========================================================= */
+
+const BANK = [
+  // --- Analogies (1–16)
+  Q("Analogy: Bird : Nest :: Bee : ____", {A:"Hive",B:"Web",C:"Cave",D:"Pond"}, "A",
+    "A bird lives in a nest; a bee lives in a hive."),
+  Q("Analogy: Doctor : Hospital :: Teacher : ____", {A:"Kitchen",B:"School",C:"Market",D:"Garage"}, "B",
+    "A teacher works in a school."),
+  Q("Analogy: Knife : Cut :: Pen : ____", {A:"Eat",B:"Write",C:"Throw",D:"Sleep"}, "B",
+    "A knife is used to cut; a pen is used to write."),
+  Q("Analogy: Wheel : Bicycle :: Engine : ____", {A:"Car",B:"Book",C:"Spoon",D:"Pillow"}, "A",
+    "A bicycle has wheels; a car has an engine (key part)."),
+  Q("Analogy: Puppy : Dog :: Kitten : ____", {A:"Cat",B:"Cow",C:"Goat",D:"Bird"}, "A",
+    "A kitten is a young cat, like a puppy is a young dog."),
+  Q("Analogy: Hot : Cold :: Day : ____", {A:"Bright",B:"Night",C:"Sunny",D:"Lunch"}, "B",
+    "Hot and cold are opposites; day and night are opposites."),
+  Q("Analogy: Painter : Brush :: Writer : ____", {A:"Stapler",B:"Notebook",C:"Keyboard",D:"Ruler"}, "C",
+    "A painter uses a brush; a writer commonly uses a keyboard (or pen)."),
+  Q("Analogy: Fish : Water :: Bird : ____", {A:"Tree",B:"Sky",C:"Sand",D:"Cage"}, "B",
+    "Fish live in water; birds mainly move/live in the sky (air)."),
+  Q("Analogy: Seed : Plant :: Egg : ____", {A:"Milk",B:"Chicken",C:"Bread",D:"Water"}, "B",
+    "A seed grows into a plant; an egg can hatch into a chicken."),
+  Q("Analogy: Student : Learn :: Athlete : ____", {A:"Compete",B:"Cook",C:"Paint",D:"Sleep"}, "A",
+    "An athlete trains and competes; that is their main activity."),
+  Q("Analogy: Library : Books :: Museum : ____", {A:"Vegetables",B:"Paintings",C:"Cars",D:"Shoes"}, "B",
+    "Museums contain artworks/exhibits like paintings."),
+  Q("Analogy: Chef : Restaurant :: Pilot : ____", {A:"Airport",B:"Airplane",C:"Harbor",D:"Farm"}, "B",
+    "A pilot works in/flies an airplane."),
+  Q("Analogy: Clock : Time :: Thermometer : ____", {A:"Length",B:"Speed",C:"Temperature",D:"Weight"}, "C",
+    "A thermometer measures temperature."),
+  Q("Analogy: Root : Tree :: Foundation : ____", {A:"Roof",B:"House",C:"Window",D:"Door"}, "B",
+    "A foundation supports a house like roots support a tree."),
+  Q("Analogy: Whisper : Quiet :: Shout : ____", {A:"Soft",B:"Loud",C:"Sleepy",D:"Slow"}, "B",
+    "Whisper is quiet; shout is loud."),
+  Q("Analogy: Chapter : Book :: Episode : ____", {A:"Song",B:"Series",C:"Picture",D:"Letter"}, "B",
+    "Episodes are parts of a series (or show)."),
+
+  // --- Classification / Odd one out (17–26)
+  Q("Odd one out: Which does NOT belong?", {A:"Apple",B:"Mango",C:"Carrot",D:"Banana"}, "C",
+    "Carrot is a vegetable; the others are fruits."),
+  Q("Odd one out: Which does NOT belong?", {A:"Triangle",B:"Square",C:"Circle",D:"Cube"}, "D",
+    "Cube is 3D; the others are 2D shapes."),
+  Q("Odd one out: Which does NOT belong?", {A:"Run",B:"Jump",C:"Swim",D:"Chair"}, "D",
+    "Chair is an object; the others are actions."),
+  Q("Odd one out: Which does NOT belong?", {A:"Mercury",B:"Venus",C:"Mars",D:"Sun"}, "D",
+    "The Sun is a star; the others are planets."),
+  Q("Odd one out: Which does NOT belong?", {A:"Sparrow",B:"Eagle",C:"Shark",D:"Parrot"}, "C",
+    "Shark is a fish; the others are birds."),
+  Q("Odd one out: Which does NOT belong?", {A:"Fork",B:"Spoon",C:"Plate",D:"Pencil"}, "D",
+    "Pencil is for writing; the others are for eating."),
+  Q("Odd one out: Which does NOT belong?", {A:"Red",B:"Blue",C:"Green",D:"Warm"}, "D",
+    "Warm is not a color; it describes temperature."),
+  Q("Odd one out: Which does NOT belong?", {A:"January",B:"February",C:"Sunday",D:"March"}, "C",
+    "Sunday is a day; the others are months."),
+  Q("Odd one out: Which does NOT belong?", {A:"Smile",B:"Laugh",C:"Cry",D:"Chair"}, "D",
+    "Chair is an object; the others are expressions/actions."),
+  Q("Odd one out: Which does NOT belong?", {A:"Mother",B:"Father",C:"Uncle",D:"Teacher"}, "D",
+    "Teacher is not a family relation (in this set)."),
+
+  // --- Synonym / Antonym logic (27–34)
+  Q("Choose the best synonym for “quick”.", {A:"fast",B:"late",C:"weak",D:"dull"}, "A",
+    "Quick means fast."),
+  Q("Choose the best antonym for “ancient”.", {A:"old",B:"modern",C:"past",D:"antique"}, "B",
+    "Ancient is opposite of modern."),
+  Q("Choose the best synonym for “begin”.", {A:"start",B:"stop",C:"forget",D:"break"}, "A",
+    "Begin means start."),
+  Q("Choose the best antonym for “expand”.", {A:"increase",B:"grow",C:"shrink",D:"stretch"}, "C",
+    "Expand is opposite of shrink."),
+  Q("Choose the best synonym for “careful”.", {A:"lazy",B:"cautious",C:"noisy",D:"rough"}, "B",
+    "Careful means cautious."),
+  Q("Choose the best antonym for “polite”.", {A:"kind",B:"rude",C:"quiet",D:"shy"}, "B",
+    "Polite is opposite of rude."),
+  Q("Choose the best synonym for “predict”.", {A:"guess",B:"ignore",C:"hide",D:"divide"}, "A",
+    "Predict means to guess what will happen."),
+  Q("Choose the best antonym for “victory”.", {A:"success",B:"win",C:"defeat",D:"prize"}, "C",
+    "Victory is opposite of defeat."),
+
+  // --- Inference / conclusion (35–42)
+  Q("If ALL dogs are animals, and a poodle is a dog, then a poodle is a(n) ____.", {A:"plant",B:"animal",C:"rock",D:"insect"}, "B",
+    "If all dogs are animals, any dog (including a poodle) is an animal."),
+  Q("If today is Wednesday, what day will it be after 2 days?", {A:"Thursday",B:"Friday",C:"Saturday",D:"Tuesday"}, "B",
+    "Wednesday → Thursday (1) → Friday (2)."),
+  Q("Statement: “Some fruits are sour.” Which must be TRUE?", {A:"All fruits are sour",B:"No fruits are sour",C:"At least one fruit is sour",D:"Fruits cannot be sweet"}, "C",
+    "“Some” means at least one exists."),
+  Q("All squares are rectangles. Shape X is a square. Therefore, Shape X is a ____.", {A:"triangle",B:"circle",C:"rectangle",D:"cube"}, "C",
+    "If all squares are rectangles, any square is a rectangle."),
+  Q("If Maria is taller than Ana, and Ana is taller than Bea, who is the tallest?", {A:"Bea",B:"Ana",C:"Maria",D:"Cannot tell"}, "C",
+    "Maria > Ana > Bea, so Maria is tallest."),
+  Q("A teacher says: “No talking during the test.” Which action follows the rule?", {A:"whispering answers",B:"asking a friend quietly",C:"raising your hand silently",D:"laughing softly"}, "C",
+    "Raising your hand silently follows the no-talking rule."),
+  Q("If it is raining, the ground becomes wet. It is raining. So the ground is ____.", {A:"dry",B:"wet",C:"hot",D:"frozen"}, "B",
+    "Given the rule, rain causes wet ground."),
+  Q("Choose the best conclusion: “All birds have wings. A sparrow is a bird.”", {A:"A sparrow has wings",B:"All wings are birds",C:"A sparrow is a fish",D:"Birds cannot fly"}, "A",
+    "If all birds have wings, then a sparrow (a bird) has wings."),
+
+  // --- Cause & effect / best explanation (43–50)
+  Q("What is the most likely cause? The glass fell from the table and broke.", {A:"It was made of stone",B:"It was dropped/fell",C:"It grew larger",D:"It turned to ice"}, "B",
+    "Falling (impact) is the likely cause of breaking."),
+  Q("What is the best effect? You water a plant every day.", {A:"It may grow well",B:"It becomes a rock",C:"It disappears",D:"It stops needing sunlight"}, "A",
+    "Water helps plants grow."),
+  Q("Which is the best reason? People wear raincoats when it rains because ____.", {A:"they like heavy clothes",B:"it makes them taller",C:"it helps keep them dry",D:"it makes rain stop"}, "C",
+    "Raincoats keep you dry."),
+  Q("Best word to complete: “I studied hard; ____ I did well on the test.”", {A:"because",B:"therefore",C:"although",D:"unless"}, "B",
+    "Therefore shows result: studied hard → did well."),
+  Q("Best word to complete: “I wanted to play, ____ I finished my homework first.”", {A:"but",B:"so",C:"because",D:"unless"}, "B",
+    "So shows result/decision: wanted to play → so finished homework first."),
+  Q("Choose the best meaning: “He is honest.”", {A:"He always lies",B:"He tells the truth",C:"He is sleepy",D:"He is angry"}, "B",
+    "Honest means truthful."),
+  Q("Which sentence is the most logical?", {A:"I wore a jacket because it was hot.",B:"I brought an umbrella because it was sunny.",C:"I drank water because I was thirsty.",D:"I slept because I was running."}, "C",
+    "Thirst causes drinking water—most logical."),
+  Q("Choose the best answer: If you see smoke, the most likely problem is ____.", {A:"a fire",B:"snow",C:"a rainbow",D:"a shadow"}, "A",
+    "Smoke commonly indicates a fire.")
+];
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+function Q(stem, choices, answerKey, explanation){
+  return { stem, choices, answerKey, explanation };
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function shuffleOptionsKeepAnswer(choicesObj, correctKey){
+  const correctValue = choicesObj[correctKey];
+  const values = Object.values(choicesObj);
+  // shuffle values
+  for(let i=values.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [values[i],values[j]]=[values[j],values[i]];
+  }
+  const letters=["A","B","C","D"];
+  const out = {};
+  letters.forEach((L,idx)=> out[L]=values[idx]);
+  const newCorrectKey = letters.find(L => out[L]===correctValue);
+  return { out, newCorrectKey };
+}
+
+let quizData = [];
+
+function render(){
+  // shuffle question order
+  quizData = shuffle(BANK).slice(0,50);
+
+  const wrap = document.getElementById("quiz");
+  wrap.innerHTML = "";
+
+  quizData.forEach((item, idx)=>{
+    // shuffle options too
+    const shuffled = shuffleOptionsKeepAnswer(item.choices, item.answerKey);
+
+    const q = document.createElement("div");
+    q.className = "question";
+    q.id = "q" + (idx+1);
+    q.dataset.correct = shuffled.newCorrectKey;
+    q.dataset.exp = item.explanation;
+
+    const letters = ["A","B","C","D"];
+
+    q.innerHTML = `
+      <div class="qhead">${idx+1})</div>
+      <div class="stem">${item.stem}</div>
+      <div class="options">
+        ${letters.map(L => `<button data-answer="${L}">${L}) ${shuffled.out[L]}</button>`).join("")}
+      </div>
+      <div class="feedback"></div>
+    `;
+
+    wrap.appendChild(q);
+  });
+
+  // click logic
+  document.querySelectorAll(".options button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const parent = btn.closest(".question");
+      parent.dataset.selected = btn.dataset.answer;
+      parent.querySelectorAll("button").forEach(b=>b.classList.remove("selected"));
+      btn.classList.add("selected");
+    });
+  });
+
+  // reset scorecard
+  document.getElementById("scorecard").style.display = "none";
+}
+
+render();
+
+/* =========================================================
+   SUBMIT + GRADE
+========================================================= */
+document.getElementById("submitBtn").addEventListener("click", ()=>{
+  if(!confirm("Submit your answers now? You will see your score and explanations.")) return;
+
+  let score = 0;
+
+  quizData.forEach((_, i)=>{
+    const q = document.getElementById("q"+(i+1));
+    const fb = q.querySelector(".feedback");
+    const sel = q.dataset.selected;
+    const correct = q.dataset.correct;
+
+    let status = "";
+    if(!sel){
+      status = `<div class="unanswered">⚠️ Not answered</div>`;
+    }else if(sel === correct){
+      score++;
+      status = `<div class="correct">✅ Correct</div>`;
+    }else{
+      status = `<div class="incorrect">❌ Incorrect (Correct: ${correct})</div>`;
+    }
+
+    const expId = `q${i+1}-exp`;
+    fb.innerHTML = `
+      ${status}
+      <button class="exp-toggle" onclick="toggleExp('${expId}', this)">Show Explanation</button>
+      <div class="exp" id="${expId}">${q.dataset.exp}</div>
+    `;
+  });
+
+  document.getElementById("totalScore").textContent = score;
+
+  const stars = Math.floor(score/10);
+  document.getElementById("starRow").textContent = "★".repeat(stars) + "☆".repeat(5-stars);
+
+  const msg = score>=45 ? "🌟 Excellent! Strong verbal reasoning."
+            : score>=35 ? "👍 Great job! Review a few tricky items."
+            : score>=25 ? "🙂 Good effort! Practice more verbal logic."
+            : "💪 Keep practicing! Read explanations and try again.";
+  document.getElementById("scoreMsg").textContent = msg;
+
+  document.getElementById("scorecard").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* =========================================================
+   RESET (RESHUFFLE)
+========================================================= */
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("Retake quiz? This will reshuffle and clear your answers.")) return;
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* =========================================================
+   TOGGLES
+========================================================= */
+function toggleExp(id, btn){
+  const exp = document.getElementById(id);
+  if(!exp) return;
+  if(exp.style.display === "block"){
+    exp.style.display="none";
+    btn.textContent="Show Explanation";
+  }else{
+    exp.style.display="block";
+    btn.textContent="Hide Explanation";
+  }
+}
+function toggleDark(){ document.body.classList.toggle("dark-mode"); }
+</script>
+
+</body>
+</html>
